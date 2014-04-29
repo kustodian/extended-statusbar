@@ -1,0 +1,23 @@
+<!ENTITY previewColour.label "Önizleme:">
+<!ENTITY cpWinTitle.title "Renk Seçici">
+<!ENTITY predef.label "Öntanımlı Renkler:">
+<!ENTITY rgb.label "RGB">
+<!ENTITY hsb.label "HSB">
+<!ENTITY red.label "Kırmızı:">
+<!ENTITY green.label "Yeşil:">
+<!ENTITY blue.label "Mavi:">
+<!ENTITY hue.label "Renk:">
+<!ENTITY saturation.label "Doygunluk:">
+<!ENTITY brightness.label "Parlaklık:">
+<!ENTITY hexColor.label "Hex:">
+<!ENTITY nameColor.label "İsim:">
+<!ENTITY cpUseThemeDef.label "Tema Varsayılanını Kullan">
+<!ENTITY transparency.label "Transparan">
+<!ENTITY background.label "Arkaplan:">
+<!ENTITY background.accessKey "B">
+<!ENTITY table.label "Tablo">
+<!ENTITY table.accessKey "T">
+<!ENTITY cell.label "Hücre(ler)">
+<!ENTITY cell.accessKey "C">
+<!ENTITY lastPickedColor.label "Son Seçilen Renk">
+<!ENTITY lastPickedColor.accessKey "L">

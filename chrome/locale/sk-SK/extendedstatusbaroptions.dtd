@@ -1,0 +1,43 @@
+<!ENTITY esb.title "Nastavenie Extended Statusbar">
+<!ENTITY esb.pane1.title "Všeobecné">
+<!ENTITY esb.displaystyle "Štýl zobrazenia Extended Statusbaru">
+<!ENTITY esb.usenewstyle "Nový štýl">
+<!ENTITY esb.usenewstyle.accesskey "N">
+<!ENTITY esb.usenewstyle.tooltip "Zobrazí Extended Statusbar nad stavovým riadkom Firefoxu">
+<!ENTITY esb.hide "Skryť Extended Statusbar">
+<!ENTITY esb.hide.tooltip "Skryje Extended Statusbar po načítaní stránky.">
+<!ENTITY esb.hide.accesskey "H">
+<!ENTITY esb.hideafter "Skryť po:">
+<!ENTITY esb.seconds "sekundách">
+<!ENTITY esb.showonhover "Zobraziť po prejdení myšou cez stavový panel">
+<!ENTITY esb.showonhover.accesskey "Z">
+<!ENTITY esb.hovering "Oneskoriť:">
+<!ENTITY esb.secondsdisplay "milisekúnd">
+<!ENTITY esb.hideonsites "Nezobrazovať na stránkach (oddeliť &apos;|&apos;):">
+<!ENTITY esb.hideonsites.tooltip "Užitočné pri AJAX stránkach, napr. Gmail">
+<!ENTITY esb.appendcurrent "Pridať aktuálnu stránku">
+<!ENTITY esb.appendcurrent.accesskey "P">
+<!ENTITY esb.customstyle "Vlastný štýl">
+<!ENTITY esb.customstyle.accesskey "C">
+<!ENTITY esb.customstyle.tooltip "Zakázať vlastný štýl ak aktuálna téma podporuje Extended Statusbar!">
+<!ENTITY esb.backgroundcolor "Pozadie:">
+<!ENTITY esb.progresscolor "Priebeh:">
+<!ENTITY esb.cursorcolor "Kurzor:">
+<!ENTITY esb.textcolor "Text:">
+<!ENTITY esb.useoldstyle "Klasický štýl">
+<!ENTITY esb.useoldstyle.accesskey "K">
+<!ENTITY esb.useoldstyle.tooltip "Zobrazí Extended Statusbar v stavovom riadku Firefoxu">
+<!ENTITY esb.oldslimmode "Tenký mód">
+<!ENTITY esb.oldslimmode.accesskey "T">
+<!ENTITY esb.oldslimmode.tooltip "Skryje menovky a zobrazí iba čísla">
+<!ENTITY esb.hideindelements "Skryť vlastné elementy">
+<!ENTITY esb.oldhideimages "Skryť Obrázky">
+<!ENTITY esb.hideoldimages.accesskey "B">
+<!ENTITY esb.oldhideloaded "Skryť Načítané">
+<!ENTITY esb.oldhideloaded.accesskey "N">
+<!ENTITY esb.oldhidespeed "Skryť Rýchlosť">
+<!ENTITY esb.oldhidespeed.accesskey "R">
+<!ENTITY esb.oldhidetime "Skryť Čas">
+<!ENTITY esb.oldhidetime.accesskey "A">
+<!ENTITY esb.oldhidepercent "Skryť Percentá">
+<!ENTITY esb.oldhidepercent.accesskey "P">

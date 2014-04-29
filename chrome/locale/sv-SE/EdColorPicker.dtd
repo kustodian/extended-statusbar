@@ -1,0 +1,23 @@
+<!ENTITY previewColour.label "Förhandsgranska:">
+<!ENTITY cpWinTitle.title "Färgväljare">
+<!ENTITY predef.label "Förinställda färger:">
+<!ENTITY rgb.label "RGB">
+<!ENTITY hsb.label "HSB">
+<!ENTITY red.label "Röd:">
+<!ENTITY green.label "Grön:">
+<!ENTITY blue.label "Blå:">
+<!ENTITY hue.label "Nyans:">
+<!ENTITY saturation.label "Mättnad:">
+<!ENTITY brightness.label "Ljusstyrka:">
+<!ENTITY hexColor.label "Hex:">
+<!ENTITY nameColor.label "Namn:">
+<!ENTITY cpUseThemeDef.label "Använd standard för temat">
+<!ENTITY transparency.label "Genomskinlig">
+<!ENTITY background.label "Bakgrund för:">
+<!ENTITY background.accessKey "B">
+<!ENTITY table.label "Tabell">
+<!ENTITY table.accessKey "T">
+<!ENTITY cell.label "Cell(er)">
+<!ENTITY cell.accessKey "C">
+<!ENTITY lastPickedColor.label "Senast valda färg">
+<!ENTITY lastPickedColor.accessKey "L">

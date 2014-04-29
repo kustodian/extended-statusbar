@@ -1,0 +1,43 @@
+<!ENTITY esb.title "Extended Statusbar`Ընտրանքներ">
+<!ENTITY esb.pane1.title "Ընդհանուր">
+<!ENTITY esb.displaystyle "Տեսք">
+<!ENTITY esb.usenewstyle "Նորաձև">
+<!ENTITY esb.usenewstyle.accesskey "ձ">
+<!ENTITY esb.usenewstyle.tooltip "Ցույց է տալիս Extended Statusbar վիճակի տողի վերևում">
+<!ENTITY esb.hide "Թաքցնել">
+<!ENTITY esb.hide.tooltip "Թաքցնում է Extended Statusbar-ը էջի բեռնումից հետո">
+<!ENTITY esb.hide.accesskey "E">
+<!ENTITY esb.hideafter "Թաքցնել">
+<!ENTITY esb.seconds "վարկյան հետո">
+<!ENTITY esb.showonhover "Ցույց տալ վիճակի տողի մոտ մկնիկը պահելուց">
+<!ENTITY esb.showonhover.accesskey "մ">
+<!ENTITY esb.hovering "Հապաղում`">
+<!ENTITY esb.secondsdisplay "միլիվարկյան">
+<!ENTITY esb.hideonsites "Ցույց չտալ հետևյալ կայքերում (առանձնացնել &apos;|&apos;-ով):">
+<!ENTITY esb.hideonsites.tooltip "Օգտակար է AJAX կայքերում, օրինակ` Gmail">
+<!ENTITY esb.appendcurrent "Ավելացնել ընթացիկ էջը">
+<!ENTITY esb.appendcurrent.accesskey "ը">
+<!ENTITY esb.customstyle "Սեփական ոճ">
+<!ENTITY esb.customstyle.accesskey "ո">
+<!ENTITY esb.customstyle.tooltip "Անջատել Սեփական ոճերը եթե ընթացիկ թեման աշխատում է Extended Statusbar-ի հետ">
+<!ENTITY esb.backgroundcolor "Ֆոն">
+<!ENTITY esb.progresscolor "Բեռնվածության ֆոն">
+<!ENTITY esb.cursorcolor "Բեռնվածության ցուցիչ">
+<!ENTITY esb.textcolor "Տեքստ">
+<!ENTITY esb.useoldstyle "Ավանդական տեսք">
+<!ENTITY esb.useoldstyle.accesskey "ք">
+<!ENTITY esb.useoldstyle.tooltip "Ցույց է տալիս Extended Statusbar վիճակի տողում">
+<!ENTITY esb.oldslimmode "Նեղ ռեժիմ">
+<!ENTITY esb.oldslimmode.accesskey "ռ">
+<!ENTITY esb.oldslimmode.tooltip "Թաքցնում է ցուցիչների անունները">
+<!ENTITY esb.hideindelements "Թաքցնել առանձին ցուցիչները">
+<!ENTITY esb.oldhideimages "Թաքցնել Նկարները">
+<!ENTITY esb.hideoldimages.accesskey "Ն">
+<!ENTITY esb.oldhideloaded "Թաքցնել Բեռնվածը">
+<!ENTITY esb.oldhideloaded.accesskey "Բ">
+<!ENTITY esb.oldhidespeed "Թաքցնել Արագությունը">
+<!ENTITY esb.oldhidespeed.accesskey "Ա">
+<!ENTITY esb.oldhidetime "Թաքցնել Ժամանակը">
+<!ENTITY esb.oldhidetime.accesskey "Ժ">
+<!ENTITY esb.oldhidepercent "Թաքցնել Տոկոսը">
+<!ENTITY esb.oldhidepercent.accesskey "Տ">

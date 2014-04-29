@@ -1,0 +1,23 @@
+<!ENTITY previewColour.label "Peržiūra">
+<!ENTITY cpWinTitle.title "Spalvų parinkiklis">
+<!ENTITY predef.label "Pagrindinės spalvos:">
+<!ENTITY rgb.label "RGB">
+<!ENTITY hsb.label "HSB">
+<!ENTITY red.label "Raudona:">
+<!ENTITY green.label "Žalia:">
+<!ENTITY blue.label "Mėlyna:">
+<!ENTITY hue.label "Atspalvis:">
+<!ENTITY saturation.label "Sodrumas:">
+<!ENTITY brightness.label "Ryškumas:">
+<!ENTITY hexColor.label "Šešiol.:">
+<!ENTITY nameColor.label "Pavadinimas:">
+<!ENTITY cpUseThemeDef.label "Naudoti temos spalvą">
+<!ENTITY transparency.label "Permatoma">
+<!ENTITY background.label "Fonas:">
+<!ENTITY background.accessKey "F">
+<!ENTITY table.label "Lentelė">
+<!ENTITY table.accessKey "L">
+<!ENTITY cell.label "Langeliai">
+<!ENTITY cell.accessKey "g">
+<!ENTITY lastPickedColor.label "Paskiausiai pasirinkta spalva">
+<!ENTITY lastPickedColor.accessKey "P">

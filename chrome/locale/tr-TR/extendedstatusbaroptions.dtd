@@ -1,0 +1,43 @@
+<!ENTITY esb.title "Extended Statusbar Ayarlar">
+<!ENTITY esb.pane1.title "Genel">
+<!ENTITY esb.displaystyle "Extended Statusbar Görünüm Stilleri">
+<!ENTITY esb.usenewstyle "Yeni Stil">
+<!ENTITY esb.usenewstyle.accesskey "N">
+<!ENTITY esb.usenewstyle.tooltip "Extended Statusbar&apos;ı Firefox durum çubuğunda göster">
+<!ENTITY esb.hide "Extended Statusbar&apos;ı Gizle">
+<!ENTITY esb.hide.tooltip "Safya yüklendikten sonra Extended Statusbar&apos;ı gizle.">
+<!ENTITY esb.hide.accesskey "H">
+<!ENTITY esb.hideafter "Otomatik gizle:">
+<!ENTITY esb.seconds "saniye sonra">
+<!ENTITY esb.showonhover "Boşta kalınca gizle">
+<!ENTITY esb.showonhover.accesskey "S">
+<!ENTITY esb.hovering "Gecikme">
+<!ENTITY esb.secondsdisplay "milisaniye sonra">
+<!ENTITY esb.hideonsites "Bu sitelerde gösterme (boşluk yada  &apos;|&apos; ile ayırabilirsiniz):">
+<!ENTITY esb.hideonsites.tooltip "Gmail içinde Ajax&apos;ları kullan">
+<!ENTITY esb.appendcurrent "Güncel sayfaya ekle">
+<!ENTITY esb.appendcurrent.accesskey "A">
+<!ENTITY esb.customstyle "Özel stil">
+<!ENTITY esb.customstyle.accesskey "C">
+<!ENTITY esb.customstyle.tooltip "Geçerli tema üzerinde özel stil kullanımını devre dışı bırak!">
+<!ENTITY esb.backgroundcolor "Arkaplan:">
+<!ENTITY esb.progresscolor "İşlem Çubuğu:">
+<!ENTITY esb.cursorcolor "Yüklendi İşareti:">
+<!ENTITY esb.textcolor "Yazı:">
+<!ENTITY esb.useoldstyle "Kalsik Stil">
+<!ENTITY esb.useoldstyle.accesskey "I">
+<!ENTITY esb.useoldstyle.tooltip "Extended Statusbar&apos;ı Firefox durum çubuğu içinde göster">
+<!ENTITY esb.oldslimmode "Basit Mod">
+<!ENTITY esb.oldslimmode.accesskey "m">
+<!ENTITY esb.oldslimmode.tooltip "Etiketleri ve numaraları gösterme">
+<!ENTITY esb.hideindelements "Bireysel elementleri gösterme">
+<!ENTITY esb.oldhideimages "Resimleri gösterme">
+<!ENTITY esb.hideoldimages.accesskey "I">
+<!ENTITY esb.oldhideloaded "Yüklenmeleri gösterme">
+<!ENTITY esb.oldhideloaded.accesskey "o">
+<!ENTITY esb.oldhidespeed "Hızı gözterme">
+<!ENTITY esb.oldhidespeed.accesskey "D">
+<!ENTITY esb.oldhidetime "Zamanı gösterme">
+<!ENTITY esb.oldhidetime.accesskey "T">
+<!ENTITY esb.oldhidepercent "Yüzdeleri gösterme">
+<!ENTITY esb.oldhidepercent.accesskey "P">

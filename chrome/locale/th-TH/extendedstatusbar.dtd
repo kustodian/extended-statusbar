@@ -1,0 +1,7 @@
+<!ENTITY esb.loadedimages "รูปภาพที่โหลด">
+<!ENTITY esb.dataloaded "โหลดข้อมูลแล้ว">
+<!ENTITY esb.avgspeed "อัตราเร็วเฉลี่ย">
+<!ENTITY esb.time "เวลาโหลดหน้า">
+<!ENTITY esb.percentage "ร้อยละที่โหลด">
+<!ENTITY esb.document "เอกสาร:">
+<!ENTITY esb.tools-menu "การตั้งค่าแถบสถานะแบบขยาย">

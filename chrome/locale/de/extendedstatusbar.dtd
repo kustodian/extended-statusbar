@@ -1,0 +1,7 @@
+<!ENTITY esb.loadedimages "Geladene Grafiken">
+<!ENTITY esb.dataloaded "Geladene Daten">
+<!ENTITY esb.avgspeed "Durchschnittliche Geschwindigkeit">
+<!ENTITY esb.time "Seiten-Ladezeit">
+<!ENTITY esb.percentage "Geladener Prozentsatz">
+<!ENTITY esb.document "Dokument:">
+<!ENTITY esb.tools-menu "Extended-Statusbar-Einstellungen...">

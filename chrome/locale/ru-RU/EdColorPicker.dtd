@@ -1,0 +1,23 @@
+<!ENTITY previewColour.label "Предпросмотр:">
+<!ENTITY cpWinTitle.title "Палитра цветов">
+<!ENTITY predef.label "Предопределённые цвета:">
+<!ENTITY rgb.label "RGB">
+<!ENTITY hsb.label "HSB">
+<!ENTITY red.label "Красный:">
+<!ENTITY green.label "Зелёный:">
+<!ENTITY blue.label "Синий:">
+<!ENTITY hue.label "Тон:">
+<!ENTITY saturation.label "Насыщенность:">
+<!ENTITY brightness.label "Яркость:">
+<!ENTITY hexColor.label "Шестнадцатеричное:">
+<!ENTITY nameColor.label "Название:">
+<!ENTITY cpUseThemeDef.label "Использовать оформление по умолчанию">
+<!ENTITY transparency.label "Прозрачный">
+<!ENTITY background.label "Фон для:">
+<!ENTITY background.accessKey "Ф">
+<!ENTITY table.label "Таблица">
+<!ENTITY table.accessKey "Т">
+<!ENTITY cell.label "Ячейка(и)">
+<!ENTITY cell.accessKey "ч">
+<!ENTITY lastPickedColor.label "Последний выбранный цвет">
+<!ENTITY lastPickedColor.accessKey "П">

@@ -1,0 +1,43 @@
+<!ENTITY esb.title "การตั้งค่าแถบสถานะแบบขยาย">
+<!ENTITY esb.pane1.title "ทั่วไป">
+<!ENTITY esb.displaystyle "รูปแบบการแสดงแถบสถานะแบบขยาย">
+<!ENTITY esb.usenewstyle "รูปแบบใหม่">
+<!ENTITY esb.usenewstyle.accesskey "ห">
+<!ENTITY esb.usenewstyle.tooltip "แสดงแถบสถานะแบบขยายเหนือแถบสถานะของ Firefox">
+<!ENTITY esb.hide "ซ่อนแถบสถานะแบบขยาย">
+<!ENTITY esb.hide.tooltip "ซ่อนแถบสถานะแบบขยายหลังจากโหลดหน้าแล้ว">
+<!ENTITY esb.hide.accesskey "น">
+<!ENTITY esb.hideafter "ซ่อนหลังจาก:">
+<!ENTITY esb.seconds "วินาที">
+<!ENTITY esb.showonhover "แสดงระหว่างวางเมาส์เหนือแถบสถานะ">
+<!ENTITY esb.showonhover.accesskey "ส">
+<!ENTITY esb.hovering "ล้าช้า:">
+<!ENTITY esb.secondsdisplay "มิลิวินาที">
+<!ENTITY esb.hideonsites "อย่าแสดงบนไซต์นี้ (แยกด้วย &apos;|&apos;):">
+<!ENTITY esb.hideonsites.tooltip "มีประโชยน์สำหรับไซต์ AJAX เช่น Gmail">
+<!ENTITY esb.appendcurrent "ผนวกกับหน้าปัจจุบัน">
+<!ENTITY esb.appendcurrent.accesskey "ผ">
+<!ENTITY esb.customstyle "รูปแบบเลือกเอง">
+<!ENTITY esb.customstyle.accesskey "อ">
+<!ENTITY esb.customstyle.tooltip "ปิดการใช้รูปแบบเลือกเองถ้าชุดรูปแบบปัจจุบันสนับสนุนแถบสถานะแบบขยาย!">
+<!ENTITY esb.backgroundcolor "พื้นหลัง:">
+<!ENTITY esb.progresscolor "แถบประมวลการ:">
+<!ENTITY esb.cursorcolor "ตัวชี้ที่โหลด:">
+<!ENTITY esb.textcolor "ข้อความ:">
+<!ENTITY esb.useoldstyle "รูปแบบคลาสิก">
+<!ENTITY esb.useoldstyle.accesskey "ค">
+<!ENTITY esb.useoldstyle.tooltip "แสดงแถบสถานะแบบขยายในแถบสถานะของ  Firefox">
+<!ENTITY esb.oldslimmode "โหมดกระทัดรัด">
+<!ENTITY esb.oldslimmode.accesskey "ท">
+<!ENTITY esb.oldslimmode.tooltip "ซ่อนป้ายชื่อและแสดงตัวเลขเท่านั้น">
+<!ENTITY esb.hideindelements "ซ่อนธาตุเอกเทศ">
+<!ENTITY esb.oldhideimages "ซ่อนรูปภาพ">
+<!ENTITY esb.hideoldimages.accesskey "ภ">
+<!ENTITY esb.oldhideloaded "ซ่อนที่โหลด">
+<!ENTITY esb.oldhideloaded.accesskey "ท">
+<!ENTITY esb.oldhidespeed "ซ่อนอัตราเร็ว">
+<!ENTITY esb.oldhidespeed.accesskey "ร">
+<!ENTITY esb.oldhidetime "ซ่อนเวลา">
+<!ENTITY esb.oldhidetime.accesskey "ว">
+<!ENTITY esb.oldhidepercent "ซ่อนร้อยละ">
+<!ENTITY esb.oldhidepercent.accesskey "ย">

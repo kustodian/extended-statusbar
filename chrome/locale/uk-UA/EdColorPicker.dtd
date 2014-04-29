@@ -1,0 +1,23 @@
+<!ENTITY previewColour.label "Попередній перегляд">
+<!ENTITY cpWinTitle.title "Вибір кольору">
+<!ENTITY predef.label "Перевизначені кольори">
+<!ENTITY rgb.label "RGB">
+<!ENTITY hsb.label "HSB">
+<!ENTITY red.label "Червоний:">
+<!ENTITY green.label "Зелений:">
+<!ENTITY blue.label "Синій:">
+<!ENTITY hue.label "Відтінок:">
+<!ENTITY saturation.label "Насиченість:">
+<!ENTITY brightness.label "Яскравість:">
+<!ENTITY hexColor.label "Шісн.:">
+<!ENTITY nameColor.label "Назва:">
+<!ENTITY cpUseThemeDef.label "Використати стандартну тему">
+<!ENTITY transparency.label "Прозорість">
+<!ENTITY background.label "Тло для:">
+<!ENTITY background.accessKey "B">
+<!ENTITY table.label "Таблиця">
+<!ENTITY table.accessKey "T">
+<!ENTITY cell.label "Комірка(и)">
+<!ENTITY cell.accessKey "C">
+<!ENTITY lastPickedColor.label "Останній обраний колір">
+<!ENTITY lastPickedColor.accessKey "L">

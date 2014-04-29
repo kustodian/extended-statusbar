@@ -1,0 +1,43 @@
+<!ENTITY esb.title "Impostazioni di Extended Statusbar">
+<!ENTITY esb.pane1.title "Generali">
+<!ENTITY esb.displaystyle "Stile di visualizzazione di Extended Statusbar">
+<!ENTITY esb.usenewstyle "Personalizzato">
+<!ENTITY esb.usenewstyle.accesskey "P">
+<!ENTITY esb.usenewstyle.tooltip "Visualizza gli elementi di Extended Statusbar in una barra a parte sopra a quella di stato">
+<!ENTITY esb.hide "Nascondi la barra di Extended Statusbar">
+<!ENTITY esb.hide.tooltip "Nasconde la barra di Extended Statusbar dopo il caricamento della pagina">
+<!ENTITY esb.hide.accesskey "E">
+<!ENTITY esb.hideafter "Secondi dopo i quali nascondere la barra:">
+<!ENTITY esb.seconds " ">
+<!ENTITY esb.showonhover "Mostra la barra di Extended Statusbar al passaggio del mouse sulla barra di stato">
+<!ENTITY esb.showonhover.accesskey "s">
+<!ENTITY esb.hovering "Millisecondi dopo i quali mostrare la barra:">
+<!ENTITY esb.secondsdisplay " ">
+<!ENTITY esb.hideonsites "Non mostrare la barra per i seguenti siti (separare gli indirizzi con | ):">
+<!ENTITY esb.hideonsites.tooltip "Questa funzione è utile per i siti che utilizzano AJAX (es: Gmail)">
+<!ENTITY esb.appendcurrent "Aggiungi la pagina attuale">
+<!ENTITY esb.appendcurrent.accesskey "A">
+<!ENTITY esb.customstyle "Utilizza lo stile personalizzato">
+<!ENTITY esb.customstyle.accesskey "U">
+<!ENTITY esb.customstyle.tooltip "Non utilizzare lo stile personalizzato se il tema attuale supporta Extended Statusbar">
+<!ENTITY esb.backgroundcolor "Sfondo:">
+<!ENTITY esb.progresscolor "Barra di avanzamento:">
+<!ENTITY esb.cursorcolor "Cursore di caricamento:">
+<!ENTITY esb.textcolor "Testo:">
+<!ENTITY esb.useoldstyle "Predefinito">
+<!ENTITY esb.useoldstyle.accesskey "f">
+<!ENTITY esb.useoldstyle.tooltip "Visualizza gli elementi di Extended Statusbar nella barra di stato">
+<!ENTITY esb.oldslimmode "Attiva la modalità ridotta">
+<!ENTITY esb.oldslimmode.accesskey "r">
+<!ENTITY esb.oldslimmode.tooltip "Nasconde le etichette degli elementi e visualizza solo i numeri">
+<!ENTITY esb.hideindelements "Elementi da nascondere">
+<!ENTITY esb.oldhideimages "Nascondi l'indicatore delle immagini caricate">
+<!ENTITY esb.hideoldimages.accesskey "a">
+<!ENTITY esb.oldhideloaded "Nascondi l'indicatore dei dati caricati">
+<!ENTITY esb.oldhideloaded.accesskey "d">
+<!ENTITY esb.oldhidespeed "Nascondi l'indicatore della velocità di caricamento">
+<!ENTITY esb.oldhidespeed.accesskey "v">
+<!ENTITY esb.oldhidetime "Nascondi l'indicatore del tempo di caricamento">
+<!ENTITY esb.oldhidetime.accesskey "t">
+<!ENTITY esb.oldhidepercent "Nascondi l'indicatore della percentuale di caricamento">
+<!ENTITY esb.oldhidepercent.accesskey "u">

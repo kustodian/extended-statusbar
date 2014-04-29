@@ -1,0 +1,23 @@
+<!ENTITY previewColour.label "Miniature:">
+<!ENTITY cpWinTitle.title "Farvevælger">
+<!ENTITY predef.label "Foruddefinerede farver:">
+<!ENTITY rgb.label "RGB">
+<!ENTITY hsb.label "HSB">
+<!ENTITY red.label "Rød:">
+<!ENTITY green.label "Grøn:">
+<!ENTITY blue.label "Blå:">
+<!ENTITY hue.label "Farvetone:">
+<!ENTITY saturation.label "Mætning:">
+<!ENTITY brightness.label "Lysstyrke:">
+<!ENTITY hexColor.label "Hex:">
+<!ENTITY nameColor.label "Navn:">
+<!ENTITY cpUseThemeDef.label "Brug temaets standard">
+<!ENTITY transparency.label "Gennemsigtighed:">
+<!ENTITY background.label "Baggrund for:">
+<!ENTITY background.accessKey "B">
+<!ENTITY table.label "Tabel">
+<!ENTITY table.accessKey "T">
+<!ENTITY cell.label "Celler">
+<!ENTITY cell.accessKey "C">
+<!ENTITY lastPickedColor.label "Senest valgte farve">
+<!ENTITY lastPickedColor.accessKey "S">

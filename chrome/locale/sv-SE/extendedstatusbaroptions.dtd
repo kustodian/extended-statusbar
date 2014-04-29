@@ -1,0 +1,43 @@
+<!ENTITY esb.title "Extended Statusbar Inställningar">
+<!ENTITY esb.pane1.title "Allmänt">
+<!ENTITY esb.displaystyle "Extended Statusbar Visningsstil">
+<!ENTITY esb.usenewstyle "Ny stil">
+<!ENTITY esb.usenewstyle.accesskey "N">
+<!ENTITY esb.usenewstyle.tooltip "Visa Extended Statusbar ovanför Firefox statusfält">
+<!ENTITY esb.hide "Göm Extended Statusbar">
+<!ENTITY esb.hide.tooltip "Gömmer Extended Statusbar efter att sidan har laddats.">
+<!ENTITY esb.hide.accesskey "H">
+<!ENTITY esb.hideafter "Göm efter:">
+<!ENTITY esb.seconds "sekunder">
+<!ENTITY esb.showonhover "Visa medan musen är över statusfältet">
+<!ENTITY esb.showonhover.accesskey "S">
+<!ENTITY esb.hovering "Fördröj">
+<!ENTITY esb.secondsdisplay "millisekunder">
+<!ENTITY esb.hideonsites "Visa inte på dessa sidor (separera med &quot;|&quot;)">
+<!ENTITY esb.hideonsites.tooltip "Användbart för AJAX drivna sidor som Gmail">
+<!ENTITY esb.appendcurrent "Skicka med nuvarande sida">
+<!ENTITY esb.appendcurrent.accesskey "A">
+<!ENTITY esb.customstyle "Egen stil">
+<!ENTITY esb.customstyle.accesskey "C">
+<!ENTITY esb.customstyle.tooltip "Avaktivera egna stilar om ditt nuvarande tema har stöd för Extended Statusbar!">
+<!ENTITY esb.backgroundcolor "Bakgrund:">
+<!ENTITY esb.progresscolor "Processtapel:">
+<!ENTITY esb.cursorcolor "Indikator laddat:">
+<!ENTITY esb.textcolor "Text:">
+<!ENTITY esb.useoldstyle "Klassisk stil">
+<!ENTITY esb.useoldstyle.accesskey "l">
+<!ENTITY esb.useoldstyle.tooltip "Visar Extended Statusbar i Firefoxs statusfält">
+<!ENTITY esb.oldslimmode "Slimmat läge">
+<!ENTITY esb.oldslimmode.accesskey "m">
+<!ENTITY esb.oldslimmode.tooltip "Gömmer etiketter och visar endast nummer">
+<!ENTITY esb.hideindelements "Göm individuella element">
+<!ENTITY esb.oldhideimages "Göm bilder">
+<!ENTITY esb.hideoldimages.accesskey "i">
+<!ENTITY esb.oldhideloaded "Göm laddat">
+<!ENTITY esb.oldhideloaded.accesskey "o">
+<!ENTITY esb.oldhidespeed "Göm hastighet">
+<!ENTITY esb.oldhidespeed.accesskey "d">
+<!ENTITY esb.oldhidetime "Göm tid">
+<!ENTITY esb.oldhidetime.accesskey "T">
+<!ENTITY esb.oldhidepercent "Göm procent">
+<!ENTITY esb.oldhidepercent.accesskey "P">

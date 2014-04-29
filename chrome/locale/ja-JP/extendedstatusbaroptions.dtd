@@ -1,0 +1,43 @@
+<!ENTITY esb.title "拡張ステータスバー設定">
+<!ENTITY esb.pane1.title "全般">
+<!ENTITY esb.displaystyle "拡張ステータスバー表示スタイル">
+<!ENTITY esb.usenewstyle "新スタイル">
+<!ENTITY esb.usenewstyle.accesskey "N">
+<!ENTITY esb.usenewstyle.tooltip "Firefox のステータスバー上部に拡張ステータスバーを表示します">
+<!ENTITY esb.hide "拡張ステータスバーを非表示にする">
+<!ENTITY esb.hide.tooltip "ページが読み込まれたら拡張ステータスバーを非表示にします。">
+<!ENTITY esb.hide.accesskey "H">
+<!ENTITY esb.hideafter "読み込まれて">
+<!ENTITY esb.seconds "秒後に非表示にする">
+<!ENTITY esb.showonhover "ステータスバー上にポインタがある間は表示する">
+<!ENTITY esb.showonhover.accesskey "S">
+<!ENTITY esb.hovering "表示まで">
+<!ENTITY esb.secondsdisplay "ミリ秒待つ">
+<!ENTITY esb.hideonsites "表示しないサイト (「|」区切り):">
+<!ENTITY esb.hideonsites.tooltip "Gmail のような Ajax サイトに有用です">
+<!ENTITY esb.appendcurrent "現在のページを付加">
+<!ENTITY esb.appendcurrent.accesskey "A">
+<!ENTITY esb.customstyle "カスタムスタイル">
+<!ENTITY esb.customstyle.accesskey "C">
+<!ENTITY esb.customstyle.tooltip "現在のテーマが拡張ステータスバーに対応する場合カスタムスタイルは無効です！">
+<!ENTITY esb.backgroundcolor "背景:">
+<!ENTITY esb.progresscolor "プログレスバー:">
+<!ENTITY esb.cursorcolor "読み込みカーソル:">
+<!ENTITY esb.textcolor "テキスト:">
+<!ENTITY esb.useoldstyle "伝統スタイル">
+<!ENTITY esb.useoldstyle.accesskey "l">
+<!ENTITY esb.useoldstyle.tooltip "Firefox のステータスバー内部に拡張ステータスバーを表示します">
+<!ENTITY esb.oldslimmode "スリム形態">
+<!ENTITY esb.oldslimmode.accesskey "m">
+<!ENTITY esb.oldslimmode.tooltip "ラベルを非表示にして数字のみを表示します">
+<!ENTITY esb.hideindelements "個別要素の非表示">
+<!ENTITY esb.oldhideimages "画像を非表示">
+<!ENTITY esb.hideoldimages.accesskey "I">
+<!ENTITY esb.oldhideloaded "読み込みを非表示">
+<!ENTITY esb.oldhideloaded.accesskey "o">
+<!ENTITY esb.oldhidespeed "速度を非表示">
+<!ENTITY esb.oldhidespeed.accesskey "d">
+<!ENTITY esb.oldhidetime "時間を非表示">
+<!ENTITY esb.oldhidetime.accesskey "T">
+<!ENTITY esb.oldhidepercent "読み込み率を非表示">
+<!ENTITY esb.oldhidepercent.accesskey "P">

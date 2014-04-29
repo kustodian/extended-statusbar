@@ -1,0 +1,23 @@
+<!ENTITY previewColour.label "Алдын-ала қарау:">
+<!ENTITY cpWinTitle.title "Түс алушы">
+<!ENTITY predef.label "Алдын ала бапталған түстер:">
+<!ENTITY rgb.label "RGB">
+<!ENTITY hsb.label "HSB">
+<!ENTITY red.label "Қызыл:">
+<!ENTITY green.label "Жасыл:">
+<!ENTITY blue.label "Көк:">
+<!ENTITY hue.label "Реңі:">
+<!ENTITY saturation.label "Қанықтылығы:">
+<!ENTITY brightness.label "Жарықтылығы:">
+<!ENTITY hexColor.label "Он алтылық:">
+<!ENTITY nameColor.label "Аты:">
+<!ENTITY cpUseThemeDef.label "Бастапқы теманы қолдану">
+<!ENTITY transparency.label "Мөлдір">
+<!ENTITY background.label "Келесі үшін фон:">
+<!ENTITY background.accessKey "ф">
+<!ENTITY table.label "Кесте">
+<!ENTITY table.accessKey "т">
+<!ENTITY cell.label "Ұяшық(тар)">
+<!ENTITY cell.accessKey "ы">
+<!ENTITY lastPickedColor.label "Соңғы алынған түс">
+<!ENTITY lastPickedColor.accessKey "с">

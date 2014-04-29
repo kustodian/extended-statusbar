@@ -1,0 +1,43 @@
+<!ENTITY esb.title "Paramètres de l&apos;extension Extended Statusbar">
+<!ENTITY esb.pane1.title "Généraux">
+<!ENTITY esb.displaystyle "Style d&apos;affichage de la barre d&apos;état de téléchargement">
+<!ENTITY esb.usenewstyle "Nouveau style">
+<!ENTITY esb.usenewstyle.accesskey "N">
+<!ENTITY esb.usenewstyle.tooltip "Affiche la barre d&apos;état de téléchargement au-dessus de la barre d&apos;état de Firefox">
+<!ENTITY esb.hide "Masquer la barre d&apos;état du téléchargement">
+<!ENTITY esb.hide.tooltip "Masque la barre d&apos;état du téléchargement lorsque la page est chargée.">
+<!ENTITY esb.hide.accesskey "M">
+<!ENTITY esb.hideafter "Masquer après :">
+<!ENTITY esb.seconds "secondes">
+<!ENTITY esb.showonhover "Afficher au survol de la barre d&apos;état">
+<!ENTITY esb.showonhover.accesskey "o">
+<!ENTITY esb.hovering "Délai :">
+<!ENTITY esb.secondsdisplay "millisecondes">
+<!ENTITY esb.hideonsites "Ne pas afficher pour les sites suivants (utiliser &apos;|&apos; pour séparer les éléments) :">
+<!ENTITY esb.hideonsites.tooltip "Très utile pour les sites AJAX comme Gmail">
+<!ENTITY esb.appendcurrent "Ajouter la page en cours">
+<!ENTITY esb.appendcurrent.accesskey "A">
+<!ENTITY esb.customstyle "Style personnalisé">
+<!ENTITY esb.customstyle.accesskey "S">
+<!ENTITY esb.customstyle.tooltip "Désactivez les styles personnalisés si votre thème courant prend en charge Extended Statusbar !">
+<!ENTITY esb.backgroundcolor "Arrière-plan :">
+<!ENTITY esb.progresscolor "Barre de progression :">
+<!ENTITY esb.cursorcolor "Curseur de chargement :">
+<!ENTITY esb.textcolor "Texte :">
+<!ENTITY esb.useoldstyle "Style classique">
+<!ENTITY esb.useoldstyle.accesskey "c">
+<!ENTITY esb.useoldstyle.tooltip "Affiche la barre d&apos;état de téléchargement dans la barre d&apos;état de Firefox">
+<!ENTITY esb.oldslimmode "Mode discret">
+<!ENTITY esb.oldslimmode.accesskey "M">
+<!ENTITY esb.oldslimmode.tooltip "Masque les titres et n&apos;affiche que les nombres">
+<!ENTITY esb.hideindelements "Masquer des éléments spécifiques">
+<!ENTITY esb.oldhideimages "Masquer les images">
+<!ENTITY esb.hideoldimages.accesskey "i">
+<!ENTITY esb.oldhideloaded "Masquer les éléments chargés">
+<!ENTITY esb.oldhideloaded.accesskey "a">
+<!ENTITY esb.oldhidespeed "Masquer la vitesse">
+<!ENTITY esb.oldhidespeed.accesskey "v">
+<!ENTITY esb.oldhidetime "Masquer la durée">
+<!ENTITY esb.oldhidetime.accesskey "d">
+<!ENTITY esb.oldhidepercent "Masquer le pourcentage">
+<!ENTITY esb.oldhidepercent.accesskey "p">

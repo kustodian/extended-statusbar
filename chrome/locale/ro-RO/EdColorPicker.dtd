@@ -1,0 +1,23 @@
+<!ENTITY previewColour.label "Previzualizare:">
+<!ENTITY cpWinTitle.title "Selector de culoare">
+<!ENTITY predef.label "Culori predefinite:">
+<!ENTITY rgb.label "RGB">
+<!ENTITY hsb.label "HSB">
+<!ENTITY red.label "Roșu:">
+<!ENTITY green.label "Verde:">
+<!ENTITY blue.label "Albastru:">
+<!ENTITY hue.label "Nuanțare:">
+<!ENTITY saturation.label "Saturație:">
+<!ENTITY brightness.label "Luminozitate:">
+<!ENTITY hexColor.label "Hex:">
+<!ENTITY nameColor.label "Nume:">
+<!ENTITY cpUseThemeDef.label "Folosește valorile din temă">
+<!ENTITY transparency.label "Transparent">
+<!ENTITY background.label "Fundal pentru:">
+<!ENTITY background.accessKey "F">
+<!ENTITY table.label "Tabel">
+<!ENTITY table.accessKey "T">
+<!ENTITY cell.label "Celule">
+<!ENTITY cell.accessKey "C">
+<!ENTITY lastPickedColor.label "Ultima culoare selectată">
+<!ENTITY lastPickedColor.accessKey "l">

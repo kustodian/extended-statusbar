@@ -1,0 +1,43 @@
+<!ENTITY esb.title "Predisposiciones de Extended Statusbar">
+<!ENTITY esb.pane1.title "General">
+<!ENTITY esb.displaystyle "Apariencia de Extended Statusbar">
+<!ENTITY esb.usenewstyle "Estilo nuevo">
+<!ENTITY esb.usenewstyle.accesskey "n">
+<!ENTITY esb.usenewstyle.tooltip "Extended Statusbar se sitúa encima de la barra de estado de Firefox">
+<!ENTITY esb.hide "Ocultar Extended Statusbar">
+<!ENTITY esb.hide.tooltip "Oculta Extended Statusbar cuando se completa la descarga de la página">
+<!ENTITY esb.hide.accesskey "O">
+<!ENTITY esb.hideafter "Ocultar tras:">
+<!ENTITY esb.seconds "segundos">
+<!ENTITY esb.showonhover "Mostrar cuando el ratón se sitúe sobre la barra de estado">
+<!ENTITY esb.showonhover.accesskey "M">
+<!ENTITY esb.hovering "Retardo:">
+<!ENTITY esb.secondsdisplay "milisegundos">
+<!ENTITY esb.hideonsites "No mostrar en estos sitios web (separar con &apos;|&apos;):">
+<!ENTITY esb.hideonsites.tooltip "Útil para sitios con AJAX como Gmail">
+<!ENTITY esb.appendcurrent "Añadir página actual">
+<!ENTITY esb.appendcurrent.accesskey "A">
+<!ENTITY esb.customstyle "Estilo personalizado">
+<!ENTITY esb.customstyle.accesskey "p">
+<!ENTITY esb.customstyle.tooltip "¡Desactive los estilos personalizados si el tema que usa soporta Extended Statusbar!">
+<!ENTITY esb.backgroundcolor "Fondo:">
+<!ENTITY esb.progresscolor "Barra de progreso:">
+<!ENTITY esb.cursorcolor "Cursor de descarga:">
+<!ENTITY esb.textcolor "Texto:">
+<!ENTITY esb.useoldstyle "Estilo clásico">
+<!ENTITY esb.useoldstyle.accesskey "c">
+<!ENTITY esb.useoldstyle.tooltip "Extended Statusbar se sitúa dentro de la barra de estado de Firefox">
+<!ENTITY esb.oldslimmode "Modo reducido">
+<!ENTITY esb.oldslimmode.accesskey "r">
+<!ENTITY esb.oldslimmode.tooltip "Sólo muestra los números, no las etiquetas">
+<!ENTITY esb.hideindelements "Elementos individuales a mostrar">
+<!ENTITY esb.oldhideimages "Ocultar elemento Imágenes">
+<!ENTITY esb.hideoldimages.accesskey "I">
+<!ENTITY esb.oldhideloaded "Ocultar elemento Descargados">
+<!ENTITY esb.oldhideloaded.accesskey "D">
+<!ENTITY esb.oldhidespeed "Ocultar elemento Velocidad">
+<!ENTITY esb.oldhidespeed.accesskey "V">
+<!ENTITY esb.oldhidetime "Ocultar elemento Tiempo">
+<!ENTITY esb.oldhidetime.accesskey "T">
+<!ENTITY esb.oldhidepercent "Ocultar elemento Porcentaje">
+<!ENTITY esb.oldhidepercent.accesskey "P">

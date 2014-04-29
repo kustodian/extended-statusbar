@@ -1,0 +1,43 @@
+<!ENTITY esb.title "Extended Statusbar indstillinger">
+<!ENTITY esb.pane1.title "Generelt">
+<!ENTITY esb.displaystyle "Extended Statusbar stil">
+<!ENTITY esb.usenewstyle "Ny stil">
+<!ENTITY esb.usenewstyle.accesskey "N">
+<!ENTITY esb.usenewstyle.tooltip "Vis Extended Statusbar ovenover Firefox´s statuslinje">
+<!ENTITY esb.hide "Skjul Extended Statusbar">
+<!ENTITY esb.hide.tooltip "Skjuler Extended Statusbar når siden er blevet indlæst">
+<!ENTITY esb.hide.accesskey "S">
+<!ENTITY esb.hideafter "Skjul efter:">
+<!ENTITY esb.seconds "sekunder">
+<!ENTITY esb.showonhover "Vis når markøren holdes over statuslinjen">
+<!ENTITY esb.showonhover.accesskey "V">
+<!ENTITY esb.hovering "Forsinkelse:">
+<!ENTITY esb.secondsdisplay "millisekunder">
+<!ENTITY esb.hideonsites "Vis ikke på disse websteder (adskilt af &apos;|&apos;):">
+<!ENTITY esb.hideonsites.tooltip "Nyttig til AJAK websteder som Gmail">
+<!ENTITY esb.appendcurrent "Tilføj pågældende side">
+<!ENTITY esb.appendcurrent.accesskey "p">
+<!ENTITY esb.customstyle "Tilpas stil">
+<!ENTITY esb.customstyle.accesskey "T">
+<!ENTITY esb.customstyle.tooltip "Deaktiver tilpasset stil, hvis dit nuværende tema understøtter Extended Statusbar!">
+<!ENTITY esb.backgroundcolor "Baggrund:">
+<!ENTITY esb.progresscolor "Statusmeter:">
+<!ENTITY esb.cursorcolor "Markøren indlæst:">
+<!ENTITY esb.textcolor "Tekst:">
+<!ENTITY esb.useoldstyle "Klassisk stil">
+<!ENTITY esb.useoldstyle.accesskey "K">
+<!ENTITY esb.useoldstyle.tooltip "Vis Extended Statusbar i Firefox&apos;s statuslinje">
+<!ENTITY esb.oldslimmode "Smal tilstand">
+<!ENTITY esb.oldslimmode.accesskey "S">
+<!ENTITY esb.oldslimmode.tooltip "Skjuler etiketter og vis kun tal">
+<!ENTITY esb.hideindelements "Skjul enkelte elementer">
+<!ENTITY esb.oldhideimages "Skjul Billeder">
+<!ENTITY esb.hideoldimages.accesskey "B">
+<!ENTITY esb.oldhideloaded "Skjul Indlæst">
+<!ENTITY esb.oldhideloaded.accesskey "I">
+<!ENTITY esb.oldhidespeed "Skjul Hastighed">
+<!ENTITY esb.oldhidespeed.accesskey "H">
+<!ENTITY esb.oldhidetime "Skjul Tid">
+<!ENTITY esb.oldhidetime.accesskey "T">
+<!ENTITY esb.oldhidepercent "Skjul Procent">
+<!ENTITY esb.oldhidepercent.accesskey "P">

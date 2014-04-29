@@ -1,0 +1,7 @@
+<!ENTITY esb.loadedimages "読み込んだ画像">
+<!ENTITY esb.dataloaded "読み込んだデータ">
+<!ENTITY esb.avgspeed "平均速度">
+<!ENTITY esb.time "ページ読み込み時間">
+<!ENTITY esb.percentage "読み込み率">
+<!ENTITY esb.document "文書:">
+<!ENTITY esb.tools-menu "拡張ステータスバー設定">

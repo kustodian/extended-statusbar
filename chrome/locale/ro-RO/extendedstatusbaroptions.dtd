@@ -1,0 +1,43 @@
+<!ENTITY esb.title "Setări pentru Extended Statusbar">
+<!ENTITY esb.pane1.title "General">
+<!ENTITY esb.displaystyle "Stilul de afișare al Extended Statusbar">
+<!ENTITY esb.usenewstyle "Stilul nou">
+<!ENTITY esb.usenewstyle.accesskey "n">
+<!ENTITY esb.usenewstyle.tooltip "Afişează Extended Statusbar deasupra bării de stare Firefox">
+<!ENTITY esb.hide "Ascunde Extended Statusbar">
+<!ENTITY esb.hide.tooltip "Ascunde Extended Statusbar după ce s-a încărcat pagina.">
+<!ENTITY esb.hide.accesskey "c">
+<!ENTITY esb.hideafter "Ascunde după:">
+<!ENTITY esb.seconds "secunde">
+<!ENTITY esb.showonhover "Arată când se trece cu mausul peste bara de stare">
+<!ENTITY esb.showonhover.accesskey "s">
+<!ENTITY esb.hovering "Întârziere:">
+<!ENTITY esb.secondsdisplay "milisecunde">
+<!ENTITY esb.hideonsites "Nu arăta pe aceste saituri (separați cu „|”):">
+<!ENTITY esb.hideonsites.tooltip "Folositor pentru saituri AJAX ca Gmail">
+<!ENTITY esb.appendcurrent "Adaugă pagina curentă">
+<!ENTITY esb.appendcurrent.accesskey "A">
+<!ENTITY esb.customstyle "Stil personalizat">
+<!ENTITY esb.customstyle.accesskey "z">
+<!ENTITY esb.customstyle.tooltip "Dezactivează stilurile personalizate dacă tema curentă suportă Extended Statusbar!">
+<!ENTITY esb.backgroundcolor "Fundal:">
+<!ENTITY esb.progresscolor "Bară de progres:">
+<!ENTITY esb.cursorcolor "Cursor încărcare:">
+<!ENTITY esb.textcolor "Text:">
+<!ENTITY esb.useoldstyle "Stilul clasic">
+<!ENTITY esb.useoldstyle.accesskey "i">
+<!ENTITY esb.useoldstyle.tooltip "Afişează Extended Statusbar în bara de stare Firefox">
+<!ENTITY esb.oldslimmode "Modul slim">
+<!ENTITY esb.oldslimmode.accesskey "m">
+<!ENTITY esb.oldslimmode.tooltip "Ascunde etichetele şi afişează doar numerele">
+<!ENTITY esb.hideindelements "Ascunde elemente individuale">
+<!ENTITY esb.oldhideimages "Ascunde imaginile">
+<!ENTITY esb.hideoldimages.accesskey "i">
+<!ENTITY esb.oldhideloaded "Ascunde „Încărcat”">
+<!ENTITY esb.oldhideloaded.accesskey "u">
+<!ENTITY esb.oldhidespeed "Ascunde viteza">
+<!ENTITY esb.oldhidespeed.accesskey "d">
+<!ENTITY esb.oldhidetime "Ascunde timpul">
+<!ENTITY esb.oldhidetime.accesskey "t">
+<!ENTITY esb.oldhidepercent "Ascunde procentajul">
+<!ENTITY esb.oldhidepercent.accesskey "p">

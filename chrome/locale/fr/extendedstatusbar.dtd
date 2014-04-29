@@ -1,0 +1,7 @@
+<!ENTITY esb.loadedimages "Images chargées">
+<!ENTITY esb.dataloaded "Données chargées">
+<!ENTITY esb.avgspeed "Vitesse moyenne">
+<!ENTITY esb.time "Temps de chargement de la page">
+<!ENTITY esb.percentage "Pourcentage chargé">
+<!ENTITY esb.document "Document :">
+<!ENTITY esb.tools-menu "Paramètres de l&apos;extension Extended Statusbar">

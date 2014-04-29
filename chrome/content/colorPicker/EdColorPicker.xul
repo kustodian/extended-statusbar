@@ -1,0 +1,135 @@
+<?xml version="1.0"?>
+
+<!-- ***** BEGIN LICENSE BLOCK *****
+   - Version: MPL 1.1/GPL 2.0/LGPL 2.1
+   -
+   - The contents of this file are subject to the Mozilla Public License Version
+   - 1.1 (the "License"); you may not use this file except in compliance with
+   - the License. You may obtain a copy of the License at
+   - http://www.mozilla.org/MPL/
+   -
+   - Software distributed under the License is distributed on an "AS IS" basis,
+   - WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License
+   - for the specific language governing rights and limitations under the
+   - License.
+   -
+   - The Original Code is Mozilla.org
+   -
+   - The Initial Developer of the Original Code is
+   - Linspire Inc..
+   - Portions created by the Initial Developer are Copyright (C) 2003
+   - the Initial Developer. All Rights Reserved.
+   -
+   - Contributor(s):
+   -   Daniel Glazman (glazman@disruptive-innovations.com), on behalf of Linspire Inc.
+   -   Devon Jensen (velcrospud@hotmail.com) for Download Statusbar Firefox Extension
+   -
+   - Alternatively, the contents of this file may be used under the terms of
+   - either the GNU General Public License Version 2 or later (the "GPL"), or
+   - the GNU Lesser General Public License Version 2.1 or later (the "LGPL"),
+   - in which case the provisions of the GPL or the LGPL are applicable instead
+   - of those above. If you wish to allow use of your version of this file only
+   - under the terms of either the GPL or the LGPL, and not to allow others to
+   - use your version of this file under the terms of the MPL, indicate your
+   - decision by deleting the provisions above and replace them with the notice
+   - and other provisions required by the LGPL or the GPL. If you do not delete
+   - the provisions above, a recipient may use your version of this file under
+   - the terms of any one of the MPL, the GPL or the LGPL.
+   -
+   - ***** END LICENSE BLOCK ***** -->
+
+
+
+<?xml-stylesheet href="EdColorPicker.css" type="text/css"?>
+
+<!DOCTYPE dialog SYSTEM "chrome://extendedstatusbar/locale/EdColorPicker.dtd" >
+
+<dialog title="&cpWinTitle.title;"
+	xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+	xmlns:html="http://www.w3.org/1999/xhtml"
+	onload="StartUp();"
+	buttons="accept,cancel,extra2"
+	buttonlabelextra2="&cpUseThemeDef.label;"
+	ondialogaccept="return onAccept();"
+	ondialogcancel="return onCancelColor();"
+	ondialogextra2="useDefault();">
+
+	<script type="application/x-javascript" src="EdColorPicker.js"/>
+
+	<hbox>
+		<vbox>
+			<html:div id="hueAndSaturationDiv">
+				<html:img id="hueAndSaturationImg" src="hsPanel.png"/>
+				<html:img id="hueAndSaturationCrosshair" src="colourPickerCrosshair.gif"/>
+			</html:div>
+			<separator class="thin"/>
+			<html:div id="brightnessDiv">
+				<html:img id="brightnessImg" src="brightness.png"/>
+				<html:img id="brightnessArrow" src="colourPickerArrow.gif"/>
+			</html:div>
+		</vbox>
+		<spacer width="10"/>
+		<vbox>
+			<label id="predef" value="&predef.label;"/>
+			<colorpicker id="colorpicker" onselect="SelectColor();"/>
+		</vbox>
+	</hbox>
+	<separator class="thin"/>
+	<hbox>
+		<grid>
+			<columns>
+				<column/>
+				<column/>
+				<column/>
+				<column/>
+				<column/>
+			</columns>
+			<rows>
+				<row align="center">
+					<label value="&hue.label;" id="hueLabel" control="hue"/>
+					<textbox size="3"  id="hue" oninput="onTextboxValueChanged(this, 'hue')"/>
+					<spacer flex="1"/>
+					<label value="&red.label;" control="red" id="redLabel"/>
+					<textbox size="3" id="red" oninput="onTextboxValueChanged(this, 'red')"/>
+				</row>
+				<row align="center">
+					<label value="&saturation.label;" control="saturation" id="saturationLabel"/>
+					<textbox size="3" id="saturation" oninput="onTextboxValueChanged(this, 'saturation')"/>
+					<spacer class="spacer"/>
+					<label value="&green.label;" control="green" id="greenLabel"/>
+					<textbox size="3" id="green" oninput="onTextboxValueChanged(this, 'green')"/>
+				</row>
+				<row align="center">
+					<label value="&brightness.label;" control="brightness" id="brightnessLabel"/>
+					<textbox size="3" id="brightness" oninput="onTextboxValueChanged(this, 'brightness')"/>
+					<spacer class="spacer"/>
+					<label value="&blue.label;" control="blue" id="blueLabel"/>
+					<textbox size="3" id="blue" oninput="onTextboxValueChanged(this, 'blue')"/>
+				</row>
+			</rows>
+		</grid>
+		<spacer flex="1"/>
+		<vbox id="swatch"/>
+		<spacer flex="1"/>
+		<vbox>
+			<grid>
+				<columns>
+					<column/>
+					<column/>
+				</columns>
+				<rows>
+					<row align="center">
+						<label value="&hexColor.label;" control="hexColour" id="hexColourLabel"/>
+						<textbox size="7" id="hexColour"/>
+					</row>
+					<row align="center">
+						<label value="&nameColor.label;" control="nameColour" id="nameColourLabel"/>
+						<textbox size="7" id="nameColour" oninput="onNamedColourChanged(this)"/>
+					</row>
+				</rows>
+			</grid>
+			<!--checkbox label="&transparency.label;" id="transparencyCheckbox" oncommand="ToggleTransparency(this)"/-->
+		</vbox>
+	</hbox>
+	<separator/>
+</dialog>

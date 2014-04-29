@@ -1,0 +1,7 @@
+<!ENTITY esb.loadedimages "Indlæste billeder">
+<!ENTITY esb.dataloaded "Indlæst data">
+<!ENTITY esb.avgspeed "Gennemsnitlig hastighed">
+<!ENTITY esb.time "Indlæsningstid">
+<!ENTITY esb.percentage "Procent indlæst">
+<!ENTITY esb.document "Dokument:">
+<!ENTITY esb.tools-menu "Extended Statusbar indstillinger">

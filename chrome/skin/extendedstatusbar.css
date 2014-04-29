@@ -1,0 +1,74 @@
+#ESB_status-bar {
+}
+
+#ESB_document_working_box {
+    border-right: 1px solid;
+	background-image:url(chrome://extendedstatusbar/skin/white_trans_grad.png);
+}
+
+#ESB_document_working_progressbar {
+    background-color: DarkGrey;
+	background-image:url(chrome://extendedstatusbar/skin/white_trans_grad.png);
+}
+
+#ESB_document_working_label {
+}
+
+
+#ESB_document_finished_box{
+    border-right: 1px solid;
+	background-image:url(chrome://extendedstatusbar/skin/white_trans_grad.png);
+}
+
+#ESB_document_finished_progressbar {
+    background-color: DarkGrey;
+	background-image:url(chrome://extendedstatusbar/skin/white_trans_grad.png);
+}
+
+#ESB_document_finished_label {
+}
+
+#ESB_images_box {
+    border-right: 1px solid;
+	background-image:url(chrome://extendedstatusbar/skin/white_trans_grad.png);
+}
+
+#ESB_images_label {
+}
+
+#ESB_loaded_working_box {
+    background-color: DarkGrey;
+    border-right: 1px solid;
+	background-image:url(chrome://extendedstatusbar/skin/white_trans_grad.png);
+}
+
+#ESB_loaded_working_progressbar {
+    border-right: 10px solid LightGray;
+}
+
+#ESB_loaded_working_label {
+}
+
+#ESB_loaded_finished_box {
+	background-color: DarkGrey;
+    border-right: 1px solid;
+	background-image:url(chrome://extendedstatusbar/skin/white_trans_grad.png);
+}
+
+#ESB_loaded_finished_progressbar {
+}
+
+#ESB_speed_box {
+    border-right: 1px solid;
+	background-image:url(chrome://extendedstatusbar/skin/white_trans_grad.png);
+}
+
+#ESB_speed_label {
+}
+
+#ESB_time_box {
+	background-image:url(chrome://extendedstatusbar/skin/white_trans_grad.png);
+}
+
+#ESB_time_label {
+}

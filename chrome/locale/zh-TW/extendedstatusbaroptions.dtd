@@ -1,0 +1,43 @@
+<!ENTITY esb.title "Extended Statusbar 設定">
+<!ENTITY esb.pane1.title "一般">
+<!ENTITY esb.displaystyle "Extended Statusbar 顯示樣式">
+<!ENTITY esb.usenewstyle "新樣式">
+<!ENTITY esb.usenewstyle.accesskey "N">
+<!ENTITY esb.usenewstyle.tooltip "在 Firefox 的狀態列上方顯示 Extended Statusbar">
+<!ENTITY esb.hide "隱藏 Extended Statusbar">
+<!ENTITY esb.hide.tooltip "頁面載入後隱藏 Extended Statusbar">
+<!ENTITY esb.hide.accesskey "H">
+<!ENTITY esb.hideafter "在:">
+<!ENTITY esb.seconds "秒後隱藏">
+<!ENTITY esb.showonhover "懸停在狀態列時顯示">
+<!ENTITY esb.showonhover.accesskey "S">
+<!ENTITY esb.hovering "延遲:">
+<!ENTITY esb.secondsdisplay "毫秒">
+<!ENTITY esb.hideonsites "在這些網站不顯示 (以 '|' 分隔):">
+<!ENTITY esb.hideonsites.tooltip "在使用 AJAX 的網站如 Gmail 有用">
+<!ENTITY esb.appendcurrent "追加目前頁面">
+<!ENTITY esb.appendcurrent.accesskey "A">
+<!ENTITY esb.customstyle "自訂樣式">
+<!ENTITY esb.customstyle.accesskey "C">
+<!ENTITY esb.customstyle.tooltip "如果您目前的佈景主題支援 Extended Statusbar，請停用自訂樣式!">
+<!ENTITY esb.backgroundcolor "背景:">
+<!ENTITY esb.progresscolor "進度列:">
+<!ENTITY esb.cursorcolor "載入光標:">
+<!ENTITY esb.textcolor "文字:">
+<!ENTITY esb.useoldstyle "傳統樣式">
+<!ENTITY esb.useoldstyle.accesskey "L">
+<!ENTITY esb.useoldstyle.tooltip "在 Firefox 的狀態列內顯示 Extended Statusbar">
+<!ENTITY esb.oldslimmode "精簡模式">
+<!ENTITY esb.oldslimmode.accesskey "M">
+<!ENTITY esb.oldslimmode.tooltip "隱藏標籤並僅顯示數字">
+<!ENTITY esb.hideindelements "隱藏個別元素">
+<!ENTITY esb.oldhideimages "隱藏圖像">
+<!ENTITY esb.hideoldimages.accesskey "I">
+<!ENTITY esb.oldhideloaded "隱藏已載入">
+<!ENTITY esb.oldhideloaded.accesskey "O">
+<!ENTITY esb.oldhidespeed "隱藏速度">
+<!ENTITY esb.oldhidespeed.accesskey "D">
+<!ENTITY esb.oldhidetime "隱藏時間">
+<!ENTITY esb.oldhidetime.accesskey "T">
+<!ENTITY esb.oldhidepercent "隱藏百分比">
+<!ENTITY esb.oldhidepercent.accesskey "P">

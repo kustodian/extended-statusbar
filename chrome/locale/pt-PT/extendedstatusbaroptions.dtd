@@ -1,0 +1,43 @@
+<!ENTITY esb.title "Definições da barra de estado expandida">
+<!ENTITY esb.pane1.title "Geral">
+<!ENTITY esb.displaystyle "Estilo de apresentação da barra de estado espandida">
+<!ENTITY esb.usenewstyle "Novo estilo">
+<!ENTITY esb.usenewstyle.accesskey "N">
+<!ENTITY esb.usenewstyle.tooltip "Mostra a Barra de estado expandida acima da barra de estado do Firefox">
+<!ENTITY esb.hide "Ocultar a barra de estado expandida">
+<!ENTITY esb.hide.tooltip "Oculta a barra de estado após a página carregar.">
+<!ENTITY esb.hide.accesskey "O">
+<!ENTITY esb.hideafter "Ocultar após:">
+<!ENTITY esb.seconds "segundos">
+<!ENTITY esb.showonhover "Mostra ao passar sobre a barra de estado">
+<!ENTITY esb.showonhover.accesskey "s">
+<!ENTITY esb.hovering "Atraso:">
+<!ENTITY esb.secondsdisplay "milisegundos">
+<!ENTITY esb.hideonsites "Não mostrar nestes sítios (separados por &apos;|&apos;):">
+<!ENTITY esb.hideonsites.tooltip "Útil para sítios como o Gmail">
+<!ENTITY esb.appendcurrent "Adicionar a página actual">
+<!ENTITY esb.appendcurrent.accesskey "A">
+<!ENTITY esb.customstyle "Estilo personalizado">
+<!ENTITY esb.customstyle.accesskey "t">
+<!ENTITY esb.customstyle.tooltip "Desactivar estilos personalizados se o seu tema actual suportar a barra de estado extendida!">
+<!ENTITY esb.backgroundcolor "Fundo:">
+<!ENTITY esb.progresscolor "Barra de progresso:">
+<!ENTITY esb.cursorcolor "Cursor carregado:">
+<!ENTITY esb.textcolor "Texto:">
+<!ENTITY esb.useoldstyle "Estilo clássico">
+<!ENTITY esb.useoldstyle.accesskey "l">
+<!ENTITY esb.useoldstyle.tooltip "Mostra a Barra de estado expandida dentro da barra de estado do Firefox">
+<!ENTITY esb.oldslimmode "Modo slim">
+<!ENTITY esb.oldslimmode.accesskey "m">
+<!ENTITY esb.oldslimmode.tooltip "Oculta etiquetas e mostra apenas números">
+<!ENTITY esb.hideindelements "Ocultar elementos individuais">
+<!ENTITY esb.oldhideimages "Ocultar imagens">
+<!ENTITY esb.hideoldimages.accesskey "i">
+<!ENTITY esb.oldhideloaded "Ocultar carregamento">
+<!ENTITY esb.oldhideloaded.accesskey "u">
+<!ENTITY esb.oldhidespeed "Ocultar velocidade">
+<!ENTITY esb.oldhidespeed.accesskey "v">
+<!ENTITY esb.oldhidetime "Ocultar tempo">
+<!ENTITY esb.oldhidetime.accesskey "t">
+<!ENTITY esb.oldhidepercent "Ocultar percentagem">
+<!ENTITY esb.oldhidepercent.accesskey "g">

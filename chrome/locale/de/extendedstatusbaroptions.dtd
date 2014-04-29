@@ -1,0 +1,43 @@
+<!ENTITY esb.title "Extended Statusbar - Einstellungen">
+<!ENTITY esb.pane1.title "Allgemein">
+<!ENTITY esb.displaystyle "Anzeigestil">
+<!ENTITY esb.usenewstyle "Neuer Stil">
+<!ENTITY esb.usenewstyle.accesskey "N">
+<!ENTITY esb.usenewstyle.tooltip "Zeigt die erweiterte Statusleiste über der von Firefox an">
+<!ENTITY esb.hide "Extended Statusbar ausblenden">
+<!ENTITY esb.hide.tooltip "Blendet die erweiterte Statusleiste aus, nachdem die Seite geladen wurde.">
+<!ENTITY esb.hide.accesskey "b">
+<!ENTITY esb.hideafter "Ausblenden nach">
+<!ENTITY esb.seconds "Sekunden">
+<!ENTITY esb.showonhover "Anzeigen beim Überfahren mit der Maus">
+<!ENTITY esb.showonhover.accesskey "h">
+<!ENTITY esb.hovering "Verzögerung:">
+<!ENTITY esb.secondsdisplay "Millisekunden">
+<!ENTITY esb.hideonsites "Nicht bei folgenden Websites anzeigen (trennen mit &quot;|&quot;):">
+<!ENTITY esb.hideonsites.tooltip "Nützlich für AJAX-Websites wie Google Mail">
+<!ENTITY esb.appendcurrent "Aktuelle Website hinzufügen">
+<!ENTITY esb.appendcurrent.accesskey "A">
+<!ENTITY esb.customstyle "Eigenen Stil verwenden">
+<!ENTITY esb.customstyle.accesskey "S">
+<!ENTITY esb.customstyle.tooltip "Deaktivieren Sie den angepassten Stil, falls Extended Statusbar von Ihrem Theme unterstützt wird!">
+<!ENTITY esb.backgroundcolor "Hintergrund:">
+<!ENTITY esb.progresscolor "Fortschrittsanzeige:">
+<!ENTITY esb.cursorcolor "Positionsmarke für Geladen:">
+<!ENTITY esb.textcolor "Text:">
+<!ENTITY esb.useoldstyle "Klassischer Stil">
+<!ENTITY esb.useoldstyle.accesskey "K">
+<!ENTITY esb.useoldstyle.tooltip "Zeigt die erweiterte Statusleiste innerhalb der von Firefox an">
+<!ENTITY esb.oldslimmode "Kompaktmodus aktivieren">
+<!ENTITY esb.oldslimmode.accesskey "M">
+<!ENTITY esb.oldslimmode.tooltip "Blendet die Beschriftung aus und zeigt nur die Zahlen an">
+<!ENTITY esb.hideindelements "Einzelne Angaben ausblenden">
+<!ENTITY esb.oldhideimages "Grafiken">
+<!ENTITY esb.hideoldimages.accesskey "G">
+<!ENTITY esb.oldhideloaded "Geladen">
+<!ENTITY esb.oldhideloaded.accesskey "l">
+<!ENTITY esb.oldhidespeed "Geschwindigkeit">
+<!ENTITY esb.oldhidespeed.accesskey "d">
+<!ENTITY esb.oldhidetime "Zeit">
+<!ENTITY esb.oldhidetime.accesskey "Z">
+<!ENTITY esb.oldhidepercent "Prozentsatz">
+<!ENTITY esb.oldhidepercent.accesskey "P">

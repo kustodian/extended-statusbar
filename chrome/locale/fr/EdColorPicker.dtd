@@ -1,0 +1,23 @@
+<!ENTITY previewColour.label "Aperçu :">
+<!ENTITY cpWinTitle.title "Palette de couleurs">
+<!ENTITY predef.label "Couleurs prédéfinies :">
+<!ENTITY rgb.label "RGB">
+<!ENTITY hsb.label "HSB">
+<!ENTITY red.label "Rouge :">
+<!ENTITY green.label "Vert :">
+<!ENTITY blue.label "Bleu :">
+<!ENTITY hue.label "Teinte :">
+<!ENTITY saturation.label "Saturation :">
+<!ENTITY brightness.label "Luminosité :">
+<!ENTITY hexColor.label "Hex :">
+<!ENTITY nameColor.label "Nom :">
+<!ENTITY cpUseThemeDef.label "Utiliser le thème par défaut">
+<!ENTITY transparency.label "Transparent">
+<!ENTITY background.label "Arrière-plan pour :">
+<!ENTITY background.accessKey "A">
+<!ENTITY table.label "Tableau">
+<!ENTITY table.accessKey "T">
+<!ENTITY cell.label "Cellule(s)">
+<!ENTITY cell.accessKey "C">
+<!ENTITY lastPickedColor.label "Dernière couleur choisie">
+<!ENTITY lastPickedColor.accessKey "D">

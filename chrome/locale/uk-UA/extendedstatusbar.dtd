@@ -1,0 +1,7 @@
+<!ENTITY esb.loadedimages "Завантажені картинки">
+<!ENTITY esb.dataloaded "Завантажені дані">
+<!ENTITY esb.avgspeed "Середня швидкість">
+<!ENTITY esb.time "Час завантаження сторінки">
+<!ENTITY esb.percentage "Відсоток завантаження">
+<!ENTITY esb.document "Документ:">
+<!ENTITY esb.tools-menu "Налаштування Розширеного Рядка Стану">

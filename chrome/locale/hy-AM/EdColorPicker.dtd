@@ -1,0 +1,23 @@
+<!ENTITY previewColour.label "Տեսք`">
+<!ENTITY cpWinTitle.title "Գունապնակ">
+<!ENTITY predef.label "Պատրաստի գույներ`">
+<!ENTITY rgb.label "RGB">
+<!ENTITY hsb.label "HSB">
+<!ENTITY red.label "Կարմիր`">
+<!ENTITY green.label "Կանաչ`">
+<!ENTITY blue.label "Կապույտ`">
+<!ENTITY hue.label "Երանգ`">
+<!ENTITY saturation.label "Հագեցում`">
+<!ENTITY brightness.label "Պայծառություն`">
+<!ENTITY hexColor.label "Hex`">
+<!ENTITY nameColor.label "Անունը`">
+<!ENTITY cpUseThemeDef.label "Օգտագործել լռությամբ թեման">
+<!ENTITY transparency.label "Թափանցիկ">
+<!ENTITY background.label "Որպես ֆոն`">
+<!ENTITY background.accessKey "ֆ">
+<!ENTITY table.label "Աղյուսակ">
+<!ENTITY table.accessKey "ղ">
+<!ENTITY cell.label "Աղյուս(ներ)">
+<!ENTITY cell.accessKey "Ա">
+<!ENTITY lastPickedColor.label "ՎԵրջին ընտրված գույնը">
+<!ENTITY lastPickedColor.accessKey "Վ">

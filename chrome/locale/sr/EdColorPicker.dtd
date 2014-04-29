@@ -1,0 +1,23 @@
+<!ENTITY previewColour.label "Преглед:">
+<!ENTITY cpWinTitle.title "Бирач боја">
+<!ENTITY predef.label "Предефинисане боје:">
+<!ENTITY rgb.label "ЦЗП">
+<!ENTITY hsb.label "НЗС">
+<!ENTITY red.label "Црвена:">
+<!ENTITY green.label "Зелена:">
+<!ENTITY blue.label "Плава:">
+<!ENTITY hue.label "Нијанса:">
+<!ENTITY saturation.label "Засићење:">
+<!ENTITY brightness.label "Светлина:">
+<!ENTITY hexColor.label "Хекс:">
+<!ENTITY nameColor.label "Име:">
+<!ENTITY cpUseThemeDef.label "Користи подразумеване боје">
+<!ENTITY transparency.label "Провидно">
+<!ENTITY background.label "Позадина за:">
+<!ENTITY background.accessKey "П">
+<!ENTITY table.label "Табела">
+<!ENTITY table.accessKey "Т">
+<!ENTITY cell.label "Ћелија(е)">
+<!ENTITY cell.accessKey "е">
+<!ENTITY lastPickedColor.label "Последња изабрана боја">
+<!ENTITY lastPickedColor.accessKey "и">

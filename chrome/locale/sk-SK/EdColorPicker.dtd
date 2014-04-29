@@ -1,0 +1,23 @@
+<!ENTITY previewColour.label "Náhľad:">
+<!ENTITY cpWinTitle.title "Výber farieb:">
+<!ENTITY predef.label "Predefinované farby:">
+<!ENTITY rgb.label "RGB">
+<!ENTITY hsb.label "HSB">
+<!ENTITY red.label "Červená:">
+<!ENTITY green.label "Zelená:">
+<!ENTITY blue.label "Modrá:">
+<!ENTITY hue.label "Odtieň:">
+<!ENTITY saturation.label "Sýtosť:">
+<!ENTITY brightness.label "Jas:">
+<!ENTITY hexColor.label "Hex:">
+<!ENTITY nameColor.label "Meno:">
+<!ENTITY cpUseThemeDef.label "Použi predvolené">
+<!ENTITY transparency.label "Priehľadnosť">
+<!ENTITY background.label "Pozadie pre:">
+<!ENTITY background.accessKey "B">
+<!ENTITY table.label "Tabuľka">
+<!ENTITY table.accessKey "T">
+<!ENTITY cell.label "Bunka(y)">
+<!ENTITY cell.accessKey "C">
+<!ENTITY lastPickedColor.label "Naposledy vybraná farba">
+<!ENTITY lastPickedColor.accessKey "L">

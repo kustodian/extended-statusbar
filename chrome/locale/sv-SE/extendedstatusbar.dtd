@@ -1,0 +1,7 @@
+<!ENTITY esb.loadedimages "Laddade bilder">
+<!ENTITY esb.dataloaded "Data laddad">
+<!ENTITY esb.avgspeed "Hastighet medel">
+<!ENTITY esb.time "Sidans laddtid">
+<!ENTITY esb.percentage "Procent laddade">
+<!ENTITY esb.document "Dokument:">
+<!ENTITY esb.tools-menu "Extended Statusbar Inställningar">

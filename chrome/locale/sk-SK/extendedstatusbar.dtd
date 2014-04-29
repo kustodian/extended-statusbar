@@ -1,0 +1,7 @@
+<!ENTITY esb.loadedimages "Načítaných obrázkov">
+<!ENTITY esb.dataloaded "Načítaných údajov">
+<!ENTITY esb.avgspeed "Priemerná rýchlosť">
+<!ENTITY esb.time "Doba načítania stránky">
+<!ENTITY esb.percentage "Načítaných percent">
+<!ENTITY esb.document "Dokument:">
+<!ENTITY esb.tools-menu "Nastavenie Extended Statusbar">

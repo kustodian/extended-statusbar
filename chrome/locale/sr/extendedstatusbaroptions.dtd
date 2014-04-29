@@ -1,0 +1,43 @@
+<!ENTITY esb.title "Extended Statusbar подешавања">
+<!ENTITY esb.pane1.title "Опште">
+<!ENTITY esb.displaystyle "Стил приказивања Extended Statusbar-а">
+<!ENTITY esb.usenewstyle "Нови стил">
+<!ENTITY esb.usenewstyle.accesskey "Н">
+<!ENTITY esb.usenewstyle.tooltip "Приказује Extended Statusbar изнад постојеће статусне линије">
+<!ENTITY esb.hide "Сакриј Extended Statusbar">
+<!ENTITY esb.hide.tooltip "Сакрива Extended Statusbar након што се страница потпуно учита">
+<!ENTITY esb.hide.accesskey "С">
+<!ENTITY esb.hideafter "Сакриј након:">
+<!ENTITY esb.seconds "секунди">
+<!ENTITY esb.showonhover "Прикажи после задржавања курсора на статусној линији">
+<!ENTITY esb.showonhover.accesskey "П">
+<!ENTITY esb.hovering "Чекај:">
+<!ENTITY esb.secondsdisplay "милисекунди">
+<!ENTITY esb.hideonsites "Не приказуј Extended Statusbar на следећим сајтовима (одвајати знаком &apos;|&apos;):">
+<!ENTITY esb.hideonsites.tooltip "Корисно за AJAX сајтове као што је Gmail">
+<!ENTITY esb.appendcurrent "Додај текућу страницу">
+<!ENTITY esb.appendcurrent.accesskey "Д">
+<!ENTITY esb.customstyle "Кориснички дефинисан стил">
+<!ENTITY esb.customstyle.accesskey "К">
+<!ENTITY esb.customstyle.tooltip "Ако ваша тема подржава Extended Statusbar, не активирајте кориснички дефинисан стил!">
+<!ENTITY esb.backgroundcolor "Позадина:">
+<!ENTITY esb.progresscolor "Линија прогреса:">
+<!ENTITY esb.cursorcolor "Курсор учитавања:">
+<!ENTITY esb.textcolor "Текст:">
+<!ENTITY esb.useoldstyle "Класични стил">
+<!ENTITY esb.useoldstyle.accesskey "ч">
+<!ENTITY esb.useoldstyle.tooltip "Extended Statusbar је интегрисан у статусну линију">
+<!ENTITY esb.oldslimmode "Компактни режим">
+<!ENTITY esb.oldslimmode.accesskey "т">
+<!ENTITY esb.oldslimmode.tooltip "Сакрива лабеле и приказује само бројеве">
+<!ENTITY esb.hideindelements "Сакриј поједине ставке">
+<!ENTITY esb.oldhideimages "Сакриј слике">
+<!ENTITY esb.hideoldimages.accesskey "л">
+<!ENTITY esb.oldhideloaded "Сакриј учитано">
+<!ENTITY esb.oldhideloaded.accesskey "у">
+<!ENTITY esb.oldhidespeed "Сакриј брзину">
+<!ENTITY esb.oldhidespeed.accesskey "б">
+<!ENTITY esb.oldhidetime "Сакриј време">
+<!ENTITY esb.oldhidetime.accesskey "в">
+<!ENTITY esb.oldhidepercent "Сакриј проценат">
+<!ENTITY esb.oldhidepercent.accesskey "ц">

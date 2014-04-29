@@ -1,0 +1,43 @@
+<!ENTITY esb.title "Extended Statusbar Settings">
+<!ENTITY esb.pane1.title "General">
+<!ENTITY esb.displaystyle "Extended Statusbar Display Style">
+<!ENTITY esb.usenewstyle "New Style">
+<!ENTITY esb.usenewstyle.accesskey "N">
+<!ENTITY esb.usenewstyle.tooltip "Displays Extended Statusbar above Firefox&apos;s statusbar">
+<!ENTITY esb.hide "Hide Extended Statusbar">
+<!ENTITY esb.hide.tooltip "Hides Extended Statusbar after the page has been loaded.">
+<!ENTITY esb.hide.accesskey "H">
+<!ENTITY esb.hideafter "Hide after:">
+<!ENTITY esb.seconds "seconds">
+<!ENTITY esb.showonhover "Show while hovering over status bar">
+<!ENTITY esb.showonhover.accesskey "S">
+<!ENTITY esb.hovering "Delay:">
+<!ENTITY esb.secondsdisplay "milliseconds">
+<!ENTITY esb.hideonsites "Don&apos;t show on these sites (separate with &apos;|&apos;):">
+<!ENTITY esb.hideonsites.tooltip "Useful for AJAX sites like Gmail">
+<!ENTITY esb.appendcurrent "Append Current Page">
+<!ENTITY esb.appendcurrent.accesskey "A">
+<!ENTITY esb.customstyle "Custom style">
+<!ENTITY esb.customstyle.accesskey "C">
+<!ENTITY esb.customstyle.tooltip "Disable custom styles if your current theme supports Extended Statusbar!">
+<!ENTITY esb.backgroundcolor "Background:">
+<!ENTITY esb.progresscolor "Progressbar:">
+<!ENTITY esb.cursorcolor "Loaded cursor:">
+<!ENTITY esb.textcolor "Text:">
+<!ENTITY esb.useoldstyle "Classic Style">
+<!ENTITY esb.useoldstyle.accesskey "l">
+<!ENTITY esb.useoldstyle.tooltip "Displays Extended Statusbar inside Firefox&apos;s statusbar">
+<!ENTITY esb.oldslimmode "Slim mode">
+<!ENTITY esb.oldslimmode.accesskey "m">
+<!ENTITY esb.oldslimmode.tooltip "Hides labels and displays only numbers">
+<!ENTITY esb.hideindelements "Hide individual elements">
+<!ENTITY esb.oldhideimages "Hide Images">
+<!ENTITY esb.hideoldimages.accesskey "I">
+<!ENTITY esb.oldhideloaded "Hide Loaded">
+<!ENTITY esb.oldhideloaded.accesskey "o">
+<!ENTITY esb.oldhidespeed "Hide Speed">
+<!ENTITY esb.oldhidespeed.accesskey "d">
+<!ENTITY esb.oldhidetime "Hide Time">
+<!ENTITY esb.oldhidetime.accesskey "T">
+<!ENTITY esb.oldhidepercent "Hide Percent">
+<!ENTITY esb.oldhidepercent.accesskey "P">

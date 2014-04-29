@@ -1,0 +1,23 @@
+<!ENTITY previewColour.label "Előnézet:">
+<!ENTITY cpWinTitle.title "Színválasztó">
+<!ENTITY predef.label "Előre meghatározott színek:">
+<!ENTITY rgb.label "RGB">
+<!ENTITY hsb.label "HSB">
+<!ENTITY red.label "Vörös:">
+<!ENTITY green.label "Zöld:">
+<!ENTITY blue.label "Kék:">
+<!ENTITY hue.label "Árnyalat:">
+<!ENTITY saturation.label "Telítettség:">
+<!ENTITY brightness.label "Fényesség:">
+<!ENTITY hexColor.label "Hexadecimális érték:">
+<!ENTITY nameColor.label "Név:">
+<!ENTITY cpUseThemeDef.label "Alapértelmezett színek használata">
+<!ENTITY transparency.label "Átlátszó">
+<!ENTITY background.label "Háttér:">
+<!ENTITY background.accessKey "H">
+<!ENTITY table.label "Tábla">
+<!ENTITY table.accessKey "T">
+<!ENTITY cell.label "Cella">
+<!ENTITY cell.accessKey "C">
+<!ENTITY lastPickedColor.label "Legutóbbi szín">
+<!ENTITY lastPickedColor.accessKey "L">
