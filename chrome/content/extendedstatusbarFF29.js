@@ -39,7 +39,7 @@ XULExtendedStatusbarChrome.hideESB = function ()
 {
 	if (XULExtendedStatusbarChrome.esbTimeOutSem)
 	{
-		XULExtendedStatusbarChrome.esbXUL.extendedstatusbar.hidden = true;
+		XULExtendedStatusbarChrome.esbXUL.esbbar.hidden = true;
 		XULExtendedStatusbarChrome.esbTimeOutSem = false;
 	}
 }
@@ -137,6 +137,7 @@ XULExtendedStatusbarChrome.esbXUL =
 		this.time_label = document.getElementById("ESB_time_label");
 		this.speed_label = document.getElementById("ESB_speed_label");
 		this.extendedstatusbar = document.getElementById("ESB_status-bar");
+		this.esbbar = document.getElementById("esb-bar");
 		this.esb_gBundle = Components.classes["@mozilla.org/intl/stringbundle;1"].getService(Components.interfaces.nsIStringBundleService);
 		this.esbstrings = this.esb_gBundle.createBundle("chrome://extendedstatusbar/locale/extendedstatusbar.properties");
 		this.old_images = document.getElementById("ESB_old_images");
@@ -224,6 +225,7 @@ XULExtendedStatusbarChrome.esbListener =
 			if (!XULExtendedStatusbarChrome.esbOldStyle && !XULExtendedStatusbarChrome.hideForSitesSem)
 			{
 				XULExtendedStatusbarChrome.cancelTimeOut(XULExtendedStatusbarChrome.hideTimeOut);
+				XULExtendedStatusbarChrome.esbXUL.esbbar.hidden = false;
 				XULExtendedStatusbarChrome.esbXUL.extendedstatusbar.hidden = false;
 			}
 			//dump("window.outerWidth=" + window.outerWidth + "\n");
@@ -420,6 +422,7 @@ XULExtendedStatusbarChrome.esbListener =
 				if (!XULExtendedStatusbarChrome.esbOldStyle && XULExtendedStatusbarChrome.esbLoading)
 				{
 					XULExtendedStatusbarChrome.cancelTimeOut(XULExtendedStatusbarChrome.hideTimeOut);
+					XULExtendedStatusbarChrome.esbXUL.esbbar.hidden = false;
 					XULExtendedStatusbarChrome.esbXUL.extendedstatusbar.hidden = false;
 				}
 			}
@@ -578,7 +581,8 @@ XULExtendedStatusbarChrome.ESB_PrefObserver = {
 	observe: function(subject, topic, data)
 	{
 		if (topic != "nsPref:changed") return;
-
+		
+		XULExtendedStatusbarChrome.esbXUL.esbbar.hidden = false;
 		switch(data)
 		{
 			case "hide":
