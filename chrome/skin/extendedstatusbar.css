@@ -1,7 +1,7 @@
 /* Adding a button modifies the toolbar's height, we need to make it unchangeable somehow */
 #esb-bar
 {
-	height: 20px;
+	height: 22px;
 }
 
 /* Needed to fix the broken button appearance, maybe the result of some skin bug in australis */
