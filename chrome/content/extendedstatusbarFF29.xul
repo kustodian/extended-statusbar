@@ -7,7 +7,7 @@
 	<script type="application/x-javascript" src="chrome://extendedstatusbar/content/extendedstatusbarFF29.js"/>
 	
 	<vbox id="browser-bottombox">
-		<toolbar id="esb-bar" toolbarname="Extended status bar" toolboxid="navigator-toolbox" accesskey="E" class="toolbar-primary chromeclass-toolbar" customizable="true" context="toolbar-context-menu" hidden="false" persist="hidden" mode="icons" iconsize="small">
+		<toolbar id="esb-bar" toolbarname="Extended Statusbar" toolboxid="navigator-toolbox" accesskey="E" class="toolbar-primary chromeclass-toolbar" customizable="true" context="toolbar-context-menu" hidden="false" persist="hidden" mode="icons" iconsize="small">
 			<hbox id="ESB_status-bar" align="center" hidden="true">
 				<stack id="ESB_document_working_box" tooltiptext="&esb.percentage;" width="135">
 					<hbox height="20">
