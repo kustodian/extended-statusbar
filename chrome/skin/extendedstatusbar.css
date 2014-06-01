@@ -1,3 +1,33 @@
+/* Adding a button modifies the toolbar's height, we need to make it unchangeable somehow */
+#esb-bar
+{
+	height: 22px;
+}
+
+/* Needed to fix the broken button appearance, maybe the result of some skin bug in australis */
+#esb-bar .toolbarbutton-1,
+#esb-bar .toolbarbutton-1 > .toolbarbutton-menubutton-button
+{
+	-moz-appearance: none;
+	border-style: none;
+	padding: 0 2px;
+}
+
+#esb-bar .toolbarbutton-1:not([disabled]):hover,
+#esb-bar .toolbarbutton-1[open],
+#esb-bar .toolbarbutton-1 > .toolbarbutton-menubutton-button:not([disabled]):hover
+{
+	background-image: linear-gradient(to bottom, transparent, #C4DEFF),linear-gradient(to bottom, transparent, #C4DEFF 50%),linear-gradient(to bottom, transparent, #C4DEFF 50%);
+	background-position: left;
+	background-size: auto, 1px 100%, 1px 100%;
+	background-repeat: no-repeat;
+}
+
+/* We need to see the spacer in customization mode */
+#main-window[customize-entered] :-moz-any(toolbarspacer):not([cui-areatype="menu-panel"]) {
+	border: 10px solid black;
+}
+
 #ESB_status-bar {
 }
 

@@ -65,18 +65,18 @@ XULExtendedStatusbarChrome.cancelHover = function (Hover)
 XULExtendedStatusbarChrome.showESBOnHover = function ()
 {
 if (!XULExtendedStatusbarChrome.esbOldStyle && XULExtendedStatusbarChrome.esbHide && XULExtendedStatusbarChrome.showOnHover && !XULExtendedStatusbarChrome.esbLoading)
-{
-	XULExtendedStatusbarChrome.hoverSem = true;
-	XULExtendedStatusbarChrome.hoverTimeOut = window.setTimeout(function()
-					{
-						XULExtendedStatusbarChrome.hoverSem = false;
-						XULExtendedStatusbarChrome.cancelTimeOut(XULExtendedStatusbarChrome.hideTimeOut);
-						if (XULExtendedStatusbarChrome.esbXUL.extendedstatusbar.hidden)
-						{
-							XULExtendedStatusbarChrome.esbXUL.extendedstatusbar.hidden = false;
-						};
-					}, XULExtendedStatusbarChrome.hoverWait);
-}
+	{
+		XULExtendedStatusbarChrome.hoverSem = true;
+		XULExtendedStatusbarChrome.hoverTimeOut = window.setTimeout(function()
+		{
+			XULExtendedStatusbarChrome.hoverSem = false;
+			XULExtendedStatusbarChrome.cancelTimeOut(XULExtendedStatusbarChrome.hideTimeOut);
+			if (XULExtendedStatusbarChrome.esbXUL.extendedstatusbar.hidden)
+			{
+				XULExtendedStatusbarChrome.esbXUL.extendedstatusbar.hidden = false;
+			};
+		}, XULExtendedStatusbarChrome.hoverWait);
+	}
 }
 
 XULExtendedStatusbarChrome.hideESBOnHover = function ()
@@ -144,6 +144,11 @@ XULExtendedStatusbarChrome.esbXUL =
 		this.old_loaded = document.getElementById("ESB_old_loaded");
 		this.old_speed = document.getElementById("ESB_old_speed");
 		this.old_time = document.getElementById("ESB_old_time");
+		
+		// Let the toolbar be customizable and element placement correctly saved
+		CustomizableUI.registerArea("esb-bar",{
+			type: CustomizableUI.TYPE_TOOLBAR,
+			defaultPlacements: ["ESB_status-bar","extended-statusbar","esb-spacer"]});
 		
 		// Display ESB before other items in the addon-bar
 		// var addonBar = document.getElementById("addon-bar");
