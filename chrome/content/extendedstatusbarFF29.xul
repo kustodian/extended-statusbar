@@ -64,6 +64,7 @@
 				<statusbarpanel id="ESB_old_loaded" tooltiptext="&esb.dataloaded;" minwidth="1"/>
 				<statusbarpanel id="ESB_old_speed" tooltiptext="&esb.avgspeed;" minwidth="1"/>
 				<statusbarpanel id="ESB_old_time" tooltiptext="&esb.time;" minwidth="1"/>
+                <statusbarpanel id="ESB_old_percent" tooltiptext="&esb.percentage;" minwidth="1"/>
 			</toolbaritem>
 			<toolbarspacer id="esb-spacer" flex="1"/>
 		</toolbar>
