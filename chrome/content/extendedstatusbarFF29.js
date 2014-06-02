@@ -208,7 +208,6 @@ XULExtendedStatusbarChrome.esbListener =
 			//    esbXUL.new_status_bar.hidden = true;
 			//}
 			// New
-			console.log("onstatechange");
 			XULExtendedStatusbarChrome.esbXUL.document_label.value = XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.document") + " 0%";
 			XULExtendedStatusbarChrome.esbXUL.document_progressbar.width = 0;
 			XULExtendedStatusbarChrome.esbXUL.document_start.hidden = false;
