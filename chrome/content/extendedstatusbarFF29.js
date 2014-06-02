@@ -25,14 +25,14 @@ XULExtendedStatusbarChrome.registerESBListener = function ()
 {
 	XULExtendedStatusbarChrome.esbXUL.init();
 	XULExtendedStatusbarChrome.esbListener.init();
-	window.getBrowser().addProgressListener(XULExtendedStatusbarChrome.esbListener, XULExtendedStatusbarChrome.esbIWebProgressListener.STATE_START);
+	window.getBrowser().addProgressListener(XULExtendedStatusbarChrome.esbListener);
 }
 
 XULExtendedStatusbarChrome.unregisterESBListener = function ()
 {
 	XULExtendedStatusbarChrome.esbXUL.destroy();
 	XULExtendedStatusbarChrome.esbListener.destroy();
-	window.getBrowser().removeProgressListener(XULExtendedStatusbarChrome.esbListener, XULExtendedStatusbarChrome.esbIWebProgressListener.STATE_STOP);
+	window.getBrowser().removeProgressListener(XULExtendedStatusbarChrome.esbListener);
 }
 
 XULExtendedStatusbarChrome.hideESB = function ()
