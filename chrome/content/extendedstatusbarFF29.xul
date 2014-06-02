@@ -13,6 +13,7 @@
 				<statusbarpanel id="ESB_old_loaded" tooltiptext="&esb.dataloaded;" minwidth="1"/>
 				<statusbarpanel id="ESB_old_speed" tooltiptext="&esb.avgspeed;" minwidth="1"/>
 				<statusbarpanel id="ESB_old_time" tooltiptext="&esb.time;" minwidth="1"/>
+                <statusbarpanel id="ESB_old_percent" tooltiptext="&esb.percentage;" minwidth="1"/>
 			</hbox>
 			<hbox id="ESB_new_status_bar">
 				<stack id="ESB_document_working_box" tooltiptext="&esb.percentage;" width="135">
@@ -69,7 +70,7 @@
 	</toolbarpalette>
 	
 	<vbox id="browser-bottombox">
-		<toolbar id="ESB_toolbar" toolbarname="Extended status bar" toolboxid="navigator-toolbox" accesskey="E" class="toolbar-primary chromeclass-toolbar" customizable="true" context="toolbar-context-menu" hidden="false" persist="hidden" mode="icons" iconsize="small">
+		<toolbar id="ESB_toolbar" toolbarname="Extended Statusbar" toolboxid="navigator-toolbox" accesskey="E" class="toolbar-primary chromeclass-toolbar" customizable="true" context="toolbar-context-menu" hidden="false" persist="hidden" mode="icons" iconsize="small">
 			<toolbarspacer id="ESB_toolbarspacer" flex="1"/>
 		</toolbar>
 	</vbox> 

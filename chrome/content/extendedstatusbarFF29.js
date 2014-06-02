@@ -120,6 +120,7 @@ XULExtendedStatusbarChrome.esbXUL =
 	get old_loaded() {return document.getElementById("ESB_old_loaded");},
 	get old_speed() {return document.getElementById("ESB_old_speed");},
 	get old_time() {return document.getElementById("ESB_old_time");},
+	get old_percent() {return document.getElementById("ESB_old_percent");},
 	
 	init: function()
 	{
@@ -234,6 +235,7 @@ XULExtendedStatusbarChrome.esbListener =
 				XULExtendedStatusbarChrome.esbXUL.old_speed.label = XULExtendedStatusbarChrome.esbXUL.speed_label.value;
 				XULExtendedStatusbarChrome.esbXUL.old_time.label = XULExtendedStatusbarChrome.esbXUL.time_label.value;
 			}
+            XULExtendedStatusbarChrome.esbXUL.old_percent.label = " 0%";
 		}
 		else if (aStateFlags & XULExtendedStatusbarChrome.esbIWebProgressListener.STATE_STOP &&
 				 aStateFlags & XULExtendedStatusbarChrome.esbIWebProgressListener.STATE_IS_NETWORK)
@@ -258,6 +260,7 @@ XULExtendedStatusbarChrome.esbListener =
 			  XULExtendedStatusbarChrome.esbXUL.speed_label.width = XULExtendedStatusbarChrome.esbXUL.speed_label.boxObject.width;
 
 			// Old
+            XULExtendedStatusbarChrome.esbXUL.old_percent.label = "100%";
 			// Set size of panels to fit content, so the ESB elements don't always move left-right because the labels resize automatically
 			if (XULExtendedStatusbarChrome.esbXUL.old_images.minWidth < XULExtendedStatusbarChrome.esbXUL.old_images.boxObject.width)
 			  XULExtendedStatusbarChrome.esbXUL.old_images.minWidth = XULExtendedStatusbarChrome.esbXUL.old_images.boxObject.width;
@@ -267,6 +270,8 @@ XULExtendedStatusbarChrome.esbListener =
 			  XULExtendedStatusbarChrome.esbXUL.old_speed.minWidth = XULExtendedStatusbarChrome.esbXUL.old_speed.boxObject.width;
 			if (XULExtendedStatusbarChrome.esbXUL.old_time.minWidth < XULExtendedStatusbarChrome.esbXUL.old_time.boxObject.width)
 			  XULExtendedStatusbarChrome.esbXUL.old_time.minWidth = XULExtendedStatusbarChrome.esbXUL.old_time.boxObject.width;
+            if (XULExtendedStatusbarChrome.esbXUL.old_percent.minWidth < XULExtendedStatusbarChrome.esbXUL.old_percent.boxObject.width)
+			  XULExtendedStatusbarChrome.esbXUL.old_percent.minWidth = XULExtendedStatusbarChrome.esbXUL.old_percent.boxObject.width;
 
 			// Set hide timeout
 			if(!XULExtendedStatusbarChrome.esbOldStyle && XULExtendedStatusbarChrome.esbHide && !XULExtendedStatusbarChrome.esbTimeOutSem)
@@ -328,6 +333,7 @@ XULExtendedStatusbarChrome.esbListener =
 			XULExtendedStatusbarChrome.esbXUL.loadedimages.value = XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.images") + " " + imglcount + "/" + allimgsc;
 			XULExtendedStatusbarChrome.esbXUL.loaded_start_label.value = XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.loaded") + " " + compdocsize + " " + sizeinval;
 			XULExtendedStatusbarChrome.esbXUL.loaded_progressbar.width = compdocsize*4 % XULExtendedStatusbarChrome.esbXUL.loaded_start.boxObject.width;
+			XULExtendedStatusbarChrome.esbXUL.old_percent.label = percentage + "%";
 			if (XULExtendedStatusbarChrome.esbOldSlimMode)
 			{
 				XULExtendedStatusbarChrome.esbXUL.old_images.label = imglcount + "/" + allimgsc;
@@ -528,6 +534,7 @@ XULExtendedStatusbarChrome.ESB_PrefObserver = {
 			if (this.prefs.getBoolPref("oldhideloaded")) XULExtendedStatusbarChrome.esbXUL.old_loaded.hidden = true;
 			if (this.prefs.getBoolPref("oldhidespeed")) XULExtendedStatusbarChrome.esbXUL.old_speed.hidden = true;
 			if (this.prefs.getBoolPref("oldhidetime")) XULExtendedStatusbarChrome.esbXUL.old_time.hidden = true;
+			if (this.prefs.getBoolPref("oldhidepercent")) XULExtendedStatusbarChrome.esbXUL.old_percent.hidden = true;
 		}
 		else
 		{
@@ -535,6 +542,7 @@ XULExtendedStatusbarChrome.ESB_PrefObserver = {
 			XULExtendedStatusbarChrome.esbXUL.old_loaded.hidden = true;
 			XULExtendedStatusbarChrome.esbXUL.old_speed.hidden = true;
 			XULExtendedStatusbarChrome.esbXUL.old_time.hidden = true;
+			XULExtendedStatusbarChrome.esbXUL.old_percent.hidden = true;
 		}
 	},
 
@@ -645,6 +653,10 @@ XULExtendedStatusbarChrome.ESB_PrefObserver = {
 				if (this.prefs.getBoolPref("oldhidetime")) XULExtendedStatusbarChrome.esbXUL.old_time.hidden = true;
 				else XULExtendedStatusbarChrome.esbXUL.old_time.hidden = false;
 				break;
+			case "oldhidepercent":
+				if (this.prefs.getBoolPref("oldhidepercent")) XULExtendedStatusbarChrome.esbXUL.old_percent.hidden = true;
+				else XULExtendedStatusbarChrome.esbXUL.old_percent.hidden = false;
+				break;
 			case "oldstyle":
 				XULExtendedStatusbarChrome.esbOldStyle = this.prefs.getBoolPref("oldstyle");
 				if (XULExtendedStatusbarChrome.esbOldStyle)
@@ -657,6 +669,8 @@ XULExtendedStatusbarChrome.ESB_PrefObserver = {
 						else XULExtendedStatusbarChrome.esbXUL.old_speed.hidden = false;
 					if (this.prefs.getBoolPref("oldhidetime")) XULExtendedStatusbarChrome.esbXUL.old_time.hidden = true;
 						else XULExtendedStatusbarChrome.esbXUL.old_time.hidden = false;
+					if (this.prefs.getBoolPref("oldhidepercent")) XULExtendedStatusbarChrome.esbXUL.old_percent.hidden = true;
+						else XULExtendedStatusbarChrome.esbXUL.old_percent.hidden = false;
 					XULExtendedStatusbarChrome.esbXUL.new_status_bar.hidden = true;
 				}
 				else
@@ -665,6 +679,7 @@ XULExtendedStatusbarChrome.ESB_PrefObserver = {
 					XULExtendedStatusbarChrome.esbXUL.old_loaded.hidden = true;
 					XULExtendedStatusbarChrome.esbXUL.old_speed.hidden = true;
 					XULExtendedStatusbarChrome.esbXUL.old_time.hidden = true;
+					XULExtendedStatusbarChrome.esbXUL.old_percent.hidden = true;
 					XULExtendedStatusbarChrome.esbXUL.new_status_bar.hidden = false;
 					// Set hide timeout
 					if(!XULExtendedStatusbarChrome.esbOldStyle && XULExtendedStatusbarChrome.esbHide && !XULExtendedStatusbarChrome.esbTimeOutSem)
