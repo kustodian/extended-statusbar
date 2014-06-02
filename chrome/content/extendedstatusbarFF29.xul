@@ -6,9 +6,15 @@
 
 	<script type="application/x-javascript" src="chrome://extendedstatusbar/content/extendedstatusbarFF29.js"/>
 	
-	<vbox id="browser-bottombox">
-		<toolbar id="esb-bar" toolbarname="Extended status bar" toolboxid="navigator-toolbox" accesskey="E" class="toolbar-primary chromeclass-toolbar" customizable="true" context="toolbar-context-menu" hidden="false" persist="hidden" mode="icons" iconsize="small">
-			<hbox id="ESB_status-bar" align="center" hidden="true">
+	<toolbarpalette id="BrowserToolbarPalette">
+		<toolbaritem id="ESB_toolbaritem" removable="true" title="Extended Status Bar">
+			<hbox id="ESB_old_status_bar" onmouseover="XULExtendedStatusbarChrome.showESBOnHover();" onmouseout="XULExtendedStatusbarChrome.hideESBOnHover();">
+				<statusbarpanel id="ESB_old_images" tooltiptext="&esb.loadedimages;" minwidth="1"/>
+				<statusbarpanel id="ESB_old_loaded" tooltiptext="&esb.dataloaded;" minwidth="1"/>
+				<statusbarpanel id="ESB_old_speed" tooltiptext="&esb.avgspeed;" minwidth="1"/>
+				<statusbarpanel id="ESB_old_time" tooltiptext="&esb.time;" minwidth="1"/>
+			</hbox>
+			<hbox id="ESB_new_status_bar">
 				<stack id="ESB_document_working_box" tooltiptext="&esb.percentage;" width="135">
 					<hbox height="20">
 						<hbox id="ESB_document_working_progressbar"/>
@@ -59,13 +65,12 @@
 					<label id="ESB_time_label" tooltiptext="&esb.time;" flex="1"/>
 				</hbox>
 			</hbox>
-			<toolbaritem id="extended-statusbar" onmouseover="XULExtendedStatusbarChrome.showESBOnHover();" onmouseout="XULExtendedStatusbarChrome.hideESBOnHover();">
-				<statusbarpanel id="ESB_old_images" tooltiptext="&esb.loadedimages;" minwidth="1"/>
-				<statusbarpanel id="ESB_old_loaded" tooltiptext="&esb.dataloaded;" minwidth="1"/>
-				<statusbarpanel id="ESB_old_speed" tooltiptext="&esb.avgspeed;" minwidth="1"/>
-				<statusbarpanel id="ESB_old_time" tooltiptext="&esb.time;" minwidth="1"/>
-			</toolbaritem>
-			<toolbarspacer id="esb-spacer" flex="1"/>
+		</toolbaritem>
+	</toolbarpalette>
+	
+	<vbox id="browser-bottombox">
+		<toolbar id="ESB_toolbar" toolbarname="Extended status bar" toolboxid="navigator-toolbox" accesskey="E" class="toolbar-primary chromeclass-toolbar" customizable="true" context="toolbar-context-menu" hidden="false" persist="hidden" mode="icons" iconsize="small">
+			<toolbarspacer id="ESB_toolbarspacer" flex="1"/>
 		</toolbar>
 	</vbox> 
 </overlay>
