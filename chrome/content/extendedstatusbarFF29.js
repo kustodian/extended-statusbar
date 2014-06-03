@@ -128,9 +128,16 @@ XULExtendedStatusbarChrome.esbXUL =
 		this.esbstrings = this.esb_gBundle.createBundle("chrome://extendedstatusbar/locale/extendedstatusbar.properties");
 		
 		// Let the toolbar be customizable and element placement correctly saved
-		CustomizableUI.registerArea("ESB_toolbar",{
-			type: CustomizableUI.TYPE_TOOLBAR,
-			defaultPlacements: ["ESB_toolbaritem","ESB_toolbarspacer"]});
+		try
+		{
+			CustomizableUI.registerArea("ESB_toolbar",{
+				type: CustomizableUI.TYPE_TOOLBAR,
+				defaultPlacements: ["ESB_toolbaritem","ESB_toolbarspacer"]});
+		}
+		catch(err)
+		{
+			//already registered
+		}
 		
 		// Display ESB before other items in the addon-bar
 		// var addonBar = document.getElementById("addon-bar");
