@@ -576,7 +576,7 @@ XULExtendedStatusbarChrome.ESB_PrefObserver = {
 					{
 						XULExtendedStatusbarChrome.esbXUL.new_status_bar.hidden = false;
 					}
-					else if (!XULExtendedStatusbarChrome.esbLoading)
+					else if (XULExtendedStatusbarChrome.esbHide && !XULExtendedStatusbarChrome.esbLoading)
 					{
 						XULExtendedStatusbarChrome.cancelTimeOut(XULExtendedStatusbarChrome.hideTimeOut);
 						XULExtendedStatusbarChrome.esbTimeOutSem = true;

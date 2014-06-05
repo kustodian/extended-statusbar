@@ -7,7 +7,7 @@
 	<script type="application/x-javascript" src="chrome://extendedstatusbar/content/extendedstatusbarFF29.js"/>
 	
 	<toolbarpalette id="BrowserToolbarPalette">
-		<toolbaritem id="ESB_toolbaritem" removable="true" title="Extended Status Bar">
+		<toolbaritem id="ESB_toolbaritem" title="Extended Statusbar" removable="true">
 			<hbox id="ESB_old_status_bar" onmouseover="XULExtendedStatusbarChrome.showESBOnHover();" onmouseout="XULExtendedStatusbarChrome.hideESBOnHover();">
 				<statusbarpanel id="ESB_old_images" tooltiptext="&esb.loadedimages;" minwidth="1"/>
 				<statusbarpanel id="ESB_old_loaded" tooltiptext="&esb.dataloaded;" minwidth="1"/>
