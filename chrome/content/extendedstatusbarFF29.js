@@ -6,6 +6,7 @@ if ("undefined" == typeof(XULExtendedStatusbarChrome)) {
 }
 
 /*          Vars         */
+XULExtendedStatusbarChrome.started = false;    //If True ESB is started
 XULExtendedStatusbarChrome.esbHide;    //If True ESB will hide
 XULExtendedStatusbarChrome.esbWait;    //How long to wait before hiding
 XULExtendedStatusbarChrome.hideTimeOut;    //Name says it all
@@ -21,15 +22,30 @@ XULExtendedStatusbarChrome.esbOldStyle;
 XULExtendedStatusbarChrome.esbOldSlimMode;
 XULExtendedStatusbarChrome.esbIWebProgressListener = Components.interfaces.nsIWebProgressListener;  //this has to have a unique name because a lot of oxtensions are using it
 
-XULExtendedStatusbarChrome.registerESBListener = function ()
+XULExtendedStatusbarChrome.init = function ()
 {
-	XULExtendedStatusbarChrome.esbXUL.init();
-	XULExtendedStatusbarChrome.esbListener.init();
-	window.getBrowser().addProgressListener(XULExtendedStatusbarChrome.esbListener);
+	var toolbaritem = document.getElementById("ESB_toolbaritem");
+	if(toolbaritem)
+	{
+		if(!XULExtendedStatusbarChrome.started && CustomizableUI.getPlaceForItem(toolbaritem) == "toolbar")
+		{
+			XULExtendedStatusbarChrome.esbXUL.init();
+			XULExtendedStatusbarChrome.ESB_PrefObserver.startup();
+			XULExtendedStatusbarChrome.esbListener.init();
+			window.getBrowser().addProgressListener(XULExtendedStatusbarChrome.esbListener);
+			XULExtendedStatusbarChrome.started = true;
+		}
+		else if(XULExtendedStatusbarChrome.started && CustomizableUI.getPlaceForItem(toolbaritem) == "palette")
+		{
+			XULExtendedStatusbarChrome.uninit();
+			XULExtendedStatusbarChrome.started = false;
+		}
+	}
 }
 
-XULExtendedStatusbarChrome.unregisterESBListener = function ()
+XULExtendedStatusbarChrome.uninit = function ()
 {
+	XULExtendedStatusbarChrome.ESB_PrefObserver.shutdown();
 	XULExtendedStatusbarChrome.esbXUL.destroy();
 	XULExtendedStatusbarChrome.esbListener.destroy();
 	window.getBrowser().removeProgressListener(XULExtendedStatusbarChrome.esbListener);
@@ -93,9 +109,15 @@ XULExtendedStatusbarChrome.hideESBOnHover = function ()
 	}
 }
 
+// Let the toolbar be customizable and element placement correctly saved
+CustomizableUI.registerArea("ESB_toolbar",{
+	type: CustomizableUI.TYPE_TOOLBAR,
+	defaultPlacements: ["ESB_toolbaritem","ESB_toolbarspacer"]});
+	
 //Load progress listeners at window load
-window.addEventListener("load", XULExtendedStatusbarChrome.registerESBListener, false);
-window.addEventListener("unload", XULExtendedStatusbarChrome.unregisterESBListener, false);
+window.addEventListener("load", XULExtendedStatusbarChrome.init, false);
+window.addEventListener("unload", XULExtendedStatusbarChrome.uninit, false);
+window.addEventListener("customizationchange", XULExtendedStatusbarChrome.init, false);
 
 XULExtendedStatusbarChrome.esbXUL =
 {
@@ -126,18 +148,6 @@ XULExtendedStatusbarChrome.esbXUL =
 	{
 		this.esb_gBundle = Components.classes["@mozilla.org/intl/stringbundle;1"].getService(Components.interfaces.nsIStringBundleService);
 		this.esbstrings = this.esb_gBundle.createBundle("chrome://extendedstatusbar/locale/extendedstatusbar.properties");
-		
-		// Let the toolbar be customizable and element placement correctly saved
-		try
-		{
-			CustomizableUI.registerArea("ESB_toolbar",{
-				type: CustomizableUI.TYPE_TOOLBAR,
-				defaultPlacements: ["ESB_toolbaritem","ESB_toolbarspacer"]});
-		}
-		catch(err)
-		{
-			//already registered
-		}
 		
 		// Display ESB before other items in the addon-bar
 		// var addonBar = document.getElementById("addon-bar");
@@ -753,8 +763,8 @@ XULExtendedStatusbarChrome.ESB_PrefObserver = {
 	}
 }
 
-window.addEventListener("load", function(e) { XULExtendedStatusbarChrome.ESB_PrefObserver.startup(); }, false);
-window.addEventListener("unload", function(e) { XULExtendedStatusbarChrome.ESB_PrefObserver.shutdown(); }, false);
+//window.addEventListener("load", function(e) { XULExtendedStatusbarChrome.ESB_PrefObserver.startup(); }, false);
+//window.addEventListener("unload", function(e) { XULExtendedStatusbarChrome.ESB_PrefObserver.shutdown(); }, false);
 
 XULExtendedStatusbarChrome.openESBOptions = function (event)
 {

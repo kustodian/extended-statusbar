@@ -28,6 +28,27 @@
 	border: 10px solid black;
 }
 
+/* We need to adapt the widget for the customization panel */
+toolbarpaletteitem[place="palette"] > #ESB_toolbaritem  > #ESB_old_status_bar > #ESB_old_percent,
+toolbarpaletteitem[place="palette"] > #ESB_toolbaritem  > #ESB_old_status_bar > #ESB_old_loaded,
+toolbarpaletteitem[place="palette"] > #ESB_toolbaritem  > #ESB_old_status_bar > #ESB_old_images,
+toolbarpaletteitem[place="palette"] > #ESB_toolbaritem  > #ESB_old_status_bar > #ESB_old_speed,
+toolbarpaletteitem[place="palette"] > #ESB_toolbaritem  > #ESB_old_status_bar > #ESB_old_time,
+toolbarpaletteitem[place="palette"] > #ESB_toolbaritem  > #ESB_new_status_bar
+{
+	display: none !important;
+} 
+
+toolbarpaletteitem[place="palette"] > #ESB_toolbaritem  > #ESB_old_status_bar
+{
+	visibility: visible !important;
+	width: 32px;
+	background-repeat: no-repeat;
+	background-color: transparent !important;
+	background-position: center center;
+	background-image: url(chrome://extendedstatusbar/skin/icon.png) !important;
+}
+
 #ESB_new_status_bar {
 }
 
