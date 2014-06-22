@@ -24,7 +24,8 @@
 }
 
 /* We need to see the spacer in customization mode */
-#main-window[customize-entered] :-moz-any(toolbarspacer):not([cui-areatype="menu-panel"]) {
+#main-window[customize-entered] #ESB_toolbarspacer 
+{
 	border: 10px solid black;
 }
 
@@ -34,19 +35,40 @@ toolbarpaletteitem[place="palette"] > #ESB_toolbaritem  > #ESB_old_status_bar > 
 toolbarpaletteitem[place="palette"] > #ESB_toolbaritem  > #ESB_old_status_bar > #ESB_old_images,
 toolbarpaletteitem[place="palette"] > #ESB_toolbaritem  > #ESB_old_status_bar > #ESB_old_speed,
 toolbarpaletteitem[place="palette"] > #ESB_toolbaritem  > #ESB_old_status_bar > #ESB_old_time,
-toolbarpaletteitem[place="palette"] > #ESB_toolbaritem  > #ESB_new_status_bar
+toolbarpaletteitem[place="palette"] > #ESB_toolbaritem  > #ESB_new_status_bar,
+#ESB_toolbaritem[cui-areatype="menu-panel"] > #ESB_old_status_bar > #ESB_old_percent,
+#ESB_toolbaritem[cui-areatype="menu-panel"] > #ESB_old_status_bar > #ESB_old_loaded,
+#ESB_toolbaritem[cui-areatype="menu-panel"] > #ESB_old_status_bar > #ESB_old_images,
+#ESB_toolbaritem[cui-areatype="menu-panel"] > #ESB_old_status_bar > #ESB_old_speed,
+#ESB_toolbaritem[cui-areatype="menu-panel"] > #ESB_old_status_bar > #ESB_old_time,
+#ESB_toolbaritem[cui-areatype="menu-panel"] > #ESB_new_status_bar
 {
-	display: none !important;
+	display: none;
 } 
 
 toolbarpaletteitem[place="palette"] > #ESB_toolbaritem  > #ESB_old_status_bar
 {
-	visibility: visible !important;
 	width: 32px;
+	height: 32px;
 	background-repeat: no-repeat;
 	background-color: transparent !important;
 	background-position: center center;
 	background-image: url(chrome://extendedstatusbar/skin/icon.png) !important;
+}
+
+#ESB_toolbaritem[cui-areatype="menu-panel"] > #ESB_old_status_bar
+{
+	width: 89px;
+	height: 83px;
+	background-repeat: no-repeat;
+	background-color: transparent !important;
+	background-position: center center;
+	background-image: url(chrome://extendedstatusbar/skin/icon.png) !important;
+}
+
+#ESB_toolbaritem[cui-areatype="menu-panel"]
+{
+	border: 1px solid Black;
 }
 
 #ESB_new_status_bar {
