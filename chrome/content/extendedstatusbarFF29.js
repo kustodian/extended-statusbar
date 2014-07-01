@@ -132,7 +132,7 @@ XULExtendedStatusbarChrome.hideESBOnHover = function ()
 CustomizableUI.registerArea("ESB_toolbar",{
 	type: CustomizableUI.TYPE_TOOLBAR,
 	defaultPlacements: ["ESB_toolbaritem","ESB_toolbarspacer"]});
-				
+
 //Load progress listeners at window load
 window.addEventListener("load", XULExtendedStatusbarChrome.init, false);
 window.addEventListener("unload", XULExtendedStatusbarChrome.uninit, false);
@@ -992,3 +992,4 @@ XULExtendedStatusbarChrome.openESBOptions = function (event)
 {
 	window.open("chrome://extendedstatusbar/content/extendedstatusbaroptionsFF29.xul", "", "chrome");
 }
+
