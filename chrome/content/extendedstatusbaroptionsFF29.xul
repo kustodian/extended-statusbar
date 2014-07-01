@@ -53,7 +53,7 @@
 						<radiogroup id="esbRadioStyle" oncommand="XULExtendedStatusbarOptions.radioStateChange()" orient="vertical">
 							<radio id="oldstyle" label="&esb.useoldstyle;" accesskey="&esb.useoldstyle.accesskey;" tooltiptext="&esb.useoldstyle.tooltip;"/>
 							<radio id="newstyle" label="&esb.usenewstyle;" accesskey="&esb.usenewstyle.accesskey;" tooltiptext="&esb.usenewstyle.tooltip;"/>
-							<radio id="customstyle" label="Use your own style" accesskey="" tooltiptext=""/>
+							<radio id="customstyle" label="Use your own style (advanced mode)" accesskey="" tooltiptext=""/>
 						</radiogroup>
 						<grid id="stylegrid" hidden="true">
 							<columns>

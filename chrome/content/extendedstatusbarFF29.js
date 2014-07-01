@@ -214,21 +214,15 @@ XULExtendedStatusbarChrome.esbListener =
 	onTabSelect : function(aEvent) 
 	{
 		if (XULExtendedStatusbarChrome.hideForSites && 
-			aEvent.target.linkedBrowser.contentDocument.location.hostname.match(XULExtendedStatusbarChrome.hideForSites))
+			aEvent.target.linkedBrowser.contentDocument.location.href.match(XULExtendedStatusbarChrome.hideForSites))
 		{
 			XULExtendedStatusbarChrome.hideForSitesSem = true;
 			XULExtendedStatusbarChrome.esbXUL.esb_toolbar.hidden = true;
 			XULExtendedStatusbarChrome.esbXUL.status_bar.hidden = true;
 		}
-		else
+		else if(XULExtendedStatusbarChrome.esbLoading || !XULExtendedStatusbarChrome.esbHide)
 		{
 			XULExtendedStatusbarChrome.hideForSitesSem = false;
-			XULExtendedStatusbarChrome.cancelTimeOut(XULExtendedStatusbarChrome.hideTimeOut);
-			XULExtendedStatusbarChrome.esbXUL.esb_toolbar.hidden = false;
-			XULExtendedStatusbarChrome.esbXUL.status_bar.hidden = false;
-		}
-		if (!XULExtendedStatusbarChrome.hideForSitesSem)
-		{
 			XULExtendedStatusbarChrome.cancelTimeOut(XULExtendedStatusbarChrome.hideTimeOut);
 			XULExtendedStatusbarChrome.esbXUL.esb_toolbar.hidden = false;
 			XULExtendedStatusbarChrome.esbXUL.status_bar.hidden = false;
@@ -308,7 +302,8 @@ XULExtendedStatusbarChrome.esbListener =
 			{
 				XULExtendedStatusbarChrome.esbXUL.percent_progressbar.hidden = true;
 			}
-			XULExtendedStatusbarChrome.esbXUL.percent_progressbar.width = Math.round(aBrowser.esbValues.percent * (XULExtendedStatusbarChrome.esbXUL.percent_box.boxObject.width - parseInt(XULExtendedStatusbarChrome.esbXUL.percent_box.style.borderRight) - 2) / 100);
+			var progressBorderWidth = parseInt(XULExtendedStatusbarChrome.esbXUL.percent_box.style.borderRight);
+			XULExtendedStatusbarChrome.esbXUL.percent_progressbar.width = Math.round(aBrowser.esbValues.percent * (XULExtendedStatusbarChrome.esbXUL.percent_box.boxObject.width - (isNaN(progressBorderWidth) ? 1 : progressBorderWidth) - 2) / 100);
 			
 			XULExtendedStatusbarChrome.esbXUL.loaded_working_progressbar.width = compdocsize*4 % XULExtendedStatusbarChrome.esbXUL.loaded_box.boxObject.width;
 			
@@ -325,7 +320,8 @@ XULExtendedStatusbarChrome.esbListener =
 				 aBrowser.esbValues.stateFlags & XULExtendedStatusbarChrome.esbIWebProgressListener.STATE_IS_NETWORK)
 		{
 			XULExtendedStatusbarChrome.esbXUL.loaded_working_progressbar.hidden = true;
-			XULExtendedStatusbarChrome.esbXUL.percent_progressbar.width = XULExtendedStatusbarChrome.esbXUL.percent_box.boxObject.width - parseInt(XULExtendedStatusbarChrome.esbXUL.percent_box.style.borderRight);
+			var progressBorderWidth = parseInt(XULExtendedStatusbarChrome.esbXUL.percent_box.style.borderRight);
+			XULExtendedStatusbarChrome.esbXUL.percent_progressbar.width = XULExtendedStatusbarChrome.esbXUL.percent_box.boxObject.width - (isNaN(progressBorderWidth) ? 1 : progressBorderWidth);
 			
 			// Set size of panels to fit content, so the ESB elements don't always move left-right because the labels resize automatically
 			if (XULExtendedStatusbarChrome.esbXUL.percent_box.width < XULExtendedStatusbarChrome.esbXUL.percent_box.boxObject.width)
