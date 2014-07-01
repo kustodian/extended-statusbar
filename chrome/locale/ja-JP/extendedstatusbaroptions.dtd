@@ -7,6 +7,7 @@
 <!ENTITY esb.hide "拡張ステータスバーを非表示にする">
 <!ENTITY esb.hide.tooltip "ページが読み込まれたら拡張ステータスバーを非表示にします。">
 <!ENTITY esb.hide.accesskey "H">
+<!ENTITY esb.hidetoolbar "Hide the whole toolbar">
 <!ENTITY esb.hideafter "読み込まれて">
 <!ENTITY esb.seconds "秒後に非表示にする">
 <!ENTITY esb.showonhover "ステータスバー上にポインタがある間は表示する">
@@ -17,9 +18,9 @@
 <!ENTITY esb.hideonsites.tooltip "Gmail のような Ajax サイトに有用です">
 <!ENTITY esb.appendcurrent "現在のページを付加">
 <!ENTITY esb.appendcurrent.accesskey "A">
-<!ENTITY esb.customstyle "カスタムスタイル">
-<!ENTITY esb.customstyle.accesskey "C">
-<!ENTITY esb.customstyle.tooltip "現在のテーマが拡張ステータスバーに対応する場合カスタムスタイルは無効です！">
+<!ENTITY esb.customcolor "カスタムスタイル">
+<!ENTITY esb.customcolor.accesskey "C">
+<!ENTITY esb.customcolor.tooltip "現在のテーマが拡張ステータスバーに対応する場合カスタムスタイルは無効です！">
 <!ENTITY esb.backgroundcolor "背景:">
 <!ENTITY esb.progresscolor "プログレスバー:">
 <!ENTITY esb.cursorcolor "読み込みカーソル:">
@@ -27,17 +28,21 @@
 <!ENTITY esb.useoldstyle "伝統スタイル">
 <!ENTITY esb.useoldstyle.accesskey "l">
 <!ENTITY esb.useoldstyle.tooltip "Firefox のステータスバー内部に拡張ステータスバーを表示します">
-<!ENTITY esb.oldslimmode "スリム形態">
-<!ENTITY esb.oldslimmode.accesskey "m">
-<!ENTITY esb.oldslimmode.tooltip "ラベルを非表示にして数字のみを表示します">
+<!ENTITY esb.slimmode "スリム形態">
+<!ENTITY esb.slimmode.accesskey "m">
+<!ENTITY esb.slimmode.tooltip "ラベルを非表示にして数字のみを表示します">
 <!ENTITY esb.hideindelements "個別要素の非表示">
-<!ENTITY esb.oldhideimages "画像を非表示">
+<!ENTITY esb.hideimages "画像を非表示">
 <!ENTITY esb.hideoldimages.accesskey "I">
-<!ENTITY esb.oldhideloaded "読み込みを非表示">
-<!ENTITY esb.oldhideloaded.accesskey "o">
-<!ENTITY esb.oldhidespeed "速度を非表示">
-<!ENTITY esb.oldhidespeed.accesskey "d">
-<!ENTITY esb.oldhidetime "時間を非表示">
-<!ENTITY esb.oldhidetime.accesskey "T">
-<!ENTITY esb.oldhidepercent "読み込み率を非表示">
-<!ENTITY esb.oldhidepercent.accesskey "P">
+<!ENTITY esb.hideloaded "読み込みを非表示">
+<!ENTITY esb.hideloaded.accesskey "o">
+<!ENTITY esb.hidespeed "速度を非表示">
+<!ENTITY esb.hidespeed.accesskey "d">
+<!ENTITY esb.hidetime "時間を非表示">
+<!ENTITY esb.hidetime.accesskey "T">
+<!ENTITY esb.hidepercent "読み込み率を非表示">
+<!ENTITY esb.hidepercent.accesskey "P">
+<!ENTITY esb.hideprogress "Hide Progress Meter">
+<!ENTITY esb.hideprogress.accesskey "t">
+<!ENTITY esb.hidecursor "Hide Loading Cursor">
+<!ENTITY esb.hidecursor.accesskey "c">

@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet href="chrome://extendedstatusbar/skin/extendedstatusbaroptions.css" type="text/css"?>
+
+<!DOCTYPE prefwindow SYSTEM "chrome://extendedstatusbar/locale/extendedstatusbaroptions.dtd">
+
+<prefwindow id="esbPreferences" title="&esb.title;"
+						xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+						minwidth="370"
+						onload="XULExtendedStatusbarOptions.init();">
+
+	<prefpane id="pane1" label="&esb.pane1.title;">
+		<preferences>
+			<preference id="esbHide" name="extensions.extendedstatusbar.hide" type="bool"/>
+			<preference id="esbHideToolBar" name="extensions.extendedstatusbar.hidetoolbar" type="bool"/>
+			<preference id="esbHideTimeout" name="extensions.extendedstatusbar.hidetimeout" type="int"/>
+			<preference id="esbShowOnHover" name="extensions.extendedstatusbar.showonhover" type="bool"/>
+			<preference id="esbHoverTimeout" name="extensions.extendedstatusbar.hovertimeout" type="int"/>
+			<preference id="esbBackColor" name="extensions.extendedstatusbar.backgroundcolor" type="string"/>
+			<preference id="esbProgressColor" name="extensions.extendedstatusbar.progresscolor" type="string"/>
+			<preference id="esbCursorColor" name="extensions.extendedstatusbar.cursorcolor" type="string"/>
+			<preference id="esbTextColor" name="extensions.extendedstatusbar.textcolor" type="string"/>
+			<preference id="esbUseCustomColor" name="extensions.extendedstatusbar.usecustomcolor" type="bool"/>
+			<preference id="esbHideOnSites" name="extensions.extendedstatusbar.hideonsites" type="string"/>
+			<preference id="esbHideImages" name="extensions.extendedstatusbar.hideimages" type="bool"/>
+			<preference id="esbHideLoaded" name="extensions.extendedstatusbar.hideloaded" type="bool"/>
+			<preference id="esbHideSpeed" name="extensions.extendedstatusbar.hidespeed" type="bool"/>
+			<preference id="esbHideTime" name="extensions.extendedstatusbar.hidetime" type="bool"/>
+			<preference id="esbHidePercent" name="extensions.extendedstatusbar.hidepercent" type="bool"/>
+			<preference id="esbHideProgress" name="extensions.extendedstatusbar.hideprogress" type="bool"/>
+			<preference id="esbHideCursor" name="extensions.extendedstatusbar.hidecursor" type="bool"/>
+			<preference id="esbStyle" name="extensions.extendedstatusbar.esbstyle" type="int"/>
+			<preference id="esbSlimMode" name="extensions.extendedstatusbar.slimmode" type="bool"/>
+			<preference id="esbToolbarStyle" name="extensions.extendedstatusbar.toolbarstyle" type="string"/>
+			<preference id="esbWidgetStyle" name="extensions.extendedstatusbar.widgetstyle" type="string"/>
+			<preference id="esbPercentStyle" name="extensions.extendedstatusbar.percentstyle" type="string"/>
+			<preference id="esbImagesStyle" name="extensions.extendedstatusbar.imagesstyle" type="string"/>
+			<preference id="esbLoadedStyle" name="extensions.extendedstatusbar.loadedstyle" type="string"/>
+			<preference id="esbSpeedStyle" name="extensions.extendedstatusbar.speedstyle" type="string"/>
+			<preference id="esbTimeStyle" name="extensions.extendedstatusbar.timestyle" type="string"/>
+			<preference id="esbProgressStyle" name="extensions.extendedstatusbar.progressstyle" type="string"/>
+			<preference id="esbCursorStyle" name="extensions.extendedstatusbar.cursorstyle" type="string"/>
+			<preference id="esbCursorBackgroundStyle" name="extensions.extendedstatusbar.cursorbackgroundstyle" type="string"/>
+		</preferences>
+		<tabbox>
+			<tabs>
+				<tab label="Style"/>
+				<tab label="Behavior"/>
+			</tabs>
+			<tabpanels>
+				<tabpanel id="styleTabPanel">
+					<groupbox flex="1">
+						<caption label="&esb.displaystyle;"/>
+						<radiogroup id="esbRadioStyle" oncommand="XULExtendedStatusbarOptions.radioStateChange()" orient="vertical">
+							<radio id="oldstyle" label="&esb.useoldstyle;" accesskey="&esb.useoldstyle.accesskey;" tooltiptext="&esb.useoldstyle.tooltip;"/>
+							<radio id="newstyle" label="&esb.usenewstyle;" accesskey="&esb.usenewstyle.accesskey;" tooltiptext="&esb.usenewstyle.tooltip;"/>
+							<radio id="customstyle" label="Use your own style" accesskey="" tooltiptext=""/>
+						</radiogroup>
+						<grid id="stylegrid" hidden="true">
+							<columns>
+								<column/>
+								<column flex="1"/>
+								<column/>
+							</columns>
+							<rows>
+								<row align="start">
+									<label value="Toolbar" control="textesbtoolbarstyle"/>
+									<textbox id="textesbtoolbarstyle" rows="5" flex="1" align="start" preference="esbToolbarStyle" multiline="true" placeholder="Input Css rules here"/>
+									<button id="buttonesbtoolbarstyle" label="Apply" accesskey="" onclick="XULExtendedStatusbarOptions.applyCSS(event);"/>
+								</row>
+								<row align="start">
+									<label value="ESB" control="textesbwidgetstyle"/>
+									<textbox id="textesbwidgetstyle" rows="5" flex="1" align="start" preference="esbWidgetStyle" multiline="true" placeholder="Input Css rules here"/>
+									<button id="buttonesbwidgetstyle" label="Apply" accesskey="" onclick="XULExtendedStatusbarOptions.applyCSS(event);"/>
+								</row>
+								<row align="start">
+									<label value="Percent" control="textpercentstyle"/>
+									<textbox id="textpercentstyle" rows="5" flex="1" align="start" preference="esbPercentStyle" multiline="true" placeholder="Input Css rules here"/>
+									<button id="buttonpercentstyle" label="Apply" accesskey="" onclick="XULExtendedStatusbarOptions.applyCSS(event);"/>
+								</row>
+								<row align="start">
+									<label value="Images" control="textimagesstyle"/>
+									<textbox id="textimagesstyle" rows="5" flex="1" align="start" preference="esbImagesStyle" multiline="true" placeholder="Input Css rules here"/>
+									<button id="buttonimagesstyle" label="Apply" accesskey="" onclick="XULExtendedStatusbarOptions.applyCSS(event);"/>
+								</row>
+								<row align="start">
+									<label value="Loaded" control="textloadedstyle"/>
+									<textbox id="textloadedstyle" rows="5" flex="1" align="start" preference="esbLoadedStyle" multiline="true" placeholder="Input Css rules here"/>
+									<button id="buttonloadedstyle" label="Apply" accesskey="" onclick="XULExtendedStatusbarOptions.applyCSS(event);"/>
+								</row>
+								<row align="start">
+									<label value="Speed" control="textspeedstyle"/>
+									<textbox id="textspeedstyle" rows="5" flex="1" align="start" preference="esbSpeedStyle" multiline="true" placeholder="Input Css rules here"/>
+									<button id="buttonspeedstyle" label="Apply" accesskey="" onclick="XULExtendedStatusbarOptions.applyCSS(event);"/>
+								</row>
+								<row align="start">
+									<label value="Time" control="texttimestyle"/>
+									<textbox id="texttimestyle" rows="5" flex="1" align="start" preference="esbTimeStyle" multiline="true" placeholder="Input Css rules here"/>
+									<button id="buttontimestyle" label="Apply" accesskey="" onclick="XULExtendedStatusbarOptions.applyCSS(event);"/>
+								</row>
+								<row align="start">
+									<label value="Progress" control="textprogressstyle"/>
+									<textbox id="textprogressstyle" rows="5" flex="1" align="start" preference="esbProgressStyle" multiline="true" placeholder="Input Css rules here"/>
+									<button id="buttonprogressstyle" label="Apply" accesskey="" onclick="XULExtendedStatusbarOptions.applyCSS(event);"/>
+								</row>
+								<row align="start">
+									<label value="Cursor" control="textcursorstyle"/>
+									<textbox id="textcursorstyle" rows="5" flex="1" align="start" preference="esbCursorStyle" multiline="true" placeholder="Input Css rules here"/>
+									<button id="buttoncursorstyle" label="Apply" accesskey="" onclick="XULExtendedStatusbarOptions.applyCSS(event);"/>
+								</row>
+								<row align="start">
+									<label value="Cursor back" control="textcursorbackgroundstyle"/>
+									<textbox id="textcursorbackgroundstyle" rows="5" flex="1" align="start" preference="esbCursorBackgroundStyle" multiline="true" placeholder="Input Css rules here"/>
+									<button id="buttoncursorbackgroundstyle" label="Apply" accesskey="" onclick="XULExtendedStatusbarOptions.applyCSS(event);"/>
+								</row>
+							</rows>
+						</grid>
+					</groupbox>
+					<spacer style="width: 10px"/>
+					<vbox  flex="1">
+						<groupbox id="customizeGroup">
+							<caption>
+								<checkbox id="checkesbcolor" preference="esbUseCustomColor" label="&esb.customcolor;" accesskey="&esb.customcolor.accesskey;" tooltiptext="&esb.customcolor.tooltip;" onclick="XULExtendedStatusbarOptions.hideCustomColor();"/>
+							</caption>
+							<command id="customColorDisable" disabled="false"/>
+							<command id="customColorHide" hidden="false"/>
+							<hbox align="center">
+								<label value="&esb.backgroundcolor;" command="customColorDisable"/>
+								<spacer flex="1"/>
+								<hbox class="picker">
+									<hbox id="backcolorBox" currColor="" onclick="XULExtendedStatusbarOptions.changeColor(this);" flex="1" command="customColorHide">
+										<hbox class="colorbox" flex="1"/>
+									</hbox>
+								</hbox>
+							</hbox>
+							<hbox align="center">
+								<label value="&esb.progresscolor;"  command="customColorDisable"/>
+								<spacer flex="1"/>
+								<hbox class="picker">
+									<hbox id="progresscolorBox" currColor="" onclick="XULExtendedStatusbarOptions.changeColor(this);" flex="1" command="customColorHide">
+										<hbox class="colorbox" flex="1"/>
+									</hbox>
+								</hbox>
+							</hbox>
+							<hbox align="center">
+								<label value="&esb.cursorcolor;" command="customColorDisable"/>
+								<spacer flex="1"/>
+								<hbox class="picker">
+									<hbox id="cursorcolorBox" currColor="" onclick="XULExtendedStatusbarOptions.changeColor(this);" flex="1" command="customColorHide">
+										<hbox class="colorbox" flex="1"/>
+									</hbox>
+								</hbox>
+							</hbox>
+							<hbox align="center">
+								<label value="&esb.textcolor;" command="customColorDisable"/>
+								<spacer flex="1"/>
+								<hbox class="picker">
+									<hbox id="textcolorBox" currColor="" onclick="XULExtendedStatusbarOptions.changeColor(this);" flex="1" command="customColorHide">
+										<hbox class="colorbox" flex="1"/>
+									</hbox>
+								</hbox>
+							</hbox>
+						</groupbox>
+						<spacer style="height: 10px"/>
+						<groupbox>
+							<checkbox id="checkesboldslimmode" preference="esbSlimMode" label="&esb.slimmode;" accesskey="&esb.slimmode.accesskey;" tooltiptext="&esb.slimmode.tooltip;"/>
+						</groupbox>
+					</vbox>
+				</tabpanel>
+				<tabpanel id="behaviorTabPanel">
+					<groupbox>
+						<caption>
+							<checkbox id="checkesbhide" preference="esbHide" label="&esb.hide;" accesskey="&esb.hide.accesskey;" tooltiptext="&esb.hide.tooltip;" onclick="XULExtendedStatusbarOptions.hideCheck();"/>
+						</caption>
+						<hbox align="center" class="indent">
+							<label id="labelesbhideafter" value="&esb.hideafter;"/>
+							<textbox id="textesbtimeout" preference="esbHideTimeout" style="max-width:30px;" maxlength="2"/>
+							<label id="labelesbseconds" value="&esb.seconds;"/>
+						</hbox>
+						<checkbox id="checkesbhidetoolbar" preference="esbHideToolBar" label="&esb.hidetoolbar;"/>
+						<checkbox id="checkesbshowonhover" preference="esbShowOnHover" label="&esb.showonhover;" accesskey="&esb.showonhover.accesskey;" onclick="XULExtendedStatusbarOptions.hideHover();"/>
+						<hbox align="center" class="indent">
+							<label id="labelesbhovering" value="&esb.hovering;"/>
+							<textbox id="textesbhovertimeout" preference="esbHoverTimeout" style="max-width:40px;" maxlength="4"/>
+							<label id="labelesbhoverseconds" value="&esb.secondsdisplay;"/>
+						</hbox>
+					</groupbox>
+					<spacer style="width: 10px"/>
+					<groupbox>
+						<caption>
+							<label id="labelesbhideforsites" value="&esb.hideonsites;" tooltiptext="&esb.hideonsites.tooltip;"/>
+						</caption>
+						<textbox id="textesbhideforsites" preference="esbHideOnSites" tooltiptext="&esb.hideonsites.tooltip;" onchange="XULExtendedStatusbarOptions.formatString();" minwidth="300"/>
+						<separator class="thin"/>
+						<hbox>
+							<button id="buttonesbappendcurrent" label="&esb.appendcurrent;" accesskey="&esb.appendcurrent.accesskey;" onclick="XULExtendedStatusbarOptions.appendCurrent();"/>
+						</hbox>
+					</groupbox>
+					<spacer style="width: 10px"/>
+					<groupbox>
+						<caption label="&esb.hideindelements;"/>
+						<checkbox id="checkesbhideimages" preference="esbHideImages" label="&esb.hideimages;" accesskey="&esb.hideoldimages.accesskey;"/>
+						<checkbox id="checkesbhideloaded" preference="esbHideLoaded" label="&esb.hideloaded;" accesskey="&esb.hideloaded.accesskey;"/>
+						<checkbox id="checkesbhidespeed" preference="esbHideSpeed" label="&esb.hidespeed;" accesskey="&esb.hidespeed.accesskey;"/>
+						<checkbox id="checkesbhidetime" preference="esbHideTime" label="&esb.hidetime;" accesskey="&esb.hidetime.accesskey;"/>
+						<checkbox id="checkesbhidepercent" preference="esbHidePercent" label="&esb.hidepercent;" accesskey="&esb.hidepercent.accesskey;"/>
+						<checkbox id="checkesbhideprogress" preference="esbHideProgress" label="&esb.hideprogress;" accesskey="&esb.hideprogress.accesskey;"/>
+						<checkbox id="checkesbhidecursor" preference="esbHideCursor" label="&esb.hidecursor;" accesskey="&esb.hidecursor.accesskey;"/>
+					</groupbox>
+				</tabpanel>
+			</tabpanels>
+		</tabbox>
+	</prefpane>
+	
+	<script type="application/x-javascript" src="chrome://extendedstatusbar/content/extendedstatusbaroptionsFF29.js"/>
+	
+</prefwindow>

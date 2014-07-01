@@ -7,6 +7,7 @@
 <!ENTITY esb.hide "Elrejtés">
 <!ENTITY esb.hide.tooltip "Kiterjesztett Állapotsor elrejtése az oldal betöltődése után">
 <!ENTITY esb.hide.accesskey "R">
+<!ENTITY esb.hidetoolbar "Hide the whole toolbar">
 <!ENTITY esb.hideafter "Elrejtés">
 <!ENTITY esb.seconds "másodperc elteltével">
 <!ENTITY esb.showonhover "Show while hovering over status bar">
@@ -17,9 +18,9 @@
 <!ENTITY esb.hideonsites.tooltip "Hasznos lehet AJAX-ot használó oldalak esetén, mint például a Gmail">
 <!ENTITY esb.appendcurrent "Aktuális oldal hozzáadása">
 <!ENTITY esb.appendcurrent.accesskey "A">
-<!ENTITY esb.customstyle "Egyedi stílus">
-<!ENTITY esb.customstyle.accesskey "E">
-<!ENTITY esb.customstyle.tooltip "Az egyedi stílusbeállítások nem lesznek használva, ha a jelenlegi téma támogatja a Kiterjesztett Állapotsort">
+<!ENTITY esb.customcolor "Egyedi stílus">
+<!ENTITY esb.customcolor.accesskey "E">
+<!ENTITY esb.customcolor.tooltip "Az egyedi stílusbeállítások nem lesznek használva, ha a jelenlegi téma támogatja a Kiterjesztett Állapotsort">
 <!ENTITY esb.backgroundcolor "Háttér:">
 <!ENTITY esb.progresscolor "Progressbar:">
 <!ENTITY esb.cursorcolor "Loaded cursor:">
@@ -27,17 +28,21 @@
 <!ENTITY esb.useoldstyle "Klasszikus Stílus">
 <!ENTITY esb.useoldstyle.accesskey "K">
 <!ENTITY esb.useoldstyle.tooltip "Kiterjesztett Állapotsor megjelenítése a Firefox állapotsorában">
-<!ENTITY esb.oldslimmode "Minimális megjelenés">
-<!ENTITY esb.oldslimmode.accesskey "M">
-<!ENTITY esb.oldslimmode.tooltip "Feliratok elrejtése, kizárólag az értékek megjelenítése">
+<!ENTITY esb.slimmode "Minimális megjelenés">
+<!ENTITY esb.slimmode.accesskey "M">
+<!ENTITY esb.slimmode.tooltip "Feliratok elrejtése, kizárólag az értékek megjelenítése">
 <!ENTITY esb.hideindelements "Egyéni értékek elrejtése">
-<!ENTITY esb.oldhideimages "Képek elrejtése">
+<!ENTITY esb.hideimages "Képek elrejtése">
 <!ENTITY esb.hideoldimages.accesskey "K">
-<!ENTITY esb.oldhideloaded "Adat elrejtése">
-<!ENTITY esb.oldhideloaded.accesskey "A">
-<!ENTITY esb.oldhidespeed "Sebesség elrejtése">
-<!ENTITY esb.oldhidespeed.accesskey "S">
-<!ENTITY esb.oldhidetime "Idő elrejtése">
-<!ENTITY esb.oldhidetime.accesskey "I">
-<!ENTITY esb.oldhidepercent "Százalék elrejtése">
-<!ENTITY esb.oldhidepercent.accesskey "S">
+<!ENTITY esb.hideloaded "Adat elrejtése">
+<!ENTITY esb.hideloaded.accesskey "A">
+<!ENTITY esb.hidespeed "Sebesség elrejtése">
+<!ENTITY esb.hidespeed.accesskey "S">
+<!ENTITY esb.hidetime "Idő elrejtése">
+<!ENTITY esb.hidetime.accesskey "I">
+<!ENTITY esb.hidepercent "Százalék elrejtése">
+<!ENTITY esb.hidepercent.accesskey "S">
+<!ENTITY esb.hideprogress "Hide Progress Meter">
+<!ENTITY esb.hideprogress.accesskey "t">
+<!ENTITY esb.hidecursor "Hide Loading Cursor">
+<!ENTITY esb.hidecursor.accesskey "c">

@@ -7,6 +7,7 @@
 <!ENTITY esb.hide "Extended Statusbar жасыру">
 <!ENTITY esb.hide.tooltip "Extended Statusbar парақ жүктеліп болған соң жасыру">
 <!ENTITY esb.hide.accesskey "н">
+<!ENTITY esb.hidetoolbar "Hide the whole toolbar">
 <!ENTITY esb.hideafter "Келесі уақыт соң жасыру:">
 <!ENTITY esb.seconds "секунд">
 <!ENTITY esb.showonhover "Курсор қалып-күй жолағынан өткенде ғана көрсету">
@@ -17,9 +18,9 @@
 <!ENTITY esb.hideonsites.tooltip "Gmail сияқты AJAX сайттары үшін тиімді">
 <!ENTITY esb.appendcurrent "Ағымдағы парақты қосу">
 <!ENTITY esb.appendcurrent.accesskey "А">
-<!ENTITY esb.customstyle "Пайдаланушы стилі">
-<!ENTITY esb.customstyle.accesskey "д">
-<!ENTITY esb.customstyle.tooltip "Ағымдағы темаңыз Extended Statusbar қолдаса, пайдаланушы стильдерін сөндіру!">
+<!ENTITY esb.customcolor "Пайдаланушы стилі">
+<!ENTITY esb.customcolor.accesskey "д">
+<!ENTITY esb.customcolor.tooltip "Ағымдағы темаңыз Extended Statusbar қолдаса, пайдаланушы стильдерін сөндіру!">
 <!ENTITY esb.backgroundcolor "Фон:">
 <!ENTITY esb.progresscolor "Жүктелу индикаторы:">
 <!ENTITY esb.cursorcolor "Жүктелу курсоры:">
@@ -27,17 +28,21 @@
 <!ENTITY esb.useoldstyle "Классикалық стиль">
 <!ENTITY esb.useoldstyle.accesskey "и">
 <!ENTITY esb.useoldstyle.tooltip "Extended Statusbar жолағын Firefox қалып-күй жолағынын ішінде көрсету">
-<!ENTITY esb.oldslimmode "Жеңілдетілген түрі">
-<!ENTITY esb.oldslimmode.accesskey "е">
-<!ENTITY esb.oldslimmode.tooltip "Мәтінді жасырып, тек сандарды көрсету">
+<!ENTITY esb.slimmode "Жеңілдетілген түрі">
+<!ENTITY esb.slimmode.accesskey "е">
+<!ENTITY esb.slimmode.tooltip "Мәтінді жасырып, тек сандарды көрсету">
 <!ENTITY esb.hideindelements "Бөлек элементтерді жасыру">
-<!ENTITY esb.oldhideimages "Суреттер саны мәнін жасыру">
+<!ENTITY esb.hideimages "Суреттер саны мәнін жасыру">
 <!ENTITY esb.hideoldimages.accesskey "С">
-<!ENTITY esb.oldhideloaded "Жүктелген бөлігі мәнін жасыру">
-<!ENTITY esb.oldhideloaded.accesskey "б">
-<!ENTITY esb.oldhidespeed "Жылдамдық мәнін жасыру">
-<!ENTITY esb.oldhidespeed.accesskey "ы">
-<!ENTITY esb.oldhidetime "Уақыт мәнін жасыру">
-<!ENTITY esb.oldhidetime.accesskey "У">
-<!ENTITY esb.oldhidepercent "Пайыздық мәнін жасыру">
-<!ENTITY esb.oldhidepercent.accesskey "П">
+<!ENTITY esb.hideloaded "Жүктелген бөлігі мәнін жасыру">
+<!ENTITY esb.hideloaded.accesskey "б">
+<!ENTITY esb.hidespeed "Жылдамдық мәнін жасыру">
+<!ENTITY esb.hidespeed.accesskey "ы">
+<!ENTITY esb.hidetime "Уақыт мәнін жасыру">
+<!ENTITY esb.hidetime.accesskey "У">
+<!ENTITY esb.hidepercent "Пайыздық мәнін жасыру">
+<!ENTITY esb.hidepercent.accesskey "П">
+<!ENTITY esb.hideprogress "Hide Progress Meter">
+<!ENTITY esb.hideprogress.accesskey "t">
+<!ENTITY esb.hidecursor "Hide Loading Cursor">
+<!ENTITY esb.hidecursor.accesskey "c">

@@ -7,6 +7,7 @@
 <!ENTITY esb.hide "Ukryj po wczytaniu strony">
 <!ENTITY esb.hide.tooltip "Ukrywa pasek po wczytaniu strony">
 <!ENTITY esb.hide.accesskey "U">
+<!ENTITY esb.hidetoolbar "Hide the whole toolbar">
 <!ENTITY esb.hideafter "Czas opóźnienia:">
 <!ENTITY esb.seconds "Z">
 <!ENTITY esb.showonhover "Wyświetlaj po umieszczeniu kursora nad paskiem stanu">
@@ -17,9 +18,9 @@
 <!ENTITY esb.hideonsites.tooltip "Użyteczne na witrynach używających technologii AJAX takich jak Gmail">
 <!ENTITY esb.appendcurrent "Dodaj aktywną stronę">
 <!ENTITY esb.appendcurrent.accesskey "A">
-<!ENTITY esb.customstyle "Dostosuj styl">
-<!ENTITY esb.customstyle.accesskey "D">
-<!ENTITY esb.customstyle.tooltip "Nie zmieniaj stylu jeśli używany motyw obsługuje Extended Statusbar!">
+<!ENTITY esb.customcolor "Dostosuj styl">
+<!ENTITY esb.customcolor.accesskey "D">
+<!ENTITY esb.customcolor.tooltip "Nie zmieniaj stylu jeśli używany motyw obsługuje Extended Statusbar!">
 <!ENTITY esb.backgroundcolor "Tło paska:">
 <!ENTITY esb.progresscolor "Tło paska postępu:">
 <!ENTITY esb.cursorcolor "Wskaźnik postępu wczytywania:">
@@ -27,17 +28,21 @@
 <!ENTITY esb.useoldstyle "Stary styl">
 <!ENTITY esb.useoldstyle.accesskey "S">
 <!ENTITY esb.useoldstyle.tooltip "Elementy rozszerzenia są wyświetlane wewnątrz paska stanu">
-<!ENTITY esb.oldslimmode "Tryb kompaktowy">
-<!ENTITY esb.oldslimmode.accesskey "K">
-<!ENTITY esb.oldslimmode.tooltip "Wyświetla tylko dane liczbowe bez etykiet">
+<!ENTITY esb.slimmode "Tryb kompaktowy">
+<!ENTITY esb.slimmode.accesskey "K">
+<!ENTITY esb.slimmode.tooltip "Wyświetla tylko dane liczbowe bez etykiet">
 <!ENTITY esb.hideindelements "Nie wyświetlaj elementów:">
-<!ENTITY esb.oldhideimages "Obrazki">
+<!ENTITY esb.hideimages "Obrazki">
 <!ENTITY esb.hideoldimages.accesskey "O">
-<!ENTITY esb.oldhideloaded "Wczytano">
-<!ENTITY esb.oldhideloaded.accesskey "W">
-<!ENTITY esb.oldhidespeed "Prędkość">
-<!ENTITY esb.oldhidespeed.accesskey "P">
-<!ENTITY esb.oldhidetime "Czas">
-<!ENTITY esb.oldhidetime.accesskey "C">
-<!ENTITY esb.oldhidepercent "Procent pobrania">
-<!ENTITY esb.oldhidepercent.accesskey "R">
+<!ENTITY esb.hideloaded "Wczytano">
+<!ENTITY esb.hideloaded.accesskey "W">
+<!ENTITY esb.hidespeed "Prędkość">
+<!ENTITY esb.hidespeed.accesskey "P">
+<!ENTITY esb.hidetime "Czas">
+<!ENTITY esb.hidetime.accesskey "C">
+<!ENTITY esb.hidepercent "Procent pobrania">
+<!ENTITY esb.hidepercent.accesskey "R">
+<!ENTITY esb.hideprogress "Hide Progress Meter">
+<!ENTITY esb.hideprogress.accesskey "t">
+<!ENTITY esb.hidecursor "Hide Loading Cursor">
+<!ENTITY esb.hidecursor.accesskey "c">

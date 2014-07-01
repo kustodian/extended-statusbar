@@ -7,6 +7,7 @@
 <!ENTITY esb.hide "Extended Statusbar&apos;ı Gizle">
 <!ENTITY esb.hide.tooltip "Safya yüklendikten sonra Extended Statusbar&apos;ı gizle.">
 <!ENTITY esb.hide.accesskey "H">
+<!ENTITY esb.hidetoolbar "Hide the whole toolbar">
 <!ENTITY esb.hideafter "Otomatik gizle:">
 <!ENTITY esb.seconds "saniye sonra">
 <!ENTITY esb.showonhover "Boşta kalınca gizle">
@@ -17,9 +18,9 @@
 <!ENTITY esb.hideonsites.tooltip "Gmail içinde Ajax&apos;ları kullan">
 <!ENTITY esb.appendcurrent "Güncel sayfaya ekle">
 <!ENTITY esb.appendcurrent.accesskey "A">
-<!ENTITY esb.customstyle "Özel stil">
-<!ENTITY esb.customstyle.accesskey "C">
-<!ENTITY esb.customstyle.tooltip "Geçerli tema üzerinde özel stil kullanımını devre dışı bırak!">
+<!ENTITY esb.customcolor "Özel stil">
+<!ENTITY esb.customcolor.accesskey "C">
+<!ENTITY esb.customcolor.tooltip "Geçerli tema üzerinde özel stil kullanımını devre dışı bırak!">
 <!ENTITY esb.backgroundcolor "Arkaplan:">
 <!ENTITY esb.progresscolor "İşlem Çubuğu:">
 <!ENTITY esb.cursorcolor "Yüklendi İşareti:">
@@ -27,17 +28,21 @@
 <!ENTITY esb.useoldstyle "Kalsik Stil">
 <!ENTITY esb.useoldstyle.accesskey "I">
 <!ENTITY esb.useoldstyle.tooltip "Extended Statusbar&apos;ı Firefox durum çubuğu içinde göster">
-<!ENTITY esb.oldslimmode "Basit Mod">
-<!ENTITY esb.oldslimmode.accesskey "m">
-<!ENTITY esb.oldslimmode.tooltip "Etiketleri ve numaraları gösterme">
+<!ENTITY esb.slimmode "Basit Mod">
+<!ENTITY esb.slimmode.accesskey "m">
+<!ENTITY esb.slimmode.tooltip "Etiketleri ve numaraları gösterme">
 <!ENTITY esb.hideindelements "Bireysel elementleri gösterme">
-<!ENTITY esb.oldhideimages "Resimleri gösterme">
+<!ENTITY esb.hideimages "Resimleri gösterme">
 <!ENTITY esb.hideoldimages.accesskey "I">
-<!ENTITY esb.oldhideloaded "Yüklenmeleri gösterme">
-<!ENTITY esb.oldhideloaded.accesskey "o">
-<!ENTITY esb.oldhidespeed "Hızı gözterme">
-<!ENTITY esb.oldhidespeed.accesskey "D">
-<!ENTITY esb.oldhidetime "Zamanı gösterme">
-<!ENTITY esb.oldhidetime.accesskey "T">
-<!ENTITY esb.oldhidepercent "Yüzdeleri gösterme">
-<!ENTITY esb.oldhidepercent.accesskey "P">
+<!ENTITY esb.hideloaded "Yüklenmeleri gösterme">
+<!ENTITY esb.hideloaded.accesskey "o">
+<!ENTITY esb.hidespeed "Hızı gözterme">
+<!ENTITY esb.hidespeed.accesskey "D">
+<!ENTITY esb.hidetime "Zamanı gösterme">
+<!ENTITY esb.hidetime.accesskey "T">
+<!ENTITY esb.hidepercent "Yüzdeleri gösterme">
+<!ENTITY esb.hidepercent.accesskey "P">
+<!ENTITY esb.hideprogress "Hide Progress Meter">
+<!ENTITY esb.hideprogress.accesskey "t">
+<!ENTITY esb.hidecursor "Hide Loading Cursor">
+<!ENTITY esb.hidecursor.accesskey "c">

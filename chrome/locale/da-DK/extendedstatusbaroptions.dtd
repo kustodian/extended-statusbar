@@ -7,6 +7,7 @@
 <!ENTITY esb.hide "Skjul Extended Statusbar">
 <!ENTITY esb.hide.tooltip "Skjuler Extended Statusbar når siden er blevet indlæst">
 <!ENTITY esb.hide.accesskey "S">
+<!ENTITY esb.hidetoolbar "Hide the whole toolbar">
 <!ENTITY esb.hideafter "Skjul efter:">
 <!ENTITY esb.seconds "sekunder">
 <!ENTITY esb.showonhover "Vis når markøren holdes over statuslinjen">
@@ -17,9 +18,9 @@
 <!ENTITY esb.hideonsites.tooltip "Nyttig til AJAK websteder som Gmail">
 <!ENTITY esb.appendcurrent "Tilføj pågældende side">
 <!ENTITY esb.appendcurrent.accesskey "p">
-<!ENTITY esb.customstyle "Tilpas stil">
-<!ENTITY esb.customstyle.accesskey "T">
-<!ENTITY esb.customstyle.tooltip "Deaktiver tilpasset stil, hvis dit nuværende tema understøtter Extended Statusbar!">
+<!ENTITY esb.customcolor "Tilpas stil">
+<!ENTITY esb.customcolor.accesskey "T">
+<!ENTITY esb.customcolor.tooltip "Deaktiver tilpasset stil, hvis dit nuværende tema understøtter Extended Statusbar!">
 <!ENTITY esb.backgroundcolor "Baggrund:">
 <!ENTITY esb.progresscolor "Statusmeter:">
 <!ENTITY esb.cursorcolor "Markøren indlæst:">
@@ -27,17 +28,21 @@
 <!ENTITY esb.useoldstyle "Klassisk stil">
 <!ENTITY esb.useoldstyle.accesskey "K">
 <!ENTITY esb.useoldstyle.tooltip "Vis Extended Statusbar i Firefox&apos;s statuslinje">
-<!ENTITY esb.oldslimmode "Smal tilstand">
-<!ENTITY esb.oldslimmode.accesskey "S">
-<!ENTITY esb.oldslimmode.tooltip "Skjuler etiketter og vis kun tal">
+<!ENTITY esb.slimmode "Smal tilstand">
+<!ENTITY esb.slimmode.accesskey "S">
+<!ENTITY esb.slimmode.tooltip "Skjuler etiketter og vis kun tal">
 <!ENTITY esb.hideindelements "Skjul enkelte elementer">
-<!ENTITY esb.oldhideimages "Skjul Billeder">
+<!ENTITY esb.hideimages "Skjul Billeder">
 <!ENTITY esb.hideoldimages.accesskey "B">
-<!ENTITY esb.oldhideloaded "Skjul Indlæst">
-<!ENTITY esb.oldhideloaded.accesskey "I">
-<!ENTITY esb.oldhidespeed "Skjul Hastighed">
-<!ENTITY esb.oldhidespeed.accesskey "H">
-<!ENTITY esb.oldhidetime "Skjul Tid">
-<!ENTITY esb.oldhidetime.accesskey "T">
-<!ENTITY esb.oldhidepercent "Skjul Procent">
-<!ENTITY esb.oldhidepercent.accesskey "P">
+<!ENTITY esb.hideloaded "Skjul Indlæst">
+<!ENTITY esb.hideloaded.accesskey "I">
+<!ENTITY esb.hidespeed "Skjul Hastighed">
+<!ENTITY esb.hidespeed.accesskey "H">
+<!ENTITY esb.hidetime "Skjul Tid">
+<!ENTITY esb.hidetime.accesskey "T">
+<!ENTITY esb.hidepercent "Skjul Procent">
+<!ENTITY esb.hidepercent.accesskey "P">
+<!ENTITY esb.hideprogress "Hide Progress Meter">
+<!ENTITY esb.hideprogress.accesskey "t">
+<!ENTITY esb.hidecursor "Hide Loading Cursor">
+<!ENTITY esb.hidecursor.accesskey "c">

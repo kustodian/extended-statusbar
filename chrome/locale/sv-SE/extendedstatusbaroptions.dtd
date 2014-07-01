@@ -7,6 +7,7 @@
 <!ENTITY esb.hide "Göm Extended Statusbar">
 <!ENTITY esb.hide.tooltip "Gömmer Extended Statusbar efter att sidan har laddats.">
 <!ENTITY esb.hide.accesskey "H">
+<!ENTITY esb.hidetoolbar "Hide the whole toolbar">
 <!ENTITY esb.hideafter "Göm efter:">
 <!ENTITY esb.seconds "sekunder">
 <!ENTITY esb.showonhover "Visa medan musen är över statusfältet">
@@ -17,9 +18,9 @@
 <!ENTITY esb.hideonsites.tooltip "Användbart för AJAX drivna sidor som Gmail">
 <!ENTITY esb.appendcurrent "Skicka med nuvarande sida">
 <!ENTITY esb.appendcurrent.accesskey "A">
-<!ENTITY esb.customstyle "Egen stil">
-<!ENTITY esb.customstyle.accesskey "C">
-<!ENTITY esb.customstyle.tooltip "Avaktivera egna stilar om ditt nuvarande tema har stöd för Extended Statusbar!">
+<!ENTITY esb.customcolor "Egen stil">
+<!ENTITY esb.customcolor.accesskey "C">
+<!ENTITY esb.customcolor.tooltip "Avaktivera egna stilar om ditt nuvarande tema har stöd för Extended Statusbar!">
 <!ENTITY esb.backgroundcolor "Bakgrund:">
 <!ENTITY esb.progresscolor "Processtapel:">
 <!ENTITY esb.cursorcolor "Indikator laddat:">
@@ -27,17 +28,21 @@
 <!ENTITY esb.useoldstyle "Klassisk stil">
 <!ENTITY esb.useoldstyle.accesskey "l">
 <!ENTITY esb.useoldstyle.tooltip "Visar Extended Statusbar i Firefoxs statusfält">
-<!ENTITY esb.oldslimmode "Slimmat läge">
-<!ENTITY esb.oldslimmode.accesskey "m">
-<!ENTITY esb.oldslimmode.tooltip "Gömmer etiketter och visar endast nummer">
+<!ENTITY esb.slimmode "Slimmat läge">
+<!ENTITY esb.slimmode.accesskey "m">
+<!ENTITY esb.slimmode.tooltip "Gömmer etiketter och visar endast nummer">
 <!ENTITY esb.hideindelements "Göm individuella element">
-<!ENTITY esb.oldhideimages "Göm bilder">
+<!ENTITY esb.hideimages "Göm bilder">
 <!ENTITY esb.hideoldimages.accesskey "i">
-<!ENTITY esb.oldhideloaded "Göm laddat">
-<!ENTITY esb.oldhideloaded.accesskey "o">
-<!ENTITY esb.oldhidespeed "Göm hastighet">
-<!ENTITY esb.oldhidespeed.accesskey "d">
-<!ENTITY esb.oldhidetime "Göm tid">
-<!ENTITY esb.oldhidetime.accesskey "T">
-<!ENTITY esb.oldhidepercent "Göm procent">
-<!ENTITY esb.oldhidepercent.accesskey "P">
+<!ENTITY esb.hideloaded "Göm laddat">
+<!ENTITY esb.hideloaded.accesskey "o">
+<!ENTITY esb.hidespeed "Göm hastighet">
+<!ENTITY esb.hidespeed.accesskey "d">
+<!ENTITY esb.hidetime "Göm tid">
+<!ENTITY esb.hidetime.accesskey "T">
+<!ENTITY esb.hidepercent "Göm procent">
+<!ENTITY esb.hidepercent.accesskey "P">
+<!ENTITY esb.hideprogress "Hide Progress Meter">
+<!ENTITY esb.hideprogress.accesskey "t">
+<!ENTITY esb.hidecursor "Hide Loading Cursor">
+<!ENTITY esb.hidecursor.accesskey "c">

@@ -7,6 +7,7 @@
 <!ENTITY esb.hide "Скрыть Extended Statusbar">
 <!ENTITY esb.hide.tooltip "Скрывает Extended Statusbar после загрузки страницы.">
 <!ENTITY esb.hide.accesskey "С">
+<!ENTITY esb.hidetoolbar "Hide the whole toolbar">
 <!ENTITY esb.hideafter "Скрыть через:">
 <!ENTITY esb.seconds "секунд(у,ы)">
 <!ENTITY esb.showonhover "Отображать, пока указатель находится над строкой состояния">
@@ -17,9 +18,9 @@
 <!ENTITY esb.hideonsites.tooltip "Полезно для AJAX сайтов, таких как Gmail">
 <!ENTITY esb.appendcurrent "Добавить текущую страницу">
 <!ENTITY esb.appendcurrent.accesskey "Д">
-<!ENTITY esb.customstyle "Пользовательский стиль">
-<!ENTITY esb.customstyle.accesskey "П">
-<!ENTITY esb.customstyle.tooltip "Отключает пользовательские стили, если текущая тема поддерживает Extended Statusbar.">
+<!ENTITY esb.customcolor "Пользовательский стиль">
+<!ENTITY esb.customcolor.accesskey "П">
+<!ENTITY esb.customcolor.tooltip "Отключает пользовательские стили, если текущая тема поддерживает Extended Statusbar.">
 <!ENTITY esb.backgroundcolor "Фон:">
 <!ENTITY esb.progresscolor "Индикатор:">
 <!ENTITY esb.cursorcolor "Курсор загрузки:">
@@ -27,17 +28,21 @@
 <!ENTITY esb.useoldstyle "Классический стиль">
 <!ENTITY esb.useoldstyle.accesskey "К">
 <!ENTITY esb.useoldstyle.tooltip "Отображает Extended Statusbar в строке состояния Firefox">
-<!ENTITY esb.oldslimmode "Лёгкий режим">
-<!ENTITY esb.oldslimmode.accesskey "Л">
-<!ENTITY esb.oldslimmode.tooltip "Скрывает метки и отображает только значения">
+<!ENTITY esb.slimmode "Лёгкий режим">
+<!ENTITY esb.slimmode.accesskey "Л">
+<!ENTITY esb.slimmode.tooltip "Скрывает метки и отображает только значения">
 <!ENTITY esb.hideindelements "Скрыть отдельные элементы">
-<!ENTITY esb.oldhideimages "Скрыть секцию «Изображения»">
+<!ENTITY esb.hideimages "Скрыть секцию «Изображения»">
 <!ENTITY esb.hideoldimages.accesskey "з">
-<!ENTITY esb.oldhideloaded "Скрыть секцию «Загружено»">
-<!ENTITY esb.oldhideloaded.accesskey "г">
-<!ENTITY esb.oldhidespeed "Скрыть секцию «Скорость»">
-<!ENTITY esb.oldhidespeed.accesskey "С">
-<!ENTITY esb.oldhidetime "Скрыть секцию «Время»">
-<!ENTITY esb.oldhidetime.accesskey "В">
-<!ENTITY esb.oldhidepercent "Скрыть проценты">
-<!ENTITY esb.oldhidepercent.accesskey "п">
+<!ENTITY esb.hideloaded "Скрыть секцию «Загружено»">
+<!ENTITY esb.hideloaded.accesskey "г">
+<!ENTITY esb.hidespeed "Скрыть секцию «Скорость»">
+<!ENTITY esb.hidespeed.accesskey "С">
+<!ENTITY esb.hidetime "Скрыть секцию «Время»">
+<!ENTITY esb.hidetime.accesskey "В">
+<!ENTITY esb.hidepercent "Скрыть проценты">
+<!ENTITY esb.hidepercent.accesskey "п">
+<!ENTITY esb.hideprogress "Hide Progress Meter">
+<!ENTITY esb.hideprogress.accesskey "t">
+<!ENTITY esb.hidecursor "Hide Loading Cursor">
+<!ENTITY esb.hidecursor.accesskey "c">

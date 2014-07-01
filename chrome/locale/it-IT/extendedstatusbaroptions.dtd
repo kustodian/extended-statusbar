@@ -7,6 +7,7 @@
 <!ENTITY esb.hide "Nascondi la barra di Extended Statusbar">
 <!ENTITY esb.hide.tooltip "Nasconde la barra di Extended Statusbar dopo il caricamento della pagina">
 <!ENTITY esb.hide.accesskey "E">
+<!ENTITY esb.hidetoolbar "Hide the whole toolbar">
 <!ENTITY esb.hideafter "Secondi dopo i quali nascondere la barra:">
 <!ENTITY esb.seconds " ">
 <!ENTITY esb.showonhover "Mostra la barra di Extended Statusbar al passaggio del mouse sulla barra di stato">
@@ -17,9 +18,9 @@
 <!ENTITY esb.hideonsites.tooltip "Questa funzione è utile per i siti che utilizzano AJAX (es: Gmail)">
 <!ENTITY esb.appendcurrent "Aggiungi la pagina attuale">
 <!ENTITY esb.appendcurrent.accesskey "A">
-<!ENTITY esb.customstyle "Utilizza lo stile personalizzato">
-<!ENTITY esb.customstyle.accesskey "U">
-<!ENTITY esb.customstyle.tooltip "Non utilizzare lo stile personalizzato se il tema attuale supporta Extended Statusbar">
+<!ENTITY esb.customcolor "Utilizza lo stile personalizzato">
+<!ENTITY esb.customcolor.accesskey "U">
+<!ENTITY esb.customcolor.tooltip "Non utilizzare lo stile personalizzato se il tema attuale supporta Extended Statusbar">
 <!ENTITY esb.backgroundcolor "Sfondo:">
 <!ENTITY esb.progresscolor "Barra di avanzamento:">
 <!ENTITY esb.cursorcolor "Cursore di caricamento:">
@@ -27,17 +28,21 @@
 <!ENTITY esb.useoldstyle "Predefinito">
 <!ENTITY esb.useoldstyle.accesskey "f">
 <!ENTITY esb.useoldstyle.tooltip "Visualizza gli elementi di Extended Statusbar nella barra di stato">
-<!ENTITY esb.oldslimmode "Attiva la modalità ridotta">
-<!ENTITY esb.oldslimmode.accesskey "r">
-<!ENTITY esb.oldslimmode.tooltip "Nasconde le etichette degli elementi e visualizza solo i numeri">
+<!ENTITY esb.slimmode "Attiva la modalità ridotta">
+<!ENTITY esb.slimmode.accesskey "r">
+<!ENTITY esb.slimmode.tooltip "Nasconde le etichette degli elementi e visualizza solo i numeri">
 <!ENTITY esb.hideindelements "Elementi da nascondere">
-<!ENTITY esb.oldhideimages "Nascondi l'indicatore delle immagini caricate">
+<!ENTITY esb.hideimages "Nascondi l'indicatore delle immagini caricate">
 <!ENTITY esb.hideoldimages.accesskey "a">
-<!ENTITY esb.oldhideloaded "Nascondi l'indicatore dei dati caricati">
-<!ENTITY esb.oldhideloaded.accesskey "d">
-<!ENTITY esb.oldhidespeed "Nascondi l'indicatore della velocità di caricamento">
-<!ENTITY esb.oldhidespeed.accesskey "v">
-<!ENTITY esb.oldhidetime "Nascondi l'indicatore del tempo di caricamento">
-<!ENTITY esb.oldhidetime.accesskey "t">
-<!ENTITY esb.oldhidepercent "Nascondi l'indicatore della percentuale di caricamento">
-<!ENTITY esb.oldhidepercent.accesskey "u">
+<!ENTITY esb.hideloaded "Nascondi l'indicatore dei dati caricati">
+<!ENTITY esb.hideloaded.accesskey "d">
+<!ENTITY esb.hidespeed "Nascondi l'indicatore della velocità di caricamento">
+<!ENTITY esb.hidespeed.accesskey "v">
+<!ENTITY esb.hidetime "Nascondi l'indicatore del tempo di caricamento">
+<!ENTITY esb.hidetime.accesskey "t">
+<!ENTITY esb.hidepercent "Nascondi l'indicatore della percentuale di caricamento">
+<!ENTITY esb.hidepercent.accesskey "u">
+<!ENTITY esb.hideprogress "Hide Progress Meter">
+<!ENTITY esb.hideprogress.accesskey "t">
+<!ENTITY esb.hidecursor "Hide Loading Cursor">
+<!ENTITY esb.hidecursor.accesskey "c">

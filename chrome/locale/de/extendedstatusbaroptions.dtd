@@ -7,6 +7,7 @@
 <!ENTITY esb.hide "Extended Statusbar ausblenden">
 <!ENTITY esb.hide.tooltip "Blendet die erweiterte Statusleiste aus, nachdem die Seite geladen wurde.">
 <!ENTITY esb.hide.accesskey "b">
+<!ENTITY esb.hidetoolbar "Hide the whole toolbar">
 <!ENTITY esb.hideafter "Ausblenden nach">
 <!ENTITY esb.seconds "Sekunden">
 <!ENTITY esb.showonhover "Anzeigen beim Überfahren mit der Maus">
@@ -17,9 +18,9 @@
 <!ENTITY esb.hideonsites.tooltip "Nützlich für AJAX-Websites wie Google Mail">
 <!ENTITY esb.appendcurrent "Aktuelle Website hinzufügen">
 <!ENTITY esb.appendcurrent.accesskey "A">
-<!ENTITY esb.customstyle "Eigenen Stil verwenden">
-<!ENTITY esb.customstyle.accesskey "S">
-<!ENTITY esb.customstyle.tooltip "Deaktivieren Sie den angepassten Stil, falls Extended Statusbar von Ihrem Theme unterstützt wird!">
+<!ENTITY esb.customcolor "Eigenen Stil verwenden">
+<!ENTITY esb.customcolor.accesskey "S">
+<!ENTITY esb.customcolor.tooltip "Deaktivieren Sie den angepassten Stil, falls Extended Statusbar von Ihrem Theme unterstützt wird!">
 <!ENTITY esb.backgroundcolor "Hintergrund:">
 <!ENTITY esb.progresscolor "Fortschrittsanzeige:">
 <!ENTITY esb.cursorcolor "Positionsmarke für Geladen:">
@@ -27,17 +28,21 @@
 <!ENTITY esb.useoldstyle "Klassischer Stil">
 <!ENTITY esb.useoldstyle.accesskey "K">
 <!ENTITY esb.useoldstyle.tooltip "Zeigt die erweiterte Statusleiste innerhalb der von Firefox an">
-<!ENTITY esb.oldslimmode "Kompaktmodus aktivieren">
-<!ENTITY esb.oldslimmode.accesskey "M">
-<!ENTITY esb.oldslimmode.tooltip "Blendet die Beschriftung aus und zeigt nur die Zahlen an">
+<!ENTITY esb.slimmode "Kompaktmodus aktivieren">
+<!ENTITY esb.slimmode.accesskey "M">
+<!ENTITY esb.slimmode.tooltip "Blendet die Beschriftung aus und zeigt nur die Zahlen an">
 <!ENTITY esb.hideindelements "Einzelne Angaben ausblenden">
-<!ENTITY esb.oldhideimages "Grafiken">
+<!ENTITY esb.hideimages "Grafiken">
 <!ENTITY esb.hideoldimages.accesskey "G">
-<!ENTITY esb.oldhideloaded "Geladen">
-<!ENTITY esb.oldhideloaded.accesskey "l">
-<!ENTITY esb.oldhidespeed "Geschwindigkeit">
-<!ENTITY esb.oldhidespeed.accesskey "d">
-<!ENTITY esb.oldhidetime "Zeit">
-<!ENTITY esb.oldhidetime.accesskey "Z">
-<!ENTITY esb.oldhidepercent "Prozentsatz">
-<!ENTITY esb.oldhidepercent.accesskey "P">
+<!ENTITY esb.hideloaded "Geladen">
+<!ENTITY esb.hideloaded.accesskey "l">
+<!ENTITY esb.hidespeed "Geschwindigkeit">
+<!ENTITY esb.hidespeed.accesskey "d">
+<!ENTITY esb.hidetime "Zeit">
+<!ENTITY esb.hidetime.accesskey "Z">
+<!ENTITY esb.hidepercent "Prozentsatz">
+<!ENTITY esb.hidepercent.accesskey "P">
+<!ENTITY esb.hideprogress "Hide Progress Meter">
+<!ENTITY esb.hideprogress.accesskey "t">
+<!ENTITY esb.hidecursor "Hide Loading Cursor">
+<!ENTITY esb.hidecursor.accesskey "c">

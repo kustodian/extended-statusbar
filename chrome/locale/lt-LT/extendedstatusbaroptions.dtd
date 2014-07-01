@@ -7,6 +7,7 @@
 <!ENTITY esb.hide "Slėpti išplėstinę būsenos juostą">
 <!ENTITY esb.hide.tooltip "Slėpti išplėstinę būsenos juostą, kai puslapis įkeltas.">
 <!ENTITY esb.hide.accesskey "S">
+<!ENTITY esb.hidetoolbar "Hide the whole toolbar">
 <!ENTITY esb.hideafter "Slėpti po">
 <!ENTITY esb.seconds "sekundžių">
 <!ENTITY esb.showonhover "Rodyti užvedus žymeklį virš būsenos juostos">
@@ -17,9 +18,9 @@
 <!ENTITY esb.hideonsites.tooltip "Naudinga AJAX svetainės, pvz., „Gmail“">
 <!ENTITY esb.appendcurrent "Pridėti esamą puslapį">
 <!ENTITY esb.appendcurrent.accesskey "P">
-<!ENTITY esb.customstyle "Pasirinktinis stilius">
-<!ENTITY esb.customstyle.accesskey "a">
-<!ENTITY esb.customstyle.tooltip "Išjungti pasirinktinį stilių, jei esamas grafinis apvalkalas palaiko Išplėstinę būsenos juostą.">
+<!ENTITY esb.customcolor "Pasirinktinis stilius">
+<!ENTITY esb.customcolor.accesskey "a">
+<!ENTITY esb.customcolor.tooltip "Išjungti pasirinktinį stilių, jei esamas grafinis apvalkalas palaiko Išplėstinę būsenos juostą.">
 <!ENTITY esb.backgroundcolor "Fonas:">
 <!ENTITY esb.progresscolor "Eigos juosta:">
 <!ENTITY esb.cursorcolor "Atlikta dalis:">
@@ -27,17 +28,21 @@
 <!ENTITY esb.useoldstyle "Klasikinis stilius">
 <!ENTITY esb.useoldstyle.accesskey "K">
 <!ENTITY esb.useoldstyle.tooltip "Rodo išplėstinę būsenos juostą „Firefox“ būsenos juostoje">
-<!ENTITY esb.oldslimmode "Minirežimas">
-<!ENTITY esb.oldslimmode.accesskey "M">
-<!ENTITY esb.oldslimmode.tooltip "Slepia antraštes ir rodo tik skaičius">
+<!ENTITY esb.slimmode "Minirežimas">
+<!ENTITY esb.slimmode.accesskey "M">
+<!ENTITY esb.slimmode.tooltip "Slepia antraštes ir rodo tik skaičius">
 <!ENTITY esb.hideindelements "Slėpti invidualius elementus">
-<!ENTITY esb.oldhideimages "Slėpti paveikslėlius">
+<!ENTITY esb.hideimages "Slėpti paveikslėlius">
 <!ENTITY esb.hideoldimages.accesskey "l">
-<!ENTITY esb.oldhideloaded "Slėpti įkeltą dydį">
-<!ENTITY esb.oldhideloaded.accesskey "d">
-<!ENTITY esb.oldhidespeed "Slėpti spartą">
-<!ENTITY esb.oldhidespeed.accesskey "s">
-<!ENTITY esb.oldhidetime "Slėpti laiką">
-<!ENTITY esb.oldhidetime.accesskey "t">
-<!ENTITY esb.oldhidepercent "Slėpti procentus">
-<!ENTITY esb.oldhidepercent.accesskey "o">
+<!ENTITY esb.hideloaded "Slėpti įkeltą dydį">
+<!ENTITY esb.hideloaded.accesskey "d">
+<!ENTITY esb.hidespeed "Slėpti spartą">
+<!ENTITY esb.hidespeed.accesskey "s">
+<!ENTITY esb.hidetime "Slėpti laiką">
+<!ENTITY esb.hidetime.accesskey "t">
+<!ENTITY esb.hidepercent "Slėpti procentus">
+<!ENTITY esb.hidepercent.accesskey "o">
+<!ENTITY esb.hideprogress "Hide Progress Meter">
+<!ENTITY esb.hideprogress.accesskey "t">
+<!ENTITY esb.hidecursor "Hide Loading Cursor">
+<!ENTITY esb.hidecursor.accesskey "c">

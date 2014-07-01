@@ -7,6 +7,7 @@
 <!ENTITY esb.hide "Skryť Extended Statusbar">
 <!ENTITY esb.hide.tooltip "Skryje Extended Statusbar po načítaní stránky.">
 <!ENTITY esb.hide.accesskey "H">
+<!ENTITY esb.hidetoolbar "Hide the whole toolbar">
 <!ENTITY esb.hideafter "Skryť po:">
 <!ENTITY esb.seconds "sekundách">
 <!ENTITY esb.showonhover "Zobraziť po prejdení myšou cez stavový panel">
@@ -17,9 +18,9 @@
 <!ENTITY esb.hideonsites.tooltip "Užitočné pri AJAX stránkach, napr. Gmail">
 <!ENTITY esb.appendcurrent "Pridať aktuálnu stránku">
 <!ENTITY esb.appendcurrent.accesskey "P">
-<!ENTITY esb.customstyle "Vlastný štýl">
-<!ENTITY esb.customstyle.accesskey "C">
-<!ENTITY esb.customstyle.tooltip "Zakázať vlastný štýl ak aktuálna téma podporuje Extended Statusbar!">
+<!ENTITY esb.customcolor "Vlastný štýl">
+<!ENTITY esb.customcolor.accesskey "C">
+<!ENTITY esb.customcolor.tooltip "Zakázať vlastný štýl ak aktuálna téma podporuje Extended Statusbar!">
 <!ENTITY esb.backgroundcolor "Pozadie:">
 <!ENTITY esb.progresscolor "Priebeh:">
 <!ENTITY esb.cursorcolor "Kurzor:">
@@ -27,17 +28,21 @@
 <!ENTITY esb.useoldstyle "Klasický štýl">
 <!ENTITY esb.useoldstyle.accesskey "K">
 <!ENTITY esb.useoldstyle.tooltip "Zobrazí Extended Statusbar v stavovom riadku Firefoxu">
-<!ENTITY esb.oldslimmode "Tenký mód">
-<!ENTITY esb.oldslimmode.accesskey "T">
-<!ENTITY esb.oldslimmode.tooltip "Skryje menovky a zobrazí iba čísla">
+<!ENTITY esb.slimmode "Tenký mód">
+<!ENTITY esb.slimmode.accesskey "T">
+<!ENTITY esb.slimmode.tooltip "Skryje menovky a zobrazí iba čísla">
 <!ENTITY esb.hideindelements "Skryť vlastné elementy">
-<!ENTITY esb.oldhideimages "Skryť Obrázky">
+<!ENTITY esb.hideimages "Skryť Obrázky">
 <!ENTITY esb.hideoldimages.accesskey "B">
-<!ENTITY esb.oldhideloaded "Skryť Načítané">
-<!ENTITY esb.oldhideloaded.accesskey "N">
-<!ENTITY esb.oldhidespeed "Skryť Rýchlosť">
-<!ENTITY esb.oldhidespeed.accesskey "R">
-<!ENTITY esb.oldhidetime "Skryť Čas">
-<!ENTITY esb.oldhidetime.accesskey "A">
-<!ENTITY esb.oldhidepercent "Skryť Percentá">
-<!ENTITY esb.oldhidepercent.accesskey "P">
+<!ENTITY esb.hideloaded "Skryť Načítané">
+<!ENTITY esb.hideloaded.accesskey "N">
+<!ENTITY esb.hidespeed "Skryť Rýchlosť">
+<!ENTITY esb.hidespeed.accesskey "R">
+<!ENTITY esb.hidetime "Skryť Čas">
+<!ENTITY esb.hidetime.accesskey "A">
+<!ENTITY esb.hidepercent "Skryť Percentá">
+<!ENTITY esb.hidepercent.accesskey "P">
+<!ENTITY esb.hideprogress "Hide Progress Meter">
+<!ENTITY esb.hideprogress.accesskey "t">
+<!ENTITY esb.hidecursor "Hide Loading Cursor">
+<!ENTITY esb.hidecursor.accesskey "c">

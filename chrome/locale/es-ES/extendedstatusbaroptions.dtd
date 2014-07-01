@@ -7,6 +7,7 @@
 <!ENTITY esb.hide "Ocultar Extended Statusbar">
 <!ENTITY esb.hide.tooltip "Oculta Extended Statusbar cuando se completa la descarga de la página">
 <!ENTITY esb.hide.accesskey "O">
+<!ENTITY esb.hidetoolbar "Hide the whole toolbar">
 <!ENTITY esb.hideafter "Ocultar tras:">
 <!ENTITY esb.seconds "segundos">
 <!ENTITY esb.showonhover "Mostrar cuando el ratón se sitúe sobre la barra de estado">
@@ -17,9 +18,9 @@
 <!ENTITY esb.hideonsites.tooltip "Útil para sitios con AJAX como Gmail">
 <!ENTITY esb.appendcurrent "Añadir página actual">
 <!ENTITY esb.appendcurrent.accesskey "A">
-<!ENTITY esb.customstyle "Estilo personalizado">
-<!ENTITY esb.customstyle.accesskey "p">
-<!ENTITY esb.customstyle.tooltip "¡Desactive los estilos personalizados si el tema que usa soporta Extended Statusbar!">
+<!ENTITY esb.customcolor "Estilo personalizado">
+<!ENTITY esb.customcolor.accesskey "p">
+<!ENTITY esb.customcolor.tooltip "¡Desactive los estilos personalizados si el tema que usa soporta Extended Statusbar!">
 <!ENTITY esb.backgroundcolor "Fondo:">
 <!ENTITY esb.progresscolor "Barra de progreso:">
 <!ENTITY esb.cursorcolor "Cursor de descarga:">
@@ -27,17 +28,21 @@
 <!ENTITY esb.useoldstyle "Estilo clásico">
 <!ENTITY esb.useoldstyle.accesskey "c">
 <!ENTITY esb.useoldstyle.tooltip "Extended Statusbar se sitúa dentro de la barra de estado de Firefox">
-<!ENTITY esb.oldslimmode "Modo reducido">
-<!ENTITY esb.oldslimmode.accesskey "r">
-<!ENTITY esb.oldslimmode.tooltip "Sólo muestra los números, no las etiquetas">
+<!ENTITY esb.slimmode "Modo reducido">
+<!ENTITY esb.slimmode.accesskey "r">
+<!ENTITY esb.slimmode.tooltip "Sólo muestra los números, no las etiquetas">
 <!ENTITY esb.hideindelements "Elementos individuales a mostrar">
-<!ENTITY esb.oldhideimages "Ocultar elemento Imágenes">
+<!ENTITY esb.hideimages "Ocultar elemento Imágenes">
 <!ENTITY esb.hideoldimages.accesskey "I">
-<!ENTITY esb.oldhideloaded "Ocultar elemento Descargados">
-<!ENTITY esb.oldhideloaded.accesskey "D">
-<!ENTITY esb.oldhidespeed "Ocultar elemento Velocidad">
-<!ENTITY esb.oldhidespeed.accesskey "V">
-<!ENTITY esb.oldhidetime "Ocultar elemento Tiempo">
-<!ENTITY esb.oldhidetime.accesskey "T">
-<!ENTITY esb.oldhidepercent "Ocultar elemento Porcentaje">
-<!ENTITY esb.oldhidepercent.accesskey "P">
+<!ENTITY esb.hideloaded "Ocultar elemento Descargados">
+<!ENTITY esb.hideloaded.accesskey "D">
+<!ENTITY esb.hidespeed "Ocultar elemento Velocidad">
+<!ENTITY esb.hidespeed.accesskey "V">
+<!ENTITY esb.hidetime "Ocultar elemento Tiempo">
+<!ENTITY esb.hidetime.accesskey "T">
+<!ENTITY esb.hidepercent "Ocultar elemento Porcentaje">
+<!ENTITY esb.hidepercent.accesskey "P">
+<!ENTITY esb.hideprogress "Hide Progress Meter">
+<!ENTITY esb.hideprogress.accesskey "t">
+<!ENTITY esb.hidecursor "Hide Loading Cursor">
+<!ENTITY esb.hidecursor.accesskey "c">

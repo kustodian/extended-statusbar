@@ -7,6 +7,7 @@
 <!ENTITY esb.hide "Приховати Розширений Рядок Стану">
 <!ENTITY esb.hide.tooltip "Приховувати Розширений Рядок Стану після завантаження сторінки">
 <!ENTITY esb.hide.accesskey "H">
+<!ENTITY esb.hidetoolbar "Hide the whole toolbar">
 <!ENTITY esb.hideafter "Приховувати після:">
 <!ENTITY esb.seconds "секунд">
 <!ENTITY esb.showonhover "Показувати при наведенні мишкою над рядком стану">
@@ -17,9 +18,9 @@
 <!ENTITY esb.hideonsites.tooltip "Корисно для AJAX сайтів, як-от Gmail">
 <!ENTITY esb.appendcurrent "Додати поточну сторінку">
 <!ENTITY esb.appendcurrent.accesskey "A">
-<!ENTITY esb.customstyle "Довільний стиль">
-<!ENTITY esb.customstyle.accesskey "C">
-<!ENTITY esb.customstyle.tooltip "Заборонити довільні стилі, якщо поточна тема підтримує Розширений Рядок Стану!">
+<!ENTITY esb.customcolor "Довільний стиль">
+<!ENTITY esb.customcolor.accesskey "C">
+<!ENTITY esb.customcolor.tooltip "Заборонити довільні стилі, якщо поточна тема підтримує Розширений Рядок Стану!">
 <!ENTITY esb.backgroundcolor "Тло:">
 <!ENTITY esb.progresscolor "Лінійка прогресу:">
 <!ENTITY esb.cursorcolor "Завантажений курсор:">
@@ -27,17 +28,21 @@
 <!ENTITY esb.useoldstyle "Класичний стиль">
 <!ENTITY esb.useoldstyle.accesskey "I">
 <!ENTITY esb.useoldstyle.tooltip "Показувати Розширений Рядок Стану в рядці стану Firefox">
-<!ENTITY esb.oldslimmode "Тонкий режим">
-<!ENTITY esb.oldslimmode.accesskey "m">
-<!ENTITY esb.oldslimmode.tooltip "Ховати написи і показувати лише числа">
+<!ENTITY esb.slimmode "Тонкий режим">
+<!ENTITY esb.slimmode.accesskey "m">
+<!ENTITY esb.slimmode.tooltip "Ховати написи і показувати лише числа">
 <!ENTITY esb.hideindelements "Ховати індивідуальні елементи">
-<!ENTITY esb.oldhideimages "Ховати картинки">
+<!ENTITY esb.hideimages "Ховати картинки">
 <!ENTITY esb.hideoldimages.accesskey "I">
-<!ENTITY esb.oldhideloaded "Ховати завантажене">
-<!ENTITY esb.oldhideloaded.accesskey "o">
-<!ENTITY esb.oldhidespeed "Ховати швидкість">
-<!ENTITY esb.oldhidespeed.accesskey "d">
-<!ENTITY esb.oldhidetime "Ховати час">
-<!ENTITY esb.oldhidetime.accesskey "T">
-<!ENTITY esb.oldhidepercent "Ховати відсотки">
-<!ENTITY esb.oldhidepercent.accesskey "P">
+<!ENTITY esb.hideloaded "Ховати завантажене">
+<!ENTITY esb.hideloaded.accesskey "o">
+<!ENTITY esb.hidespeed "Ховати швидкість">
+<!ENTITY esb.hidespeed.accesskey "d">
+<!ENTITY esb.hidetime "Ховати час">
+<!ENTITY esb.hidetime.accesskey "T">
+<!ENTITY esb.hidepercent "Ховати відсотки">
+<!ENTITY esb.hidepercent.accesskey "P">
+<!ENTITY esb.hideprogress "Hide Progress Meter">
+<!ENTITY esb.hideprogress.accesskey "t">
+<!ENTITY esb.hidecursor "Hide Loading Cursor">
+<!ENTITY esb.hidecursor.accesskey "c">

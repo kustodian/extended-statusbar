@@ -7,6 +7,7 @@
 <!ENTITY esb.hide "Masquer la barre d&apos;état du téléchargement">
 <!ENTITY esb.hide.tooltip "Masque la barre d&apos;état du téléchargement lorsque la page est chargée.">
 <!ENTITY esb.hide.accesskey "M">
+<!ENTITY esb.hidetoolbar "Masquer toute la barre d'outil">
 <!ENTITY esb.hideafter "Masquer après :">
 <!ENTITY esb.seconds "secondes">
 <!ENTITY esb.showonhover "Afficher au survol de la barre d&apos;état">
@@ -17,9 +18,9 @@
 <!ENTITY esb.hideonsites.tooltip "Très utile pour les sites AJAX comme Gmail">
 <!ENTITY esb.appendcurrent "Ajouter la page en cours">
 <!ENTITY esb.appendcurrent.accesskey "A">
-<!ENTITY esb.customstyle "Style personnalisé">
-<!ENTITY esb.customstyle.accesskey "S">
-<!ENTITY esb.customstyle.tooltip "Désactivez les styles personnalisés si votre thème courant prend en charge Extended Statusbar !">
+<!ENTITY esb.customcolor "Style personnalisé">
+<!ENTITY esb.customcolor.accesskey "S">
+<!ENTITY esb.customcolor.tooltip "Désactivez les styles personnalisés si votre thème courant prend en charge Extended Statusbar !">
 <!ENTITY esb.backgroundcolor "Arrière-plan :">
 <!ENTITY esb.progresscolor "Barre de progression :">
 <!ENTITY esb.cursorcolor "Curseur de chargement :">
@@ -27,17 +28,21 @@
 <!ENTITY esb.useoldstyle "Style classique">
 <!ENTITY esb.useoldstyle.accesskey "c">
 <!ENTITY esb.useoldstyle.tooltip "Affiche la barre d&apos;état de téléchargement dans la barre d&apos;état de Firefox">
-<!ENTITY esb.oldslimmode "Mode discret">
-<!ENTITY esb.oldslimmode.accesskey "M">
-<!ENTITY esb.oldslimmode.tooltip "Masque les titres et n&apos;affiche que les nombres">
+<!ENTITY esb.slimmode "Mode discret">
+<!ENTITY esb.slimmode.accesskey "M">
+<!ENTITY esb.slimmode.tooltip "Masque les titres et n&apos;affiche que les nombres">
 <!ENTITY esb.hideindelements "Masquer des éléments spécifiques">
-<!ENTITY esb.oldhideimages "Masquer les images">
+<!ENTITY esb.hideimages "Masquer les images">
 <!ENTITY esb.hideoldimages.accesskey "i">
-<!ENTITY esb.oldhideloaded "Masquer les éléments chargés">
-<!ENTITY esb.oldhideloaded.accesskey "a">
-<!ENTITY esb.oldhidespeed "Masquer la vitesse">
-<!ENTITY esb.oldhidespeed.accesskey "v">
-<!ENTITY esb.oldhidetime "Masquer la durée">
-<!ENTITY esb.oldhidetime.accesskey "d">
-<!ENTITY esb.oldhidepercent "Masquer le pourcentage">
-<!ENTITY esb.oldhidepercent.accesskey "p">
+<!ENTITY esb.hideloaded "Masquer les éléments chargés">
+<!ENTITY esb.hideloaded.accesskey "a">
+<!ENTITY esb.hidespeed "Masquer la vitesse">
+<!ENTITY esb.hidespeed.accesskey "v">
+<!ENTITY esb.hidetime "Masquer la durée">
+<!ENTITY esb.hidetime.accesskey "d">
+<!ENTITY esb.hidepercent "Masquer le pourcentage">
+<!ENTITY esb.hidepercent.accesskey "p">
+<!ENTITY esb.hideprogress "Masquer la progression">
+<!ENTITY esb.hideprogress.accesskey "r">
+<!ENTITY esb.hidecursor "Masquer le curseur">
+<!ENTITY esb.hidecursor.accesskey "c">

@@ -7,6 +7,7 @@
 <!ENTITY esb.hide "隐藏 Extended Statusbar">
 <!ENTITY esb.hide.tooltip "页面载入后隐藏 Extended Statusbar">
 <!ENTITY esb.hide.accesskey "H">
+<!ENTITY esb.hidetoolbar "Hide the whole toolbar">
 <!ENTITY esb.hideafter "在:">
 <!ENTITY esb.seconds "秒后隐藏">
 <!ENTITY esb.showonhover "悬停在状态栏时显示">
@@ -17,9 +18,9 @@
 <!ENTITY esb.hideonsites.tooltip "在那些使用 AJAX 的站点上使用, 如Gmail">
 <!ENTITY esb.appendcurrent "添加当前站点">
 <!ENTITY esb.appendcurrent.accesskey "A">
-<!ENTITY esb.customstyle "自定义样式">
-<!ENTITY esb.customstyle.accesskey "C">
-<!ENTITY esb.customstyle.tooltip "如果当前主题支持 Extended Statusbar, 请不要使用自定义样式!">
+<!ENTITY esb.customcolor "自定义样式">
+<!ENTITY esb.customcolor.accesskey "C">
+<!ENTITY esb.customcolor.tooltip "如果当前主题支持 Extended Statusbar, 请不要使用自定义样式!">
 <!ENTITY esb.backgroundcolor "背景:">
 <!ENTITY esb.progresscolor "进度条:">
 <!ENTITY esb.cursorcolor "载入的光标:">
@@ -27,17 +28,21 @@
 <!ENTITY esb.useoldstyle "经典样式">
 <!ENTITY esb.useoldstyle.accesskey "l">
 <!ENTITY esb.useoldstyle.tooltip "在 Firefox 状态栏中显示 Extended Statusbar">
-<!ENTITY esb.oldslimmode "简化模式">
-<!ENTITY esb.oldslimmode.accesskey "m">
-<!ENTITY esb.oldslimmode.tooltip "隐藏文字标签只显示数字">
+<!ENTITY esb.slimmode "简化模式">
+<!ENTITY esb.slimmode.accesskey "m">
+<!ENTITY esb.slimmode.tooltip "隐藏文字标签只显示数字">
 <!ENTITY esb.hideindelements "隐藏项目">
-<!ENTITY esb.oldhideimages "图片">
+<!ENTITY esb.hideimages "图片">
 <!ENTITY esb.hideoldimages.accesskey "I">
-<!ENTITY esb.oldhideloaded "大小">
-<!ENTITY esb.oldhideloaded.accesskey "o">
-<!ENTITY esb.oldhidespeed "速度">
-<!ENTITY esb.oldhidespeed.accesskey "d">
-<!ENTITY esb.oldhidetime "时间">
-<!ENTITY esb.oldhidetime.accesskey "T">
-<!ENTITY esb.oldhidepercent "百分比">
-<!ENTITY esb.oldhidepercent.accesskey "P">
+<!ENTITY esb.hideloaded "大小">
+<!ENTITY esb.hideloaded.accesskey "o">
+<!ENTITY esb.hidespeed "速度">
+<!ENTITY esb.hidespeed.accesskey "d">
+<!ENTITY esb.hidetime "时间">
+<!ENTITY esb.hidetime.accesskey "T">
+<!ENTITY esb.hidepercent "百分比">
+<!ENTITY esb.hidepercent.accesskey "P">
+<!ENTITY esb.hideprogress "Hide Progress Meter">
+<!ENTITY esb.hideprogress.accesskey "t">
+<!ENTITY esb.hidecursor "Hide Loading Cursor">
+<!ENTITY esb.hidecursor.accesskey "c">

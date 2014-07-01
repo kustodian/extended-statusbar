@@ -7,6 +7,7 @@
 <!ENTITY esb.hide "Ascunde Extended Statusbar">
 <!ENTITY esb.hide.tooltip "Ascunde Extended Statusbar după ce s-a încărcat pagina.">
 <!ENTITY esb.hide.accesskey "c">
+<!ENTITY esb.hidetoolbar "Hide the whole toolbar">
 <!ENTITY esb.hideafter "Ascunde după:">
 <!ENTITY esb.seconds "secunde">
 <!ENTITY esb.showonhover "Arată când se trece cu mausul peste bara de stare">
@@ -17,9 +18,9 @@
 <!ENTITY esb.hideonsites.tooltip "Folositor pentru saituri AJAX ca Gmail">
 <!ENTITY esb.appendcurrent "Adaugă pagina curentă">
 <!ENTITY esb.appendcurrent.accesskey "A">
-<!ENTITY esb.customstyle "Stil personalizat">
-<!ENTITY esb.customstyle.accesskey "z">
-<!ENTITY esb.customstyle.tooltip "Dezactivează stilurile personalizate dacă tema curentă suportă Extended Statusbar!">
+<!ENTITY esb.customcolor "Stil personalizat">
+<!ENTITY esb.customcolor.accesskey "z">
+<!ENTITY esb.customcolor.tooltip "Dezactivează stilurile personalizate dacă tema curentă suportă Extended Statusbar!">
 <!ENTITY esb.backgroundcolor "Fundal:">
 <!ENTITY esb.progresscolor "Bară de progres:">
 <!ENTITY esb.cursorcolor "Cursor încărcare:">
@@ -27,17 +28,21 @@
 <!ENTITY esb.useoldstyle "Stilul clasic">
 <!ENTITY esb.useoldstyle.accesskey "i">
 <!ENTITY esb.useoldstyle.tooltip "Afişează Extended Statusbar în bara de stare Firefox">
-<!ENTITY esb.oldslimmode "Modul slim">
-<!ENTITY esb.oldslimmode.accesskey "m">
-<!ENTITY esb.oldslimmode.tooltip "Ascunde etichetele şi afişează doar numerele">
+<!ENTITY esb.slimmode "Modul slim">
+<!ENTITY esb.slimmode.accesskey "m">
+<!ENTITY esb.slimmode.tooltip "Ascunde etichetele şi afişează doar numerele">
 <!ENTITY esb.hideindelements "Ascunde elemente individuale">
-<!ENTITY esb.oldhideimages "Ascunde imaginile">
+<!ENTITY esb.hideimages "Ascunde imaginile">
 <!ENTITY esb.hideoldimages.accesskey "i">
-<!ENTITY esb.oldhideloaded "Ascunde „Încărcat”">
-<!ENTITY esb.oldhideloaded.accesskey "u">
-<!ENTITY esb.oldhidespeed "Ascunde viteza">
-<!ENTITY esb.oldhidespeed.accesskey "d">
-<!ENTITY esb.oldhidetime "Ascunde timpul">
-<!ENTITY esb.oldhidetime.accesskey "t">
-<!ENTITY esb.oldhidepercent "Ascunde procentajul">
-<!ENTITY esb.oldhidepercent.accesskey "p">
+<!ENTITY esb.hideloaded "Ascunde „Încărcat”">
+<!ENTITY esb.hideloaded.accesskey "u">
+<!ENTITY esb.hidespeed "Ascunde viteza">
+<!ENTITY esb.hidespeed.accesskey "d">
+<!ENTITY esb.hidetime "Ascunde timpul">
+<!ENTITY esb.hidetime.accesskey "t">
+<!ENTITY esb.hidepercent "Ascunde procentajul">
+<!ENTITY esb.hidepercent.accesskey "p">
+<!ENTITY esb.hideprogress "Hide Progress Meter">
+<!ENTITY esb.hideprogress.accesskey "t">
+<!ENTITY esb.hidecursor "Hide Loading Cursor">
+<!ENTITY esb.hidecursor.accesskey "c">

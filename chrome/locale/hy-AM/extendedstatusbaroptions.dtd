@@ -7,6 +7,7 @@
 <!ENTITY esb.hide "Թաքցնել">
 <!ENTITY esb.hide.tooltip "Թաքցնում է Extended Statusbar-ը էջի բեռնումից հետո">
 <!ENTITY esb.hide.accesskey "E">
+<!ENTITY esb.hidetoolbar "Hide the whole toolbar">
 <!ENTITY esb.hideafter "Թաքցնել">
 <!ENTITY esb.seconds "վարկյան հետո">
 <!ENTITY esb.showonhover "Ցույց տալ վիճակի տողի մոտ մկնիկը պահելուց">
@@ -17,9 +18,9 @@
 <!ENTITY esb.hideonsites.tooltip "Օգտակար է AJAX կայքերում, օրինակ` Gmail">
 <!ENTITY esb.appendcurrent "Ավելացնել ընթացիկ էջը">
 <!ENTITY esb.appendcurrent.accesskey "ը">
-<!ENTITY esb.customstyle "Սեփական ոճ">
-<!ENTITY esb.customstyle.accesskey "ո">
-<!ENTITY esb.customstyle.tooltip "Անջատել Սեփական ոճերը եթե ընթացիկ թեման աշխատում է Extended Statusbar-ի հետ">
+<!ENTITY esb.customcolor "Սեփական ոճ">
+<!ENTITY esb.customcolor.accesskey "ո">
+<!ENTITY esb.customcolor.tooltip "Անջատել Սեփական ոճերը եթե ընթացիկ թեման աշխատում է Extended Statusbar-ի հետ">
 <!ENTITY esb.backgroundcolor "Ֆոն">
 <!ENTITY esb.progresscolor "Բեռնվածության ֆոն">
 <!ENTITY esb.cursorcolor "Բեռնվածության ցուցիչ">
@@ -27,17 +28,21 @@
 <!ENTITY esb.useoldstyle "Ավանդական տեսք">
 <!ENTITY esb.useoldstyle.accesskey "ք">
 <!ENTITY esb.useoldstyle.tooltip "Ցույց է տալիս Extended Statusbar վիճակի տողում">
-<!ENTITY esb.oldslimmode "Նեղ ռեժիմ">
-<!ENTITY esb.oldslimmode.accesskey "ռ">
-<!ENTITY esb.oldslimmode.tooltip "Թաքցնում է ցուցիչների անունները">
+<!ENTITY esb.slimmode "Նեղ ռեժիմ">
+<!ENTITY esb.slimmode.accesskey "ռ">
+<!ENTITY esb.slimmode.tooltip "Թաքցնում է ցուցիչների անունները">
 <!ENTITY esb.hideindelements "Թաքցնել առանձին ցուցիչները">
-<!ENTITY esb.oldhideimages "Թաքցնել Նկարները">
+<!ENTITY esb.hideimages "Թաքցնել Նկարները">
 <!ENTITY esb.hideoldimages.accesskey "Ն">
-<!ENTITY esb.oldhideloaded "Թաքցնել Բեռնվածը">
-<!ENTITY esb.oldhideloaded.accesskey "Բ">
-<!ENTITY esb.oldhidespeed "Թաքցնել Արագությունը">
-<!ENTITY esb.oldhidespeed.accesskey "Ա">
-<!ENTITY esb.oldhidetime "Թաքցնել Ժամանակը">
-<!ENTITY esb.oldhidetime.accesskey "Ժ">
-<!ENTITY esb.oldhidepercent "Թաքցնել Տոկոսը">
-<!ENTITY esb.oldhidepercent.accesskey "Տ">
+<!ENTITY esb.hideloaded "Թաքցնել Բեռնվածը">
+<!ENTITY esb.hideloaded.accesskey "Բ">
+<!ENTITY esb.hidespeed "Թաքցնել Արագությունը">
+<!ENTITY esb.hidespeed.accesskey "Ա">
+<!ENTITY esb.hidetime "Թաքցնել Ժամանակը">
+<!ENTITY esb.hidetime.accesskey "Ժ">
+<!ENTITY esb.hidepercent "Թաքցնել Տոկոսը">
+<!ENTITY esb.hidepercent.accesskey "Տ">
+<!ENTITY esb.hideprogress "Hide Progress Meter">
+<!ENTITY esb.hideprogress.accesskey "t">
+<!ENTITY esb.hidecursor "Hide Loading Cursor">
+<!ENTITY esb.hidecursor.accesskey "c">

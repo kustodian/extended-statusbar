@@ -8,62 +8,34 @@
 	
 	<toolbarpalette id="BrowserToolbarPalette">
 		<toolbaritem id="ESB_toolbaritem" title="Extended Statusbar" removable="true">
-			<hbox id="ESB_old_status_bar" onmouseover="XULExtendedStatusbarChrome.showESBOnHover();" onmouseout="XULExtendedStatusbarChrome.hideESBOnHover();">
-				<statusbarpanel id="ESB_old_images" tooltiptext="&esb.loadedimages;" minwidth="1"/>
-				<statusbarpanel id="ESB_old_loaded" tooltiptext="&esb.dataloaded;" minwidth="1"/>
-				<statusbarpanel id="ESB_old_speed" tooltiptext="&esb.avgspeed;" minwidth="1"/>
-				<statusbarpanel id="ESB_old_time" tooltiptext="&esb.time;" minwidth="1"/>
-                <statusbarpanel id="ESB_old_percent" tooltiptext="&esb.percentage;" minwidth="1"/>
-			</hbox>
-			<hbox id="ESB_new_status_bar">
-				<stack id="ESB_document_working_box" tooltiptext="&esb.percentage;" width="135">
+			<hbox id="ESB_status_bar" onmouseover="XULExtendedStatusbarChrome.showESBOnHover();" onmouseout="XULExtendedStatusbarChrome.hideESBOnHover();">
+				<stack id="ESB_percent_box" tooltiptext="&esb.percentage;">
 					<hbox height="20">
-						<hbox id="ESB_document_working_progressbar"/>
+						<hbox id="ESB_percent_progressbar"/>
 					</hbox>
-					<hbox pack="start" align="center">
-						<image src="chrome://browser/skin/Throbber.gif"/>
-					</hbox>
-					<hbox pack="start" align="center">
-						<spacer width="17"/>
-						<label id="ESB_document_working_label"/>
+					<hbox pack="center" align="center">
+						<label id="ESB_percent_label"/>
 					</hbox>
 				</stack>
-				<stack id="ESB_document_finished_box" tooltiptext="&esb.percentage;" width="135" hidden="true">
-					<hbox height="20">
-						<hbox id="ESB_document_finished_progressbar" flex="1"/>
-					</hbox>
-					<hbox pack="start" align="center">
-						<image src="chrome://browser/skin/Throbber.png"/>
-					</hbox>
-					<hbox pack="start" align="center">
-						<spacer width="17"/>
-						<label id="ESB_document_finished_label" value="&esb.document; 100%"/>
-					</hbox>
-				</stack>
-				<hbox id="ESB_images_box" pack="start" align="center" height="20">
-					<label id="ESB_images_label" tooltiptext="&esb.loadedimages;" width="105" flex="1"/>
+				<hbox id="ESB_images_box" tooltiptext="&esb.loadedimages;" pack="center" align="center">
+					<label id="ESB_images_label"/>
 				</hbox>
-				<stack id="ESB_loaded_working_box" tooltiptext="&esb.dataloaded;" width="120">
+				<stack id="ESB_loaded_box" tooltiptext="&esb.dataloaded;">
 					<hbox height="20">
-						<hbox id="ESB_loaded_working_progressbar"/>
+						<hbox id="ESB_loaded_finished_progressbar" flex="1" hidden="true"/>
 					</hbox>
-					<hbox pack="start" align="center">
-						<label id="ESB_loaded_working_label"/>
+					<hbox height="20">
+						<hbox id="ESB_loaded_working_progressbar" hidden="true"/>
+					</hbox>
+					<hbox pack="center" align="center">
+						<label id="ESB_loaded_label"/>
 					</hbox>
 				</stack>
-				<stack id="ESB_loaded_finished_box" tooltiptext="&esb.dataloaded;" width="120" hidden="true">
-					<hbox height="20">
-						<hbox id="ESB_loaded_finished_progressbar" flex="1"/>
-					</hbox>
-					<hbox pack="start" align="center">
-						<label id="ESB_loaded_finished_label"/>
-					</hbox>
-				</stack>
-				<hbox id="ESB_speed_box" pack="start" align="center" height="20">
-					<label id="ESB_speed_label" tooltiptext="&esb.avgspeed;" width="115" flex="1"/>
+				<hbox id="ESB_speed_box" tooltiptext="&esb.avgspeed;" pack="center" align="center">
+					<label id="ESB_speed_label"/>
 				</hbox>
-				<hbox id="ESB_time_box" pack="start" align="center" height="20" flex="1">
-					<label id="ESB_time_label" tooltiptext="&esb.time;" flex="1"/>
+				<hbox id="ESB_time_box" tooltiptext="&esb.time;" pack="center" align="center">
+					<label id="ESB_time_label"/>
 				</hbox>
 			</hbox>
 		</toolbaritem>

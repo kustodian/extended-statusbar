@@ -7,6 +7,7 @@
 <!ENTITY esb.hide "Сакриј Extended Statusbar">
 <!ENTITY esb.hide.tooltip "Сакрива Extended Statusbar након што се страница потпуно учита">
 <!ENTITY esb.hide.accesskey "С">
+<!ENTITY esb.hidetoolbar "Hide the whole toolbar">
 <!ENTITY esb.hideafter "Сакриј након:">
 <!ENTITY esb.seconds "секунди">
 <!ENTITY esb.showonhover "Прикажи после задржавања курсора на статусној линији">
@@ -17,9 +18,9 @@
 <!ENTITY esb.hideonsites.tooltip "Корисно за AJAX сајтове као што је Gmail">
 <!ENTITY esb.appendcurrent "Додај текућу страницу">
 <!ENTITY esb.appendcurrent.accesskey "Д">
-<!ENTITY esb.customstyle "Кориснички дефинисан стил">
-<!ENTITY esb.customstyle.accesskey "К">
-<!ENTITY esb.customstyle.tooltip "Ако ваша тема подржава Extended Statusbar, не активирајте кориснички дефинисан стил!">
+<!ENTITY esb.customcolor "Кориснички дефинисан стил">
+<!ENTITY esb.customcolor.accesskey "К">
+<!ENTITY esb.customcolor.tooltip "Ако ваша тема подржава Extended Statusbar, не активирајте кориснички дефинисан стил!">
 <!ENTITY esb.backgroundcolor "Позадина:">
 <!ENTITY esb.progresscolor "Линија прогреса:">
 <!ENTITY esb.cursorcolor "Курсор учитавања:">
@@ -27,17 +28,21 @@
 <!ENTITY esb.useoldstyle "Класични стил">
 <!ENTITY esb.useoldstyle.accesskey "ч">
 <!ENTITY esb.useoldstyle.tooltip "Extended Statusbar је интегрисан у статусну линију">
-<!ENTITY esb.oldslimmode "Компактни режим">
-<!ENTITY esb.oldslimmode.accesskey "т">
-<!ENTITY esb.oldslimmode.tooltip "Сакрива лабеле и приказује само бројеве">
+<!ENTITY esb.slimmode "Компактни режим">
+<!ENTITY esb.slimmode.accesskey "т">
+<!ENTITY esb.slimmode.tooltip "Сакрива лабеле и приказује само бројеве">
 <!ENTITY esb.hideindelements "Сакриј поједине ставке">
-<!ENTITY esb.oldhideimages "Сакриј слике">
+<!ENTITY esb.hideimages "Сакриј слике">
 <!ENTITY esb.hideoldimages.accesskey "л">
-<!ENTITY esb.oldhideloaded "Сакриј учитано">
-<!ENTITY esb.oldhideloaded.accesskey "у">
-<!ENTITY esb.oldhidespeed "Сакриј брзину">
-<!ENTITY esb.oldhidespeed.accesskey "б">
-<!ENTITY esb.oldhidetime "Сакриј време">
-<!ENTITY esb.oldhidetime.accesskey "в">
-<!ENTITY esb.oldhidepercent "Сакриј проценат">
-<!ENTITY esb.oldhidepercent.accesskey "ц">
+<!ENTITY esb.hideloaded "Сакриј учитано">
+<!ENTITY esb.hideloaded.accesskey "у">
+<!ENTITY esb.hidespeed "Сакриј брзину">
+<!ENTITY esb.hidespeed.accesskey "б">
+<!ENTITY esb.hidetime "Сакриј време">
+<!ENTITY esb.hidetime.accesskey "в">
+<!ENTITY esb.hidepercent "Сакриј проценат">
+<!ENTITY esb.hidepercent.accesskey "ц">
+<!ENTITY esb.hideprogress "Hide Progress Meter">
+<!ENTITY esb.hideprogress.accesskey "t">
+<!ENTITY esb.hidecursor "Hide Loading Cursor">
+<!ENTITY esb.hidecursor.accesskey "c">
