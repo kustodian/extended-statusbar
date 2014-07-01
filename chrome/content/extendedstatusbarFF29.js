@@ -119,7 +119,7 @@ XULExtendedStatusbarChrome.hideESBOnHover = function ()
 	if (XULExtendedStatusbarChrome.esbHide && XULExtendedStatusbarChrome.showOnHover && !XULExtendedStatusbarChrome.esbLoading)
 	{
 		XULExtendedStatusbarChrome.cancelHover(XULExtendedStatusbarChrome.hoverTimeOut);
-		if (!XULExtendedStatusbarChrome.esbXUL.new_status_bar.hidden)
+		if (!XULExtendedStatusbarChrome.esbXUL.status_bar.hidden)
 		{
 			XULExtendedStatusbarChrome.cancelTimeOut(XULExtendedStatusbarChrome.hideTimeOut);
 			XULExtendedStatusbarChrome.esbTimeOutSem = true;

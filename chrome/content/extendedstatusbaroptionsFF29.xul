@@ -176,7 +176,7 @@
 							<textbox id="textesbtimeout" preference="esbHideTimeout" style="max-width:30px;" maxlength="2"/>
 							<label id="labelesbseconds" value="&esb.seconds;"/>
 						</hbox>
-						<checkbox id="checkesbhidetoolbar" preference="esbHideToolBar" label="&esb.hidetoolbar;"/>
+						<checkbox id="checkesbhidetoolbar" preference="esbHideToolBar" label="&esb.hidetoolbar;" onclick="XULExtendedStatusbarOptions.hideToolbar();"/>
 						<checkbox id="checkesbshowonhover" preference="esbShowOnHover" label="&esb.showonhover;" accesskey="&esb.showonhover.accesskey;" onclick="XULExtendedStatusbarOptions.hideHover();"/>
 						<hbox align="center" class="indent">
 							<label id="labelesbhovering" value="&esb.hovering;"/>

@@ -8,7 +8,7 @@
 	
 	<toolbarpalette id="BrowserToolbarPalette">
 		<toolbaritem id="ESB_toolbaritem" title="Extended Statusbar" removable="true">
-			<hbox id="ESB_status_bar" onmouseover="XULExtendedStatusbarChrome.showESBOnHover();" onmouseout="XULExtendedStatusbarChrome.hideESBOnHover();">
+			<hbox id="ESB_status_bar">
 				<stack id="ESB_percent_box" tooltiptext="&esb.percentage;">
 					<hbox height="20">
 						<hbox id="ESB_percent_progressbar"/>
@@ -42,7 +42,7 @@
 	</toolbarpalette>
 	
 	<vbox id="browser-bottombox">
-		<toolbar id="ESB_toolbar" toolbarname="Extended Statusbar" toolboxid="navigator-toolbox" accesskey="E" class="toolbar-primary chromeclass-toolbar" customizable="true" context="toolbar-context-menu" hidden="false" persist="hidden" mode="icons" iconsize="small">
+		<toolbar id="ESB_toolbar" toolbarname="Extended Statusbar" toolboxid="navigator-toolbox" accesskey="E" class="toolbar-primary chromeclass-toolbar" customizable="true" context="toolbar-context-menu" hidden="false" persist="hidden" mode="icons" iconsize="small" onmouseover="XULExtendedStatusbarChrome.showESBOnHover();" onmouseout="XULExtendedStatusbarChrome.hideESBOnHover();">
 			<toolbarspacer id="ESB_toolbarspacer" flex="1"/>
 		</toolbar>
 	</vbox> 

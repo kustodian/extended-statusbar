@@ -12,19 +12,29 @@ XULExtendedStatusbarOptions.init = function ()
 		document.getElementById("textesbtimeout").removeAttribute("disabled");      //Have to remove it because it stay disabled
 		document.getElementById("labelesbhideafter").setAttribute("disabled", "false");
 		document.getElementById("labelesbseconds").setAttribute("disabled", "false");
-		document.getElementById("checkesbshowonhover").setAttribute("disabled", "false");
 		document.getElementById("checkesbhidetoolbar").setAttribute("disabled", "false");
-		if (document.getElementById("checkesbshowonhover").checked)
+		if (document.getElementById("checkesbhidetoolbar").checked)
 		{
-			document.getElementById("labelesbhovering").setAttribute("disabled", "false");
-			document.getElementById("textesbhovertimeout").removeAttribute("disabled");
-			document.getElementById("labelesbhoverseconds").setAttribute("disabled", "false");
-		}
-		else
-		{
+			document.getElementById("checkesbshowonhover").setAttribute("disabled", "true");
 			document.getElementById("labelesbhovering").setAttribute("disabled", "true");
 			document.getElementById("textesbhovertimeout").setAttribute("disabled", "true");
 			document.getElementById("labelesbhoverseconds").setAttribute("disabled", "true");
+		}
+		else
+		{
+			document.getElementById("checkesbshowonhover").setAttribute("disabled", "false");
+			if (document.getElementById("checkesbshowonhover").checked)
+			{
+				document.getElementById("labelesbhovering").setAttribute("disabled", "false");
+				document.getElementById("textesbhovertimeout").removeAttribute("disabled");
+				document.getElementById("labelesbhoverseconds").setAttribute("disabled", "false");
+			}
+			else
+			{
+				document.getElementById("labelesbhovering").setAttribute("disabled", "true");
+				document.getElementById("textesbhovertimeout").setAttribute("disabled", "true");
+				document.getElementById("labelesbhoverseconds").setAttribute("disabled", "true");
+			}
 		}
 	}
 	else
@@ -118,6 +128,53 @@ XULExtendedStatusbarOptions.hideCheck = function()
 		document.getElementById("labelesbhideafter").setAttribute("disabled", "false");
 		document.getElementById("checkesbhidetoolbar").setAttribute("disabled", "false");
 		document.getElementById("labelesbseconds").setAttribute("disabled", "false");
+		if (document.getElementById("checkesbhidetoolbar").checked)
+		{
+			document.getElementById("checkesbshowonhover").setAttribute("disabled", "true");
+			document.getElementById("labelesbhovering").setAttribute("disabled", "true");
+			document.getElementById("textesbhovertimeout").setAttribute("disabled", "true");
+			document.getElementById("labelesbhoverseconds").setAttribute("disabled", "true");
+		}
+		else
+		{
+			document.getElementById("checkesbshowonhover").setAttribute("disabled", "false");
+			if (document.getElementById("checkesbshowonhover").checked)
+			{
+				document.getElementById("labelesbhovering").setAttribute("disabled", "false");
+				document.getElementById("textesbhovertimeout").removeAttribute("disabled");
+				document.getElementById("labelesbhoverseconds").setAttribute("disabled", "false");
+			}
+			else
+			{
+				document.getElementById("labelesbhovering").setAttribute("disabled", "true");
+				document.getElementById("textesbhovertimeout").setAttribute("disabled", "true");
+				document.getElementById("labelesbhoverseconds").setAttribute("disabled", "true");
+			}
+		}
+	}
+	else
+	{
+		document.getElementById("textesbtimeout").setAttribute("disabled", "true");
+		document.getElementById("labelesbhideafter").setAttribute("disabled", "true");
+		document.getElementById("checkesbhidetoolbar").setAttribute("disabled", "true");
+		document.getElementById("labelesbseconds").setAttribute("disabled", "true");
+		document.getElementById("checkesbshowonhover").setAttribute("disabled", "true");
+		document.getElementById("labelesbhovering").setAttribute("disabled", "true");
+		document.getElementById("textesbhovertimeout").setAttribute("disabled", "true");
+	}
+}
+
+XULExtendedStatusbarOptions.hideToolbar = function()
+{
+	if (!document.getElementById("checkesbhidetoolbar").checked)
+	{
+		document.getElementById("checkesbshowonhover").setAttribute("disabled", "true");
+		document.getElementById("labelesbhovering").setAttribute("disabled", "true");
+		document.getElementById("textesbhovertimeout").setAttribute("disabled", "true");
+		document.getElementById("labelesbhoverseconds").setAttribute("disabled", "true");
+	}
+	else
+	{
 		document.getElementById("checkesbshowonhover").setAttribute("disabled", "false");
 		if (document.getElementById("checkesbshowonhover").checked)
 		{
@@ -131,16 +188,6 @@ XULExtendedStatusbarOptions.hideCheck = function()
 			document.getElementById("textesbhovertimeout").setAttribute("disabled", "true");
 			document.getElementById("labelesbhoverseconds").setAttribute("disabled", "true");
 		}
-	}
-	else
-	{
-		document.getElementById("textesbtimeout").setAttribute("disabled", "true");
-		document.getElementById("labelesbhideafter").setAttribute("disabled", "true");
-		document.getElementById("checkesbhidetoolbar").setAttribute("disabled", "true");
-		document.getElementById("labelesbseconds").setAttribute("disabled", "true");
-		document.getElementById("checkesbshowonhover").setAttribute("disabled", "true");
-		document.getElementById("labelesbhovering").setAttribute("disabled", "true");
-		document.getElementById("textesbhovertimeout").setAttribute("disabled", "true");
 	}
 }
 
