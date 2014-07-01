@@ -213,6 +213,20 @@ XULExtendedStatusbarChrome.esbListener =
 	
 	onTabSelect : function(aEvent) 
 	{
+		if (XULExtendedStatusbarChrome.hideForSites && 
+			aEvent.target.linkedBrowser.contentDocument.location.hostname.match(XULExtendedStatusbarChrome.hideForSites))
+		{
+			XULExtendedStatusbarChrome.hideForSitesSem = true;
+			XULExtendedStatusbarChrome.esbXUL.esb_toolbar.hidden = true;
+			XULExtendedStatusbarChrome.esbXUL.status_bar.hidden = true;
+		}
+		else
+		{
+			XULExtendedStatusbarChrome.hideForSitesSem = false;
+			XULExtendedStatusbarChrome.cancelTimeOut(XULExtendedStatusbarChrome.hideTimeOut);
+			XULExtendedStatusbarChrome.esbXUL.esb_toolbar.hidden = false;
+			XULExtendedStatusbarChrome.esbXUL.status_bar.hidden = false;
+		}
 		if (!XULExtendedStatusbarChrome.hideForSitesSem)
 		{
 			XULExtendedStatusbarChrome.cancelTimeOut(XULExtendedStatusbarChrome.hideTimeOut);
