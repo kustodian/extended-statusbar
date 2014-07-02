@@ -47,12 +47,14 @@ XULExtendedStatusbarChrome.init = function ()
 			XULExtendedStatusbarChrome.esbListener.init();
 			window.getBrowser().addTabsProgressListener(XULExtendedStatusbarChrome.esbListener);
 			XULExtendedStatusbarChrome.started = true;
+			XULExtendedStatusbarChrome.addContextMenuItem();
 			console.log("ExtendedStatusbar started");
 		}
 		else if(XULExtendedStatusbarChrome.started && (CustomizableUI.getPlaceForItem(toolbaritem) == "palette" || CustomizableUI.getPlaceForItem(toolbaritem) == "panel"))
 		{
 			XULExtendedStatusbarChrome.uninit();
 			XULExtendedStatusbarChrome.started = false;
+			XULExtendedStatusbarChrome.removeContextMenuItem();
 			console.log("ExtendedStatusbar stopped");
 		}
 	}
@@ -64,6 +66,133 @@ XULExtendedStatusbarChrome.uninit = function ()
 	XULExtendedStatusbarChrome.esbXUL.destroy();
 	XULExtendedStatusbarChrome.esbListener.destroy();
 	window.getBrowser().removeTabsProgressListener(XULExtendedStatusbarChrome.esbListener);
+}
+
+XULExtendedStatusbarChrome.addContextMenuItem = function ()
+{
+    if (document.getElementById("ESB_options_context_item")) return;
+    var menu = document.getElementById("toolbar-context-menu");
+	if(!menu) return;
+	
+	var menuseparator = document.createElement("menuseparator");
+    menuseparator.setAttribute("id", "ESB_context_separator");
+    menu.insertBefore(menuseparator, menu.firstChild);
+	
+    var itemTime = document.createElement("menuitem");
+    itemTime.setAttribute("id", "ESB_time_context_item");
+    itemTime.setAttribute("type", "checkbox");
+    itemTime.setAttribute("checked", !XULExtendedStatusbarChrome.ESB_PrefObserver.prefs.getBoolPref("hidetime"));
+    itemTime.setAttribute("label", "Show time");
+    itemTime.setAttribute("accesskey", "t");
+    itemTime.addEventListener("click", 
+		function(e)
+		{
+			XULExtendedStatusbarChrome.ESB_PrefObserver.prefs.setBoolPref("hidetime", document.getElementById("ESB_time_context_item").getAttribute("checked"));
+			e.preventDefault();
+			return true;
+		}
+	);
+    menu.insertBefore(itemTime, menu.firstChild);
+	
+    var itemSpeed = document.createElement("menuitem");
+    itemSpeed.setAttribute("id", "ESB_speed_context_item");
+    itemSpeed.setAttribute("type", "checkbox");
+    itemSpeed.setAttribute("checked", !XULExtendedStatusbarChrome.ESB_PrefObserver.prefs.getBoolPref("hidespeed"));
+    itemSpeed.setAttribute("label", "Show speed");
+    itemSpeed.setAttribute("accesskey", "s");
+    itemSpeed.addEventListener("click", 
+		function(e)
+		{
+			XULExtendedStatusbarChrome.ESB_PrefObserver.prefs.setBoolPref("hidespeed", document.getElementById("ESB_speed_context_item").getAttribute("checked"));
+			e.preventDefault();
+			return true;
+		}
+	);
+    menu.insertBefore(itemSpeed, menu.firstChild);
+	
+    var itemLoaded = document.createElement("menuitem");
+    itemLoaded.setAttribute("id", "ESB_loaded_context_item");
+    itemLoaded.setAttribute("type", "checkbox");
+    itemLoaded.setAttribute("checked", !XULExtendedStatusbarChrome.ESB_PrefObserver.prefs.getBoolPref("hideloaded"));
+    itemLoaded.setAttribute("label", "Show images");
+    itemLoaded.setAttribute("accesskey", "i");
+    itemLoaded.addEventListener("click", 
+		function(e)
+		{
+			XULExtendedStatusbarChrome.ESB_PrefObserver.prefs.setBoolPref("hideloaded", document.getElementById("ESB_loaded_context_item").getAttribute("checked"));
+			e.preventDefault();
+			return true;
+		}
+	);
+    menu.insertBefore(itemLoaded, menu.firstChild);
+	
+    var itemImages = document.createElement("menuitem");
+    itemImages.setAttribute("id", "ESB_images_context_item");
+    itemImages.setAttribute("type", "checkbox");
+    itemImages.setAttribute("checked", !XULExtendedStatusbarChrome.ESB_PrefObserver.prefs.getBoolPref("hideimages"));
+    itemImages.setAttribute("label", "Show loaded");
+    itemImages.setAttribute("accesskey", "l");
+    itemImages.addEventListener("click", 
+		function(e)
+		{
+			XULExtendedStatusbarChrome.ESB_PrefObserver.prefs.setBoolPref("hideimages", document.getElementById("ESB_images_context_item").getAttribute("checked"));
+			e.preventDefault();
+			return true;
+		}
+	);
+    menu.insertBefore(itemImages, menu.firstChild);
+	
+    var itemPercent = document.createElement("menuitem");
+    itemPercent.setAttribute("id", "ESB_percent_context_item");
+    itemPercent.setAttribute("type", "checkbox");
+    itemPercent.setAttribute("checked", !XULExtendedStatusbarChrome.ESB_PrefObserver.prefs.getBoolPref("hidepercent"));
+    itemPercent.setAttribute("label", "Show percent");
+    itemPercent.setAttribute("accesskey", "p");
+    itemPercent.addEventListener("click", 
+		function(e)
+		{
+			XULExtendedStatusbarChrome.ESB_PrefObserver.prefs.setBoolPref("hidepercent", document.getElementById("ESB_percent_context_item").getAttribute("checked"));
+			e.preventDefault();
+			e.stopPropagation();
+			e.stopImmediatePropagation();
+			return true;
+		}
+	);
+    menu.insertBefore(itemPercent, menu.firstChild);
+	
+    var itemOptions = document.createElement("menuitem");
+    itemOptions.setAttribute("id", "ESB_options_context_item");
+    itemOptions.setAttribute("label", "Options Menu");
+    itemOptions.setAttribute("accesskey", "O");
+    itemOptions.addEventListener("command", XULExtendedStatusbarChrome.openESBOptions);
+    menu.insertBefore(itemOptions, menu.firstChild);
+	
+    menu.addEventListener("popupshowing", XULExtendedStatusbarChrome.onContextMenuPopupShowing);
+}
+	
+XULExtendedStatusbarChrome.removeContextMenuItem = function ()
+{
+	var menu = document.getElementById("toolbar-context-menu");
+	menu.removeEventListener("popupshowing", XULExtendedStatusbarChrome.onContextMenuPopupShowing);
+	menu.removeChild(document.getElementById("ESB_context_separator"));
+	menu.removeChild(document.getElementById("ESB_time_context_item"));
+	menu.removeChild(document.getElementById("ESB_speed_context_item"));
+	menu.removeChild(document.getElementById("ESB_images_context_item"));
+	menu.removeChild(document.getElementById("ESB_loaded_context_item"));
+	menu.removeChild(document.getElementById("ESB_percent_context_item"));
+	menu.removeChild(document.getElementById("ESB_options_context_item"));
+}
+
+XULExtendedStatusbarChrome.onContextMenuPopupShowing = function (event)
+{
+	var hiding = !document.getElementById("ESB_toolbaritem").contains(document.popupNode);
+	document.getElementById("ESB_context_separator").hidden = hiding;
+	document.getElementById("ESB_time_context_item").hidden = hiding;
+	document.getElementById("ESB_speed_context_item").hidden = hiding;
+	document.getElementById("ESB_images_context_item").hidden = hiding;
+	document.getElementById("ESB_loaded_context_item").hidden = hiding;
+	document.getElementById("ESB_percent_context_item").hidden = hiding;
+	document.getElementById("ESB_options_context_item").hidden = hiding;
 }
 
 XULExtendedStatusbarChrome.hideESB = function ()
