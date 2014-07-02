@@ -45,5 +45,5 @@
 		<toolbar id="ESB_toolbar" toolbarname="Extended Statusbar" toolboxid="navigator-toolbox" accesskey="E" class="toolbar-primary chromeclass-toolbar" customizable="true" context="toolbar-context-menu" hidden="false" persist="hidden" mode="icons" iconsize="small" onmouseover="XULExtendedStatusbarChrome.showESBOnHover();" onmouseout="XULExtendedStatusbarChrome.hideESBOnHover();">
 			<toolbarspacer id="ESB_toolbarspacer" flex="1"/>
 		</toolbar>
-	</vbox> 
+	</vbox>
 </overlay>
