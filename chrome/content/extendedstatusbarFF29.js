@@ -525,18 +525,27 @@ XULExtendedStatusbarChrome.esbListener =
 			var allimgsc = 0;
 			if (docimgs != null)
 			{
-				allimgsc = docimgs.length;
+				var src = [];
 				for (var i = 0; i < docimgs.length; i++)
 				{
-					if (docimgs[i].complete) imglcount++;
+					if (!src[docimgs[i].src])
+					{
+						src[docimgs[i].src] = true;
+						allimgsc++;
+						if (docimgs[i].complete) imglcount++;
+					}
 				}
 				for (var i = 0; i < aBrowser.contentWindow.frames.length; i++)
 				{
 					docimgs = aBrowser.contentWindow.frames[i].document.images;
-					allimgsc += docimgs.length;
 					for (var j = 0; j < docimgs.length; j++)
 					{
-						if (docimgs[j].complete) imglcount++;
+						if (!src[docimgs[i].src])
+						{
+							src[docimgs[i].src] = true;
+							allimgsc++;
+							if (docimgs[j].complete) imglcount++;
+						}
 					}
 				}
 			}			
