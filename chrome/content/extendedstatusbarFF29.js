@@ -342,8 +342,13 @@ XULExtendedStatusbarChrome.esbListener =
 	
 	onTabSelect : function(aEvent) 
 	{
-		if (XULExtendedStatusbarChrome.hideForSites && 
-			aEvent.target.linkedBrowser.contentDocument.location.href.match(XULExtendedStatusbarChrome.hideForSites))
+		if (!aEvent.target.linkedBrowser.esbValues)
+		{
+			XULExtendedStatusbarChrome.esbXUL.esb_toolbar.hidden = true;
+			XULExtendedStatusbarChrome.esbXUL.status_bar.hidden = true;
+		}
+		else if (XULExtendedStatusbarChrome.hideForSites &&
+				 aEvent.target.linkedBrowser.contentDocument.location.href.match(XULExtendedStatusbarChrome.hideForSites))
 		{
 			XULExtendedStatusbarChrome.hideForSitesSem = true;
 			XULExtendedStatusbarChrome.esbXUL.esb_toolbar.hidden = true;
@@ -367,7 +372,7 @@ XULExtendedStatusbarChrome.esbListener =
 								time: "0" + XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.dot") + "000", 
 								percent: "0", 
 								stateFlags: 0,
-								startProg: new Date(),
+								startProg: Date.now(),
 								updateTimeInterval: "" };
 	},
 	
@@ -375,11 +380,7 @@ XULExtendedStatusbarChrome.esbListener =
 	{
 		if(!aBrowser.esbValues) return;
 		
-		var percentageString = aBrowser.esbValues.percent + "%";
-		while (percentageString.length < 4)
-		{
-			percentageString = " " + percentageString;
-		}
+		var percentageString = ("  " + aBrowser.esbValues.percent + "%").slice(-4);
 		var compdocsize = aBrowser.esbValues.loaded;
 		for (var sizeinval = 0; Math.floor(compdocsize / 1024) > 0; sizeinval++)
 		{
@@ -540,8 +541,7 @@ XULExtendedStatusbarChrome.esbListener =
 					}
 				}
 			}			
-			var now = new Date();
-			now = now.getTime() - aBrowser.esbValues.startProg.getTime();
+			var now = Date.now() - aBrowser.esbValues.startProg;
 			if (XULExtendedStatusbarChrome.esbLoading) this.startTimer(aBrowser); //This is a workaround for the first run, esbLoading is false on FF first start,
 											   //so time wont be started. This is a problem
 											   //if FF starts with about:blank State_Stop is not called
@@ -549,9 +549,8 @@ XULExtendedStatusbarChrome.esbListener =
 			if (now > 0)
 			{
 				var speed = aCurTotalProgress / now * 1000;
-				speed = Math.round ( speed * 100) / 100;
 				speed = speed.toFixed(2);
-				speed = speed.toString().replace(/\./, XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.dot")); //Replace '.' with a symbol from the active local
+				speed = speed.replace(/\./, XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.dot")); //Replace '.' with a symbol from the active local
 			}
 			aBrowser.esbValues.percent = percentage;
 			aBrowser.esbValues.images = imglcount + "/" + allimgsc;
@@ -599,15 +598,14 @@ XULExtendedStatusbarChrome.esbListener =
 		}
 	},
 	
-	onStatusChange: function(a,b,c,d){},
+	onStatusChange: function(a,b,c,d,e){},
 	
-	onSecurityChange: function(a,b,c){},
+	onSecurityChange: function(a,b,c,d){},
 
 	updateTime: function (aBrowser)
 	{
-		var now = new Date();
-		now = now.getTime() - aBrowser.esbValues.startProg.getTime();
-		var hours = Math.floor((now / 3600000) % 24);
+		var now = Date.now() - aBrowser.esbValues.startProg;
+		var hours = Math.floor(now / 3600000);
 		var mins = Math.floor((now / 60000) % 60);
 		var secs = Math.floor((now / 1000) % 60);
 		var msecs = now - hours*36000 - mins*60000 - secs*1000;
@@ -618,12 +616,10 @@ XULExtendedStatusbarChrome.esbListener =
 		var dot = XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.dot");
 		var colon = XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.colon");
 		var slimTimeString;
-		var timeString;
 		if (hours > 0)
 		{
 			mins = mins.toString();
 			if (mins.length == 1) mins = "0" + mins;
-			timeString = XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.time") + " " + hours + colon + mins + colon + secs + dot + msecs;
 			slimTimeString = hours + colon + mins + colon + secs + dot + msecs;
 		}
 		else
@@ -632,12 +628,10 @@ XULExtendedStatusbarChrome.esbListener =
 			{
 				if (secs.length == 1) secs = "0" + secs;
 				mins = mins.toString();
-				timeString = XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.time") + " " + mins + colon + secs + dot + msecs;
 				slimTimeString = mins + colon + secs + dot + msecs;
 			}
 			else
 			{
-				timeString = XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.time") + " " + secs + dot + msecs;
 				slimTimeString = secs + dot + msecs;
 			}
 		}
@@ -650,7 +644,7 @@ XULExtendedStatusbarChrome.esbListener =
 			}
 			else
 			{
-				XULExtendedStatusbarChrome.esbXUL.time_label.value = timeString;
+				XULExtendedStatusbarChrome.esbXUL.time_label.value = XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.time") + " " + slimTimeString;
 			}
 		}
 	},
