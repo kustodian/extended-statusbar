@@ -867,6 +867,21 @@ XULExtendedStatusbarChrome.ESB_PrefObserver = {
 				{
 					XULExtendedStatusbarChrome.hideForSites = null;
 				}
+				if (XULExtendedStatusbarChrome.hideForSites && 
+					gBrowser.selectedBrowser.contentDocument.location.href.match(XULExtendedStatusbarChrome.hideForSites))
+				{
+					XULExtendedStatusbarChrome.hideForSitesSem = true;
+					XULExtendedStatusbarChrome.esbXUL.esb_toolbar.hidden = true;
+					XULExtendedStatusbarChrome.esbXUL.status_bar.hidden = true;
+				}
+				else if(XULExtendedStatusbarChrome.esbLoading || !XULExtendedStatusbarChrome.esbHide)
+				{
+					XULExtendedStatusbarChrome.hideForSitesSem = false;
+					XULExtendedStatusbarChrome.cancelTimeOut(XULExtendedStatusbarChrome.hideTimeOut);
+					XULExtendedStatusbarChrome.esbXUL.esb_toolbar.hidden = false;
+					XULExtendedStatusbarChrome.esbXUL.status_bar.hidden = false;
+				}
+				XULExtendedStatusbarChrome.esbListener.displayCurrentValuesForBrowser(gBrowser.selectedBrowser);
 				break;
 			case "hideimages":
 				if (this.prefs.getBoolPref("hideimages")) XULExtendedStatusbarChrome.esbXUL.images_box.hidden = true;
