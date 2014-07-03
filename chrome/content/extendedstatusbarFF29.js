@@ -614,7 +614,7 @@ XULExtendedStatusbarChrome.esbListener =
 				XULExtendedStatusbarChrome.esbXUL.esb_toolbar.hidden = true;
 				XULExtendedStatusbarChrome.esbXUL.status_bar.hidden = true;
 			}
-			else
+			else if(aBrowser == gBrowser.selectedBrowser)
 			{
 				XULExtendedStatusbarChrome.hideForSitesSem = false;
 				XULExtendedStatusbarChrome.cancelTimeOut(XULExtendedStatusbarChrome.hideTimeOut);
