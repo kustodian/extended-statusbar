@@ -18,7 +18,7 @@
 <!ENTITY esb.hideonsites.tooltip "Полезно для AJAX сайтов, таких как Gmail">
 <!ENTITY esb.appendcurrent "Добавить текущую страницу">
 <!ENTITY esb.appendcurrent.accesskey "Д">
-<!ENTITY esb.customcolor "Пользовательский стиль">
+<!ENTITY esb.customcolor "Custom color">
 <!ENTITY esb.customcolor.accesskey "П">
 <!ENTITY esb.customcolor.tooltip "Отключает пользовательские стили, если текущая тема поддерживает Extended Statusbar.">
 <!ENTITY esb.backgroundcolor "Фон:">
@@ -33,7 +33,7 @@
 <!ENTITY esb.slimmode.tooltip "Скрывает метки и отображает только значения">
 <!ENTITY esb.hideindelements "Скрыть отдельные элементы">
 <!ENTITY esb.hideimages "Скрыть секцию «Изображения»">
-<!ENTITY esb.hideoldimages.accesskey "з">
+<!ENTITY esb.hideimages.accesskey "з">
 <!ENTITY esb.hideloaded "Скрыть секцию «Загружено»">
 <!ENTITY esb.hideloaded.accesskey "г">
 <!ENTITY esb.hidespeed "Скрыть секцию «Скорость»">
@@ -46,3 +46,18 @@
 <!ENTITY esb.hideprogress.accesskey "t">
 <!ENTITY esb.hidecursor "Hide Loading Cursor">
 <!ENTITY esb.hidecursor.accesskey "c">
+<!ENTITY esb.cssplaceholder "Input Css rules here">
+<!ENTITY esb.apply "Apply">
+<!ENTITY esb.usecustomstyle "Use your own style (advanced mode)">
+<!ENTITY esb.usecustomstyle.accesskey "y">
+<!ENTITY esb.usecustomstyle.tooltip "Customize using your own css rules, for advanced users">
+<!ENTITY esb.toolbar "Toolbar">
+<!ENTITY esb.esbwidget "ESB widget">
+<!ENTITY esb.percent "Percent">
+<!ENTITY esb.images "Images">
+<!ENTITY esb.loaded "Loaded">
+<!ENTITY esb.speed "Speed">
+<!ENTITY esb.time "Time">
+<!ENTITY esb.progress "Progress">
+<!ENTITY esb.cursor "Cursor">
+<!ENTITY esb.cursorback "Cursor back">

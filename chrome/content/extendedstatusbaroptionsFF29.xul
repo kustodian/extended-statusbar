@@ -53,7 +53,7 @@
 						<radiogroup id="esbRadioStyle" oncommand="XULExtendedStatusbarOptions.radioStateChange()" orient="vertical">
 							<radio id="oldstyle" label="&esb.useoldstyle;" accesskey="&esb.useoldstyle.accesskey;" tooltiptext="&esb.useoldstyle.tooltip;"/>
 							<radio id="newstyle" label="&esb.usenewstyle;" accesskey="&esb.usenewstyle.accesskey;" tooltiptext="&esb.usenewstyle.tooltip;"/>
-							<radio id="customstyle" label="Use your own style (advanced mode)" accesskey="" tooltiptext=""/>
+							<radio id="customstyle" label="&esb.usecustomstyle;" accesskey="&esb.usecustomstyle.accesskey;" tooltiptext="&esb.usecustomstyle.tooltip;"/>
 						</radiogroup>
 						<grid id="stylegrid" hidden="true">
 							<columns>
@@ -63,54 +63,54 @@
 							</columns>
 							<rows>
 								<row align="start">
-									<label value="Toolbar" control="textesbtoolbarstyle"/>
-									<textbox id="textesbtoolbarstyle" rows="5" flex="1" align="start" preference="esbToolbarStyle" multiline="true" placeholder="Input Css rules here"/>
-									<button id="buttonesbtoolbarstyle" label="Apply" accesskey="" onclick="XULExtendedStatusbarOptions.applyCSS(event);"/>
+									<label value="&esb.toolbar;" control="textesbtoolbarstyle"/>
+									<textbox id="textesbtoolbarstyle" rows="5" flex="1" align="start" preference="esbToolbarStyle" multiline="true" placeholder="&esb.cssplaceholder;"/>
+									<button id="buttonesbtoolbarstyle" label="&esb.apply;" accesskey="" onclick="XULExtendedStatusbarOptions.applyCSS(event);"/>
 								</row>
 								<row align="start">
-									<label value="ESB" control="textesbwidgetstyle"/>
-									<textbox id="textesbwidgetstyle" rows="5" flex="1" align="start" preference="esbWidgetStyle" multiline="true" placeholder="Input Css rules here"/>
-									<button id="buttonesbwidgetstyle" label="Apply" accesskey="" onclick="XULExtendedStatusbarOptions.applyCSS(event);"/>
+									<label value="&esb.esbwidget;" control="textesbwidgetstyle"/>
+									<textbox id="textesbwidgetstyle" rows="5" flex="1" align="start" preference="esbWidgetStyle" multiline="true" placeholder="&esb.cssplaceholder;"/>
+									<button id="buttonesbwidgetstyle" label="&esb.apply;" accesskey="" onclick="XULExtendedStatusbarOptions.applyCSS(event);"/>
 								</row>
 								<row align="start">
-									<label value="Percent" control="textpercentstyle"/>
-									<textbox id="textpercentstyle" rows="5" flex="1" align="start" preference="esbPercentStyle" multiline="true" placeholder="Input Css rules here"/>
-									<button id="buttonpercentstyle" label="Apply" accesskey="" onclick="XULExtendedStatusbarOptions.applyCSS(event);"/>
+									<label value="&esb.percent;" control="textpercentstyle"/>
+									<textbox id="textpercentstyle" rows="5" flex="1" align="start" preference="esbPercentStyle" multiline="true" placeholder="&esb.cssplaceholder;"/>
+									<button id="buttonpercentstyle" label="&esb.apply;" accesskey="" onclick="XULExtendedStatusbarOptions.applyCSS(event);"/>
 								</row>
 								<row align="start">
-									<label value="Images" control="textimagesstyle"/>
-									<textbox id="textimagesstyle" rows="5" flex="1" align="start" preference="esbImagesStyle" multiline="true" placeholder="Input Css rules here"/>
-									<button id="buttonimagesstyle" label="Apply" accesskey="" onclick="XULExtendedStatusbarOptions.applyCSS(event);"/>
+									<label value="&esb.images;" control="textimagesstyle"/>
+									<textbox id="textimagesstyle" rows="5" flex="1" align="start" preference="esbImagesStyle" multiline="true" placeholder="&esb.cssplaceholder;"/>
+									<button id="buttonimagesstyle" label="&esb.apply;" accesskey="" onclick="XULExtendedStatusbarOptions.applyCSS(event);"/>
 								</row>
 								<row align="start">
-									<label value="Loaded" control="textloadedstyle"/>
-									<textbox id="textloadedstyle" rows="5" flex="1" align="start" preference="esbLoadedStyle" multiline="true" placeholder="Input Css rules here"/>
-									<button id="buttonloadedstyle" label="Apply" accesskey="" onclick="XULExtendedStatusbarOptions.applyCSS(event);"/>
+									<label value="&esb.loaded;" control="textloadedstyle"/>
+									<textbox id="textloadedstyle" rows="5" flex="1" align="start" preference="esbLoadedStyle" multiline="true" placeholder="&esb.cssplaceholder;"/>
+									<button id="buttonloadedstyle" label="&esb.apply;" accesskey="" onclick="XULExtendedStatusbarOptions.applyCSS(event);"/>
 								</row>
 								<row align="start">
-									<label value="Speed" control="textspeedstyle"/>
-									<textbox id="textspeedstyle" rows="5" flex="1" align="start" preference="esbSpeedStyle" multiline="true" placeholder="Input Css rules here"/>
-									<button id="buttonspeedstyle" label="Apply" accesskey="" onclick="XULExtendedStatusbarOptions.applyCSS(event);"/>
+									<label value="&esb.speed;" control="textspeedstyle"/>
+									<textbox id="textspeedstyle" rows="5" flex="1" align="start" preference="esbSpeedStyle" multiline="true" placeholder="&esb.cssplaceholder;"/>
+									<button id="buttonspeedstyle" label="&esb.apply;" accesskey="" onclick="XULExtendedStatusbarOptions.applyCSS(event);"/>
 								</row>
 								<row align="start">
-									<label value="Time" control="texttimestyle"/>
-									<textbox id="texttimestyle" rows="5" flex="1" align="start" preference="esbTimeStyle" multiline="true" placeholder="Input Css rules here"/>
-									<button id="buttontimestyle" label="Apply" accesskey="" onclick="XULExtendedStatusbarOptions.applyCSS(event);"/>
+									<label value="&esb.time;" control="texttimestyle"/>
+									<textbox id="texttimestyle" rows="5" flex="1" align="start" preference="esbTimeStyle" multiline="true" placeholder="&esb.cssplaceholder;"/>
+									<button id="buttontimestyle" label="&esb.apply;" accesskey="" onclick="XULExtendedStatusbarOptions.applyCSS(event);"/>
 								</row>
 								<row align="start">
-									<label value="Progress" control="textprogressstyle"/>
-									<textbox id="textprogressstyle" rows="5" flex="1" align="start" preference="esbProgressStyle" multiline="true" placeholder="Input Css rules here"/>
-									<button id="buttonprogressstyle" label="Apply" accesskey="" onclick="XULExtendedStatusbarOptions.applyCSS(event);"/>
+									<label value="&esb.progress;" control="textprogressstyle"/>
+									<textbox id="textprogressstyle" rows="5" flex="1" align="start" preference="esbProgressStyle" multiline="true" placeholder="&esb.cssplaceholder;"/>
+									<button id="buttonprogressstyle" label="&esb.apply;" accesskey="" onclick="XULExtendedStatusbarOptions.applyCSS(event);"/>
 								</row>
 								<row align="start">
-									<label value="Cursor" control="textcursorstyle"/>
-									<textbox id="textcursorstyle" rows="5" flex="1" align="start" preference="esbCursorStyle" multiline="true" placeholder="Input Css rules here"/>
-									<button id="buttoncursorstyle" label="Apply" accesskey="" onclick="XULExtendedStatusbarOptions.applyCSS(event);"/>
+									<label value="&esb.cursor;" control="textcursorstyle"/>
+									<textbox id="textcursorstyle" rows="5" flex="1" align="start" preference="esbCursorStyle" multiline="true" placeholder="&esb.cssplaceholder;"/>
+									<button id="buttoncursorstyle" label="&esb.apply;" accesskey="" onclick="XULExtendedStatusbarOptions.applyCSS(event);"/>
 								</row>
 								<row align="start">
-									<label value="Cursor back" control="textcursorbackgroundstyle"/>
-									<textbox id="textcursorbackgroundstyle" rows="5" flex="1" align="start" preference="esbCursorBackgroundStyle" multiline="true" placeholder="Input Css rules here"/>
-									<button id="buttoncursorbackgroundstyle" label="Apply" accesskey="" onclick="XULExtendedStatusbarOptions.applyCSS(event);"/>
+									<label value="&esb.cursorback;" control="textcursorbackgroundstyle"/>
+									<textbox id="textcursorbackgroundstyle" rows="5" flex="1" align="start" preference="esbCursorBackgroundStyle" multiline="true" placeholder="&esb.cssplaceholder;"/>
+									<button id="buttoncursorbackgroundstyle" label="&esb.apply;" accesskey="" onclick="XULExtendedStatusbarOptions.applyCSS(event);"/>
 								</row>
 							</rows>
 						</grid>
@@ -199,7 +199,7 @@
 					<groupbox>
 						<caption label="&esb.hideindelements;"/>
 						<checkbox id="checkesbhidepercent" preference="esbHidePercent" label="&esb.hidepercent;" accesskey="&esb.hidepercent.accesskey;"/>
-						<checkbox id="checkesbhideimages" preference="esbHideImages" label="&esb.hideimages;" accesskey="&esb.hideoldimages.accesskey;"/>
+						<checkbox id="checkesbhideimages" preference="esbHideImages" label="&esb.hideimages;" accesskey="&esb.hideimages.accesskey;"/>
 						<checkbox id="checkesbhideloaded" preference="esbHideLoaded" label="&esb.hideloaded;" accesskey="&esb.hideloaded.accesskey;"/>
 						<checkbox id="checkesbhidespeed" preference="esbHideSpeed" label="&esb.hidespeed;" accesskey="&esb.hidespeed.accesskey;"/>
 						<checkbox id="checkesbhidetime" preference="esbHideTime" label="&esb.hidetime;" accesskey="&esb.hidetime.accesskey;"/>

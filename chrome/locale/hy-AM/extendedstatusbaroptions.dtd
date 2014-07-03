@@ -18,7 +18,7 @@
 <!ENTITY esb.hideonsites.tooltip "Օգտակար է AJAX կայքերում, օրինակ` Gmail">
 <!ENTITY esb.appendcurrent "Ավելացնել ընթացիկ էջը">
 <!ENTITY esb.appendcurrent.accesskey "ը">
-<!ENTITY esb.customcolor "Սեփական ոճ">
+<!ENTITY esb.customcolor "Custom color">
 <!ENTITY esb.customcolor.accesskey "ո">
 <!ENTITY esb.customcolor.tooltip "Անջատել Սեփական ոճերը եթե ընթացիկ թեման աշխատում է Extended Statusbar-ի հետ">
 <!ENTITY esb.backgroundcolor "Ֆոն">
@@ -33,7 +33,7 @@
 <!ENTITY esb.slimmode.tooltip "Թաքցնում է ցուցիչների անունները">
 <!ENTITY esb.hideindelements "Թաքցնել առանձին ցուցիչները">
 <!ENTITY esb.hideimages "Թաքցնել Նկարները">
-<!ENTITY esb.hideoldimages.accesskey "Ն">
+<!ENTITY esb.hideimages.accesskey "Ն">
 <!ENTITY esb.hideloaded "Թաքցնել Բեռնվածը">
 <!ENTITY esb.hideloaded.accesskey "Բ">
 <!ENTITY esb.hidespeed "Թաքցնել Արագությունը">
@@ -46,3 +46,18 @@
 <!ENTITY esb.hideprogress.accesskey "t">
 <!ENTITY esb.hidecursor "Hide Loading Cursor">
 <!ENTITY esb.hidecursor.accesskey "c">
+<!ENTITY esb.cssplaceholder "Input Css rules here">
+<!ENTITY esb.apply "Apply">
+<!ENTITY esb.usecustomstyle "Use your own style (advanced mode)">
+<!ENTITY esb.usecustomstyle.accesskey "y">
+<!ENTITY esb.usecustomstyle.tooltip "Customize using your own css rules, for advanced users">
+<!ENTITY esb.toolbar "Toolbar">
+<!ENTITY esb.esbwidget "ESB widget">
+<!ENTITY esb.percent "Percent">
+<!ENTITY esb.images "Images">
+<!ENTITY esb.loaded "Loaded">
+<!ENTITY esb.speed "Speed">
+<!ENTITY esb.time "Time">
+<!ENTITY esb.progress "Progress">
+<!ENTITY esb.cursor "Cursor">
+<!ENTITY esb.cursorback "Cursor back">
