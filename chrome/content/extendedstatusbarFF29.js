@@ -368,7 +368,7 @@ XULExtendedStatusbarChrome.esbListener =
 	{
 		aBrowser.esbValues = { images: "0/0", 
 								loaded: "0", 
-								speed: "0", 
+								speed: "0" + XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.dot") + "00",
 								time: "0" + XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.dot") + "000", 
 								percent: "0", 
 								stateFlags: 0,
