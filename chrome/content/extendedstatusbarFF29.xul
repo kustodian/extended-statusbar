@@ -13,7 +13,7 @@
 					<hbox>
 						<hbox id="ESB_percent_progressbar"/>
 					</hbox>
-					<hbox pack="end">
+					<hbox pack="end" align="center">
 						<label id="ESB_percent_label"/>
 					</hbox>
 				</stack>
@@ -31,10 +31,10 @@
 						<label id="ESB_loaded_label"/>
 					</hbox>
 				</stack>
-				<hbox id="ESB_speed_box" tooltiptext="&esb.avgspeed;" pack="end">
+				<hbox id="ESB_speed_box" tooltiptext="&esb.avgspeed;" pack="end" align="center">
 					<label id="ESB_speed_label"/>
 				</hbox>
-				<hbox id="ESB_time_box" tooltiptext="&esb.time;" pack="end">
+				<hbox id="ESB_time_box" tooltiptext="&esb.time;" pack="end" align="center">
 					<label id="ESB_time_label"/>
 				</hbox>
 			</hbox>
