@@ -78,18 +78,44 @@ XULExtendedStatusbarChrome.addContextMenuItem = function ()
     menuseparator.setAttribute("id", "ESB_context_separator");
     menu.insertBefore(menuseparator, menu.firstChild);
 	
+    var itemCursor = document.createElement("menuitem");
+    itemCursor.setAttribute("id", "ESB_cursor_context_item");
+    itemCursor.setAttribute("type", "checkbox");
+    itemCursor.setAttribute("checked", !XULExtendedStatusbarChrome.ESB_PrefObserver.prefs.getBoolPref("hidecursor"));
+    itemCursor.setAttribute("label", XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.showcursor"));
+    itemCursor.setAttribute("accesskey", XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.showcursor.accesskey"));
+    itemCursor.addEventListener("command", 
+		function(e)
+		{
+			XULExtendedStatusbarChrome.ESB_PrefObserver.prefs.setBoolPref("hidecursor", !document.getElementById("ESB_cursor_context_item").getAttribute("checked"));
+		}
+	);
+    menu.insertBefore(itemCursor, menu.firstChild);
+	
+    var itemProgress = document.createElement("menuitem");
+    itemProgress.setAttribute("id", "ESB_progress_context_item");
+    itemProgress.setAttribute("type", "checkbox");
+    itemProgress.setAttribute("checked", !XULExtendedStatusbarChrome.ESB_PrefObserver.prefs.getBoolPref("hideprogress"));
+    itemProgress.setAttribute("label", XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.showprogress"));
+    itemProgress.setAttribute("accesskey", XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.showprogress.accesskey"));
+    itemProgress.addEventListener("command", 
+		function(e)
+		{
+			XULExtendedStatusbarChrome.ESB_PrefObserver.prefs.setBoolPref("hideprogress", !document.getElementById("ESB_progress_context_item").getAttribute("checked"));
+		}
+	);
+    menu.insertBefore(itemProgress, menu.firstChild);
+	
     var itemTime = document.createElement("menuitem");
     itemTime.setAttribute("id", "ESB_time_context_item");
     itemTime.setAttribute("type", "checkbox");
     itemTime.setAttribute("checked", !XULExtendedStatusbarChrome.ESB_PrefObserver.prefs.getBoolPref("hidetime"));
-    itemTime.setAttribute("label", "Show time");
-    itemTime.setAttribute("accesskey", "t");
-    itemTime.addEventListener("click", 
+    itemTime.setAttribute("label", XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.showtime"));
+    itemTime.setAttribute("accesskey", XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.showtime.accesskey"));
+    itemTime.addEventListener("command", 
 		function(e)
 		{
-			XULExtendedStatusbarChrome.ESB_PrefObserver.prefs.setBoolPref("hidetime", document.getElementById("ESB_time_context_item").getAttribute("checked"));
-			e.preventDefault();
-			return true;
+			XULExtendedStatusbarChrome.ESB_PrefObserver.prefs.setBoolPref("hidetime", !document.getElementById("ESB_time_context_item").getAttribute("checked"));
 		}
 	);
     menu.insertBefore(itemTime, menu.firstChild);
@@ -98,14 +124,12 @@ XULExtendedStatusbarChrome.addContextMenuItem = function ()
     itemSpeed.setAttribute("id", "ESB_speed_context_item");
     itemSpeed.setAttribute("type", "checkbox");
     itemSpeed.setAttribute("checked", !XULExtendedStatusbarChrome.ESB_PrefObserver.prefs.getBoolPref("hidespeed"));
-    itemSpeed.setAttribute("label", "Show speed");
-    itemSpeed.setAttribute("accesskey", "s");
-    itemSpeed.addEventListener("click", 
+    itemSpeed.setAttribute("label", XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.showspeed"));
+    itemSpeed.setAttribute("accesskey", XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.showspeed.accesskey"));
+    itemSpeed.addEventListener("command", 
 		function(e)
 		{
-			XULExtendedStatusbarChrome.ESB_PrefObserver.prefs.setBoolPref("hidespeed", document.getElementById("ESB_speed_context_item").getAttribute("checked"));
-			e.preventDefault();
-			return true;
+			XULExtendedStatusbarChrome.ESB_PrefObserver.prefs.setBoolPref("hidespeed", !document.getElementById("ESB_speed_context_item").getAttribute("checked"));
 		}
 	);
     menu.insertBefore(itemSpeed, menu.firstChild);
@@ -114,14 +138,12 @@ XULExtendedStatusbarChrome.addContextMenuItem = function ()
     itemLoaded.setAttribute("id", "ESB_loaded_context_item");
     itemLoaded.setAttribute("type", "checkbox");
     itemLoaded.setAttribute("checked", !XULExtendedStatusbarChrome.ESB_PrefObserver.prefs.getBoolPref("hideloaded"));
-    itemLoaded.setAttribute("label", "Show images");
-    itemLoaded.setAttribute("accesskey", "i");
-    itemLoaded.addEventListener("click", 
+    itemLoaded.setAttribute("label", XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.showloaded"));
+    itemLoaded.setAttribute("accesskey", XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.showloaded.accesskey"));
+    itemLoaded.addEventListener("command", 
 		function(e)
 		{
-			XULExtendedStatusbarChrome.ESB_PrefObserver.prefs.setBoolPref("hideloaded", document.getElementById("ESB_loaded_context_item").getAttribute("checked"));
-			e.preventDefault();
-			return true;
+			XULExtendedStatusbarChrome.ESB_PrefObserver.prefs.setBoolPref("hideloaded", !document.getElementById("ESB_loaded_context_item").getAttribute("checked"));
 		}
 	);
     menu.insertBefore(itemLoaded, menu.firstChild);
@@ -130,14 +152,12 @@ XULExtendedStatusbarChrome.addContextMenuItem = function ()
     itemImages.setAttribute("id", "ESB_images_context_item");
     itemImages.setAttribute("type", "checkbox");
     itemImages.setAttribute("checked", !XULExtendedStatusbarChrome.ESB_PrefObserver.prefs.getBoolPref("hideimages"));
-    itemImages.setAttribute("label", "Show loaded");
-    itemImages.setAttribute("accesskey", "l");
-    itemImages.addEventListener("click", 
+    itemImages.setAttribute("label", XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.showimages"));
+    itemImages.setAttribute("accesskey", XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.showimages.accesskey"));
+    itemImages.addEventListener("command", 
 		function(e)
 		{
-			XULExtendedStatusbarChrome.ESB_PrefObserver.prefs.setBoolPref("hideimages", document.getElementById("ESB_images_context_item").getAttribute("checked"));
-			e.preventDefault();
-			return true;
+			XULExtendedStatusbarChrome.ESB_PrefObserver.prefs.setBoolPref("hideimages", !document.getElementById("ESB_images_context_item").getAttribute("checked"));
 		}
 	);
     menu.insertBefore(itemImages, menu.firstChild);
@@ -146,23 +166,19 @@ XULExtendedStatusbarChrome.addContextMenuItem = function ()
     itemPercent.setAttribute("id", "ESB_percent_context_item");
     itemPercent.setAttribute("type", "checkbox");
     itemPercent.setAttribute("checked", !XULExtendedStatusbarChrome.ESB_PrefObserver.prefs.getBoolPref("hidepercent"));
-    itemPercent.setAttribute("label", "Show percent");
-    itemPercent.setAttribute("accesskey", "p");
-    itemPercent.addEventListener("click", 
+    itemPercent.setAttribute("label", XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.showpercent"));
+    itemPercent.setAttribute("accesskey", XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.showpercent.accesskey"));
+    itemPercent.addEventListener("command", 
 		function(e)
 		{
-			XULExtendedStatusbarChrome.ESB_PrefObserver.prefs.setBoolPref("hidepercent", document.getElementById("ESB_percent_context_item").getAttribute("checked"));
-			e.preventDefault();
-			e.stopPropagation();
-			e.stopImmediatePropagation();
-			return true;
+			XULExtendedStatusbarChrome.ESB_PrefObserver.prefs.setBoolPref("hidepercent", !document.getElementById("ESB_percent_context_item").getAttribute("checked"));
 		}
 	);
     menu.insertBefore(itemPercent, menu.firstChild);
 	
     var itemOptions = document.createElement("menuitem");
     itemOptions.setAttribute("id", "ESB_options_context_item");
-    itemOptions.setAttribute("label", "Options Menu");
+    itemOptions.setAttribute("label", XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.options"));
     itemOptions.setAttribute("accesskey", "O");
     itemOptions.addEventListener("command", XULExtendedStatusbarChrome.openESBOptions);
     menu.insertBefore(itemOptions, menu.firstChild);
@@ -181,6 +197,8 @@ XULExtendedStatusbarChrome.removeContextMenuItem = function ()
 	menu.removeChild(document.getElementById("ESB_loaded_context_item"));
 	menu.removeChild(document.getElementById("ESB_percent_context_item"));
 	menu.removeChild(document.getElementById("ESB_options_context_item"));
+	menu.removeChild(document.getElementById("ESB_progress_context_item"));
+	menu.removeChild(document.getElementById("ESB_cursor_context_item"));
 }
 
 XULExtendedStatusbarChrome.onContextMenuPopupShowing = function (event)
@@ -193,6 +211,8 @@ XULExtendedStatusbarChrome.onContextMenuPopupShowing = function (event)
 	document.getElementById("ESB_loaded_context_item").hidden = hiding;
 	document.getElementById("ESB_percent_context_item").hidden = hiding;
 	document.getElementById("ESB_options_context_item").hidden = hiding;
+	document.getElementById("ESB_progress_context_item").hidden = hiding;
+	document.getElementById("ESB_cursor_context_item").hidden = hiding;
 }
 
 XULExtendedStatusbarChrome.hideESB = function ()
@@ -526,18 +546,27 @@ XULExtendedStatusbarChrome.esbListener =
 			var allimgsc = 0;
 			if (docimgs != null)
 			{
-				allimgsc = docimgs.length;
+				var src = [];
 				for (var i = 0; i < docimgs.length; i++)
 				{
-					if (docimgs[i].complete) imglcount++;
+					if (!src[docimgs[i].src])
+					{
+						src[docimgs[i].src] = true;
+						allimgsc++;
+						if (docimgs[i].complete) imglcount++;
+					}
 				}
 				for (var i = 0; i < aBrowser.contentWindow.frames.length; i++)
 				{
 					docimgs = aBrowser.contentWindow.frames[i].document.images;
-					allimgsc += docimgs.length;
 					for (var j = 0; j < docimgs.length; j++)
 					{
-						if (docimgs[j].complete) imglcount++;
+						if (!src[docimgs[i].src])
+						{
+							src[docimgs[i].src] = true;
+							allimgsc++;
+							if (docimgs[j].complete) imglcount++;
+						}
 					}
 				}
 			}			
@@ -584,7 +613,7 @@ XULExtendedStatusbarChrome.esbListener =
 				XULExtendedStatusbarChrome.esbXUL.esb_toolbar.hidden = true;
 				XULExtendedStatusbarChrome.esbXUL.status_bar.hidden = true;
 			}
-			else
+			else if(aBrowser == gBrowser.selectedBrowser)
 			{
 				XULExtendedStatusbarChrome.hideForSitesSem = false;
 				XULExtendedStatusbarChrome.cancelTimeOut(XULExtendedStatusbarChrome.hideTimeOut);
@@ -832,26 +861,46 @@ XULExtendedStatusbarChrome.ESB_PrefObserver = {
 				{
 					XULExtendedStatusbarChrome.hideForSites = null;
 				}
+				if (XULExtendedStatusbarChrome.hideForSites && 
+					gBrowser.selectedBrowser.contentDocument.location.href.match(XULExtendedStatusbarChrome.hideForSites))
+				{
+					XULExtendedStatusbarChrome.hideForSitesSem = true;
+					XULExtendedStatusbarChrome.esbXUL.esb_toolbar.hidden = true;
+					XULExtendedStatusbarChrome.esbXUL.status_bar.hidden = true;
+				}
+				else if(XULExtendedStatusbarChrome.esbLoading || !XULExtendedStatusbarChrome.esbHide)
+				{
+					XULExtendedStatusbarChrome.hideForSitesSem = false;
+					XULExtendedStatusbarChrome.cancelTimeOut(XULExtendedStatusbarChrome.hideTimeOut);
+					XULExtendedStatusbarChrome.esbXUL.esb_toolbar.hidden = false;
+					XULExtendedStatusbarChrome.esbXUL.status_bar.hidden = false;
+				}
+				XULExtendedStatusbarChrome.esbListener.displayCurrentValuesForBrowser(gBrowser.selectedBrowser);
 				break;
 			case "hideimages":
 				if (this.prefs.getBoolPref("hideimages")) XULExtendedStatusbarChrome.esbXUL.images_box.hidden = true;
 				else XULExtendedStatusbarChrome.esbXUL.images_box.hidden = false;
+				document.getElementById("ESB_images_context_item").setAttribute("checked", !XULExtendedStatusbarChrome.esbXUL.images_box.hidden);
 				break;
 			case "hideloaded":
 				if (this.prefs.getBoolPref("hideloaded")) XULExtendedStatusbarChrome.esbXUL.loaded_box.hidden = true;
 				else XULExtendedStatusbarChrome.esbXUL.loaded_box.hidden = false;
+				document.getElementById("ESB_loaded_context_item").setAttribute("checked", !XULExtendedStatusbarChrome.esbXUL.loaded_box.hidden);
 				break;
 			case "hidespeed":
 				if (this.prefs.getBoolPref("hidespeed")) XULExtendedStatusbarChrome.esbXUL.speed_box.hidden = true;
 				else XULExtendedStatusbarChrome.esbXUL.speed_box.hidden = false;
+				document.getElementById("ESB_speed_context_item").setAttribute("checked", !XULExtendedStatusbarChrome.esbXUL.speed_box.hidden);
 				break;
 			case "hidetime":
 				if (this.prefs.getBoolPref("hidetime")) XULExtendedStatusbarChrome.esbXUL.time_box.hidden = true;
 				else XULExtendedStatusbarChrome.esbXUL.time_box.hidden = false;
+				document.getElementById("ESB_time_context_item").setAttribute("checked", !XULExtendedStatusbarChrome.esbXUL.time_box.hidden);
 				break;
 			case "hidepercent":
 				if (this.prefs.getBoolPref("hidepercent")) XULExtendedStatusbarChrome.esbXUL.percent_box.hidden = true;
 				else XULExtendedStatusbarChrome.esbXUL.percent_box.hidden = false;
+				document.getElementById("ESB_percent_context_item").setAttribute("checked", !XULExtendedStatusbarChrome.esbXUL.percent_box.hidden);
 				break;
 			case "esbstyle":
 				this.applyStyle();
@@ -964,6 +1013,7 @@ XULExtendedStatusbarChrome.ESB_PrefObserver = {
 					XULExtendedStatusbarChrome.esbHideProgress = false;
 					XULExtendedStatusbarChrome.esbXUL.percent_progressbar.hidden = false;
 				}
+				document.getElementById("ESB_progress_context_item").setAttribute("checked", !XULExtendedStatusbarChrome.esbXUL.percent_progressbar.hidden);
 				break;
 			case "hidecursor":
 				if (this.prefs.getBoolPref("hidecursor"))
@@ -981,6 +1031,7 @@ XULExtendedStatusbarChrome.ESB_PrefObserver = {
 					XULExtendedStatusbarChrome.esbXUL.loaded_working_progressbar.hidden = false;
 					XULExtendedStatusbarChrome.esbXUL.loaded_finished_progressbar.hidden = false;
 				}
+				document.getElementById("ESB_cursor_context_item").setAttribute("checked", !XULExtendedStatusbarChrome.esbXUL.loaded_finished_progressbar.hidden);
 				break;
 		}
 	},

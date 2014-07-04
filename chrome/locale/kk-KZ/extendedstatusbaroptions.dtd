@@ -18,7 +18,7 @@
 <!ENTITY esb.hideonsites.tooltip "Gmail сияқты AJAX сайттары үшін тиімді">
 <!ENTITY esb.appendcurrent "Ағымдағы парақты қосу">
 <!ENTITY esb.appendcurrent.accesskey "А">
-<!ENTITY esb.customcolor "Пайдаланушы стилі">
+<!ENTITY esb.customcolor "Custom color">
 <!ENTITY esb.customcolor.accesskey "д">
 <!ENTITY esb.customcolor.tooltip "Ағымдағы темаңыз Extended Statusbar қолдаса, пайдаланушы стильдерін сөндіру!">
 <!ENTITY esb.backgroundcolor "Фон:">
@@ -33,7 +33,7 @@
 <!ENTITY esb.slimmode.tooltip "Мәтінді жасырып, тек сандарды көрсету">
 <!ENTITY esb.hideindelements "Бөлек элементтерді жасыру">
 <!ENTITY esb.hideimages "Суреттер саны мәнін жасыру">
-<!ENTITY esb.hideoldimages.accesskey "С">
+<!ENTITY esb.hideimages.accesskey "С">
 <!ENTITY esb.hideloaded "Жүктелген бөлігі мәнін жасыру">
 <!ENTITY esb.hideloaded.accesskey "б">
 <!ENTITY esb.hidespeed "Жылдамдық мәнін жасыру">
@@ -46,3 +46,18 @@
 <!ENTITY esb.hideprogress.accesskey "t">
 <!ENTITY esb.hidecursor "Hide Loading Cursor">
 <!ENTITY esb.hidecursor.accesskey "c">
+<!ENTITY esb.cssplaceholder "Input Css rules here">
+<!ENTITY esb.apply "Apply">
+<!ENTITY esb.usecustomstyle "Use your own style (advanced mode)">
+<!ENTITY esb.usecustomstyle.accesskey "y">
+<!ENTITY esb.usecustomstyle.tooltip "Customize using your own css rules, for advanced users">
+<!ENTITY esb.toolbar "Toolbar">
+<!ENTITY esb.esbwidget "ESB widget">
+<!ENTITY esb.percent "Percent">
+<!ENTITY esb.images "Images">
+<!ENTITY esb.loaded "Loaded">
+<!ENTITY esb.speed "Speed">
+<!ENTITY esb.time "Time">
+<!ENTITY esb.progress "Progress">
+<!ENTITY esb.cursor "Cursor">
+<!ENTITY esb.cursorback "Cursor back">

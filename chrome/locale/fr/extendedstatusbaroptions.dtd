@@ -18,8 +18,8 @@
 <!ENTITY esb.hideonsites.tooltip "Très utile pour les sites AJAX comme Gmail">
 <!ENTITY esb.appendcurrent "Ajouter la page en cours">
 <!ENTITY esb.appendcurrent.accesskey "A">
-<!ENTITY esb.customcolor "Style personnalisé">
-<!ENTITY esb.customcolor.accesskey "S">
+<!ENTITY esb.customcolor "Couleurs personnalisées">
+<!ENTITY esb.customcolor.accesskey "C">
 <!ENTITY esb.customcolor.tooltip "Désactivez les styles personnalisés si votre thème courant prend en charge Extended Statusbar !">
 <!ENTITY esb.backgroundcolor "Arrière-plan :">
 <!ENTITY esb.progresscolor "Barre de progression :">
@@ -33,7 +33,7 @@
 <!ENTITY esb.slimmode.tooltip "Masque les titres et n&apos;affiche que les nombres">
 <!ENTITY esb.hideindelements "Masquer des éléments spécifiques">
 <!ENTITY esb.hideimages "Masquer les images">
-<!ENTITY esb.hideoldimages.accesskey "i">
+<!ENTITY esb.hideimages.accesskey "i">
 <!ENTITY esb.hideloaded "Masquer les éléments chargés">
 <!ENTITY esb.hideloaded.accesskey "a">
 <!ENTITY esb.hidespeed "Masquer la vitesse">
@@ -46,3 +46,18 @@
 <!ENTITY esb.hideprogress.accesskey "r">
 <!ENTITY esb.hidecursor "Masquer le curseur">
 <!ENTITY esb.hidecursor.accesskey "c">
+<!ENTITY esb.cssplaceholder "Input Css rules here">
+<!ENTITY esb.apply "Apply">
+<!ENTITY esb.usecustomstyle "Use your own style (advanced mode)">
+<!ENTITY esb.usecustomstyle.accesskey "y">
+<!ENTITY esb.usecustomstyle.tooltip "Customize using your own css rules, for advanced users">
+<!ENTITY esb.toolbar "Toolbar">
+<!ENTITY esb.esbwidget "ESB widget">
+<!ENTITY esb.percent "Percent">
+<!ENTITY esb.images "Images">
+<!ENTITY esb.loaded "Loaded">
+<!ENTITY esb.speed "Speed">
+<!ENTITY esb.time "Time">
+<!ENTITY esb.progress "Progress">
+<!ENTITY esb.cursor "Cursor">
+<!ENTITY esb.cursorback "Cursor back">

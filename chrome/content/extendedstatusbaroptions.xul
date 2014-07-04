@@ -108,11 +108,11 @@
 				<checkbox id="checkesboldslimmode" preference="esbOldSlimMode" label="&esb.oldslimmode;" accesskey="&esb.oldslimmode.accesskey;" tooltiptext="&esb.oldslimmode.tooltip;"/>
 				<groupbox>
 					<caption label="&esb.hideindelements;"/>
-					<checkbox id="checkesboldhideimages" preference="esbOldHideImages" label="&esb.oldhideimages;" accesskey="&esb.hideoldimages.accesskey;"/>
-					<checkbox id="checkesboldhideloaded" preference="esbOldHideLoaded" label="&esb.oldhideloaded;" accesskey="&esb.oldhideloaded.accesskey;"/>
-					<checkbox id="checkesboldhidespeed" preference="esbOldHideSpeed" label="&esb.oldhidespeed;" accesskey="&esb.oldhidespeed.accesskey;"/>
-					<checkbox id="checkesboldhidetime" preference="esbOldHideTime" label="&esb.oldhidetime;" accesskey="&esb.oldhidetime.accesskey;"/>
-					<checkbox id="checkesboldhidepercent" preference="esbOldHidePercent" label="&esb.oldhidepercent;" accesskey="&esb.oldhidepercent.accesskey;"/>
+					<checkbox id="checkesboldhideimages" preference="esbOldHideImages" label="&esb.hideimages;" accesskey="&esb.hideimages.accesskey;"/>
+					<checkbox id="checkesboldhideloaded" preference="esbOldHideLoaded" label="&esb.hideloaded;" accesskey="&esb.hideloaded.accesskey;"/>
+					<checkbox id="checkesboldhidespeed" preference="esbOldHideSpeed" label="&esb.hidespeed;" accesskey="&esb.hidespeed.accesskey;"/>
+					<checkbox id="checkesboldhidetime" preference="esbOldHideTime" label="&esb.hidetime;" accesskey="&esb.hidetime.accesskey;"/>
+					<checkbox id="checkesboldhidepercent" preference="esbOldHidePercent" label="&esb.hidepercent;" accesskey="&esb.hidepercent.accesskey;"/>
 				</groupbox>
 			</vbox>
 	</prefpane>

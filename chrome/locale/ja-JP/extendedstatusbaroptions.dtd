@@ -18,7 +18,7 @@
 <!ENTITY esb.hideonsites.tooltip "Gmail のような Ajax サイトに有用です">
 <!ENTITY esb.appendcurrent "現在のページを付加">
 <!ENTITY esb.appendcurrent.accesskey "A">
-<!ENTITY esb.customcolor "カスタムスタイル">
+<!ENTITY esb.customcolor "Custom color">
 <!ENTITY esb.customcolor.accesskey "C">
 <!ENTITY esb.customcolor.tooltip "現在のテーマが拡張ステータスバーに対応する場合カスタムスタイルは無効です！">
 <!ENTITY esb.backgroundcolor "背景:">
@@ -33,7 +33,7 @@
 <!ENTITY esb.slimmode.tooltip "ラベルを非表示にして数字のみを表示します">
 <!ENTITY esb.hideindelements "個別要素の非表示">
 <!ENTITY esb.hideimages "画像を非表示">
-<!ENTITY esb.hideoldimages.accesskey "I">
+<!ENTITY esb.hideimages.accesskey "I">
 <!ENTITY esb.hideloaded "読み込みを非表示">
 <!ENTITY esb.hideloaded.accesskey "o">
 <!ENTITY esb.hidespeed "速度を非表示">
@@ -46,3 +46,18 @@
 <!ENTITY esb.hideprogress.accesskey "t">
 <!ENTITY esb.hidecursor "Hide Loading Cursor">
 <!ENTITY esb.hidecursor.accesskey "c">
+<!ENTITY esb.cssplaceholder "Input Css rules here">
+<!ENTITY esb.apply "Apply">
+<!ENTITY esb.usecustomstyle "Use your own style (advanced mode)">
+<!ENTITY esb.usecustomstyle.accesskey "y">
+<!ENTITY esb.usecustomstyle.tooltip "Customize using your own css rules, for advanced users">
+<!ENTITY esb.toolbar "Toolbar">
+<!ENTITY esb.esbwidget "ESB widget">
+<!ENTITY esb.percent "Percent">
+<!ENTITY esb.images "Images">
+<!ENTITY esb.loaded "Loaded">
+<!ENTITY esb.speed "Speed">
+<!ENTITY esb.time "Time">
+<!ENTITY esb.progress "Progress">
+<!ENTITY esb.cursor "Cursor">
+<!ENTITY esb.cursorback "Cursor back">

@@ -18,7 +18,7 @@
 <!ENTITY esb.hideonsites.tooltip "Užitečné na stránkách využívajících AJAX (například Gmail)">
 <!ENTITY esb.appendcurrent "Přidat aktuální stránku">
 <!ENTITY esb.appendcurrent.accesskey "a">
-<!ENTITY esb.customcolor "Vlastní styl">
+<!ENTITY esb.customcolor "Custom color">
 <!ENTITY esb.customcolor.accesskey "V">
 <!ENTITY esb.customcolor.tooltip "Vypněte vlastní styl, pokud váš aktuální motiv vzhledu podporuje rozšíření Extended Statusbar!">
 <!ENTITY esb.backgroundcolor "Pozadí:">
@@ -33,7 +33,7 @@
 <!ENTITY esb.slimmode.tooltip "Skryje označení položek a zobrazí pouze čísla">
 <!ENTITY esb.hideindelements "Skrytí vlastních položek">
 <!ENTITY esb.hideimages "Skrýt &quot;Obrázky&quot;">
-<!ENTITY esb.hideoldimages.accesskey "o">
+<!ENTITY esb.hideimages.accesskey "o">
 <!ENTITY esb.hideloaded "Skrýt &quot;Načteno&quot;">
 <!ENTITY esb.hideloaded.accesskey "N">
 <!ENTITY esb.hidespeed "Skrýt &quot;Rychlost&quot;">
@@ -46,3 +46,18 @@
 <!ENTITY esb.hideprogress.accesskey "t">
 <!ENTITY esb.hidecursor "Hide Loading Cursor">
 <!ENTITY esb.hidecursor.accesskey "c">
+<!ENTITY esb.cssplaceholder "Input Css rules here">
+<!ENTITY esb.apply "Apply">
+<!ENTITY esb.usecustomstyle "Use your own style (advanced mode)">
+<!ENTITY esb.usecustomstyle.accesskey "y">
+<!ENTITY esb.usecustomstyle.tooltip "Customize using your own css rules, for advanced users">
+<!ENTITY esb.toolbar "Toolbar">
+<!ENTITY esb.esbwidget "ESB widget">
+<!ENTITY esb.percent "Percent">
+<!ENTITY esb.images "Images">
+<!ENTITY esb.loaded "Loaded">
+<!ENTITY esb.speed "Speed">
+<!ENTITY esb.time "Time">
+<!ENTITY esb.progress "Progress">
+<!ENTITY esb.cursor "Cursor">
+<!ENTITY esb.cursorback "Cursor back">
