@@ -517,7 +517,6 @@ XULExtendedStatusbarChrome.esbListener =
 				this.initObjectValuesForBrowser(aBrowser);
 			}
 			aBrowser.esbValues.stateFlags = aStateFlags;
-			aBrowser.esbValues.percent = "100";
 			this.stopTimer(aBrowser);
 			
 			this.updateTime(aBrowser);
