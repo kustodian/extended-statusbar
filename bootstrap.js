@@ -1,6 +1,7 @@
 Components.utils.import("resource://gre/modules/Services.jsm");
 Components.utils.import("resource://gre/modules/XPCOMUtils.jsm");
 Components.utils.import("resource://gre/modules/NetUtil.jsm");
+Components.utils.import("resource:///modules/CustomizableUI.jsm");
 
 function startup(data,reason)
 {
@@ -47,14 +48,13 @@ function loadIntoWindow(window)
 	var percentLabel = document.createElement("label");
 	percentLabel.setAttribute("id", "ESB_percent_label");
 	var percentLabelHbox =  document.createElement("hbox");
-	percentLabelHbox.setAttribute("pack", "center");
+	percentLabelHbox.setAttribute("pack", "end");
 	percentLabelHbox.setAttribute("align", "center");
 	percentLabelHbox.appendChild(percentLabel);
 	
 	var percentProgressbar =  document.createElement("hbox");
 	percentProgressbar.setAttribute("id", "ESB_percent_progressbar");
 	var percentProgressbarHbox =  document.createElement("hbox");
-	percentProgressbarHbox.setAttribute("height", "20");
 	percentProgressbarHbox.appendChild(percentProgressbar);
 	
 	var percentBox =  document.createElement("stack");
@@ -85,7 +85,6 @@ function loadIntoWindow(window)
 	loadedWorkingProgressbar.setAttribute("id", "ESB_loaded_working_progressbar");
 	loadedWorkingProgressbar.setAttribute("hidden", "true");
 	var loadedWorkingProgressbarHbox =  document.createElement("hbox");
-	loadedWorkingProgressbarHbox.setAttribute("height", "20");
 	loadedWorkingProgressbarHbox.appendChild(loadedWorkingProgressbar);
 	
 	var loadedFinishedProgressbar =  document.createElement("hbox");
@@ -93,7 +92,6 @@ function loadIntoWindow(window)
 	loadedFinishedProgressbar.setAttribute("flex", "1");
 	loadedFinishedProgressbar.setAttribute("hidden", "true");
 	var loadedFinishedProgressbarHbox =  document.createElement("hbox");
-	loadedFinishedProgressbarHbox.setAttribute("height", "20");
 	loadedFinishedProgressbarHbox.appendChild(loadedFinishedProgressbar);
 	
 	var loadedBox =  document.createElement("stack");
@@ -109,7 +107,7 @@ function loadIntoWindow(window)
 	var speedBox =  document.createElement("hbox");
 	speedBox.setAttribute("id", "ESB_speed_box");
 	speedBox.setAttribute("tooltiptext", "&esb.avgspeed;");
-	speedBox.setAttribute("pack", "center");
+	speedBox.setAttribute("pack", "end");
 	speedBox.setAttribute("align", "center");
 	speedBox.appendChild(speedLabel);
 	
@@ -119,7 +117,7 @@ function loadIntoWindow(window)
 	var timeBox =  document.createElement("hbox");
 	timeBox.setAttribute("id", "ESB_time_box");
 	timeBox.setAttribute("tooltiptext", "&esb.time;");
-	timeBox.setAttribute("pack", "center");
+	timeBox.setAttribute("pack", "end");
 	timeBox.setAttribute("align", "center");
 	timeBox.appendChild(timeLabel);
 	
@@ -137,7 +135,6 @@ function loadIntoWindow(window)
 	esbToolbaritem.setAttribute("id", "ESB_toolbaritem");
 	esbToolbaritem.setAttribute("title", "Extended Statusbar");
 	esbToolbaritem.setAttribute("removable", "true");
-	esbToolbaritem.setAttribute("flex", "1");
 	esbToolbaritem.appendChild(esbStatusBar);
 	
 	document.getElementById("navigator-toolbox").palette.appendChild(esbToolbaritem);
@@ -165,15 +162,20 @@ function loadIntoWindow(window)
 	esbToolbar.appendChild(esbToolbarspacer);
 	
 	document.getElementById("browser-bottombox").appendChild(esbToolbar);
-
+	
+	//Let the toolbar be customizable and element placement correctly saved
+	CustomizableUI.registerArea("ESB_toolbar",{
+		type: CustomizableUI.TYPE_TOOLBAR,
+		defaultPlacements: ["ESB_toolbaritem","ESB_toolbarspacer"]});
+		
 /*	<toolbarpalette id="BrowserToolbarPalette">
 		<toolbaritem id="ESB_toolbaritem" title="Extended Statusbar" removable="true">
 			<hbox id="ESB_status_bar">
 				<stack id="ESB_percent_box" tooltiptext="&esb.percentage;">
-					<hbox height="20">
+					<hbox>
 						<hbox id="ESB_percent_progressbar"/>
 					</hbox>
-					<hbox pack="center" align="center">
+					<hbox pack="end" align="center">
 						<label id="ESB_percent_label"/>
 					</hbox>
 				</stack>
@@ -181,20 +183,20 @@ function loadIntoWindow(window)
 					<label id="ESB_images_label"/>
 				</hbox>
 				<stack id="ESB_loaded_box" tooltiptext="&esb.dataloaded;">
-					<hbox height="20">
+					<hbox>
 						<hbox id="ESB_loaded_finished_progressbar" flex="1" hidden="true"/>
 					</hbox>
-					<hbox height="20">
+					<hbox>
 						<hbox id="ESB_loaded_working_progressbar" hidden="true"/>
 					</hbox>
 					<hbox pack="center" align="center">
 						<label id="ESB_loaded_label"/>
 					</hbox>
 				</stack>
-				<hbox id="ESB_speed_box" tooltiptext="&esb.avgspeed;" pack="center" align="center">
+				<hbox id="ESB_speed_box" tooltiptext="&esb.avgspeed;" pack="end" align="center">
 					<label id="ESB_speed_label"/>
 				</hbox>
-				<hbox id="ESB_time_box" tooltiptext="&esb.time;" pack="center" align="center">
+				<hbox id="ESB_time_box" tooltiptext="&esb.time;" pack="end" align="center">
 					<label id="ESB_time_label"/>
 				</hbox>
 			</hbox>
@@ -216,9 +218,13 @@ function loadIntoWindow(window)
 }
 function unloadFromWindow(window) 
 {
+	CustomizableUI.unregisterArea("ESB_toolbar");
+	
 	var document = window.document;
-	document.getElementById("browser-bottombox").removeChild(document.getElementById("ESB_toolbar"));
-	document.getElementById("BrowserToolbarPalette").removeChild(document.getElementById("ESB_toolbaritem"));
+	var esbToolbar = document.getElementById("ESB_toolbar");
+	document.getElementById("browser-bottombox").removeChild(esbToolbar);
+	var externalToolbars = window.gNavToolbox.externalToolbars;
+	externalToolbars.splice(externalToolbars.indexOf(esbToolbar), 1);
 	
 	XULExtendedStatusbarChrome.uninit();
 }

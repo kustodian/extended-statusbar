@@ -47,7 +47,7 @@ XULExtendedStatusbarChrome.init = function (window)
 			XULExtendedStatusbarChrome.esbXUL.init();
 			XULExtendedStatusbarChrome.ESB_PrefObserver.startup();
 			XULExtendedStatusbarChrome.esbListener.init();
-			window.getBrowser().addTabsProgressListener(XULExtendedStatusbarChrome.esbListener);
+			getBrowser().addTabsProgressListener(XULExtendedStatusbarChrome.esbListener);
 			XULExtendedStatusbarChrome.started = true;
 			XULExtendedStatusbarChrome.addContextMenuItem();
 			console.log("ExtendedStatusbar started");
@@ -67,7 +67,7 @@ XULExtendedStatusbarChrome.uninit = function ()
 	XULExtendedStatusbarChrome.ESB_PrefObserver.shutdown();
 	XULExtendedStatusbarChrome.esbXUL.destroy();
 	XULExtendedStatusbarChrome.esbListener.destroy();
-	window.getBrowser().removeTabsProgressListener(XULExtendedStatusbarChrome.esbListener);
+	getBrowser().removeTabsProgressListener(XULExtendedStatusbarChrome.esbListener);
 }
 
 XULExtendedStatusbarChrome.addContextMenuItem = function ()
@@ -279,11 +279,6 @@ XULExtendedStatusbarChrome.hideESBOnHover = function ()
 	}
 }
 
-//Let the toolbar be customizable and element placement correctly saved
-CustomizableUI.registerArea("ESB_toolbar",{
-	type: CustomizableUI.TYPE_TOOLBAR,
-	defaultPlacements: ["ESB_toolbaritem","ESB_toolbarspacer"]});
-
 //Load progress listeners at window load
 //window.addEventListener("load", XULExtendedStatusbarChrome.init, false);
 //window.addEventListener("unload", XULExtendedStatusbarChrome.uninit, false);
@@ -367,7 +362,8 @@ XULExtendedStatusbarChrome.esbListener =
 		if (!aEvent.target.linkedBrowser.esbValues)
 		{
 			XULExtendedStatusbarChrome.esbXUL.esb_toolbar.hidden = true;
-			XULExtendedStatusbarChrome.esbXUL.status_bar.hidden = true;
+			//it's happening in customizing mode
+			//XULExtendedStatusbarChrome.esbXUL.status_bar.hidden = true;
 		}
 		else if (XULExtendedStatusbarChrome.hideForSites &&
 				 aEvent.target.linkedBrowser.contentDocument.location.href.match(XULExtendedStatusbarChrome.hideForSites))
