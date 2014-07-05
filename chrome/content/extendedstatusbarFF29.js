@@ -6,7 +6,6 @@ if ("undefined" == typeof(XULExtendedStatusbarChrome)) {
 }
 
 /*          Vars         */
-XULExtendedStatusbarChrome.window = null;    		//
 XULExtendedStatusbarChrome.started = false;    		// If True ESB is started
 XULExtendedStatusbarChrome.esbHide;    				// If True ESB will hide
 XULExtendedStatusbarChrome.esbWait;    				// How long to wait before hiding
@@ -36,9 +35,8 @@ XULExtendedStatusbarChrome.percent_progressbar_width;
 XULExtendedStatusbarChrome.loaded_working_progressbar_width;
 XULExtendedStatusbarChrome.loaded_finished_progressbar_width;
 
-XULExtendedStatusbarChrome.init = function (window)
+XULExtendedStatusbarChrome.init = function ()
 {
-	if(window) this.window = window;
 	var toolbaritem = document.getElementById("ESB_toolbaritem");
 	if(toolbaritem)
 	{

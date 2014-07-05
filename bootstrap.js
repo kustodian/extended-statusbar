@@ -214,7 +214,7 @@ function loadIntoWindow(window)
 		return window.XULExtendedStatusbarChrome;
 	});
 		
-	XULExtendedStatusbarChrome.init(window);
+	XULExtendedStatusbarChrome.init();
 }
 function unloadFromWindow(window) 
 {
