@@ -1,7 +1,11 @@
 Components.utils.import("resource://gre/modules/Services.jsm");
 Components.utils.import("resource://gre/modules/XPCOMUtils.jsm");
 Components.utils.import("resource://gre/modules/NetUtil.jsm");
-Components.utils.import("resource:///modules/CustomizableUI.jsm");
+
+var isPostAustralis = Components.classes["@mozilla.org/xpcom/version-comparator;1"].getService(Components.interfaces.nsIVersionComparator)
+	.compare(Components.classes["@mozilla.org/xre/app-info;1"].getService(Components.interfaces.nsIXULAppInfo).version, "29.0") >= 0;
+	
+if (isPostAustralis) Components.utils.import("resource:///modules/CustomizableUI.jsm");
 
 function startup(data,reason)
 {
@@ -134,39 +138,55 @@ function loadIntoWindow(window)
 	var esbToolbaritem = document.createElement("toolbaritem");
 	esbToolbaritem.setAttribute("id", "ESB_toolbaritem");
 	esbToolbaritem.setAttribute("title", "Extended Statusbar");
-	esbToolbaritem.setAttribute("removable", "true");
 	esbToolbaritem.appendChild(esbStatusBar);
 	
-	document.getElementById("navigator-toolbox").palette.appendChild(esbToolbaritem);
-	
-	//ESB_toolbarspacer
-	var esbToolbarspacer = document.createElement("toolbarspacer");
-	esbToolbarspacer.setAttribute("id", "ESB_toolbarspacer");
-	esbToolbarspacer.setAttribute("flex", "1");
-	
-	//ESB_toolbar
-	var esbToolbar = document.createElement("toolbar");
-	esbToolbar.setAttribute("id", "ESB_toolbar");
-	esbToolbar.setAttribute("toolbarname", "Extended Statusbar");
-	esbToolbar.setAttribute("toolboxid", "navigator-toolbox");
-	esbToolbar.setAttribute("accesskey", "E");
-	esbToolbar.setAttribute("class", "toolbar-primary chromeclass-toolbar");
-	esbToolbar.setAttribute("customizable", "true");
-	esbToolbar.setAttribute("context", "toolbar-context-menu");
-	esbToolbar.setAttribute("hidden", "false");
-	esbToolbar.setAttribute("persist", "hidden");
-	esbToolbar.setAttribute("mode", "icons");
-	esbToolbar.setAttribute("iconsize", "small");
-	esbToolbar.setAttribute("onmouseover", "XULExtendedStatusbarChrome.showESBOnHover();");
-	esbToolbar.setAttribute("onmouseout", "XULExtendedStatusbarChrome.hideESBOnHover();");
-	esbToolbar.appendChild(esbToolbarspacer);
-	
-	document.getElementById("browser-bottombox").appendChild(esbToolbar);
+	if (isPostAustralis)
+	{
+		esbToolbaritem.setAttribute("removable", "true");
+		document.getElementById("navigator-toolbox").palette.appendChild(esbToolbaritem);
+		
+		//ESB_toolbarspacer
+		var esbToolbarspacer = document.createElement("toolbarspacer");
+		esbToolbarspacer.setAttribute("id", "ESB_toolbarspacer");
+		esbToolbarspacer.setAttribute("flex", "1");
+		
+		//ESB_toolbar
+		var esbToolbar = document.createElement("toolbar");
+		esbToolbar.setAttribute("id", "ESB_toolbar");
+		esbToolbar.setAttribute("toolbarname", "Extended Statusbar");
+		esbToolbar.setAttribute("toolboxid", "navigator-toolbox");
+		esbToolbar.setAttribute("accesskey", "E");
+		esbToolbar.setAttribute("class", "toolbar-primary chromeclass-toolbar");
+		esbToolbar.setAttribute("customizable", "true");
+		esbToolbar.setAttribute("context", "toolbar-context-menu");
+		esbToolbar.setAttribute("hidden", "false");
+		esbToolbar.setAttribute("persist", "hidden");
+		esbToolbar.setAttribute("mode", "icons");
+		esbToolbar.setAttribute("iconsize", "small");
+		esbToolbar.setAttribute("onmouseover", "XULExtendedStatusbarChrome.showESBOnHover();");
+		esbToolbar.setAttribute("onmouseout", "XULExtendedStatusbarChrome.hideESBOnHover();");
+		esbToolbar.appendChild(esbToolbarspacer);
+		
+		document.getElementById("browser-bottombox").appendChild(esbToolbar);
 	
 	//Let the toolbar be customizable and element placement correctly saved
-	CustomizableUI.registerArea("ESB_toolbar",{
-		type: CustomizableUI.TYPE_TOOLBAR,
-		defaultPlacements: ["ESB_toolbaritem","ESB_toolbarspacer"]});
+		CustomizableUI.registerArea("ESB_toolbar",{
+			type: CustomizableUI.TYPE_TOOLBAR,
+			defaultPlacements: ["ESB_toolbaritem","ESB_toolbarspacer"]});
+	}
+	else
+	{
+		var addonBar = document.getElementById("addon-bar");
+		if (addonBar) 
+		{
+			addonBar.insertBefore(esbToolbaritem, addonBar.firstChild);
+		}
+		var addonBarCloseButton = document.getElementById("addonbar-closebutton");
+		if (addonBarCloseButton) 
+		{
+			addonBar.removeChild(addonBarCloseButton);
+		}
+	}
 		
 /*	<toolbarpalette id="BrowserToolbarPalette">
 		<toolbaritem id="ESB_toolbaritem" title="Extended Statusbar" removable="true">
@@ -210,7 +230,7 @@ function loadIntoWindow(window)
 	</vbox> */
 	
 	XPCOMUtils.defineLazyGetter(this, "XULExtendedStatusbarChrome", function() {
-		Services.scriptloader.loadSubScript("chrome://extendedstatusbar/content/extendedstatusbarFF29.js", window);
+		Services.scriptloader.loadSubScript("chrome://extendedstatusbar/content/extendedstatusbar.js", window);
 		return window.XULExtendedStatusbarChrome;
 	});
 		
@@ -218,13 +238,32 @@ function loadIntoWindow(window)
 }
 function unloadFromWindow(window) 
 {
-	CustomizableUI.unregisterArea("ESB_toolbar");
-	
 	var document = window.document;
-	var esbToolbar = document.getElementById("ESB_toolbar");
-	document.getElementById("browser-bottombox").removeChild(esbToolbar);
-	var externalToolbars = window.gNavToolbox.externalToolbars;
-	externalToolbars.splice(externalToolbars.indexOf(esbToolbar), 1);
+	
+	if (isPostAustralis)
+	{
+		CustomizableUI.unregisterArea("ESB_toolbar");
+		
+		var esbToolbar = document.getElementById("ESB_toolbar");
+		if(esbToolbar)
+		{
+			document.getElementById("browser-bottombox").removeChild(esbToolbar);
+			var externalToolbars = window.gNavToolbox.externalToolbars;
+			externalToolbars.splice(externalToolbars.indexOf(esbToolbar), 1);
+		}
+	}
+	else
+	{
+		var addonBar = document.getElementById("addon-bar");
+		if (addonBar) 
+		{
+			var esbToolbarItem = document.getElementById("ESB_toolbaritem");
+			if(esbToolbarItem)
+			{
+				addonBar.removeChild(esbToolbarItem);
+			}
+		}
+	}
 	
 	XULExtendedStatusbarChrome.uninit();
 }

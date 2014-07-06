@@ -1,7 +1,6 @@
 var ExtendedStatusbarPrefs = Components.classes["@mozilla.org/preferences-service;1"].getService(Components.interfaces.nsIPrefService);
 ExtendedStatusbarPrefs = ExtendedStatusbarPrefs.getBranch("extensions.extendedstatusbar.");
 
-
 if ("undefined" == typeof(XULExtendedStatusbarOptions)) {
   var XULExtendedStatusbarOptions = {};
 }
@@ -13,21 +12,29 @@ XULExtendedStatusbarOptions.init = function ()
 		document.getElementById("textesbtimeout").removeAttribute("disabled");      //Have to remove it because it stay disabled
 		document.getElementById("labelesbhideafter").setAttribute("disabled", "false");
 		document.getElementById("labelesbseconds").setAttribute("disabled", "false");
-		document.getElementById("checkesbshowonhover").setAttribute("disabled", "false");
-		document.getElementById("labelesbhideforsites").setAttribute("disabled", "false");
-		document.getElementById("textesbhideforsites").removeAttribute("disabled");
-		document.getElementById("buttonesbappendcurrent").setAttribute("disabled", "false");
-		if (document.getElementById("checkesbshowonhover").checked)
+		document.getElementById("checkesbhidetoolbar").setAttribute("disabled", "false");
+		if (document.getElementById("checkesbhidetoolbar").checked)
 		{
-			document.getElementById("labelesbhovering").setAttribute("disabled", "false");
-			document.getElementById("textesbhovertimeout").removeAttribute("disabled");
-			document.getElementById("labelesbhoverseconds").setAttribute("disabled", "false");
-		}
-		else
-		{
+			document.getElementById("checkesbshowonhover").setAttribute("disabled", "true");
 			document.getElementById("labelesbhovering").setAttribute("disabled", "true");
 			document.getElementById("textesbhovertimeout").setAttribute("disabled", "true");
 			document.getElementById("labelesbhoverseconds").setAttribute("disabled", "true");
+		}
+		else
+		{
+			document.getElementById("checkesbshowonhover").setAttribute("disabled", "false");
+			if (document.getElementById("checkesbshowonhover").checked)
+			{
+				document.getElementById("labelesbhovering").setAttribute("disabled", "false");
+				document.getElementById("textesbhovertimeout").removeAttribute("disabled");
+				document.getElementById("labelesbhoverseconds").setAttribute("disabled", "false");
+			}
+			else
+			{
+				document.getElementById("labelesbhovering").setAttribute("disabled", "true");
+				document.getElementById("textesbhovertimeout").setAttribute("disabled", "true");
+				document.getElementById("labelesbhoverseconds").setAttribute("disabled", "true");
+			}
 		}
 	}
 	else
@@ -36,15 +43,12 @@ XULExtendedStatusbarOptions.init = function ()
 		document.getElementById("labelesbhideafter").setAttribute("disabled", "true");
 		document.getElementById("labelesbseconds").setAttribute("disabled", "true");
 		document.getElementById("checkesbshowonhover").setAttribute("disabled", "true");
+		document.getElementById("checkesbhidetoolbar").setAttribute("disabled", "true");
 		document.getElementById("labelesbhovering").setAttribute("disabled", "true");
 		document.getElementById("textesbhovertimeout").setAttribute("disabled", "true");
-		document.getElementById("labelesbhoverseconds").setAttribute("disabled", "true");
-		document.getElementById("labelesbhideforsites").setAttribute("disabled", "true");
-		document.getElementById("textesbhideforsites").setAttribute("disabled", "true");
-		document.getElementById("buttonesbappendcurrent").setAttribute("disabled", "true");
 	}
 
-	if (document.getElementById("checkesbstyle").checked)
+	if (document.getElementById("checkesbcolor").checked)
 	{
 		document.getElementById("customColorDisable").removeAttribute("disabled");
 		document.getElementById("customColorHide").setAttribute("hidden","false");
@@ -97,17 +101,22 @@ XULExtendedStatusbarOptions.init = function ()
 		document.getElementById("textcolorBox").firstChild.setAttribute("style", "border: 1px solid #000000;");
 	}
 
-
-	if (ExtendedStatusbarPrefs.getBoolPref("oldstyle"))
+	document.getElementById("esbRadioStyle").selectedIndex = ExtendedStatusbarPrefs.getIntPref("esbstyle");
+	if(document.getElementById("esbRadioStyle").selectedIndex == 2)
 	{
-		document.getElementById("esbRadioStyle").selectedIndex = 1;
-		document.getElementById("newStyleBox").setAttribute("collapsed", "true");
+		document.getElementById("stylegrid").hidden = false;
 	}
-	else
-	{
-		document.getElementById("esbRadioStyle").selectedIndex = 0;
-		document.getElementById("oldStyleBox").setAttribute("collapsed", "true");        
-	}
+	var textboxHeight = parseInt(window.getComputedStyle(document.getElementById("textesbtoolbarstyle")).lineHeight)+5;
+	document.getElementById("textesbtoolbarstyle").height = textboxHeight;
+	document.getElementById("textesbwidgetstyle").height = textboxHeight;
+	document.getElementById("textpercentstyle").height = textboxHeight;
+	document.getElementById("textimagesstyle").height = textboxHeight;
+	document.getElementById("textloadedstyle").height = textboxHeight
+	document.getElementById("textspeedstyle").height = textboxHeight;
+	document.getElementById("texttimestyle").height = textboxHeight;
+	document.getElementById("textprogressstyle").height = textboxHeight;
+	document.getElementById("textcursorstyle").height = textboxHeight;
+	document.getElementById("textcursorbackgroundstyle").height = textboxHeight;
 }
 
 XULExtendedStatusbarOptions.hideCheck = function()
@@ -117,11 +126,56 @@ XULExtendedStatusbarOptions.hideCheck = function()
 	{
 		document.getElementById("textesbtimeout").removeAttribute("disabled");      //Have to remove it because it stay disabled
 		document.getElementById("labelesbhideafter").setAttribute("disabled", "false");
+		document.getElementById("checkesbhidetoolbar").setAttribute("disabled", "false");
 		document.getElementById("labelesbseconds").setAttribute("disabled", "false");
+		if (document.getElementById("checkesbhidetoolbar").checked)
+		{
+			document.getElementById("checkesbshowonhover").setAttribute("disabled", "true");
+			document.getElementById("labelesbhovering").setAttribute("disabled", "true");
+			document.getElementById("textesbhovertimeout").setAttribute("disabled", "true");
+			document.getElementById("labelesbhoverseconds").setAttribute("disabled", "true");
+		}
+		else
+		{
+			document.getElementById("checkesbshowonhover").setAttribute("disabled", "false");
+			if (document.getElementById("checkesbshowonhover").checked)
+			{
+				document.getElementById("labelesbhovering").setAttribute("disabled", "false");
+				document.getElementById("textesbhovertimeout").removeAttribute("disabled");
+				document.getElementById("labelesbhoverseconds").setAttribute("disabled", "false");
+			}
+			else
+			{
+				document.getElementById("labelesbhovering").setAttribute("disabled", "true");
+				document.getElementById("textesbhovertimeout").setAttribute("disabled", "true");
+				document.getElementById("labelesbhoverseconds").setAttribute("disabled", "true");
+			}
+		}
+	}
+	else
+	{
+		document.getElementById("textesbtimeout").setAttribute("disabled", "true");
+		document.getElementById("labelesbhideafter").setAttribute("disabled", "true");
+		document.getElementById("checkesbhidetoolbar").setAttribute("disabled", "true");
+		document.getElementById("labelesbseconds").setAttribute("disabled", "true");
+		document.getElementById("checkesbshowonhover").setAttribute("disabled", "true");
+		document.getElementById("labelesbhovering").setAttribute("disabled", "true");
+		document.getElementById("textesbhovertimeout").setAttribute("disabled", "true");
+	}
+}
+
+XULExtendedStatusbarOptions.hideToolbar = function()
+{
+	if (!document.getElementById("checkesbhidetoolbar").checked)
+	{
+		document.getElementById("checkesbshowonhover").setAttribute("disabled", "true");
+		document.getElementById("labelesbhovering").setAttribute("disabled", "true");
+		document.getElementById("textesbhovertimeout").setAttribute("disabled", "true");
+		document.getElementById("labelesbhoverseconds").setAttribute("disabled", "true");
+	}
+	else
+	{
 		document.getElementById("checkesbshowonhover").setAttribute("disabled", "false");
-		document.getElementById("labelesbhideforsites").setAttribute("disabled", "false");
-		document.getElementById("textesbhideforsites").removeAttribute("disabled");
-		document.getElementById("buttonesbappendcurrent").setAttribute("disabled", "false");
 		if (document.getElementById("checkesbshowonhover").checked)
 		{
 			document.getElementById("labelesbhovering").setAttribute("disabled", "false");
@@ -134,19 +188,6 @@ XULExtendedStatusbarOptions.hideCheck = function()
 			document.getElementById("textesbhovertimeout").setAttribute("disabled", "true");
 			document.getElementById("labelesbhoverseconds").setAttribute("disabled", "true");
 		}
-	}
-	else
-	{
-		document.getElementById("textesbtimeout").setAttribute("disabled", "true");
-		document.getElementById("labelesbhideafter").setAttribute("disabled", "true");
-		document.getElementById("labelesbseconds").setAttribute("disabled", "true");
-		document.getElementById("checkesbshowonhover").setAttribute("disabled", "true");
-		document.getElementById("labelesbhovering").setAttribute("disabled", "true");
-		document.getElementById("textesbhovertimeout").setAttribute("disabled", "true");
-		document.getElementById("labelesbhideforsites").setAttribute("disabled", "true");
-		document.getElementById("labelesbhideforsites").setAttribute("disabled", "true");
-		document.getElementById("textesbhideforsites").setAttribute("disabled", "true");
-		document.getElementById("buttonesbappendcurrent").setAttribute("disabled", "true");
 	}
 }
 
@@ -215,9 +256,9 @@ XULExtendedStatusbarOptions.changeColor = function (clickedElem)
 	}
 }
 
-XULExtendedStatusbarOptions.hideCustomStyle = function ()
+XULExtendedStatusbarOptions.hideCustomColor = function ()
 {
-	if (!document.getElementById("checkesbstyle").checked)
+	if (!document.getElementById("checkesbcolor").checked)
 	{
 		document.getElementById("customColorDisable").removeAttribute("disabled");
 		document.getElementById("customColorHide").setAttribute("hidden","false");
@@ -269,31 +310,102 @@ XULExtendedStatusbarOptions.appendCurrent = function ()	// Adds the current URL 
 
 XULExtendedStatusbarOptions.radioStateChange = function ()
 {
-	var newStyleBoxvbox = document.getElementById("newStyleBox");
-	var oldStyleBoxvbox = document.getElementById("oldStyleBox");
-	var style = document.getElementById("esbOldStyle")
-	var resize = true;
+	var style = document.getElementById("esbStyle")
 	
 	switch(document.getElementById("esbRadioStyle").selectedIndex)
 	{
 		case 0:
-				if (newStyleBoxvbox.collapsed)
-				{
-					style.value = false;
-					newStyleBoxvbox.collapsed = false;
-					oldStyleBoxvbox.collapsed = true;
-					window.sizeToContent();
-				}
+				style.value = 0;
+				document.getElementById("stylegrid").hidden = true;
+				window.sizeToContent();
 				break;
 		case 1:
-				if (oldStyleBoxvbox.collapsed)
-				{
-					style.value = true;
-					newStyleBoxvbox.collapsed = true;
-					oldStyleBoxvbox.collapsed = false;
-					window.sizeToContent();
-				}
+				style.value = 1;
+				document.getElementById("stylegrid").hidden = true;
+				window.sizeToContent();
+				break;
+		case 2:
+				style.value = 2;
+				document.getElementById("stylegrid").hidden = false;
+				window.sizeToContent();
+				//}
 				break;
 	}    
 	
 }
+
+XULExtendedStatusbarOptions.applyCSS = function (e)
+{
+	var targetElementString = e.target.id.substring(6).replace("style","");
+	var wm = Components.classes["@mozilla.org/appshell/window-mediator;1"].getService(Components.interfaces.nsIWindowMediator);
+	var browserWindow = wm.getMostRecentWindow("navigator:browser");
+	switch(targetElementString)
+	{
+		case "esbtoolbar" :
+			var targetElement = browserWindow.document.getElementById("ESB_toolbar");
+			break;
+		case "esbwidget" :
+			var targetElement = browserWindow.document.getElementById("ESB_status_bar");
+			break;
+		case "percent" :
+			var targetElement = browserWindow.document.getElementById("ESB_percent_box");
+			break;
+		case "images" :
+			var targetElement = browserWindow.document.getElementById("ESB_images_box");
+			break;
+		case "loaded" :
+			var targetElement = browserWindow.document.getElementById("ESB_loaded_box");
+			break;
+		case "speed" :
+			var targetElement = browserWindow.document.getElementById("ESB_speed_box");
+			break;
+		case "time" :
+			var targetElement = browserWindow.document.getElementById("ESB_time_box");
+			break;
+		case "progress" :
+			var targetElement = browserWindow.document.getElementById("ESB_percent_progressbar");
+			break;
+		case "cursor" :
+			var targetElement = browserWindow.document.getElementById("ESB_loaded_working_progressbar");
+			break;
+		case "cursorbackground" :
+			var targetElement = browserWindow.document.getElementById("ESB_loaded_finished_progressbar");
+			break;
+	}
+	targetElement.removeAttribute("style");
+	targetElement.style.cssText = document.getElementById("text" + targetElementString + "style").value;
+	targetElement.width = targetElement.style.width;
+}
+
+XULExtendedStatusbarOptions.cssTextBoxFocus = function (e)
+{
+	e.target.height = (parseInt(window.getComputedStyle(e.target).lineHeight))*5+5;
+	window.sizeToContent();
+}
+
+XULExtendedStatusbarOptions.cssTextBoxBlur = function (e)
+{
+	e.target.height = (parseInt(window.getComputedStyle(e.target).lineHeight))+5;
+	window.sizeToContent();
+}
+
+document.getElementById("textesbtoolbarstyle").addEventListener("focus", XULExtendedStatusbarOptions.cssTextBoxFocus, false);
+document.getElementById("textesbwidgetstyle").addEventListener("focus", XULExtendedStatusbarOptions.cssTextBoxFocus, false);
+document.getElementById("textpercentstyle").addEventListener("focus", XULExtendedStatusbarOptions.cssTextBoxFocus, false);
+document.getElementById("textimagesstyle").addEventListener("focus", XULExtendedStatusbarOptions.cssTextBoxFocus, false);
+document.getElementById("textloadedstyle").addEventListener("focus", XULExtendedStatusbarOptions.cssTextBoxFocus, false);
+document.getElementById("textspeedstyle").addEventListener("focus", XULExtendedStatusbarOptions.cssTextBoxFocus, false);
+document.getElementById("texttimestyle").addEventListener("focus", XULExtendedStatusbarOptions.cssTextBoxFocus, false);
+document.getElementById("textprogressstyle").addEventListener("focus", XULExtendedStatusbarOptions.cssTextBoxFocus, false);
+document.getElementById("textcursorstyle").addEventListener("focus", XULExtendedStatusbarOptions.cssTextBoxFocus, false);
+document.getElementById("textcursorbackgroundstyle").addEventListener("focus", XULExtendedStatusbarOptions.cssTextBoxFocus, false);
+document.getElementById("textesbtoolbarstyle").addEventListener("blur", XULExtendedStatusbarOptions.cssTextBoxBlur, false);
+document.getElementById("textesbwidgetstyle").addEventListener("blur", XULExtendedStatusbarOptions.cssTextBoxBlur, false);
+document.getElementById("textpercentstyle").addEventListener("blur", XULExtendedStatusbarOptions.cssTextBoxBlur, false);
+document.getElementById("textimagesstyle").addEventListener("blur", XULExtendedStatusbarOptions.cssTextBoxBlur, false);
+document.getElementById("textloadedstyle").addEventListener("blur", XULExtendedStatusbarOptions.cssTextBoxBlur, false);
+document.getElementById("textspeedstyle").addEventListener("blur", XULExtendedStatusbarOptions.cssTextBoxBlur, false);
+document.getElementById("texttimestyle").addEventListener("blur", XULExtendedStatusbarOptions.cssTextBoxBlur, false);
+document.getElementById("textprogressstyle").addEventListener("blur", XULExtendedStatusbarOptions.cssTextBoxBlur, false);
+document.getElementById("textcursorstyle").addEventListener("blur", XULExtendedStatusbarOptions.cssTextBoxBlur, false);
+document.getElementById("textcursorbackgroundstyle").addEventListener("blur", XULExtendedStatusbarOptions.cssTextBoxBlur, false);

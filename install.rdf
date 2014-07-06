@@ -37,7 +37,7 @@
     <em:translator>Українська: Жук Андрій</em:translator>
     <em:translator>繁體中文: Tang Kai Yiu (TKY)</em:translator>
     <em:iconURL>chrome://extendedstatusbar/skin/icon.png</em:iconURL>
-    <em:optionsURL>chrome://extendedstatusbar/content/extendedstatusbaroptionselector.xul</em:optionsURL>
+    <em:optionsURL>chrome://extendedstatusbar/content/extendedstatusbaroptions.xul</em:optionsURL>
     <em:type>2</em:type>
     <em:homepageURL>https://github.com/kustodian/extended-statusbar</em:homepageURL>
     <em:targetApplication>
