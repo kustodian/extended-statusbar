@@ -561,9 +561,9 @@ XULExtendedStatusbarChrome.esbListener =
 					docimgs = aBrowser.contentWindow.frames[i].document.images;
 					for (var j = 0; j < docimgs.length; j++)
 					{
-						if (!src[docimgs[i].src])
+						if (!src[docimgs[j].src])
 						{
-							src[docimgs[i].src] = true;
+							src[docimgs[j].src] = true;
 							allimgsc++;
 							if (docimgs[j].complete) imglcount++;
 						}
