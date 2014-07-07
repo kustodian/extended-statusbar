@@ -359,7 +359,7 @@ XULExtendedStatusbarChrome.esbListener =
 	{
 		gBrowser.tabContainer.removeEventListener("TabSelect", this.onTabSelect, false);
 	},
-	
+
 	onTabSelect : function(aEvent) 
 	{
 		if (!aEvent.target.linkedBrowser.esbValues)
@@ -386,6 +386,7 @@ XULExtendedStatusbarChrome.esbListener =
 
 	initObjectValuesForBrowser : function(aBrowser)
 	{
+		if (aBrowser.esbValues) aBrowser.esbOldValues = aBrowser.esbValues;
 		aBrowser.esbValues = { images: "0/0", 
 								loaded: "0", 
 								speed: "0" + XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.dot") + "00",
@@ -495,7 +496,7 @@ XULExtendedStatusbarChrome.esbListener =
 	},
 	
 	onStateChange: function(aBrowser, aWebProgress, aRequest, aStateFlags, aStatus)
-	{		
+	{
 		if (aStateFlags & XULExtendedStatusbarChrome.esbIWebProgressListener.STATE_START &&     //Start only if network activity,
 			aStateFlags & XULExtendedStatusbarChrome.esbIWebProgressListener.STATE_IS_NETWORK)  //so that ESB doesn't fire up on blank tabs/windows
 		{
@@ -517,13 +518,18 @@ XULExtendedStatusbarChrome.esbListener =
 				this.initObjectValuesForBrowser(aBrowser);
 			}
 			aBrowser.esbValues.stateFlags = aStateFlags;
-			aBrowser.esbValues.percent = "100";
+			if (aStatus == Components.results.NS_OK) aBrowser.esbValues.percent = "100";
 			this.stopTimer(aBrowser);
 			
 			this.updateTime(aBrowser);
 			if(aBrowser == gBrowser.selectedBrowser)
 			{
 				XULExtendedStatusbarChrome.esbLoading = false;
+				if (aBrowser.esbOldValues)
+				{
+					aBrowser.esbValues = aBrowser.esbOldValues;
+					aBrowser.esbOldValues = null;
+				}
 				this.displayCurrentValuesForBrowser(aBrowser);
 			}
 		}
@@ -581,7 +587,7 @@ XULExtendedStatusbarChrome.esbListener =
 				speed = speed.toFixed(2);
 				speed = speed.replace(/\./, XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.dot")); //Replace '.' with a symbol from the active local
 			}
-			aBrowser.esbValues.percent = percentage;
+			if (percentage != 100) aBrowser.esbValues.percent = percentage;
 			aBrowser.esbValues.images = imglcount + "/" + allimgsc;
 			aBrowser.esbValues.loaded = aCurTotalProgress;
 			aBrowser.esbValues.speed = speed;
@@ -603,7 +609,7 @@ XULExtendedStatusbarChrome.esbListener =
 									 aCurTotalProgress, aMaxTotalProgress);
 	},
 
-	onLocationChange: function (aBrowser, aWebProgress , aRequest , aLocation, aFlags)
+	onLocationChange: function (aBrowser, aWebProgress, aRequest, aLocation, aFlags)
 	{
 		if(aLocation)
 		{
@@ -620,6 +626,7 @@ XULExtendedStatusbarChrome.esbListener =
 				XULExtendedStatusbarChrome.esbXUL.esb_toolbar.hidden = false;
 				XULExtendedStatusbarChrome.esbXUL.status_bar.hidden = false;
 			}
+			aBrowser.esbOldValues = null;
 		}
 		else
 		{
