@@ -1,8 +1,5 @@
 content extendedstatusbar chrome/content/
 skin extendedstatusbar classic chrome/skin/
-#overlay chrome://browser/content/browser.xul chrome://extendedstatusbar/content/extendedstatusbar.xul appversion<4.0b7pre appversion>=4.0b7pre
-overlay chrome://browser/content/browser.xul chrome://extendedstatusbar/content/extendedstatusbarFF4.xul appversion<29.0
-overlay chrome://browser/content/browser.xul chrome://extendedstatusbar/content/extendedstatusbarFF29.xul appversion>=29.0
 
 locale extendedstatusbar cs-CZ chrome/locale/cs-CZ/
 locale extendedstatusbar da-DK chrome/locale/da-DK/

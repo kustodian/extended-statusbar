@@ -6,40 +6,248 @@ if ("undefined" == typeof(XULExtendedStatusbarChrome)) {
 }
 
 /*          Vars         */
-XULExtendedStatusbarChrome.esbHide;    //If True ESB will hide
-XULExtendedStatusbarChrome.esbWait;    //How long to wait before hiding
-XULExtendedStatusbarChrome.hideTimeOut;    //Name says it all
-XULExtendedStatusbarChrome.esbTimeOutSem = false;    // True only if the timeout is active
-XULExtendedStatusbarChrome.showOnHover;    // If True ESB will be displayed while hovering over the status bar
-XULExtendedStatusbarChrome.hoverWait;  // How long to hover before showing ESB
-XULExtendedStatusbarChrome.hoverSem;   // True only if hover is in progress
-XULExtendedStatusbarChrome.hoverTimeOut;    //Name says it all
-XULExtendedStatusbarChrome.hideForSites;   // RegExp of sites on which to hide ESB
+XULExtendedStatusbarChrome.started = false;    		// If True ESB is started
+XULExtendedStatusbarChrome.ffIsPostAustralis = Components.classes["@mozilla.org/xpcom/version-comparator;1"].getService(Components.interfaces.nsIVersionComparator)
+	.compare(Components.classes["@mozilla.org/xre/app-info;1"].getService(Components.interfaces.nsIXULAppInfo).version, "29.0") >= 0;    		
+													// If True Firefox version is >= 29.0
+XULExtendedStatusbarChrome.esbHide;    				// If True ESB will hide
+XULExtendedStatusbarChrome.esbWait;    				// How long to wait before hiding
+XULExtendedStatusbarChrome.hideTimeOut;    			// Name says it all
+XULExtendedStatusbarChrome.esbTimeOutSem = false;	// True only if the timeout is active
+XULExtendedStatusbarChrome.esbHideToolbar;    		// True if we hide the whole toolbar
+XULExtendedStatusbarChrome.showOnHover;    			// If True ESB will be displayed while hovering over the status bar
+XULExtendedStatusbarChrome.hoverWait;  				// How long to hover before showing ESB
+XULExtendedStatusbarChrome.hoverSem;   				// True only if hover is in progress
+XULExtendedStatusbarChrome.hoverTimeOut;			// Name says it all
+XULExtendedStatusbarChrome.hideForSites;   			// RegExp of sites on which to hide ESB
 XULExtendedStatusbarChrome.hideForSitesSem = false; // Only true if the current site matches hideForSites
-XULExtendedStatusbarChrome.esbLoading = false; // True while the page is loading
-XULExtendedStatusbarChrome.esbOldStyle;
-XULExtendedStatusbarChrome.esbOldSlimMode;
+XULExtendedStatusbarChrome.esbLoading = false; 		// True while the page is loading
+XULExtendedStatusbarChrome.esbSlimMode;
+XULExtendedStatusbarChrome.esbHideCursor;
+XULExtendedStatusbarChrome.esbHideProgress;
 XULExtendedStatusbarChrome.esbIWebProgressListener = Components.interfaces.nsIWebProgressListener;  //this has to have a unique name because a lot of oxtensions are using it
 
-XULExtendedStatusbarChrome.registerESBListener = function ()
+// The following variables are needed in order to backup/restore style defined width when we switch slim mode on/off
+XULExtendedStatusbarChrome.status_bar_width;
+XULExtendedStatusbarChrome.percent_box_width;
+XULExtendedStatusbarChrome.images_box_width;
+XULExtendedStatusbarChrome.loaded_box_width;
+XULExtendedStatusbarChrome.speed_box_width;
+XULExtendedStatusbarChrome.time_box_width;
+XULExtendedStatusbarChrome.percent_progressbar_width;
+XULExtendedStatusbarChrome.loaded_working_progressbar_width;
+XULExtendedStatusbarChrome.loaded_finished_progressbar_width;
+
+XULExtendedStatusbarChrome.init = function ()
 {
-	XULExtendedStatusbarChrome.esbXUL.init();
-	XULExtendedStatusbarChrome.esbListener.init();
-	window.getBrowser().addProgressListener(XULExtendedStatusbarChrome.esbListener, XULExtendedStatusbarChrome.esbIWebProgressListener.STATE_START);
+	var esbToolbaritem = document.getElementById("ESB_toolbaritem");
+	if(esbToolbaritem)
+	{
+		if(XULExtendedStatusbarChrome.ffIsPostAustralis)
+		{
+			var itemPlace = CustomizableUI.getPlaceForItem(esbToolbaritem);
+		}
+		else
+		{
+			var itemPlace = esbToolbaritem.parentNode.tagName == "toolbar" ? "toolbar" : "palette";
+		}
+		if(!XULExtendedStatusbarChrome.started && itemPlace == "toolbar")
+		{
+			XULExtendedStatusbarChrome.esbXUL.init();
+			XULExtendedStatusbarChrome.ESB_PrefObserver.startup();
+			XULExtendedStatusbarChrome.esbListener.init();
+			getBrowser().addTabsProgressListener(XULExtendedStatusbarChrome.esbListener);
+			XULExtendedStatusbarChrome.started = true;
+			XULExtendedStatusbarChrome.addContextMenuItem();
+			console.log("ExtendedStatusbar started");
+		}
+		else if(XULExtendedStatusbarChrome.started && (itemPlace == "palette" || itemPlace == "panel"))
+		{
+			XULExtendedStatusbarChrome.uninit();
+			XULExtendedStatusbarChrome.started = false;
+		}
+	}
 }
 
-XULExtendedStatusbarChrome.unregisterESBListener = function ()
+XULExtendedStatusbarChrome.uninit = function ()
 {
+	XULExtendedStatusbarChrome.ESB_PrefObserver.shutdown();
 	XULExtendedStatusbarChrome.esbXUL.destroy();
 	XULExtendedStatusbarChrome.esbListener.destroy();
-	window.getBrowser().removeProgressListener(XULExtendedStatusbarChrome.esbListener, XULExtendedStatusbarChrome.esbIWebProgressListener.STATE_STOP);
+	getBrowser().removeTabsProgressListener(XULExtendedStatusbarChrome.esbListener);
+	XULExtendedStatusbarChrome.removeContextMenuItem();
+	console.log("ExtendedStatusbar stopped");
+}
+
+XULExtendedStatusbarChrome.addContextMenuItem = function ()
+{
+    if (document.getElementById("ESB_options_context_item")) return;
+    var menu = document.getElementById("toolbar-context-menu");
+	if(!menu) return;
+	
+	var menuseparator = document.createElement("menuseparator");
+    menuseparator.setAttribute("id", "ESB_context_separator");
+	
+	if(XULExtendedStatusbarChrome.ffIsPostAustralis)
+	{
+		menu.insertBefore(menuseparator, menu.firstChild);
+	}
+	
+    var itemCursor = document.createElement("menuitem");
+    itemCursor.setAttribute("id", "ESB_cursor_context_item");
+    itemCursor.setAttribute("type", "checkbox");
+    itemCursor.setAttribute("checked", !XULExtendedStatusbarChrome.ESB_PrefObserver.prefs.getBoolPref("hidecursor"));
+    itemCursor.setAttribute("label", XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.showcursor"));
+    itemCursor.setAttribute("accesskey", XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.showcursor.accesskey"));
+    itemCursor.addEventListener("command", 
+		function(e)
+		{
+			XULExtendedStatusbarChrome.ESB_PrefObserver.prefs.setBoolPref("hidecursor", !document.getElementById("ESB_cursor_context_item").getAttribute("checked"));
+		}
+	);
+    menu.insertBefore(itemCursor, menu.firstChild);
+	
+    var itemProgress = document.createElement("menuitem");
+    itemProgress.setAttribute("id", "ESB_progress_context_item");
+    itemProgress.setAttribute("type", "checkbox");
+    itemProgress.setAttribute("checked", !XULExtendedStatusbarChrome.ESB_PrefObserver.prefs.getBoolPref("hideprogress"));
+    itemProgress.setAttribute("label", XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.showprogress"));
+    itemProgress.setAttribute("accesskey", XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.showprogress.accesskey"));
+    itemProgress.addEventListener("command", 
+		function(e)
+		{
+			XULExtendedStatusbarChrome.ESB_PrefObserver.prefs.setBoolPref("hideprogress", !document.getElementById("ESB_progress_context_item").getAttribute("checked"));
+		}
+	);
+    menu.insertBefore(itemProgress, menu.firstChild);
+	
+    var itemTime = document.createElement("menuitem");
+    itemTime.setAttribute("id", "ESB_time_context_item");
+    itemTime.setAttribute("type", "checkbox");
+    itemTime.setAttribute("checked", !XULExtendedStatusbarChrome.ESB_PrefObserver.prefs.getBoolPref("hidetime"));
+    itemTime.setAttribute("label", XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.showtime"));
+    itemTime.setAttribute("accesskey", XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.showtime.accesskey"));
+    itemTime.addEventListener("command", 
+		function(e)
+		{
+			XULExtendedStatusbarChrome.ESB_PrefObserver.prefs.setBoolPref("hidetime", !document.getElementById("ESB_time_context_item").getAttribute("checked"));
+		}
+	);
+    menu.insertBefore(itemTime, menu.firstChild);
+	
+    var itemSpeed = document.createElement("menuitem");
+    itemSpeed.setAttribute("id", "ESB_speed_context_item");
+    itemSpeed.setAttribute("type", "checkbox");
+    itemSpeed.setAttribute("checked", !XULExtendedStatusbarChrome.ESB_PrefObserver.prefs.getBoolPref("hidespeed"));
+    itemSpeed.setAttribute("label", XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.showspeed"));
+    itemSpeed.setAttribute("accesskey", XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.showspeed.accesskey"));
+    itemSpeed.addEventListener("command", 
+		function(e)
+		{
+			XULExtendedStatusbarChrome.ESB_PrefObserver.prefs.setBoolPref("hidespeed", !document.getElementById("ESB_speed_context_item").getAttribute("checked"));
+		}
+	);
+    menu.insertBefore(itemSpeed, menu.firstChild);
+	
+    var itemLoaded = document.createElement("menuitem");
+    itemLoaded.setAttribute("id", "ESB_loaded_context_item");
+    itemLoaded.setAttribute("type", "checkbox");
+    itemLoaded.setAttribute("checked", !XULExtendedStatusbarChrome.ESB_PrefObserver.prefs.getBoolPref("hideloaded"));
+    itemLoaded.setAttribute("label", XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.showloaded"));
+    itemLoaded.setAttribute("accesskey", XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.showloaded.accesskey"));
+    itemLoaded.addEventListener("command", 
+		function(e)
+		{
+			XULExtendedStatusbarChrome.ESB_PrefObserver.prefs.setBoolPref("hideloaded", !document.getElementById("ESB_loaded_context_item").getAttribute("checked"));
+		}
+	);
+    menu.insertBefore(itemLoaded, menu.firstChild);
+	
+    var itemImages = document.createElement("menuitem");
+    itemImages.setAttribute("id", "ESB_images_context_item");
+    itemImages.setAttribute("type", "checkbox");
+    itemImages.setAttribute("checked", !XULExtendedStatusbarChrome.ESB_PrefObserver.prefs.getBoolPref("hideimages"));
+    itemImages.setAttribute("label", XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.showimages"));
+    itemImages.setAttribute("accesskey", XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.showimages.accesskey"));
+    itemImages.addEventListener("command", 
+		function(e)
+		{
+			XULExtendedStatusbarChrome.ESB_PrefObserver.prefs.setBoolPref("hideimages", !document.getElementById("ESB_images_context_item").getAttribute("checked"));
+		}
+	);
+    menu.insertBefore(itemImages, menu.firstChild);
+	
+    var itemPercent = document.createElement("menuitem");
+    itemPercent.setAttribute("id", "ESB_percent_context_item");
+    itemPercent.setAttribute("type", "checkbox");
+    itemPercent.setAttribute("checked", !XULExtendedStatusbarChrome.ESB_PrefObserver.prefs.getBoolPref("hidepercent"));
+    itemPercent.setAttribute("label", XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.showpercent"));
+    itemPercent.setAttribute("accesskey", XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.showpercent.accesskey"));
+    itemPercent.addEventListener("command", 
+		function(e)
+		{
+			XULExtendedStatusbarChrome.ESB_PrefObserver.prefs.setBoolPref("hidepercent", !document.getElementById("ESB_percent_context_item").getAttribute("checked"));
+		}
+	);
+    menu.insertBefore(itemPercent, menu.firstChild);
+	
+    var itemOptions = document.createElement("menuitem");
+    itemOptions.setAttribute("id", "ESB_options_context_item");
+    itemOptions.setAttribute("label", XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.options"));
+    itemOptions.setAttribute("accesskey", "O");
+    itemOptions.addEventListener("command", XULExtendedStatusbarChrome.openESBOptions);
+    menu.insertBefore(itemOptions, menu.firstChild);
+	
+	if(!XULExtendedStatusbarChrome.ffIsPostAustralis)
+	{
+		menu.insertBefore(menuseparator, menu.firstChild);
+	}
+	
+    menu.addEventListener("popupshowing", XULExtendedStatusbarChrome.onContextMenuPopupShowing);
+}
+	
+XULExtendedStatusbarChrome.removeContextMenuItem = function ()
+{
+	var menu = document.getElementById("toolbar-context-menu");
+	menu.removeEventListener("popupshowing", XULExtendedStatusbarChrome.onContextMenuPopupShowing);
+	menu.removeChild(document.getElementById("ESB_context_separator"));
+	menu.removeChild(document.getElementById("ESB_time_context_item"));
+	menu.removeChild(document.getElementById("ESB_speed_context_item"));
+	menu.removeChild(document.getElementById("ESB_images_context_item"));
+	menu.removeChild(document.getElementById("ESB_loaded_context_item"));
+	menu.removeChild(document.getElementById("ESB_percent_context_item"));
+	menu.removeChild(document.getElementById("ESB_options_context_item"));
+	menu.removeChild(document.getElementById("ESB_progress_context_item"));
+	menu.removeChild(document.getElementById("ESB_cursor_context_item"));
+}
+
+XULExtendedStatusbarChrome.onContextMenuPopupShowing = function (event)
+{
+	var esbToolbarItem = document.getElementById("ESB_toolbaritem");
+	var hiding = esbToolbarItem ? !esbToolbarItem.contains(document.popupNode) : true;
+	document.getElementById("ESB_context_separator").hidden = hiding;
+	document.getElementById("ESB_time_context_item").hidden = hiding;
+	document.getElementById("ESB_speed_context_item").hidden = hiding;
+	document.getElementById("ESB_images_context_item").hidden = hiding;
+	document.getElementById("ESB_loaded_context_item").hidden = hiding;
+	document.getElementById("ESB_percent_context_item").hidden = hiding;
+	document.getElementById("ESB_options_context_item").hidden = hiding;
+	document.getElementById("ESB_progress_context_item").hidden = hiding;
+	document.getElementById("ESB_cursor_context_item").hidden = hiding;
 }
 
 XULExtendedStatusbarChrome.hideESB = function ()
 {
 	if (XULExtendedStatusbarChrome.esbTimeOutSem)
 	{
-		XULExtendedStatusbarChrome.esbXUL.extendedstatusbar.hidden = true;
+		if (XULExtendedStatusbarChrome.esbHideToolbar)
+		{
+			XULExtendedStatusbarChrome.esbXUL.esb_toolbar.hidden = true;
+		}
+		else
+		{
+			XULExtendedStatusbarChrome.esbXUL.status_bar.hidden = true;
+		}
 		XULExtendedStatusbarChrome.esbTimeOutSem = false;
 	}
 }
@@ -64,19 +272,16 @@ XULExtendedStatusbarChrome.cancelHover = function (Hover)
 
 XULExtendedStatusbarChrome.showESBOnHover = function ()
 {
-if (!XULExtendedStatusbarChrome.esbOldStyle && XULExtendedStatusbarChrome.esbHide && XULExtendedStatusbarChrome.showOnHover && !XULExtendedStatusbarChrome.esbLoading)
-{
-	XULExtendedStatusbarChrome.hoverSem = true;
-	XULExtendedStatusbarChrome.hoverTimeOut = window.setTimeout(function()
-					{
-						XULExtendedStatusbarChrome.hoverSem = false;
-						XULExtendedStatusbarChrome.cancelTimeOut(XULExtendedStatusbarChrome.hideTimeOut);
-						if (XULExtendedStatusbarChrome.esbXUL.extendedstatusbar.hidden)
-						{
-							XULExtendedStatusbarChrome.esbXUL.extendedstatusbar.hidden = false;
-						};
-					}, XULExtendedStatusbarChrome.hoverWait);
-}
+	if (XULExtendedStatusbarChrome.esbHide && XULExtendedStatusbarChrome.showOnHover && !XULExtendedStatusbarChrome.esbLoading)
+	{
+		XULExtendedStatusbarChrome.hoverSem = true;
+		XULExtendedStatusbarChrome.hoverTimeOut = window.setTimeout(function()
+		{
+			XULExtendedStatusbarChrome.hoverSem = false;
+			XULExtendedStatusbarChrome.cancelTimeOut(XULExtendedStatusbarChrome.hideTimeOut);
+			XULExtendedStatusbarChrome.esbXUL.status_bar.hidden = false;
+		}, XULExtendedStatusbarChrome.hoverWait);
+	}
 }
 
 XULExtendedStatusbarChrome.hideESBOnHover = function ()
@@ -84,7 +289,7 @@ XULExtendedStatusbarChrome.hideESBOnHover = function ()
 	if (XULExtendedStatusbarChrome.esbHide && XULExtendedStatusbarChrome.showOnHover && !XULExtendedStatusbarChrome.esbLoading)
 	{
 		XULExtendedStatusbarChrome.cancelHover(XULExtendedStatusbarChrome.hoverTimeOut);
-		if (!XULExtendedStatusbarChrome.esbXUL.extendedstatusbar.hidden)
+		if (!XULExtendedStatusbarChrome.esbXUL.status_bar.hidden)
 		{
 			XULExtendedStatusbarChrome.cancelTimeOut(XULExtendedStatusbarChrome.hideTimeOut);
 			XULExtendedStatusbarChrome.esbTimeOutSem = true;
@@ -94,90 +299,61 @@ XULExtendedStatusbarChrome.hideESBOnHover = function ()
 }
 
 //Load progress listeners at window load
-window.addEventListener("load", XULExtendedStatusbarChrome.registerESBListener, false);
-window.addEventListener("unload", XULExtendedStatusbarChrome.unregisterESBListener, false);
+//window.addEventListener("load", XULExtendedStatusbarChrome.init, false);
+//window.addEventListener("unload", XULExtendedStatusbarChrome.uninit, false);
+if(XULExtendedStatusbarChrome.ffIsPostAustralis)
+{
+	window.addEventListener("customizationchange", XULExtendedStatusbarChrome.init, false);
+}
 
 XULExtendedStatusbarChrome.esbXUL =
 {
-	ffstatusbar: null,
-	document_label: null,
-	document_start: null,
-	document_stop: null,
-	document_progressbar: null,
-	loaded_start: null,
-	loaded_stop: null,
-	loaded_progressbar: null,
-	loadedimages: null,
-	loaded_start_label: null,
-	loaded_stop_label: null,
-	time_label: null,
-	speed_label: null,
-	extendedstatusbar: null,
 	esbstrings: null,
 	esb_gBundle: null,
-	old_images: null,
-	old_loaded: null,
-	old_speed: null,
-	old_time: null,
 
-
+	get esb_toolbar() {if(XULExtendedStatusbarChrome.ffIsPostAustralis) return document.getElementById("ESB_toolbar");
+						else return document.getElementById("addon-bar"); },
+	get status_bar() {return document.getElementById("ESB_status_bar");},
+	get images_box() {return document.getElementById("ESB_images_box");},
+	get images_label() {return document.getElementById("ESB_images_label");},
+	get speed_box() {return document.getElementById("ESB_speed_box");},
+	get speed_label() {return document.getElementById("ESB_speed_label");},
+	get time_box() {return document.getElementById("ESB_time_box");},
+	get time_label() {return document.getElementById("ESB_time_label");},
+	get percent_box() {return document.getElementById("ESB_percent_box");},
+	get percent_label() {return document.getElementById("ESB_percent_label");},
+	get percent_progressbar() {return document.getElementById("ESB_percent_progressbar");},
+	get loaded_box() {return document.getElementById("ESB_loaded_box");},
+	get loaded_label() {return document.getElementById("ESB_loaded_label");},
+	get loaded_working_progressbar() {return document.getElementById("ESB_loaded_working_progressbar");},
+	get loaded_finished_progressbar() {return document.getElementById("ESB_loaded_finished_progressbar");},
+	
 	init: function()
 	{
-		this.ffstatusbar = document.getElementById("status-bar");
-		this.document_label = document.getElementById("ESB_document_working_label");
-		this.document_start = document.getElementById("ESB_document_working_box");
-		this.document_stop = document.getElementById("ESB_document_finished_box");
-		this.document_progressbar = document.getElementById("ESB_document_working_progressbar");
-		this.loaded_start_label = document.getElementById("ESB_loaded_working_label");
-		this.loaded_start = document.getElementById("ESB_loaded_working_box");
-		this.loaded_stop_label = document.getElementById("ESB_loaded_finished_label");
-		this.loaded_stop = document.getElementById("ESB_loaded_finished_box");
-		this.loaded_progressbar = document.getElementById("ESB_loaded_working_progressbar");
-		this.loadedimages = document.getElementById("ESB_images_label");
-		this.time_label = document.getElementById("ESB_time_label");
-		this.speed_label = document.getElementById("ESB_speed_label");
-		this.extendedstatusbar = document.getElementById("ESB_status-bar");
 		this.esb_gBundle = Components.classes["@mozilla.org/intl/stringbundle;1"].getService(Components.interfaces.nsIStringBundleService);
 		this.esbstrings = this.esb_gBundle.createBundle("chrome://extendedstatusbar/locale/extendedstatusbar.properties");
-		this.old_images = document.getElementById("ESB_old_images");
-		this.old_loaded = document.getElementById("ESB_old_loaded");
-		this.old_speed = document.getElementById("ESB_old_speed");
-		this.old_time = document.getElementById("ESB_old_time");
+		if(!XULExtendedStatusbarChrome.ffIsPostAustralis)
+		{
+			this.esb_toolbar.addEventListener("mouseover", XULExtendedStatusbarChrome.showESBOnHover, false);
+			this.esb_toolbar.addEventListener("mouseout", XULExtendedStatusbarChrome.hideESBOnHover, false);
+		}
 	},
 
 	destroy: function()
 	{
-		this.ffstatusbar = null;
-		this.document_label = null;
-		this.document_start = null;
-		this.document_stop = null;
-		this.document_progressbar = null;
-		this.loaded_start_label = null;
-		this.loaded_start = null;
-		this.loaded_stop_label = null;
-		this.loaded_stop = null;
-		this.loaded_progressbar = null;
-		this.loadedimages    = null;
-		this.time_label       = null;
-		this.speed_label     = null;
-		this.extendedstatusbar = null;
 		this.esb_gBundle = null;
 		this.esbstrings = null;
-		this.old_images = null;
-		this.old_loaded = null;
-		this.old_speed = null;
-		this.old_time = null;
-		this.old_percent = null;
+		if(!XULExtendedStatusbarChrome.ffIsPostAustralis)
+		{
+			this.esb_toolbar.removeEventListener("mouseover", XULExtendedStatusbarChrome.showESBOnHover, false);
+			this.esb_toolbar.removeEventListener("mouseout", XULExtendedStatusbarChrome.hideESBOnHover, false);
+		}
 	},
 }
 
 XULExtendedStatusbarChrome.esbListener =
 {
-	startprog: new Date(),
 	updateTimeInterval: "",
-	firstRun: true,
-	//windowWidth: 0,
-	//esbWidth: 0,
 
 	QueryInterface: function(aIID)
 	{
@@ -192,239 +368,289 @@ XULExtendedStatusbarChrome.esbListener =
 
 	init: function()
 	{
-
+		gBrowser.tabContainer.addEventListener("TabSelect", this.onTabSelect, false);
 	},
 
 	destroy: function()
 	{
-
+		gBrowser.tabContainer.removeEventListener("TabSelect", this.onTabSelect, false);
+	},
+	
+	onTabSelect : function(aEvent) 
+	{
+		if (!aEvent.target.linkedBrowser.esbValues)
+		{
+			XULExtendedStatusbarChrome.esbXUL.esb_toolbar.hidden = true;
+			//it's happening in customizing mode
+			//XULExtendedStatusbarChrome.esbXUL.status_bar.hidden = true;
+		}
+		else if (XULExtendedStatusbarChrome.hideForSites &&
+				 aEvent.target.linkedBrowser.contentDocument.location.href.match(XULExtendedStatusbarChrome.hideForSites))
+		{
+			XULExtendedStatusbarChrome.hideForSitesSem = true;
+			XULExtendedStatusbarChrome.esbXUL.esb_toolbar.hidden = true;
+			XULExtendedStatusbarChrome.esbXUL.status_bar.hidden = true;
+		}
+		else if(XULExtendedStatusbarChrome.esbLoading || !XULExtendedStatusbarChrome.esbHide)
+		{
+			XULExtendedStatusbarChrome.hideForSitesSem = false;
+			XULExtendedStatusbarChrome.cancelTimeOut(XULExtendedStatusbarChrome.hideTimeOut);
+			XULExtendedStatusbarChrome.esbXUL.esb_toolbar.hidden = false;
+			XULExtendedStatusbarChrome.esbXUL.status_bar.hidden = false;
+		}
+		XULExtendedStatusbarChrome.esbListener.displayCurrentValuesForBrowser(aEvent.target.linkedBrowser);
 	},
 
-	onStateChange: function(aWebProgress, aRequest, aStateFlags, aStatus)
+	initObjectValuesForBrowser : function(aBrowser)
 	{
-		if (aStateFlags & XULExtendedStatusbarChrome.esbIWebProgressListener.STATE_START &&     //Start only if network activity,
-			aStateFlags & XULExtendedStatusbarChrome.esbIWebProgressListener.STATE_IS_NETWORK)  //so that ESB doesn't fire up on blank tabs/windows
+		aBrowser.esbValues = { images: "0/0", 
+								loaded: "0", 
+								speed: "0" + XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.dot") + "00",
+								time: "0" + XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.dot") + "000", 
+								percent: "0", 
+								stateFlags: 0,
+								startProg: Date.now(),
+								updateTimeInterval: "" };
+	},
+	
+	displayCurrentValuesForBrowser : function(aBrowser) 
+	{
+		if(!aBrowser.esbValues) return;
+		
+		var percentageString = ("  " + aBrowser.esbValues.percent + "%").slice(-4);
+		var compdocsize = aBrowser.esbValues.loaded;
+		for (var sizeinval = 0; Math.floor(compdocsize / 1024) > 0; sizeinval++)
 		{
-			this.startprog = new Date();
-			this.startTimer();
-			XULExtendedStatusbarChrome.esbLoading = true;
-			if (!XULExtendedStatusbarChrome.esbOldStyle && !XULExtendedStatusbarChrome.hideForSitesSem)
+			compdocsize /= 1024;
+		}
+		switch (sizeinval)
+		{
+			case 0: sizeinval = XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.kb");
+					compdocsize = Math.floor(compdocsize * 100)/100;
+					break;
+			case 1: sizeinval = XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.mb");
+					compdocsize = Math.floor(compdocsize * 100)/100;
+					break;
+			case 2: sizeinval = XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.gb");
+					compdocsize = Math.floor(compdocsize * 100)/100;
+					break;
+			default: sizeinval = XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.nosize");
+					break;
+		}
+			
+		if (XULExtendedStatusbarChrome.esbSlimMode)
+		{
+			XULExtendedStatusbarChrome.esbXUL.images_label.value = aBrowser.esbValues.images;
+			XULExtendedStatusbarChrome.esbXUL.loaded_label.value = compdocsize + " " + sizeinval;
+			XULExtendedStatusbarChrome.esbXUL.speed_label.value = aBrowser.esbValues.speed + " " + XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.kbps");
+			XULExtendedStatusbarChrome.esbXUL.time_label.value = aBrowser.esbValues.time;
+			XULExtendedStatusbarChrome.esbXUL.percent_label.value = percentageString;
+		}
+		else
+		{
+			XULExtendedStatusbarChrome.esbXUL.images_label.value = XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.images") + " " + aBrowser.esbValues.images;
+			XULExtendedStatusbarChrome.esbXUL.loaded_label.value = XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.loaded") + " " + compdocsize + " " + sizeinval;
+			XULExtendedStatusbarChrome.esbXUL.speed_label.value = XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.speed") + " " + aBrowser.esbValues.speed + " " + XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.kbps");
+			XULExtendedStatusbarChrome.esbXUL.time_label.value = XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.time") + " " + aBrowser.esbValues.time;
+			XULExtendedStatusbarChrome.esbXUL.percent_label.value = XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.document") + " " + percentageString;
+		}
+		
+		if (aBrowser.esbValues.stateFlags & XULExtendedStatusbarChrome.esbIWebProgressListener.STATE_START &&     //Start only if network activity,
+			aBrowser.esbValues.stateFlags & XULExtendedStatusbarChrome.esbIWebProgressListener.STATE_IS_NETWORK)  //so that ESB doesn't fire up on blank tabs/windows
+		{
+			if (!XULExtendedStatusbarChrome.hideForSitesSem)
 			{
 				XULExtendedStatusbarChrome.cancelTimeOut(XULExtendedStatusbarChrome.hideTimeOut);
-				XULExtendedStatusbarChrome.esbXUL.extendedstatusbar.hidden = false;
+				XULExtendedStatusbarChrome.esbXUL.esb_toolbar.hidden = false;
+				XULExtendedStatusbarChrome.esbXUL.status_bar.hidden = false;
 			}
-			//dump("window.outerWidth=" + window.outerWidth + "\n");
-			//this.windowWidth = parseInt(window.outerWidth);
-			//this.esbWidth = parseInt(esbXUL.document_start.width) + parseInt(esbXUL.loadedimages.width) +
-			//                parseInt(esbXUL.loaded_start.width) + parseInt(esbXUL.time_label.width) +
-			//                parseInt(esbXUL.speed_label.width);
-			//dump("this.esbWidth=" + this.esbWidth + "\n");
-			// Hide for Popups smaller than the wide of the ESB
-			//if (this.windowWidth < this.esbWidth)
-			//{
-			//    esbXUL.extendedstatusbar.hidden = true;
-			//}
-			// New
-			XULExtendedStatusbarChrome.esbXUL.document_label.value = XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.document") + " 0%";
-			XULExtendedStatusbarChrome.esbXUL.document_progressbar.width = 0;
-			XULExtendedStatusbarChrome.esbXUL.document_start.hidden = false;
-			XULExtendedStatusbarChrome.esbXUL.document_stop.hidden = true;
-			XULExtendedStatusbarChrome.esbXUL.loadedimages.value = XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.images") + " 0/0";
-			XULExtendedStatusbarChrome.esbXUL.loaded_start.hidden = false;
-			XULExtendedStatusbarChrome.esbXUL.loaded_stop.hidden = true;
-			XULExtendedStatusbarChrome.esbXUL.loaded_start_label.value = XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.loaded") + " 0" + XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.kb");
-			XULExtendedStatusbarChrome.esbXUL.speed_label.value = XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.speed") + " 0 " + XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.kbps");
-			XULExtendedStatusbarChrome.esbXUL.time_label.value = XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.time") + " 0" + XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.dot") + "000";
-
-			// Old
-			if (XULExtendedStatusbarChrome.esbOldSlimMode)
+			
+			if(XULExtendedStatusbarChrome.esbHideProgress) 
 			{
-				XULExtendedStatusbarChrome.esbXUL.old_images.label = "0/0";
-				XULExtendedStatusbarChrome.esbXUL.old_loaded.label = "0" + XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.kb");
-				XULExtendedStatusbarChrome.esbXUL.old_speed.label = "0 " + XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.kbps");
-				XULExtendedStatusbarChrome.esbXUL.old_time.label = "0" + XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.dot") + "000";
+				XULExtendedStatusbarChrome.esbXUL.percent_progressbar.hidden = true;
+			}
+			var progressBorderWidth = parseInt(XULExtendedStatusbarChrome.esbXUL.percent_box.style.borderRight);
+			XULExtendedStatusbarChrome.esbXUL.percent_progressbar.width = Math.round(aBrowser.esbValues.percent * (XULExtendedStatusbarChrome.esbXUL.percent_box.boxObject.width - (isNaN(progressBorderWidth) ? 1 : progressBorderWidth) - 2) / 100);
+			
+			XULExtendedStatusbarChrome.esbXUL.loaded_working_progressbar.width = compdocsize*4 % XULExtendedStatusbarChrome.esbXUL.loaded_box.boxObject.width;
+			
+			if(XULExtendedStatusbarChrome.esbHideCursor) 
+			{
+				XULExtendedStatusbarChrome.esbXUL.loaded_working_progressbar.hidden = true;
 			}
 			else
 			{
-				XULExtendedStatusbarChrome.esbXUL.old_images.label = XULExtendedStatusbarChrome.esbXUL.loadedimages.value;
-				XULExtendedStatusbarChrome.esbXUL.old_loaded.label = XULExtendedStatusbarChrome.esbXUL.loaded_start_label.value;
-				XULExtendedStatusbarChrome.esbXUL.old_speed.label = XULExtendedStatusbarChrome.esbXUL.speed_label.value;
-				XULExtendedStatusbarChrome.esbXUL.old_time.label = XULExtendedStatusbarChrome.esbXUL.time_label.value;
+				XULExtendedStatusbarChrome.esbXUL.loaded_working_progressbar.hidden = false;
 			}
-			XULExtendedStatusbarChrome.esbXUL.old_percent.label = " 0%";
 		}
-		else if (aStateFlags & XULExtendedStatusbarChrome.esbIWebProgressListener.STATE_STOP &&
-				 aStateFlags & XULExtendedStatusbarChrome.esbIWebProgressListener.STATE_IS_NETWORK)
+		else if (aBrowser.esbValues.stateFlags & XULExtendedStatusbarChrome.esbIWebProgressListener.STATE_STOP &&
+				 aBrowser.esbValues.stateFlags & XULExtendedStatusbarChrome.esbIWebProgressListener.STATE_IS_NETWORK)
 		{
-			XULExtendedStatusbarChrome.esbLoading = false;
-			this.stopTimer();
-			this.updateTime();
-			// New
-			XULExtendedStatusbarChrome.esbXUL.document_start.hidden = true;
-			XULExtendedStatusbarChrome.esbXUL.document_stop.hidden = false;
-			XULExtendedStatusbarChrome.esbXUL.loaded_start.hidden = true;
-			XULExtendedStatusbarChrome.esbXUL.loaded_stop.hidden = false;
-			XULExtendedStatusbarChrome.esbXUL.loaded_stop_label.value = XULExtendedStatusbarChrome.esbXUL.loaded_start_label.value;
-			// Set size of boxes to fit content, so the ESB elements don't always move left-right because the labels resize automatically
-			if (XULExtendedStatusbarChrome.esbXUL.document_start.width < XULExtendedStatusbarChrome.esbXUL.document_stop.boxObject.width)
-			  XULExtendedStatusbarChrome.esbXUL.document_start.width = XULExtendedStatusbarChrome.esbXUL.document_stop.width = XULExtendedStatusbarChrome.esbXUL.document_stop.boxObject.width;
-			if (XULExtendedStatusbarChrome.esbXUL.loaded_start.width < XULExtendedStatusbarChrome.esbXUL.loaded_stop.boxObject.width)
-			  XULExtendedStatusbarChrome.esbXUL.loaded_start.width = XULExtendedStatusbarChrome.esbXUL.loaded_stop.width = XULExtendedStatusbarChrome.esbXUL.loaded_stop.boxObject.width;
-			if (XULExtendedStatusbarChrome.esbXUL.loadedimages.width < XULExtendedStatusbarChrome.esbXUL.loadedimages.boxObject.width)
-			  XULExtendedStatusbarChrome.esbXUL.loadedimages.width = XULExtendedStatusbarChrome.esbXUL.loadedimages.boxObject.width;
-			if (XULExtendedStatusbarChrome.esbXUL.speed_label.width < XULExtendedStatusbarChrome.esbXUL.speed_label.boxObject.width)
-			  XULExtendedStatusbarChrome.esbXUL.speed_label.width = XULExtendedStatusbarChrome.esbXUL.speed_label.boxObject.width;
-
-			// Old
-			XULExtendedStatusbarChrome.esbXUL.old_percent.label = "100%";
+			XULExtendedStatusbarChrome.esbXUL.loaded_working_progressbar.hidden = true;
+			var progressBorderWidth = parseInt(XULExtendedStatusbarChrome.esbXUL.percent_box.style.borderRight);
+			XULExtendedStatusbarChrome.esbXUL.percent_progressbar.width = XULExtendedStatusbarChrome.esbXUL.percent_box.boxObject.width - (isNaN(progressBorderWidth) ? 1 : progressBorderWidth);
+			
 			// Set size of panels to fit content, so the ESB elements don't always move left-right because the labels resize automatically
-			if (XULExtendedStatusbarChrome.esbXUL.old_images.minWidth < XULExtendedStatusbarChrome.esbXUL.old_images.boxObject.width)
-			  XULExtendedStatusbarChrome.esbXUL.old_images.minWidth = XULExtendedStatusbarChrome.esbXUL.old_images.boxObject.width;
-			if (XULExtendedStatusbarChrome.esbXUL.old_loaded.minWidth < XULExtendedStatusbarChrome.esbXUL.old_loaded.boxObject.width)
-			  XULExtendedStatusbarChrome.esbXUL.old_loaded.minWidth = XULExtendedStatusbarChrome.esbXUL.old_loaded.boxObject.width;
-			if (XULExtendedStatusbarChrome.esbXUL.old_speed.minWidth < XULExtendedStatusbarChrome.esbXUL.old_speed.boxObject.width)
-			  XULExtendedStatusbarChrome.esbXUL.old_speed.minWidth = XULExtendedStatusbarChrome.esbXUL.old_speed.boxObject.width;
-			if (XULExtendedStatusbarChrome.esbXUL.old_time.minWidth < XULExtendedStatusbarChrome.esbXUL.old_time.boxObject.width)
-			  XULExtendedStatusbarChrome.esbXUL.old_time.minWidth = XULExtendedStatusbarChrome.esbXUL.old_time.boxObject.width;
+			if (XULExtendedStatusbarChrome.esbXUL.percent_box.width < XULExtendedStatusbarChrome.esbXUL.percent_box.boxObject.width)
+				XULExtendedStatusbarChrome.esbXUL.percent_box.width = XULExtendedStatusbarChrome.esbXUL.percent_box.boxObject.width;
+			if (XULExtendedStatusbarChrome.esbXUL.images_box.width < XULExtendedStatusbarChrome.esbXUL.images_box.boxObject.width)
+			  XULExtendedStatusbarChrome.esbXUL.images_box.width = XULExtendedStatusbarChrome.esbXUL.images_box.boxObject.width;
+			if (XULExtendedStatusbarChrome.esbXUL.loaded_box.width < XULExtendedStatusbarChrome.esbXUL.loaded_box.boxObject.width)
+			  XULExtendedStatusbarChrome.esbXUL.loaded_box.width = XULExtendedStatusbarChrome.esbXUL.loaded_box.boxObject.width;
+			if (XULExtendedStatusbarChrome.esbXUL.speed_box.width < XULExtendedStatusbarChrome.esbXUL.speed_box.boxObject.width)
+			  XULExtendedStatusbarChrome.esbXUL.speed_box.width = XULExtendedStatusbarChrome.esbXUL.speed_box.boxObject.width;
+			if (XULExtendedStatusbarChrome.esbXUL.time_box.width < XULExtendedStatusbarChrome.esbXUL.time_box.boxObject.width)
+			  XULExtendedStatusbarChrome.esbXUL.time_box.width = XULExtendedStatusbarChrome.esbXUL.time_box.boxObject.width;
 
 			// Set hide timeout
-			if(!XULExtendedStatusbarChrome.esbOldStyle && XULExtendedStatusbarChrome.esbHide && !XULExtendedStatusbarChrome.esbTimeOutSem)
+			if(XULExtendedStatusbarChrome.esbHide && !XULExtendedStatusbarChrome.esbTimeOutSem)
 			{
 				XULExtendedStatusbarChrome.esbTimeOutSem = true;
 				XULExtendedStatusbarChrome.hideTimeOut = window.setTimeout("XULExtendedStatusbarChrome.hideESB()", XULExtendedStatusbarChrome.esbWait*1000);
 			}
 		}
 	},
-
-	onProgressChange: function (aWebProgress, aRequest,
+	
+	onStateChange: function(aBrowser, aWebProgress, aRequest, aStateFlags, aStatus)
+	{		
+		if (aStateFlags & XULExtendedStatusbarChrome.esbIWebProgressListener.STATE_START &&     //Start only if network activity,
+			aStateFlags & XULExtendedStatusbarChrome.esbIWebProgressListener.STATE_IS_NETWORK)  //so that ESB doesn't fire up on blank tabs/windows
+		{
+			this.initObjectValuesForBrowser(aBrowser);
+			aBrowser.esbValues.stateFlags = aStateFlags;
+			this.startTimer(aBrowser);
+			
+			if(aBrowser == gBrowser.selectedBrowser)
+			{
+				XULExtendedStatusbarChrome.esbLoading = true;
+				this.displayCurrentValuesForBrowser(aBrowser);
+			}
+		}
+		else if (aStateFlags & XULExtendedStatusbarChrome.esbIWebProgressListener.STATE_STOP &&
+				 aStateFlags & XULExtendedStatusbarChrome.esbIWebProgressListener.STATE_IS_NETWORK)
+		{
+			if(!aBrowser.esbValues)
+			{
+				this.initObjectValuesForBrowser(aBrowser);
+			}
+			aBrowser.esbValues.stateFlags = aStateFlags;
+			aBrowser.esbValues.percent = "100";
+			this.stopTimer(aBrowser);
+			
+			this.updateTime(aBrowser);
+			if(aBrowser == gBrowser.selectedBrowser)
+			{
+				XULExtendedStatusbarChrome.esbLoading = false;
+				this.displayCurrentValuesForBrowser(aBrowser);
+			}
+		}
+	},
+	
+	// aWebProgress might be null https://bugzilla.mozilla.org/show_bug.cgi?id=693970
+	onProgressChange: function (aBrowser, aWebProgress, aRequest,
 								 aCurSelfProgress, aMaxSelfProgress,
 								 aCurTotalProgress, aMaxTotalProgress)
 	{
 		if (aMaxTotalProgress > 0)
 		{
-			var percentage = Math.round((aCurTotalProgress * 100) / aMaxTotalProgress);
-			var docimgs = window._content.document.images;
+			if(!aBrowser.esbValues)
+			{
+				this.initObjectValuesForBrowser(aBrowser);
+			}
+			var percentage = Math.round((aCurTotalProgress * 100) / aMaxTotalProgress);	
+			var docimgs = aBrowser.contentDocument.images;
 			var imglcount = 0;
 			var allimgsc = 0;
 			if (docimgs != null)
 			{
-				allimgsc = docimgs.length;
+				var src = [];
 				for (var i = 0; i < docimgs.length; i++)
 				{
-					if (docimgs[i].complete) imglcount++;
-				}
-				for (var i = 0; i < window._content.window.frames.length; i++)
-				{
-					docimgs = window._content.window.frames[i].document.images;
-					allimgsc += docimgs.length;
-					for (var j = 0; j < docimgs.length; j++)
+					if (!src[docimgs[i].src])
 					{
-						if (docimgs[j].complete) imglcount++;
+						src[docimgs[i].src] = true;
+						allimgsc++;
+						if (docimgs[i].complete) imglcount++;
 					}
 				}
-			}
-			var compdocsize = aCurTotalProgress;
-			for (var sizeinval = 0; Math.floor(compdocsize / 1024) > 0; sizeinval++)
-			{
-				compdocsize /= 1024;
-			}
-			switch (sizeinval)
-			{
-				case 0: sizeinval = XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.kb");
-						compdocsize = Math.floor(compdocsize * 100)/100;
-						break;
-				case 1: sizeinval = XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.mb");
-						compdocsize = Math.floor(compdocsize * 100)/100;
-						break;
-				case 2: sizeinval = XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.gb");
-						compdocsize = Math.floor(compdocsize * 100)/100;
-						break;
-				default: sizeinval = XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.nosize");
-						break;
-			}
-			XULExtendedStatusbarChrome.esbXUL.document_label.value = XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.document") + " " + percentage + "%";
-			XULExtendedStatusbarChrome.esbXUL.document_progressbar.width = Math.round(percentage * (XULExtendedStatusbarChrome.esbXUL.document_start.boxObject.width - 2) / 100);
-			XULExtendedStatusbarChrome.esbXUL.loadedimages.value = XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.images") + " " + imglcount + "/" + allimgsc;
-			XULExtendedStatusbarChrome.esbXUL.loaded_start_label.value = XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.loaded") + " " + compdocsize + " " + sizeinval;
-			XULExtendedStatusbarChrome.esbXUL.loaded_progressbar.width = compdocsize*4 % XULExtendedStatusbarChrome.esbXUL.loaded_start.boxObject.width;
-			XULExtendedStatusbarChrome.esbXUL.old_percent.label = percentage + "%";
-			if (XULExtendedStatusbarChrome.esbOldSlimMode)
-			{
-				XULExtendedStatusbarChrome.esbXUL.old_images.label = imglcount + "/" + allimgsc;
-				XULExtendedStatusbarChrome.esbXUL.old_loaded.label = compdocsize + " " + sizeinval;
-			}
-			else
-			{
-				XULExtendedStatusbarChrome.esbXUL.old_images.label = XULExtendedStatusbarChrome.esbXUL.loadedimages.value;
-				XULExtendedStatusbarChrome.esbXUL.old_loaded.label = XULExtendedStatusbarChrome.esbXUL.loaded_start_label.value;
-			}
-			var now = new Date();
-			now = now.getTime() - this.startprog.getTime();
-			this.updateTime();
-			if (XULExtendedStatusbarChrome.esbLoading) this.startTimer(); //This is a workaround for the first run, esbLoading is false on FF first start,
+				for (var i = 0; i < aBrowser.contentWindow.frames.length; i++)
+				{
+					docimgs = aBrowser.contentWindow.frames[i].document.images;
+					for (var j = 0; j < docimgs.length; j++)
+					{
+						if (!src[docimgs[j].src])
+						{
+							src[docimgs[j].src] = true;
+							allimgsc++;
+							if (docimgs[j].complete) imglcount++;
+						}
+					}
+				}
+			}			
+			var now = Date.now() - aBrowser.esbValues.startProg;
+			if (XULExtendedStatusbarChrome.esbLoading) this.startTimer(aBrowser); //This is a workaround for the first run, esbLoading is false on FF first start,
 											   //so time wont be started. This is a problem
 											   //if FF starts with about:blank State_Stop is not called
 											   //so the time doesn't stop for the first page
 			if (now > 0)
 			{
 				var speed = aCurTotalProgress / now * 1000;
-				speed = Math.round ( speed * 100) / 100;
 				speed = speed.toFixed(2);
-				speed = speed.toString().replace(/\./, XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.dot")); //Replace '.' with a symbol from the active local
-				XULExtendedStatusbarChrome.esbXUL.speed_label.value = XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.speed") + " " + speed + " " + XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.kbps");
-				if (XULExtendedStatusbarChrome.esbOldSlimMode)
-				{
-					XULExtendedStatusbarChrome.esbXUL.old_speed.label = speed + " " + XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.kbps");
-				}
-				else
-				{
-					XULExtendedStatusbarChrome.esbXUL.old_speed.label = XULExtendedStatusbarChrome.esbXUL.speed_label.value;
-				}
+				speed = speed.replace(/\./, XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.dot")); //Replace '.' with a symbol from the active local
+			}
+			aBrowser.esbValues.percent = percentage;
+			aBrowser.esbValues.images = imglcount + "/" + allimgsc;
+			aBrowser.esbValues.loaded = aCurTotalProgress;
+			aBrowser.esbValues.speed = speed;
+			
+			if(aBrowser == gBrowser.selectedBrowser)
+			{
+				this.displayCurrentValuesForBrowser(aBrowser);
 			}
 		}
 	},
 
-
-	onProgressChange64: function (aWebProgress, aRequest,
+	onProgressChange64: function (aBrowser, aWebProgress, aRequest,
 				 aCurSelfProgress, aMaxSelfProgress,
 				 aCurTotalProgress, aMaxTotalProgress)
 	{
-		return this.onProgressChange(aWebProgress, aRequest,
+		return this.onProgressChange(aBrowser, aWebProgress, aRequest,
 									 aCurSelfProgress, aMaxSelfProgress,
 									 aCurTotalProgress, aMaxTotalProgress);
 	},
 
-
-	onLocationChange: function (webProgress , request , location)
+	onLocationChange: function (aBrowser, aWebProgress , aRequest , aLocation, aFlags)
 	{
-		try     // If location == null this throws an exception
+		if(aLocation)
 		{
-			if (XULExtendedStatusbarChrome.hideForSites && location.spec.match(XULExtendedStatusbarChrome.hideForSites))
+			if (XULExtendedStatusbarChrome.hideForSites && aLocation.spec.match(XULExtendedStatusbarChrome.hideForSites))
 			{
-				hXULExtendedStatusbarChrome.ideForSitesSem = true;
-				if (!XULExtendedStatusbarChrome.esbOldStyle && XULExtendedStatusbarChrome.esbHide) XULExtendedStatusbarChrome.esbXUL.extendedstatusbar.hidden = true;
+				XULExtendedStatusbarChrome.hideForSitesSem = true;
+				XULExtendedStatusbarChrome.esbXUL.esb_toolbar.hidden = true;
+				XULExtendedStatusbarChrome.esbXUL.status_bar.hidden = true;
 			}
-			else
+			else if(aBrowser == gBrowser.selectedBrowser)
 			{
 				XULExtendedStatusbarChrome.hideForSitesSem = false;
-				if (!XULExtendedStatusbarChrome.esbOldStyle && XULExtendedStatusbarChrome.esbLoading)
-				{
-					XULExtendedStatusbarChrome.cancelTimeOut(XULExtendedStatusbarChrome.hideTimeOut);
-					XULExtendedStatusbarChrome.esbXUL.extendedstatusbar.hidden = false;
-				}
+				XULExtendedStatusbarChrome.cancelTimeOut(XULExtendedStatusbarChrome.hideTimeOut);
+				XULExtendedStatusbarChrome.esbXUL.esb_toolbar.hidden = false;
+				XULExtendedStatusbarChrome.esbXUL.status_bar.hidden = false;
 			}
 		}
-		catch (e) {XULExtendedStatusbarChrome.hideForSitesSem = false;}
+		else
+		{
+			XULExtendedStatusbarChrome.hideForSitesSem = false;
+		}
 	},
-	onStatusChange: function(a,b,c,d){},
-	onSecurityChange: function(a,b,c){},
+	
+	onStatusChange: function(a,b,c,d,e){},
+	
+	onSecurityChange: function(a,b,c,d){},
 
-
-	updateTime: function ()
+	updateTime: function (aBrowser)
 	{
-		var now = new Date();
-		now = now.getTime() - this.startprog.getTime();
-		var hours = Math.floor((now / 3600000) % 24);
+		var now = Date.now() - aBrowser.esbValues.startProg;
+		var hours = Math.floor(now / 3600000);
 		var mins = Math.floor((now / 60000) % 60);
 		var secs = Math.floor((now / 1000) % 60);
 		var msecs = now - hours*36000 - mins*60000 - secs*1000;
@@ -439,7 +665,6 @@ XULExtendedStatusbarChrome.esbListener =
 		{
 			mins = mins.toString();
 			if (mins.length == 1) mins = "0" + mins;
-			XULExtendedStatusbarChrome.esbXUL.time_label.value = XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.time") + " " + hours + colon + mins + colon + secs + dot + msecs;
 			slimTimeString = hours + colon + mins + colon + secs + dot + msecs;
 		}
 		else
@@ -448,52 +673,53 @@ XULExtendedStatusbarChrome.esbListener =
 			{
 				if (secs.length == 1) secs = "0" + secs;
 				mins = mins.toString();
-				XULExtendedStatusbarChrome.esbXUL.time_label.value = XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.time") + " " + mins + colon + secs + dot + msecs;
 				slimTimeString = mins + colon + secs + dot + msecs;
 			}
 			else
 			{
-				XULExtendedStatusbarChrome.esbXUL.time_label.value = XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.time") + " " + secs + dot + msecs;
 				slimTimeString = secs + dot + msecs;
 			}
 		}
-		if (XULExtendedStatusbarChrome.esbOldSlimMode)
+		aBrowser.esbValues.time = slimTimeString;
+		if(gBrowser.selectedBrowser == aBrowser)
 		{
-			XULExtendedStatusbarChrome.esbXUL.old_time.label = slimTimeString;
-		}
-		else
-		{
-			XULExtendedStatusbarChrome.esbXUL.old_time.label = XULExtendedStatusbarChrome.esbXUL.time_label.value;
+			if (XULExtendedStatusbarChrome.esbSlimMode)
+			{
+				XULExtendedStatusbarChrome.esbXUL.time_label.value = slimTimeString;
+			}
+			else
+			{
+				XULExtendedStatusbarChrome.esbXUL.time_label.value = XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.time") + " " + slimTimeString;
+			}
 		}
 	},
 
-	startTimer: function()
+	startTimer: function(aBrowser)
 	{
-		if (this.updateTimeInterval != "")
+		if (aBrowser.esbValues.updateTimeInterval != "")
 		{
-			clearInterval(this.updateTimeInterval);
+			clearInterval(aBrowser.esbValues.updateTimeInterval);
 		}
-		this.updateTimeInterval = setInterval("XULExtendedStatusbarChrome.esbListener.updateTime()", 768);
+		aBrowser.esbValues.updateTimeInterval = setInterval(XULExtendedStatusbarChrome.esbListener.updateTime(aBrowser), 768);
 	},
 
-	stopTimer: function()
+	stopTimer: function(aBrowser)
 	{
-		if (this.updateTimeInterval != "")
+		if (aBrowser.esbValues.updateTimeInterval != "")
 		{
-			clearInterval(this.updateTimeInterval);
-			this.updateTimeInterval = "";
+			clearInterval(aBrowser.esbValues.updateTimeInterval);
+			aBrowser.esbValues.updateTimeInterval = "";
 		}
 	}
 }
 
-
 // Settings observer
 XULExtendedStatusbarChrome.ESB_PrefObserver = {
-		prefs: null,
+	prefs: null,
 
-		// Initialize the extension
-		startup: function()
-		{
+	// Initialize the extension
+	startup: function()
+	{
 		// Register to receive notifications of preference changes
 		this.prefs = Components.classes["@mozilla.org/preferences-service;1"]
 					 .getService(Components.interfaces.nsIPrefService)
@@ -503,6 +729,7 @@ XULExtendedStatusbarChrome.ESB_PrefObserver = {
 		this.prefs.addObserver("", this, false);
 
 		XULExtendedStatusbarChrome.esbHide = this.prefs.getBoolPref("hide");
+		XULExtendedStatusbarChrome.esbHideToolbar = this.prefs.getBoolPref("hidetoolbar");
 		XULExtendedStatusbarChrome.esbWait = this.prefs.getIntPref("hidetimeout");
 		XULExtendedStatusbarChrome.showOnHover = this.prefs.getBoolPref("showonhover");
 		XULExtendedStatusbarChrome.hoverWait = this.prefs.getIntPref("hovertimeout");
@@ -522,41 +749,49 @@ XULExtendedStatusbarChrome.ESB_PrefObserver = {
 		{
 			XULExtendedStatusbarChrome.hideForSites = null;
 		}
+
+		if (this.prefs.getBoolPref("slimmode")) XULExtendedStatusbarChrome.esbSlimMode = true;
+		else XULExtendedStatusbarChrome.esbSlimMode = false;
 		
-		XULExtendedStatusbarChrome.esbOldStyle = this.prefs.getBoolPref("oldstyle");
-
-		// Set colors
-		if (this.prefs.getBoolPref("usecustomstyle"))
+		// Set style
+		XULExtendedStatusbarChrome.status_bar_width = parseInt(window.getComputedStyle(XULExtendedStatusbarChrome.esbXUL.status_bar).getPropertyValue('width'));
+		XULExtendedStatusbarChrome.percent_box_width = parseInt(window.getComputedStyle(XULExtendedStatusbarChrome.esbXUL.percent_box).getPropertyValue('width'));
+		XULExtendedStatusbarChrome.images_box_width = parseInt(window.getComputedStyle(XULExtendedStatusbarChrome.esbXUL.images_box).getPropertyValue('width'));
+		XULExtendedStatusbarChrome.loaded_box_width = parseInt(window.getComputedStyle(XULExtendedStatusbarChrome.esbXUL.loaded_box).getPropertyValue('width'));
+		XULExtendedStatusbarChrome.speed_box_width = parseInt(window.getComputedStyle(XULExtendedStatusbarChrome.esbXUL.speed_box).getPropertyValue('width'));
+		XULExtendedStatusbarChrome.time_box_width = parseInt(window.getComputedStyle(XULExtendedStatusbarChrome.esbXUL.time_box).getPropertyValue('width'));
+		XULExtendedStatusbarChrome.percent_progressbar_width = parseInt(window.getComputedStyle(XULExtendedStatusbarChrome.esbXUL.percent_progressbar).getPropertyValue('width'));
+		XULExtendedStatusbarChrome.loaded_working_progressbar_width = parseInt(window.getComputedStyle(XULExtendedStatusbarChrome.esbXUL.loaded_working_progressbar).getPropertyValue('width'));
+		XULExtendedStatusbarChrome.loaded_finished_progressbar_width = parseInt(window.getComputedStyle(XULExtendedStatusbarChrome.esbXUL.loaded_finished_progressbar).getPropertyValue('width'));
+		this.applyStyle();
+		
+		if (this.prefs.getBoolPref("hidecursor"))
 		{
-			this.appendStyleAtribute("ESB_status-bar", "background-color", this.prefs.getCharPref("backgroundcolor"));
-			this.appendStyleAtribute("ESB_status-bar", "color", this.prefs.getCharPref("textcolor"));
-			this.appendStyleAtribute("ESB_document_working_progressbar", "background-color", this.prefs.getCharPref("progresscolor"));
-			this.appendStyleAtribute("ESB_document_finished_progressbar", "background-color", this.prefs.getCharPref("progresscolor"));
-			this.appendStyleAtribute("ESB_loaded_working_box", "background-color", this.prefs.getCharPref("progresscolor"));
-			this.appendStyleAtribute("ESB_loaded_finished_box", "background-color", this.prefs.getCharPref("progresscolor"));
-			this.appendStyleAtribute("ESB_loaded_working_progressbar", "border-right", "10px solid " + this.prefs.getCharPref("cursorcolor"));
-		}
-
-		if (this.prefs.getBoolPref("oldslimmode")) XULExtendedStatusbarChrome.esbOldSlimMode = true;
-		else XULExtendedStatusbarChrome.esbOldSlimMode = false;
-
-		if (XULExtendedStatusbarChrome.esbOldStyle)
-		{
-			XULExtendedStatusbarChrome.esbXUL.extendedstatusbar.hidden = true;
-			if (this.prefs.getBoolPref("oldhideimages")) XULExtendedStatusbarChrome.esbXUL.old_images.hidden = true;
-			if (this.prefs.getBoolPref("oldhideloaded")) XULExtendedStatusbarChrome.esbXUL.old_loaded.hidden = true;
-			if (this.prefs.getBoolPref("oldhidespeed")) XULExtendedStatusbarChrome.esbXUL.old_speed.hidden = true;
-			if (this.prefs.getBoolPref("oldhidetime")) XULExtendedStatusbarChrome.esbXUL.old_time.hidden = true;
-			if (this.prefs.getBoolPref("oldhidepercent")) XULExtendedStatusbarChrome.esbXUL.old_percent.hidden = true;
+			XULExtendedStatusbarChrome.esbHideCursor = true;
+			XULExtendedStatusbarChrome.esbXUL.loaded_finished_progressbar.hidden = true;
 		}
 		else
 		{
-			XULExtendedStatusbarChrome.esbXUL.old_images.hidden = true;
-			XULExtendedStatusbarChrome.esbXUL.old_loaded.hidden = true;
-			XULExtendedStatusbarChrome.esbXUL.old_speed.hidden = true;
-			XULExtendedStatusbarChrome.esbXUL.old_time.hidden = true;
-			XULExtendedStatusbarChrome.esbXUL.old_percent.hidden = true;
+			XULExtendedStatusbarChrome.esbHideCursor = false;
+			XULExtendedStatusbarChrome.esbXUL.loaded_finished_progressbar.hidden = false;
 		}
+		
+		if (this.prefs.getBoolPref("hideprogress"))
+		{
+			XULExtendedStatusbarChrome.esbHideProgress = true;
+			XULExtendedStatusbarChrome.esbXUL.percent_progressbar.hidden = true;
+		}
+		else
+		{
+			XULExtendedStatusbarChrome.esbHideProgress = false;
+			XULExtendedStatusbarChrome.esbXUL.percent_progressbar.hidden = false;
+		}
+
+		if (this.prefs.getBoolPref("hideimages")) XULExtendedStatusbarChrome.esbXUL.images_box.hidden = true;
+		if (this.prefs.getBoolPref("hideloaded")) XULExtendedStatusbarChrome.esbXUL.loaded_box.hidden = true;
+		if (this.prefs.getBoolPref("hidespeed")) XULExtendedStatusbarChrome.esbXUL.speed_box.hidden = true;
+		if (this.prefs.getBoolPref("hidetime")) XULExtendedStatusbarChrome.esbXUL.time_box.hidden = true;
+		if (this.prefs.getBoolPref("hidepercent")) XULExtendedStatusbarChrome.esbXUL.percent_box.hidden = true;
 	},
 
 	// Clean up after ourselves and save the prefs
@@ -565,28 +800,38 @@ XULExtendedStatusbarChrome.ESB_PrefObserver = {
 		this.prefs.removeObserver("", this);
 	},
 
-
 	// Called when events occur on the preferences
 	observe: function(subject, topic, data)
 	{
 		if (topic != "nsPref:changed") return;
-
+		
 		switch(data)
 		{
 			case "hide":
 				XULExtendedStatusbarChrome.esbHide = this.prefs.getBoolPref("hide");
-				if (!XULExtendedStatusbarChrome.esbOldStyle)
+				if (!XULExtendedStatusbarChrome.esbHide)
 				{
-					if (!XULExtendedStatusbarChrome.esbHide && XULExtendedStatusbarChrome.esbXUL.extendedstatusbar.hidden)
-					{
-						XULExtendedStatusbarChrome.esbXUL.extendedstatusbar.hidden = false;
-					}
-					else if (!XULExtendedStatusbarChrome.esbLoading)
-					{
-						XULExtendedStatusbarChrome.cancelTimeOut(XULExtendedStatusbarChrome.hideTimeOut);
-						XULExtendedStatusbarChrome.esbTimeOutSem = true;
-						XULExtendedStatusbarChrome.hideTimeOut = window.setTimeout("XULExtendedStatusbarChrome.hideESB()", XULExtendedStatusbarChrome.esbWait*1000);
-					}
+					XULExtendedStatusbarChrome.esbXUL.esb_toolbar.hidden = false;
+					XULExtendedStatusbarChrome.esbXUL.status_bar.hidden = false;
+				}
+				else if (!XULExtendedStatusbarChrome.esbLoading)
+				{
+					XULExtendedStatusbarChrome.cancelTimeOut(XULExtendedStatusbarChrome.hideTimeOut);
+					XULExtendedStatusbarChrome.esbTimeOutSem = true;
+					XULExtendedStatusbarChrome.hideTimeOut = window.setTimeout("XULExtendedStatusbarChrome.hideESB()", XULExtendedStatusbarChrome.esbWait*1000);
+				}
+				break;
+			case "hidetoolbar":
+				XULExtendedStatusbarChrome.esbHideToolbar = this.prefs.getBoolPref("hidetoolbar");
+				if (!XULExtendedStatusbarChrome.esbHideToolbar)
+				{
+					XULExtendedStatusbarChrome.esbXUL.esb_toolbar.hidden = false;
+				}
+				if (XULExtendedStatusbarChrome.esbHide && !XULExtendedStatusbarChrome.esbLoading)
+				{
+					XULExtendedStatusbarChrome.cancelTimeOut(XULExtendedStatusbarChrome.hideTimeOut);
+					XULExtendedStatusbarChrome.esbTimeOutSem = true;
+					XULExtendedStatusbarChrome.hideTimeOut = window.setTimeout("XULExtendedStatusbarChrome.hideESB()", XULExtendedStatusbarChrome.esbWait*1000);
 				}
 				break;
 			case "hidetimeout":
@@ -599,40 +844,24 @@ XULExtendedStatusbarChrome.ESB_PrefObserver = {
 				XULExtendedStatusbarChrome.hoverWait = this.prefs.getIntPref("hovertimeout");
 				break;
 			case "backgroundcolor":
-				this.appendStyleAtribute("ESB_status-bar", "background-color", this.prefs.getCharPref("backgroundcolor"));
+				this.clearStyle(["ESB_status_bar"]);
+				this.appendStyleAtribute("ESB_status_bar", "background-color", this.prefs.getCharPref("backgroundcolor"));
+				this.appendStyleAtribute("ESB_status_bar", "color", this.prefs.getCharPref("textcolor"));
 				break;
 			case "progresscolor":
-				this.appendStyleAtribute("ESB_document_working_progressbar", "background-color", this.prefs.getCharPref("progresscolor"));
-				this.appendStyleAtribute("ESB_document_finished_progressbar", "background-color", this.prefs.getCharPref("progresscolor"));
-				this.appendStyleAtribute("ESB_loaded_working_box", "background-color", this.prefs.getCharPref("progresscolor"));
-				this.appendStyleAtribute("ESB_loaded_finished_box", "background-color", this.prefs.getCharPref("progresscolor"));
+				this.appendStyleAtribute("ESB_percent_progressbar", "background-color", this.prefs.getCharPref("progresscolor"));
+				this.appendStyleAtribute("ESB_loaded_finished_progressbar", "background-color", this.prefs.getCharPref("progresscolor"));
 				break;
 			case "cursorcolor":
 				this.appendStyleAtribute("ESB_loaded_working_progressbar", "border-right", "10px solid " + this.prefs.getCharPref("cursorcolor"));
 				break;
 			case "textcolor":
-				this.appendStyleAtribute("ESB_status-bar", "color", this.prefs.getCharPref("textcolor"));
+				this.appendStyleAtribute("ESB_status_bar", "color", this.prefs.getCharPref("textcolor"));
 				break;
-			case "usecustomstyle":
-				if (this.prefs.getBoolPref("usecustomstyle"))
-				{
-					this.appendStyleAtribute("ESB_status-bar", "background-color", this.prefs.getCharPref("backgroundcolor"));
-					this.appendStyleAtribute("ESB_status-bar", "color", this.prefs.getCharPref("textcolor"));
-					this.appendStyleAtribute("ESB_document_working_progressbar", "background-color", this.prefs.getCharPref("progresscolor"));
-					this.appendStyleAtribute("ESB_document_finished_progressbar", "background-color", this.prefs.getCharPref("progresscolor"));
-					this.appendStyleAtribute("ESB_loaded_working_box", "background-color", this.prefs.getCharPref("progresscolor"));
-					this.appendStyleAtribute("ESB_loaded_finished_box", "background-color", this.prefs.getCharPref("progresscolor"));
-					this.appendStyleAtribute("ESB_loaded_working_progressbar", "border-right", "10px solid " + this.prefs.getCharPref("cursorcolor"));
-				}
-				else
-				{
-					var elemArray = ["ESB_status-bar", "ESB_document_working_progressbar", "ESB_document_finished_progressbar", "ESB_loaded_working_box",
-									 "ESB_loaded_finished_box", "ESB_loaded_working_progressbar", "ESB_status-bar"];
-					this.clearStyle(elemArray);
-				}
+			case "usecustomcolor":
+				this.applyStyle();
 				break;
 			case "hideonsites":
-				//XULExtendedStatusbarChrome.hideForSites = this.prefs.getCharPref("hideonsites");
 				if (this.prefs.getCharPref("hideonsites") != "")
 				{
 					XULExtendedStatusbarChrome.hideForSites = new RegExp(this.prefs.getCharPref("hideonsites")
@@ -648,84 +877,180 @@ XULExtendedStatusbarChrome.ESB_PrefObserver = {
 				{
 					XULExtendedStatusbarChrome.hideForSites = null;
 				}
-				break;
-			case "oldhideimages":
-				if (this.prefs.getBoolPref("oldhideimages")) XULExtendedStatusbarChrome.esbXUL.old_images.hidden = true;
-				else XULExtendedStatusbarChrome.esbXUL.old_images.hidden = false;
-				break;
-			case "oldhideloaded":
-				if (this.prefs.getBoolPref("oldhideloaded")) XULExtendedStatusbarChrome.esbXUL.old_loaded.hidden = true;
-				else XULExtendedStatusbarChrome.esbXUL.old_loaded.hidden = false;
-				break;
-			case "oldhidespeed":
-				if (this.prefs.getBoolPref("oldhidespeed")) XULExtendedStatusbarChrome.esbXUL.old_speed.hidden = true;
-				else XULExtendedStatusbarChrome.esbXUL.old_speed.hidden = false;
-				break;
-			case "oldhidetime":
-				if (this.prefs.getBoolPref("oldhidetime")) XULExtendedStatusbarChrome.esbXUL.old_time.hidden = true;
-				else XULExtendedStatusbarChrome.esbXUL.old_time.hidden = false;
-				break;
-			case "oldhidepercent":
-				if (this.prefs.getBoolPref("oldhidepercent")) XULExtendedStatusbarChrome.esbXUL.old_percent.hidden = true;
-				else XULExtendedStatusbarChrome.esbXUL.old_percent.hidden = false;
-				break;
-			case "oldstyle":
-				XULExtendedStatusbarChrome.esbOldStyle = this.prefs.getBoolPref("oldstyle");
-				if (XULExtendedStatusbarChrome.esbOldStyle)
+				if (XULExtendedStatusbarChrome.hideForSites && 
+					gBrowser.selectedBrowser.contentDocument.location.href.match(XULExtendedStatusbarChrome.hideForSites))
 				{
-					if (this.prefs.getBoolPref("oldhideimages")) XULExtendedStatusbarChrome.esbXUL.old_images.hidden = true;
-						else XULExtendedStatusbarChrome.esbXUL.old_images.hidden = false;
-					if (this.prefs.getBoolPref("oldhideloaded")) XULExtendedStatusbarChrome.esbXUL.old_loaded.hidden = true;
-						else XULExtendedStatusbarChrome.esbXUL.old_loaded.hidden = false;
-					if (this.prefs.getBoolPref("oldhidespeed")) XULExtendedStatusbarChrome.esbXUL.old_speed.hidden = true;
-						else XULExtendedStatusbarChrome.esbXUL.old_speed.hidden = false;
-					if (this.prefs.getBoolPref("oldhidetime")) XULExtendedStatusbarChrome.esbXUL.old_time.hidden = true;
-						else XULExtendedStatusbarChrome.esbXUL.old_time.hidden = false;
-					if (this.prefs.getBoolPref("oldhidepercent")) XULExtendedStatusbarChrome.esbXUL.old_percent.hidden = true;
-						else XULExtendedStatusbarChrome.esbXUL.old_percent.hidden = false;
-					XULExtendedStatusbarChrome.esbXUL.extendedstatusbar.hidden = true;
+					XULExtendedStatusbarChrome.hideForSitesSem = true;
+					XULExtendedStatusbarChrome.esbXUL.esb_toolbar.hidden = true;
+					XULExtendedStatusbarChrome.esbXUL.status_bar.hidden = true;
+				}
+				else if(XULExtendedStatusbarChrome.esbLoading || !XULExtendedStatusbarChrome.esbHide)
+				{
+					XULExtendedStatusbarChrome.hideForSitesSem = false;
+					XULExtendedStatusbarChrome.cancelTimeOut(XULExtendedStatusbarChrome.hideTimeOut);
+					XULExtendedStatusbarChrome.esbXUL.esb_toolbar.hidden = false;
+					XULExtendedStatusbarChrome.esbXUL.status_bar.hidden = false;
+				}
+				XULExtendedStatusbarChrome.esbListener.displayCurrentValuesForBrowser(gBrowser.selectedBrowser);
+				break;
+			case "hideimages":
+				if (this.prefs.getBoolPref("hideimages")) XULExtendedStatusbarChrome.esbXUL.images_box.hidden = true;
+				else XULExtendedStatusbarChrome.esbXUL.images_box.hidden = false;
+				document.getElementById("ESB_images_context_item").setAttribute("checked", !XULExtendedStatusbarChrome.esbXUL.images_box.hidden);
+				break;
+			case "hideloaded":
+				if (this.prefs.getBoolPref("hideloaded")) XULExtendedStatusbarChrome.esbXUL.loaded_box.hidden = true;
+				else XULExtendedStatusbarChrome.esbXUL.loaded_box.hidden = false;
+				document.getElementById("ESB_loaded_context_item").setAttribute("checked", !XULExtendedStatusbarChrome.esbXUL.loaded_box.hidden);
+				break;
+			case "hidespeed":
+				if (this.prefs.getBoolPref("hidespeed")) XULExtendedStatusbarChrome.esbXUL.speed_box.hidden = true;
+				else XULExtendedStatusbarChrome.esbXUL.speed_box.hidden = false;
+				document.getElementById("ESB_speed_context_item").setAttribute("checked", !XULExtendedStatusbarChrome.esbXUL.speed_box.hidden);
+				break;
+			case "hidetime":
+				if (this.prefs.getBoolPref("hidetime")) XULExtendedStatusbarChrome.esbXUL.time_box.hidden = true;
+				else XULExtendedStatusbarChrome.esbXUL.time_box.hidden = false;
+				document.getElementById("ESB_time_context_item").setAttribute("checked", !XULExtendedStatusbarChrome.esbXUL.time_box.hidden);
+				break;
+			case "hidepercent":
+				if (this.prefs.getBoolPref("hidepercent")) XULExtendedStatusbarChrome.esbXUL.percent_box.hidden = true;
+				else XULExtendedStatusbarChrome.esbXUL.percent_box.hidden = false;
+				document.getElementById("ESB_percent_context_item").setAttribute("checked", !XULExtendedStatusbarChrome.esbXUL.percent_box.hidden);
+				break;
+			case "esbstyle":
+				this.applyStyle();
+				// Set hide timeout
+				if(XULExtendedStatusbarChrome.esbHide && !XULExtendedStatusbarChrome.esbTimeOutSem)
+				{
+					XULExtendedStatusbarChrome.esbTimeOutSem = true;
+					XULExtendedStatusbarChrome.hideTimeOut = window.setTimeout("XULExtendedStatusbarChrome.hideESB()", XULExtendedStatusbarChrome.esbWait*1000);
+				}
+				break;
+			case "toolbarstyle":
+					XULExtendedStatusbarChrome.esbXUL.esb_toolbar.removeAttribute("style");
+					XULExtendedStatusbarChrome.esbXUL.esb_toolbar.style.cssText = this.prefs.getCharPref("toolbarstyle");
+				break;
+			case "widgetstyle":
+					XULExtendedStatusbarChrome.esbXUL.status_bar.removeAttribute("style");
+					XULExtendedStatusbarChrome.esbXUL.status_bar.style.cssText = this.prefs.getCharPref("widgetstyle");
+				break;
+			case "percentstyle":
+					XULExtendedStatusbarChrome.esbXUL.percent_box.removeAttribute("style");
+					XULExtendedStatusbarChrome.esbXUL.percent_box.style.cssText = this.prefs.getCharPref("percentstyle");
+					XULExtendedStatusbarChrome.esbXUL.percent_box.width = parseInt(window.getComputedStyle(XULExtendedStatusbarChrome.esbXUL.percent_box).getPropertyValue('width'));
+				break;
+			case "imagesstyle":
+					XULExtendedStatusbarChrome.esbXUL.images_box.removeAttribute("style");
+					XULExtendedStatusbarChrome.esbXUL.images_box.style.cssText = this.prefs.getCharPref("imagesstyle");
+					XULExtendedStatusbarChrome.esbXUL.images_box.width = parseInt(window.getComputedStyle(XULExtendedStatusbarChrome.esbXUL.images_box).getPropertyValue('width'));
+				break;
+			case "loadedstyle":
+					XULExtendedStatusbarChrome.esbXUL.loaded_box.removeAttribute("style");
+					XULExtendedStatusbarChrome.esbXUL.loaded_box.style.cssText = this.prefs.getCharPref("loadedstyle");
+					XULExtendedStatusbarChrome.esbXUL.loaded_box.width = parseInt(window.getComputedStyle(XULExtendedStatusbarChrome.esbXUL.loaded_box).getPropertyValue('width'));
+				break;
+			case "speedstyle":
+					XULExtendedStatusbarChrome.esbXUL.speed_box.removeAttribute("style");
+					XULExtendedStatusbarChrome.esbXUL.speed_box.style.cssText = this.prefs.getCharPref("speedstyle");
+					XULExtendedStatusbarChrome.esbXUL.speed_box.width = parseInt(window.getComputedStyle(XULExtendedStatusbarChrome.esbXUL.speed_box).getPropertyValue('width'));
+				break;
+			case "timestyle":
+					XULExtendedStatusbarChrome.esbXUL.time_box.removeAttribute("style");
+					XULExtendedStatusbarChrome.esbXUL.time_box.style.cssText = this.prefs.getCharPref("timestyle");
+					XULExtendedStatusbarChrome.esbXUL.time_box.width = parseInt(window.getComputedStyle(XULExtendedStatusbarChrome.esbXUL.time_box).getPropertyValue('width'));
+				break;
+			case "progressstyle":
+					XULExtendedStatusbarChrome.esbXUL.percent_progressbar.removeAttribute("style");
+					XULExtendedStatusbarChrome.esbXUL.percent_progressbar.style.cssText = this.prefs.getCharPref("progressstyle");
+					XULExtendedStatusbarChrome.esbXUL.percent_progressbar.width = parseInt(window.getComputedStyle(XULExtendedStatusbarChrome.esbXUL.percent_progressbar).getPropertyValue('width'));
+				break;
+			case "cursorstyle":
+					XULExtendedStatusbarChrome.esbXUL.loaded_working_progressbar.removeAttribute("style");
+					XULExtendedStatusbarChrome.esbXUL.loaded_working_progressbar.style.cssText = this.prefs.getCharPref("cursorstyle");
+					XULExtendedStatusbarChrome.esbXUL.loaded_working_progressbar.width =parseInt(window.getComputedStyle(XULExtendedStatusbarChrome.esbXUL.loaded_working_progressbar).getPropertyValue('width'));
+				break;
+			case "cursorbackgroundstyle":
+					XULExtendedStatusbarChrome.esbXUL.loaded_finished_progressbar.removeAttribute("style");
+					XULExtendedStatusbarChrome.esbXUL.loaded_finished_progressbar.style.cssText = this.prefs.getCharPref("cursorbackgroundstyle");
+					XULExtendedStatusbarChrome.esbXUL.loaded_finished_progressbar.width = parseInt(window.getComputedStyle(XULExtendedStatusbarChrome.esbXUL.loaded_finished_progressbar).getPropertyValue('width'));
+				break;
+			case "slimmode":
+				if (this.prefs.getBoolPref("slimmode"))
+				{
+					XULExtendedStatusbarChrome.esbSlimMode = true;
+					
+					XULExtendedStatusbarChrome.status_bar_width = parseInt(window.getComputedStyle(XULExtendedStatusbarChrome.esbXUL.status_bar).getPropertyValue('width'));
+					XULExtendedStatusbarChrome.percent_box_width = parseInt(window.getComputedStyle(XULExtendedStatusbarChrome.esbXUL.percent_box).getPropertyValue('width'));
+					XULExtendedStatusbarChrome.images_box_width = parseInt(window.getComputedStyle(XULExtendedStatusbarChrome.esbXUL.images_box).getPropertyValue('width'));
+					XULExtendedStatusbarChrome.loaded_box_width = parseInt(window.getComputedStyle(XULExtendedStatusbarChrome.esbXUL.loaded_box).getPropertyValue('width'));
+					XULExtendedStatusbarChrome.speed_box_width = parseInt(window.getComputedStyle(XULExtendedStatusbarChrome.esbXUL.speed_box).getPropertyValue('width'));
+					XULExtendedStatusbarChrome.time_box_width = parseInt(window.getComputedStyle(XULExtendedStatusbarChrome.esbXUL.time_box).getPropertyValue('width'));
+					XULExtendedStatusbarChrome.percent_progressbar_width = parseInt(window.getComputedStyle(XULExtendedStatusbarChrome.esbXUL.percent_progressbar).getPropertyValue('width'));
+					XULExtendedStatusbarChrome.loaded_working_progressbar_width = parseInt(window.getComputedStyle(XULExtendedStatusbarChrome.esbXUL.loaded_working_progressbar).getPropertyValue('width'));
+					XULExtendedStatusbarChrome.loaded_finished_progressbar_width = parseInt(window.getComputedStyle(XULExtendedStatusbarChrome.esbXUL.loaded_finished_progressbar).getPropertyValue('width'));
+					
+					XULExtendedStatusbarChrome.esbXUL.images_label.value = XULExtendedStatusbarChrome.esbXUL.images_label.value.substring(XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.images").length + 1);
+					XULExtendedStatusbarChrome.esbXUL.loaded_label.value = XULExtendedStatusbarChrome.esbXUL.loaded_label.value.substring(XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.loaded").length + 1);
+					XULExtendedStatusbarChrome.esbXUL.speed_label.value = XULExtendedStatusbarChrome.esbXUL.speed_label.value.substring(XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.speed").length + 1);
+					XULExtendedStatusbarChrome.esbXUL.time_label.value = XULExtendedStatusbarChrome.esbXUL.time_label.value.substring(XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.time").length + 1);
+					XULExtendedStatusbarChrome.esbXUL.percent_label.value = XULExtendedStatusbarChrome.esbXUL.percent_label.value.substring(XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.document").length + 1);
 				}
 				else
 				{
-					XULExtendedStatusbarChrome.esbXUL.old_images.hidden = true;
-					XULExtendedStatusbarChrome.esbXUL.old_loaded.hidden = true;
-					XULExtendedStatusbarChrome.esbXUL.old_speed.hidden = true;
-					XULExtendedStatusbarChrome.esbXUL.old_time.hidden = true;
-					XULExtendedStatusbarChrome.esbXUL.old_percent.hidden = true;
-					XULExtendedStatusbarChrome.esbXUL.extendedstatusbar.hidden = false;
-					// Set hide timeout
-					if(!XULExtendedStatusbarChrome.esbOldStyle && XULExtendedStatusbarChrome.esbHide && !XULExtendedStatusbarChrome.esbTimeOutSem)
+					XULExtendedStatusbarChrome.esbSlimMode = false;
+					
+					this.appendStyleAtribute("ESB_status_bar", "width", XULExtendedStatusbarChrome.status_bar_width + "px");
+					this.appendStyleAtribute("ESB_percent_box", "width", XULExtendedStatusbarChrome.percent_box_width + "px");
+					this.appendStyleAtribute("ESB_images_box", "width", XULExtendedStatusbarChrome.images_box_width + "px");
+					this.appendStyleAtribute("ESB_loaded_box", "width", XULExtendedStatusbarChrome.loaded_box_width + "px");
+					this.appendStyleAtribute("ESB_speed_box", "width", XULExtendedStatusbarChrome.speed_box_width + "px");
+					this.appendStyleAtribute("ESB_time_box", "width", XULExtendedStatusbarChrome.time_box_width + "px");
+					this.appendStyleAtribute("ESB_percent_progressbar", "width", XULExtendedStatusbarChrome.percent_progressbar_width + "px");
+					this.appendStyleAtribute("ESB_loaded_working_progressbar", "width", XULExtendedStatusbarChrome.loaded_working_progressbar_width + "px");
+					this.appendStyleAtribute("ESB_loaded_finished_progressbar", "width", XULExtendedStatusbarChrome.loaded_finished_progressbar_width + "px");
+		
+					XULExtendedStatusbarChrome.esbXUL.images_label.value = XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.images") + " " + XULExtendedStatusbarChrome.esbXUL.images_label.value;
+					XULExtendedStatusbarChrome.esbXUL.loaded_label.value = XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.loaded") + " " + XULExtendedStatusbarChrome.esbXUL.loaded_label.value;
+					XULExtendedStatusbarChrome.esbXUL.speed_label.value = XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.speed") + " " + XULExtendedStatusbarChrome.esbXUL.speed_label.value;
+					XULExtendedStatusbarChrome.esbXUL.time_label.value = XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.time") + " " + XULExtendedStatusbarChrome.esbXUL.time_label.value;
+					XULExtendedStatusbarChrome.esbXUL.percent_label.value = XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.document") + " " + XULExtendedStatusbarChrome.esbXUL.percent_label.value;
+				}
+				this.applyStyle();				
+				break;
+			case "hideprogress":
+				if (this.prefs.getBoolPref("hideprogress"))
+				{
+					XULExtendedStatusbarChrome.esbHideProgress = true;
+					XULExtendedStatusbarChrome.esbXUL.percent_progressbar.hidden = true;
+				}
+				else 
+				{
+					XULExtendedStatusbarChrome.esbHideProgress = false;
+					XULExtendedStatusbarChrome.esbXUL.percent_progressbar.hidden = false;
+				}
+				document.getElementById("ESB_progress_context_item").setAttribute("checked", !XULExtendedStatusbarChrome.esbXUL.percent_progressbar.hidden);
+				break;
+			case "hidecursor":
+				if (this.prefs.getBoolPref("hidecursor"))
+				{
+					XULExtendedStatusbarChrome.esbHideCursor = true;
+					XULExtendedStatusbarChrome.esbXUL.loaded_finished_progressbar.hidden = true;
+					if(XULExtendedStatusbarChrome.esbXUL.esbLoading)
 					{
-						XULExtendedStatusbarChrome.esbTimeOutSem = true;
-						XULExtendedStatusbarChrome.hideTimeOut = window.setTimeout("XULExtendedStatusbarChrome.hideESB()", XULExtendedStatusbarChrome.esbWait*1000);
+						XULExtendedStatusbarChrome.esbXUL.loaded_working_progressbar.hidden = true;
 					}
 				}
-				break;
-			case "oldslimmode":
-				if (this.prefs.getBoolPref("oldslimmode"))
+				else 
 				{
-					XULExtendedStatusbarChrome.esbOldSlimMode = true;
-					XULExtendedStatusbarChrome.esbXUL.old_images.minWidth = 1;
-					XULExtendedStatusbarChrome.esbXUL.old_loaded.minWidth = 1;
-					XULExtendedStatusbarChrome.esbXUL.old_speed.minWidth = 1;
-					XULExtendedStatusbarChrome.esbXUL.old_time.minWidth = 1;
-					XULExtendedStatusbarChrome.esbXUL.old_images.label = XULExtendedStatusbarChrome.esbXUL.old_images.label.substring(XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.images").length + 1);
-					XULExtendedStatusbarChrome.esbXUL.old_loaded.label = XULExtendedStatusbarChrome.esbXUL.old_loaded.label.substring(XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.loaded").length + 1)
-					XULExtendedStatusbarChrome.esbXUL.old_speed.label = XULExtendedStatusbarChrome.esbXUL.old_speed.label.substring(XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.speed").length + 1)
-					XULExtendedStatusbarChrome.esbXUL.old_time.label = XULExtendedStatusbarChrome.esbXUL.old_time.label.substring(XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.time").length + 1)
+					XULExtendedStatusbarChrome.esbHideCursor = false;
+					XULExtendedStatusbarChrome.esbXUL.loaded_working_progressbar.hidden = false;
+					XULExtendedStatusbarChrome.esbXUL.loaded_finished_progressbar.hidden = false;
 				}
-				else
-				{
-					XULExtendedStatusbarChrome.esbOldSlimMode = false;
-					XULExtendedStatusbarChrome.esbXUL.old_images.label = XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.images") + " " + XULExtendedStatusbarChrome.esbXUL.old_images.label;
-					XULExtendedStatusbarChrome.esbXUL.old_loaded.label = XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.loaded") + " " + XULExtendedStatusbarChrome.esbXUL.old_loaded.label;
-					XULExtendedStatusbarChrome.esbXUL.old_speed.label = XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.speed") + " " + XULExtendedStatusbarChrome.esbXUL.old_speed.label;
-					XULExtendedStatusbarChrome.esbXUL.old_time.label = XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.time") + " " + XULExtendedStatusbarChrome.esbXUL.old_time.label;
-				}
+				document.getElementById("ESB_cursor_context_item").setAttribute("checked", !XULExtendedStatusbarChrome.esbXUL.loaded_finished_progressbar.hidden);
 				break;
 		}
 	},
-
 
 	appendStyleAtribute: function (elem, attrib, value)
 	{
@@ -748,20 +1073,123 @@ XULExtendedStatusbarChrome.ESB_PrefObserver = {
 		}
 	},
 
-
 	clearStyle: function(elems)
 	{
 		for (var i=0; i<elems.length; i++)
 		{
 			document.getElementById(elems[i]).removeAttribute("style");
 		}
+	},
+	
+	applyStyle: function()
+	{
+		XULExtendedStatusbarChrome.esbXUL.status_bar.classList.remove('newstyle');
+		XULExtendedStatusbarChrome.esbXUL.percent_box.classList.remove('newstyle');
+		XULExtendedStatusbarChrome.esbXUL.images_box.classList.remove('newstyle');
+		XULExtendedStatusbarChrome.esbXUL.loaded_box.classList.remove('newstyle');
+		XULExtendedStatusbarChrome.esbXUL.speed_box.classList.remove('newstyle');
+		XULExtendedStatusbarChrome.esbXUL.time_box.classList.remove('newstyle');
+		XULExtendedStatusbarChrome.esbXUL.percent_progressbar.classList.remove('newstyle');
+		XULExtendedStatusbarChrome.esbXUL.loaded_working_progressbar.classList.remove('newstyle');
+		XULExtendedStatusbarChrome.esbXUL.loaded_finished_progressbar.classList.remove('newstyle');
+		
+		XULExtendedStatusbarChrome.esbXUL.esb_toolbar.removeAttribute("style");
+		XULExtendedStatusbarChrome.esbXUL.status_bar.removeAttribute("style");
+		XULExtendedStatusbarChrome.esbXUL.percent_box.removeAttribute("style");
+		XULExtendedStatusbarChrome.esbXUL.images_box.removeAttribute("style");
+		XULExtendedStatusbarChrome.esbXUL.loaded_box.removeAttribute("style");
+		XULExtendedStatusbarChrome.esbXUL.speed_box.removeAttribute("style");
+		XULExtendedStatusbarChrome.esbXUL.time_box.removeAttribute("style");
+		XULExtendedStatusbarChrome.esbXUL.percent_progressbar.removeAttribute("style");
+		XULExtendedStatusbarChrome.esbXUL.loaded_working_progressbar.removeAttribute("style");
+		XULExtendedStatusbarChrome.esbXUL.loaded_finished_progressbar.removeAttribute("style");
+		
+		switch(this.prefs.getIntPref("esbstyle"))
+		{
+			case 0:
+				XULExtendedStatusbarChrome.esbXUL.status_bar.width = 0;
+				XULExtendedStatusbarChrome.esbXUL.percent_box.width = 0;
+				XULExtendedStatusbarChrome.esbXUL.images_box.width = 0;
+				XULExtendedStatusbarChrome.esbXUL.loaded_box.width = 0;
+				XULExtendedStatusbarChrome.esbXUL.speed_box.width = 0;
+				XULExtendedStatusbarChrome.esbXUL.time_box.width = 0;
+				XULExtendedStatusbarChrome.esbXUL.percent_progressbar.width = 0;
+				XULExtendedStatusbarChrome.esbXUL.loaded_working_progressbar.width = 0;
+				XULExtendedStatusbarChrome.esbXUL.loaded_finished_progressbar.width = 0;
+				break
+			case 1:
+				XULExtendedStatusbarChrome.esbXUL.status_bar.classList.add('newstyle');
+				XULExtendedStatusbarChrome.esbXUL.percent_box.classList.add('newstyle');
+				XULExtendedStatusbarChrome.esbXUL.images_box.classList.add('newstyle');
+				XULExtendedStatusbarChrome.esbXUL.loaded_box.classList.add('newstyle');
+				XULExtendedStatusbarChrome.esbXUL.speed_box.classList.add('newstyle');
+				XULExtendedStatusbarChrome.esbXUL.time_box.classList.add('newstyle');
+				XULExtendedStatusbarChrome.esbXUL.percent_progressbar.classList.add('newstyle');
+				XULExtendedStatusbarChrome.esbXUL.loaded_working_progressbar.classList.add('newstyle');
+				XULExtendedStatusbarChrome.esbXUL.loaded_finished_progressbar.classList.add('newstyle');
+				break;
+			case 2:				
+				XULExtendedStatusbarChrome.esbXUL.esb_toolbar.style.cssText = this.prefs.getCharPref("toolbarstyle");
+				XULExtendedStatusbarChrome.esbXUL.status_bar.style.cssText = this.prefs.getCharPref("widgetstyle");
+				XULExtendedStatusbarChrome.esbXUL.percent_box.style.cssText = this.prefs.getCharPref("percentstyle");
+				XULExtendedStatusbarChrome.esbXUL.images_box.style.cssText = this.prefs.getCharPref("imagesstyle");
+				XULExtendedStatusbarChrome.esbXUL.loaded_box.style.cssText = this.prefs.getCharPref("loadedstyle");
+				XULExtendedStatusbarChrome.esbXUL.speed_box.style.cssText = this.prefs.getCharPref("speedstyle");
+				XULExtendedStatusbarChrome.esbXUL.time_box.style.cssText = this.prefs.getCharPref("timestyle");
+				XULExtendedStatusbarChrome.esbXUL.percent_progressbar.style.cssText = this.prefs.getCharPref("progressstyle");
+				XULExtendedStatusbarChrome.esbXUL.loaded_working_progressbar.style.cssText = this.prefs.getCharPref("cursorstyle");
+				XULExtendedStatusbarChrome.esbXUL.loaded_finished_progressbar.style.cssText = this.prefs.getCharPref("cursorbackgroundstyle");
+				break;
+		}
+		if (XULExtendedStatusbarChrome.esbSlimMode)
+		{			
+			XULExtendedStatusbarChrome.esbXUL.status_bar.width = 0;
+			XULExtendedStatusbarChrome.esbXUL.percent_box.width = 0;
+			XULExtendedStatusbarChrome.esbXUL.images_box.width = 0;
+			XULExtendedStatusbarChrome.esbXUL.loaded_box.width = 0;
+			XULExtendedStatusbarChrome.esbXUL.speed_box.width = 0;
+			XULExtendedStatusbarChrome.esbXUL.time_box.width = 0;
+			XULExtendedStatusbarChrome.esbXUL.percent_progressbar.width = 0;
+			XULExtendedStatusbarChrome.esbXUL.loaded_working_progressbar.width = 0;
+			XULExtendedStatusbarChrome.esbXUL.loaded_finished_progressbar.width = 0;
+		}
+		else
+		{
+			XULExtendedStatusbarChrome.esbXUL.status_bar.width = XULExtendedStatusbarChrome.esbXUL.status_bar.style.width;
+			XULExtendedStatusbarChrome.esbXUL.percent_box.width = XULExtendedStatusbarChrome.esbXUL.percent_box.style.width;
+			XULExtendedStatusbarChrome.esbXUL.images_box.width = XULExtendedStatusbarChrome.esbXUL.images_box.style.width;
+			XULExtendedStatusbarChrome.esbXUL.loaded_box.width = XULExtendedStatusbarChrome.esbXUL.loaded_box.style.width;
+			XULExtendedStatusbarChrome.esbXUL.speed_box.width = XULExtendedStatusbarChrome.esbXUL.speed_box.style.width;
+			XULExtendedStatusbarChrome.esbXUL.time_box.width = XULExtendedStatusbarChrome.esbXUL.time_box.style.width;
+			XULExtendedStatusbarChrome.esbXUL.percent_progressbar.width = XULExtendedStatusbarChrome.esbXUL.percent_progressbar.style.width;
+			XULExtendedStatusbarChrome.esbXUL.loaded_working_progressbar.width = XULExtendedStatusbarChrome.esbXUL.loaded_working_progressbar.style.width ;
+			XULExtendedStatusbarChrome.esbXUL.loaded_finished_progressbar.width = XULExtendedStatusbarChrome.esbXUL.loaded_finished_progressbar.style.width;
+		}
+		if (this.prefs.getBoolPref("usecustomcolor"))
+		{
+			if(XULExtendedStatusbarChrome.esbXUL.status_bar.style.backgroundColor) XULExtendedStatusbarChrome.esbXUL.status_bar.style.backgroundColor = this.prefs.getCharPref("backgroundcolor");
+			else this.appendStyleAtribute("ESB_status_bar", "background-color", this.prefs.getCharPref("backgroundcolor"));
+			
+			if(XULExtendedStatusbarChrome.esbXUL.status_bar.style.color) XULExtendedStatusbarChrome.esbXUL.status_bar.style.color = this.prefs.getCharPref("textcolor");
+			else this.appendStyleAtribute("ESB_status_bar", "color", this.prefs.getCharPref("textcolor"));
+			
+			if(XULExtendedStatusbarChrome.esbXUL.percent_progressbar.style.backgroundColor) XULExtendedStatusbarChrome.esbXUL.percent_progressbar.style.backgroundColor = this.prefs.getCharPref("progresscolor");
+			else this.appendStyleAtribute("ESB_percent_progressbar", "background-color", this.prefs.getCharPref("progresscolor"));
+			
+			if(XULExtendedStatusbarChrome.esbXUL.loaded_finished_progressbar.style.backgroundColor) XULExtendedStatusbarChrome.esbXUL.loaded_finished_progressbar.style.backgroundColor = this.prefs.getCharPref("progresscolor");
+			else this.appendStyleAtribute("ESB_loaded_finished_progressbar", "background-color", this.prefs.getCharPref("progresscolor"));
+			
+			if(XULExtendedStatusbarChrome.esbXUL.loaded_working_progressbar.style.backgroundColor) XULExtendedStatusbarChrome.esbXUL.loaded_working_progressbar.style.backgroundColor = this.prefs.getCharPref("progresscolor");
+			else this.appendStyleAtribute("ESB_loaded_working_progressbar", "background-color", this.prefs.getCharPref("progresscolor"));
+			
+			if(XULExtendedStatusbarChrome.esbXUL.loaded_working_progressbar.style.borderRight) XULExtendedStatusbarChrome.esbXUL.loaded_working_progressbar.style.borderRight = "10px solid " + this.prefs.getCharPref("cursorcolor");
+			else this.appendStyleAtribute("ESB_loaded_working_progressbar", "border-right", "10px solid " + this.prefs.getCharPref("cursorcolor"));
+		}
 	}
 }
-
-window.addEventListener("load", function(e) { XULExtendedStatusbarChrome.ESB_PrefObserver.startup(); }, false);
-window.addEventListener("unload", function(e) { XULExtendedStatusbarChrome.ESB_PrefObserver.shutdown(); }, false);
 
 XULExtendedStatusbarChrome.openESBOptions = function (event)
 {
 	window.open("chrome://extendedstatusbar/content/extendedstatusbaroptions.xul", "", "chrome");
 }
+

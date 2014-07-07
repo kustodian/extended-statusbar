@@ -7,6 +7,7 @@
     <em:id>{daf44bf7-a45e-4450-979c-91cf07434c3d}</em:id>
     <em:name>Extended Statusbar</em:name>
     <em:version>1.5.11</em:version>
+	<em:bootstrap>true</em:bootstrap>
     <em:description>A Statusbar with speed, percentage, time and loaded size (similar to Opera's one)</em:description>
     <em:creator>Andreas Allacher</em:creator>
     <em:developer>Strahinja Kustudić</em:developer>
@@ -36,7 +37,7 @@
     <em:translator>Українська: Жук Андрій</em:translator>
     <em:translator>繁體中文: Tang Kai Yiu (TKY)</em:translator>
     <em:iconURL>chrome://extendedstatusbar/skin/icon.png</em:iconURL>
-    <em:optionsURL>chrome://extendedstatusbar/content/extendedstatusbaroptionselector.xul</em:optionsURL>
+    <em:optionsURL>chrome://extendedstatusbar/content/extendedstatusbaroptions.xul</em:optionsURL>
     <em:type>2</em:type>
     <em:homepageURL>https://github.com/kustodian/extended-statusbar</em:homepageURL>
     <em:targetApplication>
