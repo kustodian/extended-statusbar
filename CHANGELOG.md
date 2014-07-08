@@ -1,10 +1,12 @@
 Extended Statubar Changes By Release
 ==========================
 
-### 1.5.11 - June 28, 2014 - In development
+### 2.0 - In development
  * Multiple-tab support
- * New options menu
- * Edit ESB from the right-clicking menu
+ * New settings window with new settings
+ * Configure ESB from the right-clicking menu
+ * Fixed image counters
+ * ESB now preserves percentage on stop
  * Many improvements and fixes
 
 
