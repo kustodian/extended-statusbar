@@ -93,34 +93,6 @@ XULExtendedStatusbarChrome.addContextMenuItem = function ()
 		menu.insertBefore(menuseparator, menu.firstChild);
 	}
 	
-    var itemCursor = document.createElement("menuitem");
-    itemCursor.setAttribute("id", "ESB_cursor_context_item");
-    itemCursor.setAttribute("type", "checkbox");
-    itemCursor.setAttribute("checked", !XULExtendedStatusbarChrome.ESB_PrefObserver.prefs.getBoolPref("hidecursor"));
-    itemCursor.setAttribute("label", XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.showcursor"));
-    itemCursor.setAttribute("accesskey", XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.showcursor.accesskey"));
-    itemCursor.addEventListener("command", 
-		function(e)
-		{
-			XULExtendedStatusbarChrome.ESB_PrefObserver.prefs.setBoolPref("hidecursor", !document.getElementById("ESB_cursor_context_item").getAttribute("checked"));
-		}
-	);
-    menu.insertBefore(itemCursor, menu.firstChild);
-	
-    var itemProgress = document.createElement("menuitem");
-    itemProgress.setAttribute("id", "ESB_progress_context_item");
-    itemProgress.setAttribute("type", "checkbox");
-    itemProgress.setAttribute("checked", !XULExtendedStatusbarChrome.ESB_PrefObserver.prefs.getBoolPref("hideprogress"));
-    itemProgress.setAttribute("label", XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.showprogress"));
-    itemProgress.setAttribute("accesskey", XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.showprogress.accesskey"));
-    itemProgress.addEventListener("command", 
-		function(e)
-		{
-			XULExtendedStatusbarChrome.ESB_PrefObserver.prefs.setBoolPref("hideprogress", !document.getElementById("ESB_progress_context_item").getAttribute("checked"));
-		}
-	);
-    menu.insertBefore(itemProgress, menu.firstChild);
-	
     var itemTime = document.createElement("menuitem");
     itemTime.setAttribute("id", "ESB_time_context_item");
     itemTime.setAttribute("type", "checkbox");
@@ -149,6 +121,21 @@ XULExtendedStatusbarChrome.addContextMenuItem = function ()
 	);
     menu.insertBefore(itemSpeed, menu.firstChild);
 	
+    var itemCursor = document.createElement("menuitem");
+    itemCursor.setAttribute("id", "ESB_cursor_context_item");
+    itemCursor.setAttribute("type", "checkbox");
+    itemCursor.setAttribute("checked", !XULExtendedStatusbarChrome.ESB_PrefObserver.prefs.getBoolPref("hidecursor"));
+	itemCursor.setAttribute("disabled", XULExtendedStatusbarChrome.ESB_PrefObserver.prefs.getBoolPref("hideloaded"));
+    itemCursor.setAttribute("label", "  " + XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.showcursor"));
+    itemCursor.setAttribute("accesskey", XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.showcursor.accesskey"));
+    itemCursor.addEventListener("command", 
+		function(e)
+		{
+			XULExtendedStatusbarChrome.ESB_PrefObserver.prefs.setBoolPref("hidecursor", !document.getElementById("ESB_cursor_context_item").getAttribute("checked"));
+		}
+	);
+    menu.insertBefore(itemCursor, menu.firstChild);
+	
     var itemLoaded = document.createElement("menuitem");
     itemLoaded.setAttribute("id", "ESB_loaded_context_item");
     itemLoaded.setAttribute("type", "checkbox");
@@ -158,7 +145,14 @@ XULExtendedStatusbarChrome.addContextMenuItem = function ()
     itemLoaded.addEventListener("command", 
 		function(e)
 		{
-			XULExtendedStatusbarChrome.ESB_PrefObserver.prefs.setBoolPref("hideloaded", !document.getElementById("ESB_loaded_context_item").getAttribute("checked"));
+			var checked = document.getElementById("ESB_loaded_context_item").getAttribute("checked");
+			XULExtendedStatusbarChrome.ESB_PrefObserver.prefs.setBoolPref("hideloaded", !checked);
+			
+			if (checked) {
+				itemCursor.setAttribute("disabled", "false");			
+			} else {
+				itemCursor.setAttribute("disabled", "true");
+			}
 		}
 	);
     menu.insertBefore(itemLoaded, menu.firstChild);
@@ -177,6 +171,21 @@ XULExtendedStatusbarChrome.addContextMenuItem = function ()
 	);
     menu.insertBefore(itemImages, menu.firstChild);
 	
+    var itemProgress = document.createElement("menuitem");
+    itemProgress.setAttribute("id", "ESB_progress_context_item");
+    itemProgress.setAttribute("type", "checkbox");
+    itemProgress.setAttribute("checked", !XULExtendedStatusbarChrome.ESB_PrefObserver.prefs.getBoolPref("hideprogress"));
+	itemProgress.setAttribute("disabled", XULExtendedStatusbarChrome.ESB_PrefObserver.prefs.getBoolPref("hidepercent"));
+    itemProgress.setAttribute("label", "  " + XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.showprogress"));
+    itemProgress.setAttribute("accesskey", XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.showprogress.accesskey"));
+    itemProgress.addEventListener("command", 
+		function(e)
+		{
+			XULExtendedStatusbarChrome.ESB_PrefObserver.prefs.setBoolPref("hideprogress", !document.getElementById("ESB_progress_context_item").getAttribute("checked"));
+		}
+	);
+    menu.insertBefore(itemProgress, menu.firstChild);
+		
     var itemPercent = document.createElement("menuitem");
     itemPercent.setAttribute("id", "ESB_percent_context_item");
     itemPercent.setAttribute("type", "checkbox");
@@ -186,7 +195,14 @@ XULExtendedStatusbarChrome.addContextMenuItem = function ()
     itemPercent.addEventListener("command", 
 		function(e)
 		{
-			XULExtendedStatusbarChrome.ESB_PrefObserver.prefs.setBoolPref("hidepercent", !document.getElementById("ESB_percent_context_item").getAttribute("checked"));
+			var checked = document.getElementById("ESB_percent_context_item").getAttribute("checked");
+			XULExtendedStatusbarChrome.ESB_PrefObserver.prefs.setBoolPref("hidepercent", !checked);
+			
+			if (checked) {
+				itemProgress.setAttribute("disabled", "false");			
+			} else {
+				itemProgress.setAttribute("disabled", "true");
+			}
 		}
 	);
     menu.insertBefore(itemPercent, menu.firstChild);
@@ -194,7 +210,8 @@ XULExtendedStatusbarChrome.addContextMenuItem = function ()
     var itemOptions = document.createElement("menuitem");
     itemOptions.setAttribute("id", "ESB_options_context_item");
     itemOptions.setAttribute("label", XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.options"));
-    itemOptions.setAttribute("accesskey", "O");
+    itemOptions.setAttribute("accesskey", XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.options.accesskey"));
+	itemOptions.setAttribute("class", "menuitem-iconic");
     itemOptions.addEventListener("command", XULExtendedStatusbarChrome.openESBOptions);
     menu.insertBefore(itemOptions, menu.firstChild);
 	
@@ -914,6 +931,7 @@ XULExtendedStatusbarChrome.ESB_PrefObserver = {
 				if (this.prefs.getBoolPref("hideloaded")) XULExtendedStatusbarChrome.esbXUL.loaded_box.hidden = true;
 				else XULExtendedStatusbarChrome.esbXUL.loaded_box.hidden = false;
 				document.getElementById("ESB_loaded_context_item").setAttribute("checked", !XULExtendedStatusbarChrome.esbXUL.loaded_box.hidden);
+				document.getElementById("ESB_cursor_context_item").setAttribute("disabled", XULExtendedStatusbarChrome.esbXUL.loaded_box.hidden);
 				break;
 			case "hidespeed":
 				if (this.prefs.getBoolPref("hidespeed")) XULExtendedStatusbarChrome.esbXUL.speed_box.hidden = true;
@@ -929,6 +947,7 @@ XULExtendedStatusbarChrome.ESB_PrefObserver = {
 				if (this.prefs.getBoolPref("hidepercent")) XULExtendedStatusbarChrome.esbXUL.percent_box.hidden = true;
 				else XULExtendedStatusbarChrome.esbXUL.percent_box.hidden = false;
 				document.getElementById("ESB_percent_context_item").setAttribute("checked", !XULExtendedStatusbarChrome.esbXUL.percent_box.hidden);
+				document.getElementById("ESB_progress_context_item").setAttribute("disabled", XULExtendedStatusbarChrome.esbXUL.percent_box.hidden);
 				break;
 			case "esbstyle":
 				this.applyStyle();

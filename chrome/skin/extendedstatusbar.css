@@ -161,3 +161,8 @@ toolbarpaletteitem[place="palette"] > #ESB_toolbaritem > #ESB_status_bar
 	background-image:url(chrome://extendedstatusbar/skin/white_trans_grad.png);
 	border-right:10px solid Lightgrey;
 }
+
+#ESB_options_context_item
+{
+  list-style-image: url('chrome://extendedstatusbar/skin/icon.png');
+}

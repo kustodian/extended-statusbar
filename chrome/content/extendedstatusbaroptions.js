@@ -117,6 +117,24 @@ XULExtendedStatusbarOptions.init = function ()
 	document.getElementById("textprogressstyle").height = textboxHeight;
 	document.getElementById("textcursorstyle").height = textboxHeight;
 	document.getElementById("textcursorbackgroundstyle").height = textboxHeight;
+	
+	if (document.getElementById("checkesbhidepercent").checked)
+	{
+		document.getElementById("checkesbhideprogress").setAttribute("disabled", "true");
+	}
+	else
+	{
+		document.getElementById("checkesbhideprogress").setAttribute("disabled", "false");
+	}
+	
+	if (document.getElementById("checkesbhideloaded").checked)
+	{
+		document.getElementById("checkesbhidecursor").setAttribute("disabled", "true");
+	}
+	else
+	{
+		document.getElementById("checkesbhidecursor").setAttribute("disabled", "false");
+	}
 }
 
 XULExtendedStatusbarOptions.hideCheck = function()
@@ -161,6 +179,30 @@ XULExtendedStatusbarOptions.hideCheck = function()
 		document.getElementById("checkesbshowonhover").setAttribute("disabled", "true");
 		document.getElementById("labelesbhovering").setAttribute("disabled", "true");
 		document.getElementById("textesbhovertimeout").setAttribute("disabled", "true");
+	}
+}
+
+XULExtendedStatusbarOptions.hideProgress = function()
+{
+	if (!document.getElementById("checkesbhidepercent").checked)
+	{
+		document.getElementById("checkesbhideprogress").setAttribute("disabled", "true");
+	}
+	else
+	{
+		document.getElementById("checkesbhideprogress").setAttribute("disabled", "false");
+	}
+}
+
+XULExtendedStatusbarOptions.hideCursor = function()
+{
+	if (!document.getElementById("checkesbhideloaded").checked)
+	{
+		document.getElementById("checkesbhidecursor").setAttribute("disabled", "true");
+	}
+	else
+	{
+		document.getElementById("checkesbhidecursor").setAttribute("disabled", "false");
 	}
 }
 
