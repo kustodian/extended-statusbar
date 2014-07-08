@@ -332,6 +332,13 @@ XULExtendedStatusbarChrome.esbXUL =
 	{
 		this.esb_gBundle = Components.classes["@mozilla.org/intl/stringbundle;1"].getService(Components.interfaces.nsIStringBundleService);
 		this.esbstrings = this.esb_gBundle.createBundle("chrome://extendedstatusbar/locale/extendedstatusbar.properties");
+		
+		this.percent_box.setAttribute("tooltiptext", this.esbstrings.GetStringFromName("esb.tooltip.percentage"));
+		this.images_box.setAttribute("tooltiptext", this.esbstrings.GetStringFromName("esb.tooltip.loadedimages"));
+		this.loaded_box.setAttribute("tooltiptext", this.esbstrings.GetStringFromName("esb.tooltip.dataloaded"));
+		this.speed_box.setAttribute("tooltiptext", this.esbstrings.GetStringFromName("esb.tooltip.avgspeed"));
+		this.time_box.setAttribute("tooltiptext", this.esbstrings.GetStringFromName("esb.tooltip.time"));
+		
 		if(!XULExtendedStatusbarChrome.ffIsPostAustralis)
 		{
 			this.esb_toolbar.addEventListener("mouseover", XULExtendedStatusbarChrome.showESBOnHover, false);

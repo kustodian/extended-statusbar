@@ -1,7 +1,2 @@
-<!ENTITY esb.loadedimages "Imagini încărcate">
-<!ENTITY esb.dataloaded "Date încărcate">
-<!ENTITY esb.avgspeed "Viteza medie">
-<!ENTITY esb.time "Timpul de încărcare al paginii">
-<!ENTITY esb.percentage "Încărcare în procente">
 <!ENTITY esb.document "Document">
 <!ENTITY esb.tools-menu "Setări pentru Extended Statusbar">

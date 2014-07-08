@@ -1,7 +1,2 @@
-<!ENTITY esb.loadedimages "Pobrane grafiki">
-<!ENTITY esb.dataloaded "Pobrane dane">
-<!ENTITY esb.avgspeed "Średnia prędkość">
-<!ENTITY esb.time "Czas wczytywania strony">
-<!ENTITY esb.percentage "Procent pobrania">
 <!ENTITY esb.document "Dokument:">
 <!ENTITY esb.tools-menu "Extended Statusbar - ustawienia">

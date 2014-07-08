@@ -1,7 +1,2 @@
-<!ENTITY esb.loadedimages "Yüklenen resimler">
-<!ENTITY esb.dataloaded "Yüklenen veri">
-<!ENTITY esb.avgspeed "Ortalama hız">
-<!ENTITY esb.time "Sayfka yüklenme hızı">
-<!ENTITY esb.percentage "Yükleme yüzdesi">
 <!ENTITY esb.document "Döküman:">
 <!ENTITY esb.tools-menu "Extended Statusbar Ayarlar">

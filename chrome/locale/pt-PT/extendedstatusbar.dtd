@@ -1,7 +1,2 @@
-<!ENTITY esb.loadedimages "Imagens carregadas">
-<!ENTITY esb.dataloaded "Dados carregados">
-<!ENTITY esb.avgspeed "Velocidade média">
-<!ENTITY esb.time "Página carregada em">
-<!ENTITY esb.percentage "Percentagem do carregamento">
 <!ENTITY esb.document "Documento:">
 <!ENTITY esb.tools-menu "Definições da barra de estado expandida">

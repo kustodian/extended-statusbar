@@ -1,7 +1,2 @@
-<!ENTITY esb.loadedimages "Numero di immagini caricate">
-<!ENTITY esb.dataloaded "Quantità di dati caricati">
-<!ENTITY esb.avgspeed "Velocità media di caricamento della pagina">
-<!ENTITY esb.time "Tempo di caricamento della pagina in secondi">
-<!ENTITY esb.percentage "Percentuale di caricamento della pagina">
 <!ENTITY esb.document "Documento:">
 <!ENTITY esb.tools-menu "Impostazioni di Extended Statusbar…">

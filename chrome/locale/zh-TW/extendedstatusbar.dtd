@@ -1,7 +1,2 @@
-<!ENTITY esb.loadedimages "載入的圖像">
-<!ENTITY esb.dataloaded "已載入資料">
-<!ENTITY esb.avgspeed "平均速度">
-<!ENTITY esb.time "頁面載入時間">
-<!ENTITY esb.percentage "已載入百分比">
 <!ENTITY esb.document "文件:">
 <!ENTITY esb.tools-menu "Extended Statusbar 設定">

@@ -1,7 +1,2 @@
-<!ENTITY esb.loadedimages "Жүктелген суреттер">
-<!ENTITY esb.dataloaded "Жүктелген ақпарат">
-<!ENTITY esb.avgspeed "Орташа жылдамдық">
-<!ENTITY esb.time "Парақ жүктелу уақыты">
-<!ENTITY esb.percentage "Жүктелу &#37;">
 <!ENTITY esb.document "Құжат:">
 <!ENTITY esb.tools-menu "Extended Statusbar баптаулары">

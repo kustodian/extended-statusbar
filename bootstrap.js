@@ -63,7 +63,6 @@ function loadIntoWindow(window)
 	
 	var percentBox =  document.createElement("stack");
 	percentBox.setAttribute("id", "ESB_percent_box");
-	percentBox.setAttribute("tooltiptext", "&esb.percentage;");
 	percentBox.appendChild(percentProgressbarHbox);
 	percentBox.appendChild(percentLabelHbox);
 	
@@ -72,7 +71,6 @@ function loadIntoWindow(window)
 	imagesLabel.setAttribute("id", "ESB_images_label");
 	var imagesBox =  document.createElement("hbox");
 	imagesBox.setAttribute("id", "ESB_images_box");
-	imagesBox.setAttribute("tooltiptext", "&esb.loadedimages;");
 	imagesBox.setAttribute("pack", "center");
 	imagesBox.setAttribute("align", "center");
 	imagesBox.appendChild(imagesLabel);
@@ -100,7 +98,6 @@ function loadIntoWindow(window)
 	
 	var loadedBox =  document.createElement("stack");
 	loadedBox.setAttribute("id", "ESB_loaded_box");
-	loadedBox.setAttribute("tooltiptext", "&esb.dataloaded;");
 	loadedBox.appendChild(loadedFinishedProgressbarHbox);
 	loadedBox.appendChild(loadedWorkingProgressbarHbox);
 	loadedBox.appendChild(loadedLabelHbox);
@@ -110,7 +107,6 @@ function loadIntoWindow(window)
 	speedLabel.setAttribute("id", "ESB_speed_label");
 	var speedBox =  document.createElement("hbox");
 	speedBox.setAttribute("id", "ESB_speed_box");
-	speedBox.setAttribute("tooltiptext", "&esb.avgspeed;");
 	speedBox.setAttribute("pack", "end");
 	speedBox.setAttribute("align", "center");
 	speedBox.appendChild(speedLabel);
@@ -120,7 +116,6 @@ function loadIntoWindow(window)
 	timeLabel.setAttribute("id", "ESB_time_label");
 	var timeBox =  document.createElement("hbox");
 	timeBox.setAttribute("id", "ESB_time_box");
-	timeBox.setAttribute("tooltiptext", "&esb.time;");
 	timeBox.setAttribute("pack", "end");
 	timeBox.setAttribute("align", "center");
 	timeBox.appendChild(timeLabel);
