@@ -437,6 +437,7 @@ XULExtendedStatusbarChrome.esbListener =
 	{
 		if (aBrowser.esbValues) aBrowser.esbOldValues = aBrowser.esbValues;
 		aBrowser.esbValues = { images: "0/0", 
+								loaded: 0,
 								loadedNetwork: 0,
 								loadedCached: 0,
 								speed: "0" + XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.dot") + "00",
@@ -482,6 +483,7 @@ XULExtendedStatusbarChrome.esbListener =
 			}
 			return compdocsize + " " + sizeinval;
 		}
+		/*
 		// For the moment, do "network" or "cached" or "network/cached".
 		var loadedString;
 		if (aBrowser.esbValues.loadedNetwork == 0)
@@ -496,6 +498,8 @@ XULExtendedStatusbarChrome.esbListener =
 		{
 			loadedString = getSize(aBrowser.esbValues.loadedNetwork) + "/" + getSize(aBrowser.esbValues.loadedCached);
 		}
+		*/
+		var loadedString = getSize(aBrowser.esbValues.loaded);
 
 		if (XULExtendedStatusbarChrome.esbSlimMode)
 		{
@@ -531,7 +535,7 @@ XULExtendedStatusbarChrome.esbListener =
 				XULExtendedStatusbarChrome.esbXUL.percent_progressbar.hidden = true;
 			}
 			
-			XULExtendedStatusbarChrome.esbXUL.loaded_working_progressbar.width = (aBrowser.esbValues.loadedNetwork + aBrowser.esbValues.loadedCached)*4 % XULExtendedStatusbarChrome.esbXUL.loaded_box.boxObject.width;
+			XULExtendedStatusbarChrome.esbXUL.loaded_working_progressbar.width = aBrowser.esbValues.loaded*4 % XULExtendedStatusbarChrome.esbXUL.loaded_box.boxObject.width;
 			
 			if(XULExtendedStatusbarChrome.esbHideCursor) 
 			{
@@ -582,7 +586,8 @@ XULExtendedStatusbarChrome.esbListener =
 				XULExtendedStatusbarChrome.esbLoading = true;
 				this.displayCurrentValuesForBrowser(aBrowser);
 			}
-			aBrowser.addProgressListener(XULExtendedStatusbarChrome.esbTabListener, 0x10/*NOTIFY_PROGRESS*/);
+			aBrowser.esbProgressListener = new XULExtendedStatusbarChrome.esbProgressListener(aBrowser);
+			aBrowser.addProgressListener(aBrowser.esbProgressListener, 0x10/*NOTIFY_PROGRESS*/);
 		}
 		else if (aStateFlags & XULExtendedStatusbarChrome.esbIWebProgressListener.STATE_STOP &&
 				 aStateFlags & XULExtendedStatusbarChrome.esbIWebProgressListener.STATE_IS_NETWORK)
@@ -607,7 +612,7 @@ XULExtendedStatusbarChrome.esbListener =
 				this.displayCurrentValuesForBrowser(aBrowser);
 			}
 			try {
-				aBrowser.removeProgressListener(XULExtendedStatusbarChrome.esbTabListener);
+				aBrowser.removeProgressListener(aBrowser.esbProgressListener);
 			} catch (e) {}
 		}
 	},
@@ -660,7 +665,7 @@ XULExtendedStatusbarChrome.esbListener =
 											   //so the time doesn't stop for the first page
 			if (now > 0)
 			{
-				var speed = (aBrowser.esbValues.loadedNetwork + aBrowser.esbValues.loadedCached) / now;
+				var speed = aBrowser.esbValues.loaded / now;
 				speed = speed.toFixed(2);
 				speed = speed.replace(/\./, XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.dot")); //Replace '.' with a symbol from the active local
 			}
@@ -779,7 +784,12 @@ XULExtendedStatusbarChrome.esbListener =
 	}
 }
 
-XULExtendedStatusbarChrome.esbTabListener =
+XULExtendedStatusbarChrome.esbProgressListener = function (aBrowser)
+{
+	this.browser = aBrowser;
+}
+
+XULExtendedStatusbarChrome.esbProgressListener.prototype =
 {
 	QueryInterface: function(aIID)
 	{
@@ -805,14 +815,19 @@ XULExtendedStatusbarChrome.esbTabListener =
 								 aCurSelfProgress, aMaxSelfProgress,
 								 aCurTotalProgress, aMaxTotalProgress)
 	{
-		console.log("Progress:", aRequest.name, aCurSelfProgress, aMaxSelfProgress, aCurTotalProgress, aMaxTotalProgress);
+		this.browser.esbValues.loaded = aCurTotalProgress;
+		//console.log("Progress:", aRequest.name, aCurSelfProgress, aMaxSelfProgress, aCurTotalProgress, aMaxTotalProgress);
 	},
 
 	onProgressChange64: function (aWebProgress, aRequest,
 				 aCurSelfProgress, aMaxSelfProgress,
 				 aCurTotalProgress, aMaxTotalProgress)
 	{
-		console.log("onProgressChange64", aCurSelfProgress, aMaxSelfProgress, aCurTotalProgress, aMaxTotalProgress);
+		//console.log("onProgressChange64", aCurSelfProgress, aMaxSelfProgress, aCurTotalProgress, aMaxTotalProgress);
+		// Never called?
+		this.onProgressChange(aWebProgress, aRequest,
+				 aCurSelfProgress, aMaxSelfProgress,
+				 aCurTotalProgress, aMaxTotalProgress);
 	},
 
 	onStateChange: function(a,b,c,d){},
@@ -882,7 +897,7 @@ XULExtendedStatusbarChrome.TracingListener.prototype =
 			this.browser.esbValues.loadedCached += count;
 		else
 			this.browser.esbValues.loadedNetwork += count;
-		console.log("Data:    ", request.name, count,this.browser.esbValues.loadedNetwork,this.browser.esbValues.loadedCached);
+		//console.log("Data ("+(this.cached?"C":"N")+"):", request.name, count,this.browser.esbValues.loadedNetwork,this.browser.esbValues.loadedCached);
 		this.originalListener.onDataAvailable(request, context, inputStream, offset, count);
 	},
 
