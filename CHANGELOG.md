@@ -5,7 +5,7 @@ Extended Statubar Changes By Release
  * Multiple-tab support
  * New settings window with new settings
  * Configure ESB from the right-clicking menu
- * Fixed image counters
+ * Fixed image counters on stop
  * ESB now preserves percentage on stop
  * Many improvements and fixes
 
