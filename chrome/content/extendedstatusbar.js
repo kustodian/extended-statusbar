@@ -561,6 +561,7 @@ XULExtendedStatusbarChrome.esbListener =
 			this.stopTimer(aBrowser);
 			
 			this.updateTime(aBrowser);
+			this.countImages(aBrowser);
 			if(aBrowser == gBrowser.selectedBrowser)
 			{
 				XULExtendedStatusbarChrome.esbLoading = false;
@@ -586,35 +587,6 @@ XULExtendedStatusbarChrome.esbListener =
 				this.initObjectValuesForBrowser(aBrowser);
 			}
 			var percentage = Math.round((aCurTotalProgress * 100) / aMaxTotalProgress);	
-			var docimgs = aBrowser.contentDocument.images;
-			var imglcount = 0;
-			var allimgsc = 0;
-			if (docimgs != null)
-			{
-				var src = [];
-				for (var i = 0; i < docimgs.length; i++)
-				{
-					if (!src[docimgs[i].src])
-					{
-						src[docimgs[i].src] = true;
-						allimgsc++;
-						if (docimgs[i].complete) imglcount++;
-					}
-				}
-				for (var i = 0; i < aBrowser.contentWindow.frames.length; i++)
-				{
-					docimgs = aBrowser.contentWindow.frames[i].document.images;
-					for (var j = 0; j < docimgs.length; j++)
-					{
-						if (!src[docimgs[j].src])
-						{
-							src[docimgs[j].src] = true;
-							allimgsc++;
-							if (docimgs[j].complete) imglcount++;
-						}
-					}
-				}
-			}			
 			var now = Date.now() - aBrowser.esbValues.startProg;
 			if (XULExtendedStatusbarChrome.esbLoading) this.startTimer(aBrowser); //This is a workaround for the first run, esbLoading is false on FF first start,
 											   //so time wont be started. This is a problem
@@ -627,7 +599,7 @@ XULExtendedStatusbarChrome.esbListener =
 				speed = speed.replace(/\./, XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.dot")); //Replace '.' with a symbol from the active local
 			}
 			if (percentage != 100) aBrowser.esbValues.percent = percentage;
-			aBrowser.esbValues.images = imglcount + "/" + allimgsc;
+			this.countImages(aBrowser);
 			aBrowser.esbValues.loaded = aCurTotalProgress;
 			aBrowser.esbValues.speed = speed;
 			
@@ -675,6 +647,40 @@ XULExtendedStatusbarChrome.esbListener =
 	onStatusChange: function(a,b,c,d,e){},
 	
 	onSecurityChange: function(a,b,c,d){},
+
+	countImages: function (aBrowser)
+	{
+		var docimgs = aBrowser.contentDocument.images;
+		var imglcount = 0;
+		var allimgsc = 0;
+		if (docimgs != null)
+		{
+			var src = [];
+			for (var i = 0; i < docimgs.length; i++)
+			{
+				if (!src[docimgs[i].src])
+				{
+					src[docimgs[i].src] = true;
+					allimgsc++;
+					if (docimgs[i].complete) imglcount++;
+				}
+			}
+			for (var i = 0; i < aBrowser.contentWindow.frames.length; i++)
+			{
+				docimgs = aBrowser.contentWindow.frames[i].document.images;
+				for (var j = 0; j < docimgs.length; j++)
+				{
+					if (!src[docimgs[j].src])
+					{
+						src[docimgs[j].src] = true;
+						allimgsc++;
+						if (docimgs[j].complete) imglcount++;
+					}
+				}
+			}
+		}
+		aBrowser.esbValues.images = imglcount + "/" + allimgsc;
+	},
 
 	updateTime: function (aBrowser)
 	{
