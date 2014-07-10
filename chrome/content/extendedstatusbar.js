@@ -19,7 +19,8 @@ XULExtendedStatusbarChrome.showOnHover;    			// If True ESB will be displayed w
 XULExtendedStatusbarChrome.hoverWait;  				// How long to hover before showing ESB
 XULExtendedStatusbarChrome.hoverSem;   				// True only if hover is in progress
 XULExtendedStatusbarChrome.hoverTimeOut;			// Name says it all
-XULExtendedStatusbarChrome.hideForSites;   			// RegExp of sites on which to hide ESB
+XULExtendedStatusbarChrome.hideForSites;			// RegExp of sites on which to hide ESB
+XULExtendedStatusbarChrome.hideDefaultSites = "^(?:about|chrome|file|jar|javascript|resource):";
 XULExtendedStatusbarChrome.hideForSitesSem = false; // Only true if the current site matches hideForSites
 XULExtendedStatusbarChrome.esbLoading = false; 		// True while the page is loading
 XULExtendedStatusbarChrome.esbSlimMode;
@@ -409,7 +410,7 @@ XULExtendedStatusbarChrome.esbListener =
 			//XULExtendedStatusbarChrome.esbXUL.status_bar.hidden = true;
 		}
 		else if (XULExtendedStatusbarChrome.hideForSites &&
-				 aEvent.target.linkedBrowser.contentDocument.location.href.match(XULExtendedStatusbarChrome.hideForSites))
+				 XULExtendedStatusbarChrome.hideForSites.test(aEvent.target.linkedBrowser.contentDocument.location.href))
 		{
 			XULExtendedStatusbarChrome.hideForSitesSem = true;
 			XULExtendedStatusbarChrome.esbXUL.esb_toolbar.hidden = true;
@@ -651,7 +652,7 @@ XULExtendedStatusbarChrome.esbListener =
 	{
 		if(aLocation)
 		{
-			if (XULExtendedStatusbarChrome.hideForSites && aLocation.spec.match(XULExtendedStatusbarChrome.hideForSites))
+			if (XULExtendedStatusbarChrome.hideForSites && XULExtendedStatusbarChrome.hideForSites.test(aLocation.spec))
 			{
 				XULExtendedStatusbarChrome.hideForSitesSem = true;
 				XULExtendedStatusbarChrome.esbXUL.esb_toolbar.hidden = true;
@@ -765,7 +766,8 @@ XULExtendedStatusbarChrome.ESB_PrefObserver = {
 		//XULExtendedStatusbarChrome.hideForSites = this.prefs.getCharPref("hideonsites");
 		if (this.prefs.getCharPref("hideonsites") != "")
 		{
-			XULExtendedStatusbarChrome.hideForSites = new RegExp(this.prefs.getCharPref("hideonsites")
+			XULExtendedStatusbarChrome.hideForSites = new RegExp(XULExtendedStatusbarChrome.hideDefaultSites+"|"+
+							this.prefs.getCharPref("hideonsites")
 							.replace(/\|$/, "")					//Remove last '|'
 							.replace(/(\W)/g, "\\$1")			//Escape all special characters
 							.replace(/\\\|/g, "|")				//Unescape from '|'
@@ -776,7 +778,7 @@ XULExtendedStatusbarChrome.ESB_PrefObserver = {
 		}
 		else
 		{
-			XULExtendedStatusbarChrome.hideForSites = null;
+			XULExtendedStatusbarChrome.hideForSites = new RegExp(XULExtendedStatusbarChrome.hideDefaultSites);
 		}
 
 		if (this.prefs.getBoolPref("slimmode")) XULExtendedStatusbarChrome.esbSlimMode = true;
@@ -893,7 +895,8 @@ XULExtendedStatusbarChrome.ESB_PrefObserver = {
 			case "hideonsites":
 				if (this.prefs.getCharPref("hideonsites") != "")
 				{
-					XULExtendedStatusbarChrome.hideForSites = new RegExp(this.prefs.getCharPref("hideonsites")
+					XULExtendedStatusbarChrome.hideForSites = new RegExp(XULExtendedStatusbarChrome.hideDefaultSites+"|"+
+									this.prefs.getCharPref("hideonsites")
 									.replace(/\|$/, "")					//Remove last '|'
 									.replace(/(\W)/g, "\\$1")			//Escape all special characters
 									.replace(/\\\|/g, "|")				//Unescape from '|'
@@ -904,10 +907,10 @@ XULExtendedStatusbarChrome.ESB_PrefObserver = {
 				}
 				else
 				{
-					XULExtendedStatusbarChrome.hideForSites = null;
+					XULExtendedStatusbarChrome.hideForSites = new RegExp(XULExtendedStatusbarChrome.hideDefaultSites);
 				}
 				if (XULExtendedStatusbarChrome.hideForSites && 
-					gBrowser.selectedBrowser.contentDocument.location.href.match(XULExtendedStatusbarChrome.hideForSites))
+					XULExtendedStatusbarChrome.hideForSites.test(gBrowser.selectedBrowser.contentDocument.location.href))
 				{
 					XULExtendedStatusbarChrome.hideForSitesSem = true;
 					XULExtendedStatusbarChrome.esbXUL.esb_toolbar.hidden = true;
