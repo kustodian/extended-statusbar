@@ -588,6 +588,7 @@ XULExtendedStatusbarChrome.esbListener =
 			}
 			aBrowser.esbProgressListener = new XULExtendedStatusbarChrome.esbProgressListener(aBrowser);
 			aBrowser.addProgressListener(aBrowser.esbProgressListener, 0x10/*NOTIFY_PROGRESS*/);
+			console.log("Start:", aRequest.name);
 		}
 		else if (aStateFlags & XULExtendedStatusbarChrome.esbIWebProgressListener.STATE_STOP &&
 				 aStateFlags & XULExtendedStatusbarChrome.esbIWebProgressListener.STATE_IS_NETWORK)
@@ -615,6 +616,7 @@ XULExtendedStatusbarChrome.esbListener =
 			try {
 				aBrowser.removeProgressListener(aBrowser.esbProgressListener);
 			} catch (e) {}
+			console.log("Stop:", aRequest.name);
 		}
 	},
 	
@@ -822,7 +824,7 @@ XULExtendedStatusbarChrome.esbProgressListener.prototype =
 								 aCurTotalProgress, aMaxTotalProgress)
 	{
 		this.browser.esbValues.loaded = aCurTotalProgress;
-		//console.log("Progress:", aRequest.name, aCurSelfProgress, aMaxSelfProgress, aCurTotalProgress, aMaxTotalProgress);
+		console.log("Progress:", aRequest.contentType ? aRequest.contentType : "", aRequest.name, aCurSelfProgress, aCurTotalProgress);
 	},
 
 	onProgressChange64: function (aWebProgress, aRequest,
@@ -903,7 +905,7 @@ XULExtendedStatusbarChrome.TracingListener.prototype =
 			this.browser.esbValues.loadedCached += count;
 		else
 			this.browser.esbValues.loadedNetwork += count;
-		//console.log("Data ("+(this.cached?"C":"N")+"):", request.name, count,this.browser.esbValues.loadedNetwork,this.browser.esbValues.loadedCached);
+		console.log("Data ("+(this.cached?"C":"N")+"):", request.contentType ? request.contentType : "", request.name, count,this.browser.esbValues.loadedNetwork,this.browser.esbValues.loadedCached);
 		this.originalListener.onDataAvailable(request, context, inputStream, offset, count);
 	},
 
