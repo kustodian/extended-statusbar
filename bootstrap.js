@@ -9,17 +9,17 @@ if (isPostAustralis) Components.utils.import("resource:///modules/CustomizableUI
 
 function startup(data,reason)
 {
-	//Services.console.logStringMessage();
-	Services.scriptloader.loadSubScript("chrome://extendedstatusbar/content/esbpref.js", {pref:setDefaultPref} );
-    forEachOpenWindow(loadIntoWindow);
-    Services.wm.addListener(WindowListener);
-	
 	//Define the widget once for all windows
 	CustomizableUI.createWidget({
 		id: "ESB_toolbaritem",
 		type: "custom",
 		onBuild: buildESB
 	});
+	
+	//Services.console.logStringMessage();
+	Services.scriptloader.loadSubScript("chrome://extendedstatusbar/content/esbpref.js", {pref:setDefaultPref} );
+    forEachOpenWindow(loadIntoWindow);
+    Services.wm.addListener(WindowListener);
 	
 	//skin
 	let styleService = Components.classes["@mozilla.org/content/style-sheet-service;1"]
@@ -38,6 +38,12 @@ function shutdown(data, reason)
     if (reason == APP_SHUTDOWN)
         return;
 
+	if (isPostAustralis)
+	{
+		CustomizableUI.unregisterArea("ESB_toolbar");
+		CustomizableUI.destroyWidget("ESB_toolbaritem");
+	}
+	
     forEachOpenWindow(unloadFromWindow);
     Services.wm.removeListener(WindowListener);
 	
@@ -251,8 +257,6 @@ function unloadFromWindow(window)
 	
 	if (isPostAustralis)
 	{
-		CustomizableUI.unregisterArea("ESB_toolbar");
-		
 		var esbToolbar = document.getElementById("ESB_toolbar");
 		if(esbToolbar)
 		{
