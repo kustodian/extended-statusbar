@@ -155,6 +155,10 @@ function loadIntoWindow(window)
 		esbToolbar.setAttribute("customizable", "true");
 		esbToolbar.setAttribute("context", "toolbar-context-menu");
 		esbToolbar.setAttribute("hidden", "false");
+		esbToolbar.setAttribute("collapsed", window.Application.prefs.getValue("extensions.extendedstatusbar.collapsed", false));
+		window.addEventListener("unload", function(e){
+			window.Application.prefs.setValue("extensions.extendedstatusbar.collapsed", document.getElementById("ESB_toolbar").collapsed);
+		}, false);
 		esbToolbar.setAttribute("persist", "hidden");
 		esbToolbar.setAttribute("mode", "icons");
 		esbToolbar.setAttribute("iconsize", "small");
