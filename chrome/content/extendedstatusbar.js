@@ -648,11 +648,106 @@ XULExtendedStatusbarChrome.esbListener =
 	
 	onSecurityChange: function(a,b,c,d){},
 
+	// Count the images in the document (adapted from WebDeveloper).
+	getDocumentImages: function(contentDocument)
+	{
+		var uniqueImages = 0;
+
+		// If the content document is set
+		if(contentDocument)
+		{
+			var computedStyle = null;
+			var cssURI		  = CSSPrimitiveValue.CSS_URI;
+			var image		  = null;
+			var images		  = [];
+			var node		  = null;
+			var styleImage	  = null;
+			var treeWalker	  = contentDocument.createTreeWalker(contentDocument, NodeFilter.SHOW_ELEMENT, null, false);
+
+			// While the tree walker has more nodes
+			while((node = treeWalker.nextNode()) !== null)
+			{
+				// If this is an image element
+				if(node.tagName.toLowerCase() == "img" && node.src)
+				{
+					images.push(node.src);
+				}
+				else if(node.tagName.toLowerCase() == "input" && node.src && node.type && node.type.toLowerCase() == "image")
+				{
+					// If this is not a chrome image
+					if(node.src.indexOf("chrome://") !== 0)
+					{
+						images.push(node.src);
+					}
+				}
+				else
+				{
+					computedStyle = node.ownerDocument.defaultView.getComputedStyle(node, null);
+
+					// If the computed style is set
+					if(computedStyle)
+					{
+						styleImage = computedStyle.getPropertyCSSValue("background-image");
+						if (styleImage)
+						{
+							styleImage = styleImage[0];
+
+							// If this element has a background image and it is a URI
+							if(styleImage && styleImage.primitiveType == cssURI)
+							{
+								var src = styleImage.getStringValue();
+
+								// If this is not a chrome image
+								if(src.indexOf("chrome://") !== 0)
+								{
+									images.push(src);
+								}
+							}
+						}
+
+						styleImage = computedStyle.getPropertyCSSValue("list-style-image");
+
+						// If this element has a background image and it is a URI
+						if(styleImage && styleImage.primitiveType == cssURI)
+						{
+							var src = styleImage.getStringValue();
+
+							// If this is not a chrome image
+							if(src.indexOf("chrome://") !== 0)
+							{
+								images.push(src);
+							}
+						}
+					}
+				}
+			}
+
+			images.sort(function(a, b) { return (a == b ? 0 : (a < b ? -1 : 1)); });
+
+			// Loop through the images
+			for(var i = 0, l = images.length; i < l; i++)
+			{
+				image = images[i];
+
+				// If this is not the last image and the image is the same as the next image
+				if(i + 1 < l && image == images[i + 1])
+				{
+					continue;
+				}
+
+				++uniqueImages;
+			}
+		}
+
+		return uniqueImages;
+	},
+
 	countImages: function (aBrowser)
 	{
 		var docimgs = aBrowser.contentDocument.images;
 		var imglcount = 0;
 		var allimgsc = 0;
+		var cssimgsc = this.getDocumentImages(aBrowser.contentDocument);
 		if (docimgs != null)
 		{
 			var src = [];
@@ -667,6 +762,7 @@ XULExtendedStatusbarChrome.esbListener =
 			}
 			for (var i = 0; i < aBrowser.contentWindow.frames.length; i++)
 			{
+				cssimgsc += this.getDocumentImages(aBrowser.contentWindow.frames[i].document);
 				docimgs = aBrowser.contentWindow.frames[i].document.images;
 				for (var j = 0; j < docimgs.length; j++)
 				{
@@ -679,7 +775,7 @@ XULExtendedStatusbarChrome.esbListener =
 				}
 			}
 		}
-		aBrowser.esbValues.images = imglcount + "/" + allimgsc;
+		aBrowser.esbValues.images = imglcount + "/" + allimgsc + "/" + cssimgsc;
 	},
 
 	updateTime: function (aBrowser)
