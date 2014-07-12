@@ -9,6 +9,17 @@ if (isPostAustralis) Components.utils.import("resource:///modules/CustomizableUI
 
 function startup(data,reason)
 {
+	if (isPostAustralis)
+	{
+		//Define the widget once for all windows
+		CustomizableUI.createWidget({
+			id: "ESB_toolbaritem",
+			type: "custom",
+			onBuild: buildESB
+		});
+	}
+	
+	//Services.console.logStringMessage();
 	Services.scriptloader.loadSubScript("chrome://extendedstatusbar/content/esbpref.js", {pref:setDefaultPref} );
     forEachOpenWindow(loadIntoWindow);
     Services.wm.addListener(WindowListener);
@@ -30,6 +41,12 @@ function shutdown(data, reason)
     if (reason == APP_SHUTDOWN)
         return;
 
+	if (isPostAustralis)
+	{
+		CustomizableUI.unregisterArea("ESB_toolbar");
+		CustomizableUI.destroyWidget("ESB_toolbaritem");
+	}
+	
     forEachOpenWindow(unloadFromWindow);
     Services.wm.removeListener(WindowListener);
 	
@@ -44,10 +61,8 @@ function shutdown(data, reason)
 
 // loader
 
-function loadIntoWindow(window) 
+function buildESB(document)
 {
-	var document = window.document;
-	
 	//ESB_percent_box
 	var percentLabel = document.createElement("label");
 	percentLabel.setAttribute("id", "ESB_percent_label");
@@ -128,18 +143,20 @@ function loadIntoWindow(window)
 	esbStatusBar.appendChild(loadedBox);
 	esbStatusBar.appendChild(speedBox);
 	esbStatusBar.appendChild(timeBox);
-	
-	//ESB_toolbaritem
-	var esbToolbaritem = document.createElement("toolbaritem");
-	esbToolbaritem.setAttribute("id", "ESB_toolbaritem");
+	let esbToolbaritem = document.createElement("toolbaritem");
+	esbToolbaritem.id = "ESB_toolbaritem";
+	esbToolbaritem.setAttribute("removable", "true");
 	esbToolbaritem.setAttribute("title", "Extended Statusbar");
 	esbToolbaritem.appendChild(esbStatusBar);
+	return esbToolbaritem;
+}
+function loadIntoWindow(window) 
+{
+	var document = window.document;
 	
-	if (isPostAustralis)
-	{
-		esbToolbaritem.setAttribute("removable", "true");
-		document.getElementById("navigator-toolbox").palette.appendChild(esbToolbaritem);
-		
+	//ESB_toolbaritem
+	if(isPostAustralis)
+	{		
 		//ESB_toolbarspacer
 		var esbToolbarspacer = document.createElement("toolbarspacer");
 		esbToolbarspacer.setAttribute("id", "ESB_toolbarspacer");
@@ -168,13 +185,15 @@ function loadIntoWindow(window)
 		
 		document.getElementById("browser-bottombox").appendChild(esbToolbar);
 	
-	//Let the toolbar be customizable and element placement correctly saved
+		//Let the toolbar be customizable and element placement correctly saved
 		CustomizableUI.registerArea("ESB_toolbar",{
 			type: CustomizableUI.TYPE_TOOLBAR,
 			defaultPlacements: ["ESB_toolbaritem","ESB_toolbarspacer"]});
 	}
 	else
-	{
+	{	
+		var esbToolbaritem = buildESB(document);
+		
 		var addonBar = document.getElementById("addon-bar");
 		if (addonBar) 
 		{
@@ -241,8 +260,6 @@ function unloadFromWindow(window)
 	
 	if (isPostAustralis)
 	{
-		CustomizableUI.unregisterArea("ESB_toolbar");
-		
 		var esbToolbar = document.getElementById("ESB_toolbar");
 		if(esbToolbar)
 		{
