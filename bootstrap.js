@@ -9,12 +9,15 @@ if (isPostAustralis) Components.utils.import("resource:///modules/CustomizableUI
 
 function startup(data,reason)
 {
-	//Define the widget once for all windows
-	CustomizableUI.createWidget({
-		id: "ESB_toolbaritem",
-		type: "custom",
-		onBuild: buildESB
-	});
+	if (isPostAustralis)
+	{
+		//Define the widget once for all windows
+		CustomizableUI.createWidget({
+			id: "ESB_toolbaritem",
+			type: "custom",
+			onBuild: buildESB
+		});
+	}
 	
 	//Services.console.logStringMessage();
 	Services.scriptloader.loadSubScript("chrome://extendedstatusbar/content/esbpref.js", {pref:setDefaultPref} );
