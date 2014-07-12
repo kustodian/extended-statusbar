@@ -57,6 +57,9 @@ function shutdown(data, reason)
 	styleService.unregisterSheet(uri, styleService.AUTHOR_SHEET);
 	uri = NetUtil.newURI("chrome://extendedstatusbar/skin/extendedstatusbaroptions.css");
 	styleService.unregisterSheet(uri, styleService.AUTHOR_SHEET);
+	
+	//cache clearing 
+    Services.obs.notifyObservers(null, "chrome-flush-caches", null);
 }
 
 // loader
