@@ -648,8 +648,8 @@ XULExtendedStatusbarChrome.esbListener =
 	
 	onSecurityChange: function(a,b,c,d){},
 
-	// Count the images in the document (adapted from WebDeveloper).
-	getDocumentImages: function(contentDocument)
+	// Count the images that aren't <img> in the document (adapted from WebDeveloper).
+	countOtherImages: function(contentDocument)
 	{
 		var uniqueImages = 0;
 
@@ -667,12 +667,7 @@ XULExtendedStatusbarChrome.esbListener =
 			// While the tree walker has more nodes
 			while((node = treeWalker.nextNode()) !== null)
 			{
-				// If this is an image element
-				if(node.tagName.toLowerCase() == "img" && node.src)
-				{
-					images.push(node.src);
-				}
-				else if(node.tagName.toLowerCase() == "input" && node.src && node.type && node.type.toLowerCase() == "image")
+				if(node.tagName.toLowerCase() == "input" && node.src && node.type && node.type.toLowerCase() == "image")
 				{
 					// If this is not a chrome image
 					if(node.src.indexOf("chrome://") !== 0)
@@ -680,32 +675,16 @@ XULExtendedStatusbarChrome.esbListener =
 						images.push(node.src);
 					}
 				}
-				else
+
+				computedStyle = node.ownerDocument.defaultView.getComputedStyle(node, null);
+
+				// If the computed style is set
+				if(computedStyle)
 				{
-					computedStyle = node.ownerDocument.defaultView.getComputedStyle(node, null);
-
-					// If the computed style is set
-					if(computedStyle)
+					styleImage = computedStyle.getPropertyCSSValue("background-image");
+					if (styleImage)
 					{
-						styleImage = computedStyle.getPropertyCSSValue("background-image");
-						if (styleImage)
-						{
-							styleImage = styleImage[0];
-
-							// If this element has a background image and it is a URI
-							if(styleImage && styleImage.primitiveType == cssURI)
-							{
-								var src = styleImage.getStringValue();
-
-								// If this is not a chrome image
-								if(src.indexOf("chrome://") !== 0)
-								{
-									images.push(src);
-								}
-							}
-						}
-
-						styleImage = computedStyle.getPropertyCSSValue("list-style-image");
+						styleImage = styleImage[0];
 
 						// If this element has a background image and it is a URI
 						if(styleImage && styleImage.primitiveType == cssURI)
@@ -717,6 +696,20 @@ XULExtendedStatusbarChrome.esbListener =
 							{
 								images.push(src);
 							}
+						}
+					}
+
+					styleImage = computedStyle.getPropertyCSSValue("list-style-image");
+
+					// If this element has a background image and it is a URI
+					if(styleImage && styleImage.primitiveType == cssURI)
+					{
+						var src = styleImage.getStringValue();
+
+						// If this is not a chrome image
+						if(src.indexOf("chrome://") !== 0)
+						{
+							images.push(src);
 						}
 					}
 				}
@@ -747,13 +740,13 @@ XULExtendedStatusbarChrome.esbListener =
 		var docimgs = aBrowser.contentDocument.images;
 		var imglcount = 0;
 		var allimgsc = 0;
-		var cssimgsc = this.getDocumentImages(aBrowser.contentDocument);
+		var otherimgsc = this.countOtherImages(aBrowser.contentDocument);
 		if (docimgs != null)
 		{
 			var src = [];
 			for (var i = 0; i < docimgs.length; i++)
 			{
-				if (!src[docimgs[i].src])
+				if (docimgs[i].src && !src[docimgs[i].src])
 				{
 					src[docimgs[i].src] = true;
 					allimgsc++;
@@ -762,11 +755,11 @@ XULExtendedStatusbarChrome.esbListener =
 			}
 			for (var i = 0; i < aBrowser.contentWindow.frames.length; i++)
 			{
-				cssimgsc += this.getDocumentImages(aBrowser.contentWindow.frames[i].document);
+				otherimgsc += this.getDocumentImages(aBrowser.contentWindow.frames[i].document);
 				docimgs = aBrowser.contentWindow.frames[i].document.images;
 				for (var j = 0; j < docimgs.length; j++)
 				{
-					if (!src[docimgs[j].src])
+					if (docimgs[j].src && !src[docimgs[j].src])
 					{
 						src[docimgs[j].src] = true;
 						allimgsc++;
@@ -775,7 +768,7 @@ XULExtendedStatusbarChrome.esbListener =
 				}
 			}
 		}
-		aBrowser.esbValues.images = imglcount + "/" + allimgsc + "/" + cssimgsc;
+		aBrowser.esbValues.images = imglcount + "/" + allimgsc + "/" + (allimgsc + otherimgsc);
 	},
 
 	updateTime: function (aBrowser)
