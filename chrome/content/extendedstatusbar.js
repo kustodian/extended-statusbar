@@ -768,7 +768,8 @@ XULExtendedStatusbarChrome.esbListener =
 				}
 			}
 		}
-		aBrowser.esbValues.images = imglcount + "/" + allimgsc + "/" + (allimgsc + otherimgsc);
+		aBrowser.esbValues.images = imglcount + "/" + allimgsc;
+		if (otherimgsc != 0) aBrowser.esbValues.images += "/" + (allimgsc + otherimgsc);
 	},
 
 	updateTime: function (aBrowser)
