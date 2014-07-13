@@ -78,6 +78,73 @@ function shutdown(data, reason)
 
 function buildESB(document)
 {
+	var onDragStart = function(event){
+		var dataTransfer = event.dataTransfer;
+		var dataNode = event.target;
+		while(!dataNode.id || !dataNode.id.match("ESB_.*_box"))
+			dataNode = dataNode.parentNode;
+		if(!dataNode.draggable) return;
+		dataTransfer.mozSetDataAt('application/x-moz-node', dataNode, 0);
+	};
+	
+	var onDragOver = function(event){
+		event.preventDefault();
+		var dataNode = event.dataTransfer.mozGetDataAt('application/x-moz-node', 0);
+		var parentNode = dataNode.parentNode;
+		if(!parentNode) return;
+		var childNodes = parentNode.childNodes;
+		var mouseX = event.clientX;
+		for (var i = 0; i < childNodes.length; i++) 
+		{
+			if(childNodes[i].hidden == true || childNodes[i] == dataNode) continue;
+			var boxX = childNodes[i].boxObject.x;
+			var boxWidth = childNodes[i].boxObject.width;
+			if(mouseX >= boxX && mouseX <= (boxX + boxWidth))
+			{
+				var moved = false;
+				var newPosition;
+				if(mouseX > (boxX + boxWidth/2))
+				{
+					if(dataNode != childNodes[i].nextSibling)
+					{
+						newPosition = dataNode.esbPosition > i ? i + 1 : i;
+						moved = true;
+					}
+				}
+				else
+				{
+					if(dataNode != childNodes[i].previousSibling)
+					{
+						newPosition = dataNode.esbPosition > i ? i : i - 1;
+						moved = true;
+					}
+				}
+				if(moved)
+				{
+					switch(dataNode.id)
+					{
+						case "ESB_percent_box":
+							Services.prefs.setIntPref("extensions.extendedstatusbar.percentposition", newPosition);
+							break;
+						case "ESB_images_box":
+							Services.prefs.setIntPref("extensions.extendedstatusbar.imagesposition", newPosition);
+							break;
+						case "ESB_loaded_box":
+							Services.prefs.setIntPref("extensions.extendedstatusbar.loadedposition", newPosition);
+							break;
+						case "ESB_speed_box":
+							Services.prefs.setIntPref("extensions.extendedstatusbar.speedposition", newPosition);
+							break;
+						case "ESB_time_box":
+							Services.prefs.setIntPref("extensions.extendedstatusbar.timeposition", newPosition);
+							break;
+					}
+				}
+				break;
+			}
+		}
+	};
+	
 	//ESB_percent_box
 	var percentLabel = document.createElement("label");
 	percentLabel.setAttribute("id", "ESB_percent_label");
@@ -93,6 +160,8 @@ function buildESB(document)
 	
 	var percentBox =  document.createElement("stack");
 	percentBox.setAttribute("id", "ESB_percent_box");
+	percentBox.draggable = false;
+	percentBox.addEventListener("dragstart", onDragStart, false);
 	percentBox.appendChild(percentProgressbarHbox);
 	percentBox.appendChild(percentLabelHbox);
 	
@@ -101,8 +170,10 @@ function buildESB(document)
 	imagesLabel.setAttribute("id", "ESB_images_label");
 	var imagesBox =  document.createElement("hbox");
 	imagesBox.setAttribute("id", "ESB_images_box");
+	imagesBox.draggable = false;
 	imagesBox.setAttribute("pack", "center");
 	imagesBox.setAttribute("align", "center");
+	imagesBox.addEventListener("dragstart", onDragStart, false);
 	imagesBox.appendChild(imagesLabel);
 	
 	//ESB_loaded_box
@@ -128,6 +199,8 @@ function buildESB(document)
 	
 	var loadedBox =  document.createElement("stack");
 	loadedBox.setAttribute("id", "ESB_loaded_box");
+	loadedBox.draggable = false;
+	loadedBox.addEventListener("dragstart", onDragStart, false);
 	loadedBox.appendChild(loadedFinishedProgressbarHbox);
 	loadedBox.appendChild(loadedWorkingProgressbarHbox);
 	loadedBox.appendChild(loadedLabelHbox);
@@ -137,8 +210,10 @@ function buildESB(document)
 	speedLabel.setAttribute("id", "ESB_speed_label");
 	var speedBox =  document.createElement("hbox");
 	speedBox.setAttribute("id", "ESB_speed_box");
+	speedBox.draggable = false;
 	speedBox.setAttribute("pack", "end");
 	speedBox.setAttribute("align", "center");
+	speedBox.addEventListener("dragstart", onDragStart, false);
 	speedBox.appendChild(speedLabel);
 	
 	//ESB_time_box
@@ -146,18 +221,64 @@ function buildESB(document)
 	timeLabel.setAttribute("id", "ESB_time_label");
 	var timeBox =  document.createElement("hbox");
 	timeBox.setAttribute("id", "ESB_time_box");
+	timeBox.draggable = false;
 	timeBox.setAttribute("pack", "end");
 	timeBox.setAttribute("align", "center");
+	timeBox.addEventListener("dragstart", onDragStart, false);
 	timeBox.appendChild(timeLabel);
 	
 	//ESB_status_bar
 	var esbStatusBar = document.createElement("hbox");
+	esbStatusBar.addEventListener("dragover", onDragOver, false);
 	esbStatusBar.setAttribute("id", "ESB_status_bar");
-	esbStatusBar.appendChild(percentBox);
-	esbStatusBar.appendChild(imagesBox);
-	esbStatusBar.appendChild(loadedBox);
-	esbStatusBar.appendChild(speedBox);
-	esbStatusBar.appendChild(timeBox);
+	
+	percentBox.esbPosition = Services.prefs.getIntPref("extensions.extendedstatusbar.percentposition");
+	imagesBox.esbPosition = Services.prefs.getIntPref("extensions.extendedstatusbar.imagesposition");
+	loadedBox.esbPosition = Services.prefs.getIntPref("extensions.extendedstatusbar.loadedposition");
+	speedBox.esbPosition = Services.prefs.getIntPref("extensions.extendedstatusbar.speedposition");
+	timeBox.esbPosition = Services.prefs.getIntPref("extensions.extendedstatusbar.timeposition");
+	insertBox(percentBox);
+	insertBox(imagesBox);
+	insertBox(loadedBox);
+	insertBox(speedBox);
+	insertBox(timeBox);
+	function insertBox(node)
+	{
+		var childNodes = esbStatusBar.childNodes;
+		var futureNextSibling = null;
+		if(childNodes.length > 0)
+		{
+			for (var i = 0; i < childNodes.length; i++)
+			{
+				if(node.esbPosition < childNodes[i].esbPosition)
+				{
+					futureNextSibling = childNodes[i];
+					break;
+				}
+			}
+			if(futureNextSibling)
+				esbStatusBar.insertBefore(node, futureNextSibling);
+			else
+				esbStatusBar.appendChild(node);
+		}
+		else
+		{
+			esbStatusBar.appendChild(node);
+		}
+	}
+	
+	//refreshing positions in case of messed up prefs
+	var childNodes = esbStatusBar.childNodes;
+	for (var i = 0; i < childNodes.length; i++)
+	{
+		childNodes[i].esbPosition = i;
+	}
+	Services.prefs.setIntPref("extensions.extendedstatusbar.percentposition", percentBox.esbPosition);
+	Services.prefs.setIntPref("extensions.extendedstatusbar.imagesposition", imagesBox.esbPosition);
+	Services.prefs.setIntPref("extensions.extendedstatusbar.loadedposition", loadedBox.esbPosition);
+	Services.prefs.setIntPref("extensions.extendedstatusbar.speedposition", speedBox.esbPosition);
+	Services.prefs.setIntPref("extensions.extendedstatusbar.timeposition", timeBox.esbPosition);
+	
 	let esbToolbaritem = document.createElement("toolbaritem");
 	esbToolbaritem.id = "ESB_toolbaritem";
 	esbToolbaritem.setAttribute("removable", "true");
