@@ -88,24 +88,23 @@ function buildESB(document)
 	};
 	
 	var onDragOver = function(event){
-		event.preventDefault();
 		var dataNode = event.dataTransfer.mozGetDataAt('application/x-moz-node', 0);
-		var parentNode = dataNode.parentNode;
-		if(!parentNode) return;
-		var childNodes = parentNode.childNodes;
+		if(!dataNode || !dataNode.id || !dataNode.id.match("ESB_.*_box")) return;
+		event.preventDefault();
+		var boxNodes = dataNode.parentNode.childNodes;
 		var mouseX = event.clientX;
-		for (var i = 0; i < childNodes.length; i++) 
+		for (var i = 0; i < boxNodes.length; i++) 
 		{
-			if(childNodes[i].hidden == true || childNodes[i] == dataNode) continue;
-			var boxX = childNodes[i].boxObject.x;
-			var boxWidth = childNodes[i].boxObject.width;
+			if(boxNodes[i].hidden == true || boxNodes[i] == dataNode) continue;
+			var boxX = boxNodes[i].boxObject.x;
+			var boxWidth = boxNodes[i].boxObject.width;
 			if(mouseX >= boxX && mouseX <= (boxX + boxWidth))
 			{
 				var moved = false;
 				var newPosition;
 				if(mouseX > (boxX + boxWidth/2))
 				{
-					if(dataNode != childNodes[i].nextSibling)
+					if(dataNode != boxNodes[i].nextSibling)
 					{
 						newPosition = dataNode.esbPosition > i ? i + 1 : i;
 						moved = true;
@@ -113,7 +112,7 @@ function buildESB(document)
 				}
 				else
 				{
-					if(dataNode != childNodes[i].previousSibling)
+					if(dataNode != boxNodes[i].previousSibling)
 					{
 						newPosition = dataNode.esbPosition > i ? i : i - 1;
 						moved = true;
