@@ -33,7 +33,19 @@ function startup(data,reason)
 	styleService.loadAndRegisterSheet(uri, styleService.AUTHOR_SHEET);
 }
 function install(data, reason)
-{}
+{
+	if (!isPostAustralis)
+	{
+		var unCollapseAddonBar = function (window) {
+			addonBar = window.document.getElementById("addon-bar");
+			if (addonBar) 
+			{
+				addonBar.collapsed = false;
+			}
+		};
+		forEachOpenWindow(unCollapseAddonBar);
+	}
+}
 function uninstall(data, reason)
 {}
 function shutdown(data, reason)
