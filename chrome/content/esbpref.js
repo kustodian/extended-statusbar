@@ -9,6 +9,7 @@ pref("extensions.extendedstatusbar.progresscolor", "#A9A9A9");
 pref("extensions.extendedstatusbar.cursorcolor", "#FFCC66");
 pref("extensions.extendedstatusbar.textcolor", "");
 pref("extensions.extendedstatusbar.usecustomcolor", false);
+pref("extensions.extendedstatusbar.hidelocalsites", true);
 pref("extensions.extendedstatusbar.hideonsites", "");
 pref("extensions.extendedstatusbar.esbstyle", 0);
 pref("extensions.extendedstatusbar.hideimages", false);

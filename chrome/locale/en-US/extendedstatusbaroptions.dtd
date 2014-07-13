@@ -19,6 +19,9 @@
 <!ENTITY esb.secondsdisplay "milliseconds">
 <!ENTITY esb.hideonsites "Don&apos;t show on these sites (separate with &apos;|&apos;):">
 <!ENTITY esb.hideonsites.tooltip "Useful for AJAX sites like Gmail">
+<!ENTITY esb.hidelocalsites "Hide local sites">
+<!ENTITY esb.hidelocalsites.tooltip "Don't show on about, chrome, file, jar, javascript or resource addresses.">
+<!ENTITY esb.hidelocalsites.accesskey "l">
 <!ENTITY esb.appendcurrent "Append Current Page">
 <!ENTITY esb.appendcurrent.accesskey "A">
 <!ENTITY esb.customcolor "Custom color">
