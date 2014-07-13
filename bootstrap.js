@@ -40,7 +40,7 @@ function install(data, reason)
 			addonBar = window.document.getElementById("addon-bar");
 			if (addonBar) 
 			{
-				addonBar.collapsed = false;
+				window.setToolbarVisibility(addonBar, true, true);
 			}
 		};
 		forEachOpenWindow(unCollapseAddonBar);
