@@ -5,6 +5,9 @@ if ("undefined" == typeof(XULExtendedStatusbarChrome)) {
   var XULExtendedStatusbarChrome = {};
 }
 
+Components.utils.import("resource://gre/modules/Services.jsm");
+Components.utils.import("resource://gre/modules/XPCOMUtils.jsm");
+		
 /*          Vars         */
 XULExtendedStatusbarChrome.started = false;    		// If True ESB is started
 XULExtendedStatusbarChrome.ffIsPostAustralis = Components.classes["@mozilla.org/xpcom/version-comparator;1"].getService(Components.interfaces.nsIVersionComparator)
@@ -337,9 +340,6 @@ if(XULExtendedStatusbarChrome.ffIsPostAustralis)
 
 XULExtendedStatusbarChrome.esbXUL =
 {
-	esbstrings: null,
-	esb_gBundle: null,
-
 	get esb_toolbar() {if(XULExtendedStatusbarChrome.ffIsPostAustralis) return document.getElementById("ESB_toolbar");
 						else return document.getElementById("addon-bar"); },
 	get status_bar() {return document.getElementById("ESB_status_bar");},
@@ -359,8 +359,12 @@ XULExtendedStatusbarChrome.esbXUL =
 	
 	init: function()
 	{
-		this.esb_gBundle = Components.classes["@mozilla.org/intl/stringbundle;1"].getService(Components.interfaces.nsIStringBundleService);
-		this.esbstrings = this.esb_gBundle.createBundle("chrome://extendedstatusbar/locale/extendedstatusbar.properties");
+		XPCOMUtils.defineLazyGetter(this, "esbstrings", function() { return loadPropertiesFile("chrome://extendedstatusbar/locale/extendedstatusbar.properties"); });
+		function loadPropertiesFile(path)
+		{
+			//workaround for the cache clearing problem between extension updates
+			return Services.strings.createBundle(path + "?" + Math.random());
+		}
 		
 		this.percent_box.setAttribute("tooltiptext", this.esbstrings.GetStringFromName("esb.tooltip.percentage"));
 		this.images_box.setAttribute("tooltiptext", this.esbstrings.GetStringFromName("esb.tooltip.loadedimages"));

@@ -26,7 +26,7 @@
 /* We need to see the spacer in customization mode */
 #main-window[customize-entered] #ESB_toolbarspacer
 {
-	border: 11px solid black;
+	background-color: grey;
 }
 
 /* We need to adapt the widget for the customization panel */
@@ -46,22 +46,16 @@ toolbarpaletteitem[place="palette"] > #ESB_toolbaritem > #ESB_status_bar > #ESB_
 
 toolbarpaletteitem[place="palette"] > #ESB_toolbaritem > #ESB_status_bar
 {
-	width: 32px;
+	min-width: 32px;
 	height: 32px;
 	background-repeat: no-repeat;
 	background-color: transparent !important;
 	background-position: center center;
 	background-image: url(chrome://extendedstatusbar/skin/icon.png) !important;
 }
-/*
-toolbarpaletteitem[place="palette"] > #ESB_toolbaritem > #ESB_status_bar
-{
-	visibility: visible;
-}
-*/
+
 #ESB_toolbaritem[cui-areatype="menu-panel"] > #ESB_status_bar
 {
-  margin-top: -1px;
 	width: 89px;
 	height: 83px;
 	background-repeat: no-repeat;
@@ -69,18 +63,6 @@ toolbarpaletteitem[place="palette"] > #ESB_toolbaritem > #ESB_status_bar
 	background-position: center center;
 	background-image: url(chrome://extendedstatusbar/skin/icon.png) !important;
 }
-/*
-#wrapper-ESB_toolbaritem toolbaritem
-{
-	visibility: visible;
-}
-*/
-/*#wrapper-ESB_toolbaritem[cui-areatype="menu-panel"]
-{
-	width: 89px;
-	height: 83px;
-	border: 1px solid Black;
-}*/
 
 #ESB_toolbaritem[cui-areatype="menu-panel"]
 {
