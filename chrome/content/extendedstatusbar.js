@@ -583,7 +583,7 @@ XULExtendedStatusbarChrome.esbListener =
 				this.displayCurrentValuesForBrowser(aBrowser);
 			}
 			aBrowser.esbProgressListener = new XULExtendedStatusbarChrome.esbProgressListener(aBrowser);
-			aBrowser.addProgressListener(aBrowser.esbProgressListener, 0x10/*NOTIFY_PROGRESS*/);
+			aBrowser.addProgressListener(aBrowser.esbProgressListener, aWebProgress.NOTIFY_PROGRESS);
 			console.info("Start:", aRequest.name);
 		}
 		else if (aStateFlags & XULExtendedStatusbarChrome.esbIWebProgressListener.STATE_STOP &&
@@ -827,8 +827,8 @@ XULExtendedStatusbarChrome.esbProgressListener.prototype =
 				 aCurSelfProgress, aMaxSelfProgress,
 				 aCurTotalProgress, aMaxTotalProgress)
 	{
-		//console.log("onProgressChange64", aCurSelfProgress, aMaxSelfProgress, aCurTotalProgress, aMaxTotalProgress);
 		// Never called?
+		console.log("onProgressChange64");
 		this.onProgressChange(aWebProgress, aRequest,
 				 aCurSelfProgress, aMaxSelfProgress,
 				 aCurTotalProgress, aMaxTotalProgress);
@@ -988,11 +988,15 @@ XULExtendedStatusbarChrome.TracingListener.prototype =
 
 	onStartRequest: function(request, context)
 	{
+		console.log("Data start: ", request.name);
 		this.originalListener.onStartRequest(request, context);
 	},
 
 	onStopRequest: function(request, context, statusCode)
 	{
+		var cl;
+		try { cl = request.getResponseHeader("content-length"); } catch (e) { cl = "?"; }
+		console.log("Data stop: ", request.contentLength, cl, request.name, request);
 		this.originalListener.onStopRequest(request, context, statusCode);
 	},
 
