@@ -5,6 +5,9 @@ if ("undefined" == typeof(XULExtendedStatusbarChrome)) {
   var XULExtendedStatusbarChrome = {};
 }
 
+Components.utils.import("resource://gre/modules/Services.jsm");
+Components.utils.import("resource://gre/modules/XPCOMUtils.jsm");
+		
 /*          Vars         */
 XULExtendedStatusbarChrome.started = false;    		// If True ESB is started
 XULExtendedStatusbarChrome.ffIsPostAustralis = Components.classes["@mozilla.org/xpcom/version-comparator;1"].getService(Components.interfaces.nsIVersionComparator)
@@ -327,9 +330,6 @@ if(XULExtendedStatusbarChrome.ffIsPostAustralis)
 
 XULExtendedStatusbarChrome.esbXUL =
 {
-	esbstrings: null,
-	esb_gBundle: null,
-
 	get esb_toolbar() {if(XULExtendedStatusbarChrome.ffIsPostAustralis) return document.getElementById("ESB_toolbar");
 						else return document.getElementById("addon-bar"); },
 	get status_bar() {return document.getElementById("ESB_status_bar");},
@@ -349,8 +349,12 @@ XULExtendedStatusbarChrome.esbXUL =
 	
 	init: function()
 	{
-		this.esb_gBundle = Components.classes["@mozilla.org/intl/stringbundle;1"].getService(Components.interfaces.nsIStringBundleService);
-		this.esbstrings = this.esb_gBundle.createBundle("chrome://extendedstatusbar/locale/extendedstatusbar.properties");
+		XPCOMUtils.defineLazyGetter(this, "esbstrings", function() { return loadPropertiesFile("chrome://extendedstatusbar/locale/extendedstatusbar.properties"); });
+		function loadPropertiesFile(path)
+		{
+			//workaround for the cache clearing problem between extension updates
+			return Services.strings.createBundle(path + "?" + Math.random());
+		}
 		
 		this.percent_box.setAttribute("tooltiptext", this.esbstrings.GetStringFromName("esb.tooltip.percentage"));
 		this.images_box.setAttribute("tooltiptext", this.esbstrings.GetStringFromName("esb.tooltip.loadedimages"));
@@ -555,6 +559,7 @@ XULExtendedStatusbarChrome.esbListener =
 			this.stopTimer(aBrowser);
 			
 			this.updateTime(aBrowser);
+			this.countImages(aBrowser);
 			if(aBrowser == gBrowser.selectedBrowser)
 			{
 				XULExtendedStatusbarChrome.esbLoading = false;
@@ -580,35 +585,6 @@ XULExtendedStatusbarChrome.esbListener =
 				this.initObjectValuesForBrowser(aBrowser);
 			}
 			var percentage = Math.round((aCurTotalProgress * 100) / aMaxTotalProgress);	
-			var docimgs = aBrowser.contentDocument.images;
-			var imglcount = 0;
-			var allimgsc = 0;
-			if (docimgs != null)
-			{
-				var src = [];
-				for (var i = 0; i < docimgs.length; i++)
-				{
-					if (!src[docimgs[i].src])
-					{
-						src[docimgs[i].src] = true;
-						allimgsc++;
-						if (docimgs[i].complete) imglcount++;
-					}
-				}
-				for (var i = 0; i < aBrowser.contentWindow.frames.length; i++)
-				{
-					docimgs = aBrowser.contentWindow.frames[i].document.images;
-					for (var j = 0; j < docimgs.length; j++)
-					{
-						if (!src[docimgs[j].src])
-						{
-							src[docimgs[j].src] = true;
-							allimgsc++;
-							if (docimgs[j].complete) imglcount++;
-						}
-					}
-				}
-			}			
 			var now = Date.now() - aBrowser.esbValues.startProg;
 			if (XULExtendedStatusbarChrome.esbLoading) this.startTimer(aBrowser); //This is a workaround for the first run, esbLoading is false on FF first start,
 											   //so time wont be started. This is a problem
@@ -621,7 +597,7 @@ XULExtendedStatusbarChrome.esbListener =
 				speed = speed.replace(/\./, XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.dot")); //Replace '.' with a symbol from the active local
 			}
 			if (percentage != 100) aBrowser.esbValues.percent = percentage;
-			aBrowser.esbValues.images = imglcount + "/" + allimgsc;
+			this.countImages(aBrowser);
 			aBrowser.esbValues.loaded = aCurTotalProgress;
 			aBrowser.esbValues.speed = speed;
 			
@@ -669,6 +645,40 @@ XULExtendedStatusbarChrome.esbListener =
 	onStatusChange: function(a,b,c,d,e){},
 	
 	onSecurityChange: function(a,b,c,d){},
+
+	countImages: function (aBrowser)
+	{
+		var docimgs = aBrowser.contentDocument.images;
+		var imglcount = 0;
+		var allimgsc = 0;
+		if (docimgs != null)
+		{
+			var src = [];
+			for (var i = 0; i < docimgs.length; i++)
+			{
+				if (!src[docimgs[i].src])
+				{
+					src[docimgs[i].src] = true;
+					allimgsc++;
+					if (docimgs[i].complete) imglcount++;
+				}
+			}
+			for (var i = 0; i < aBrowser.contentWindow.frames.length; i++)
+			{
+				docimgs = aBrowser.contentWindow.frames[i].document.images;
+				for (var j = 0; j < docimgs.length; j++)
+				{
+					if (!src[docimgs[j].src])
+					{
+						src[docimgs[j].src] = true;
+						allimgsc++;
+						if (docimgs[j].complete) imglcount++;
+					}
+				}
+			}
+		}
+		aBrowser.esbValues.images = imglcount + "/" + allimgsc;
+	},
 
 	updateTime: function (aBrowser)
 	{
