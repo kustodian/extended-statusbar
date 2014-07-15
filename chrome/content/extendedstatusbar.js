@@ -1320,6 +1320,6 @@ XULExtendedStatusbarChrome.ESB_PrefObserver = {
 
 XULExtendedStatusbarChrome.openESBOptions = function (event)
 {
-	window.open("chrome://extendedstatusbar/content/extendedstatusbaroptions.xul", "", "chrome");
+	window.openDialog("chrome://extendedstatusbar/content/extendedstatusbaroptions.xul", "", "chrome,modal");
 }
 
