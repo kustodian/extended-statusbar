@@ -992,15 +992,19 @@ XULExtendedStatusbarChrome.TracingListener.prototype =
 
 	onStartRequest: function(request, context)
 	{
-		console.log("Data start: ", request.name);
+		if (this.browser)
+			console.log("Data beg : %6d %7d", request.contentLength, this.cached ? this.browser.esbValues.loadedCached : this.browser.esbValues.loadedNetwork, request.name);
+		else
+			console.log("Data beg*: %6d       0", request.contentLength, request.name);
 		this.originalListener.onStartRequest(request, context);
 	},
 
 	onStopRequest: function(request, context, statusCode)
 	{
-		var cl;
-		try { cl = request.getResponseHeader("content-length"); } catch (e) { cl = "?"; }
-		console.log("Data stop: ", request.contentLength, cl, request.name, request);
+		if (this.browser)
+			console.log("Data end : %6d %7d", request.contentLength, this.cached ? this.browser.esbValues.loadedCached : this.browser.esbValues.loadedNetwork, request.name);
+		else
+			console.log("Data end*: %6d       0", request.contentLength, request.name);
 		this.originalListener.onStopRequest(request, context, statusCode);
 	},
 
