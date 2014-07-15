@@ -23,8 +23,10 @@ XULExtendedStatusbarChrome.hoverWait;  				// How long to hover before showing E
 XULExtendedStatusbarChrome.hoverSem;   				// True only if hover is in progress
 XULExtendedStatusbarChrome.hoverTimeOut;			// Name says it all
 XULExtendedStatusbarChrome.hideForSites;			// RegExp of sites on which to hide ESB
-XULExtendedStatusbarChrome.hideLocalSites;			// Hide on the sites matching below
-XULExtendedStatusbarChrome.localSites = "^(?:about|chrome|file|jar|javascript|resource):";
+XULExtendedStatusbarChrome.esbProtocol; 			// Show on selected protocol
+XULExtendedStatusbarChrome.PROTOCOL_WEB = 0;
+XULExtendedStatusbarChrome.PROTOCOL_ALL = 1;
+XULExtendedStatusbarChrome.webProtocol = /^https?:/;
 XULExtendedStatusbarChrome.hideForSitesSem = false; // Only true if the current site matches hideForSites
 XULExtendedStatusbarChrome.esbLoading = false; 		// True while the page is loading
 XULExtendedStatusbarChrome.esbSlimMode;
@@ -258,6 +260,19 @@ XULExtendedStatusbarChrome.onContextMenuPopupShowing = function (event)
 	document.getElementById("ESB_cursor_context_item").hidden = hiding;
 }
 
+XULExtendedStatusbarChrome.shouldHideSite = function (aSpec)
+{
+  if (XULExtendedStatusbarChrome.esbProtocol == XULExtendedStatusbarChrome.PROTOCOL_WEB &&
+	  !XULExtendedStatusbarChrome.webProtocol.test(aSpec))
+	  return true;
+
+  if (XULExtendedStatusbarChrome.hideForSites &&
+	  XULExtendedStatusbarChrome.hideForSites.test(aSpec))
+	  return true;
+
+  return false;
+}
+
 XULExtendedStatusbarChrome.hideESB = function ()
 {
 	if (XULExtendedStatusbarChrome.esbTimeOutSem)
@@ -414,8 +429,7 @@ XULExtendedStatusbarChrome.esbListener =
 			//it's happening in customizing mode
 			//XULExtendedStatusbarChrome.esbXUL.status_bar.hidden = true;
 		}
-		else if (XULExtendedStatusbarChrome.hideForSites &&
-				 XULExtendedStatusbarChrome.hideForSites.test(aEvent.target.linkedBrowser.contentDocument.location.href))
+		else if (XULExtendedStatusbarChrome.shouldHideSite(aEvent.target.linkedBrowser.contentDocument.location.href))
 		{
 			XULExtendedStatusbarChrome.hideForSitesSem = true;
 			XULExtendedStatusbarChrome.esbXUL.esb_toolbar.hidden = true;
@@ -621,7 +635,7 @@ XULExtendedStatusbarChrome.esbListener =
 	{
 		if(aLocation)
 		{
-			if (XULExtendedStatusbarChrome.hideForSites && XULExtendedStatusbarChrome.hideForSites.test(aLocation.spec))
+			if (XULExtendedStatusbarChrome.shouldHideSite(aLocation.spec))
 			{
 				XULExtendedStatusbarChrome.hideForSitesSem = true;
 				XULExtendedStatusbarChrome.esbXUL.esb_toolbar.hidden = true;
@@ -766,17 +780,22 @@ XULExtendedStatusbarChrome.ESB_PrefObserver = {
 		XULExtendedStatusbarChrome.esbWait = this.prefs.getIntPref("hidetimeout");
 		XULExtendedStatusbarChrome.showOnHover = this.prefs.getBoolPref("showonhover");
 		XULExtendedStatusbarChrome.hoverWait = this.prefs.getIntPref("hovertimeout");
-		XULExtendedStatusbarChrome.hideLocalSites = this.prefs.getBoolPref("hidelocalsites");
-		var hide = XULExtendedStatusbarChrome.hideLocalSites ? XULExtendedStatusbarChrome.localSites + "|" : "";
-		hide += this.prefs.getCharPref("hideonsites")
-				.replace(/(\W)/g, "\\$1")			//Escape all special characters
-				.replace(/\\\|/g, "|")				//Unescape from '|'
-				.replace(/\\\*/g, ".*")				//Replace '\*' with '.*'
-				.replace(/(^\.\*)|(\.\*$)/g, "")	//Remove '.*' on start and end
-				.replace(/(\.\*\|)/g,"|")			//Remove '.*' left of'|'
-				.replace(/(\|\.\*)/g, "|");			//Remove '.*' right of'|'
-		hide = hide.replace(/\|$/, "")				//Remove last '|'
-		XULExtendedStatusbarChrome.hideForSites = hide ? new RegExp(hide) : null;
+		XULExtendedStatusbarChrome.esbProtocol = this.prefs.getIntPref("esbprotocol");
+		if (this.prefs.getCharPref("hideonsites") != "")
+		{
+			XULExtendedStatusbarChrome.hideForSites = new RegExp(this.prefs.getCharPref("hideonsites")
+							.replace(/\|$/, "")					//Remove last '|'
+							.replace(/(\W)/g, "\\$1")			//Escape all special characters
+							.replace(/\\\|/g, "|")				//Unescape from '|'
+							.replace(/\\\*/g, ".*")				//Replace '\*' with '.*'
+							.replace(/(^\.\*)|(\.\*$)/g, "")	//Remove '.*' on start and end
+							.replace(/(\.\*\|)/g,"|")			//Remove '.*' left of'|'
+							.replace(/(\|\.\*)/g, "|"));		//Remove '.*' right of'|'
+		}
+		else
+		{
+			XULExtendedStatusbarChrome.hideForSites = null;
+		}
 
 		XULExtendedStatusbarChrome.esbSlimMode = this.prefs.getBoolPref("slimmode");
 		
@@ -888,22 +907,27 @@ XULExtendedStatusbarChrome.ESB_PrefObserver = {
 			case "usecustomcolor":
 				this.applyStyle();
 				break;
-			case "hidelocalsites":
-				XULExtendedStatusbarChrome.hideLocalSites = this.prefs.getBoolPref("hidelocalsites");
+			case "esbprotocol":
+				XULExtendedStatusbarChrome.esbProtocol = this.prefs.getIntPref("esbprotocol");
 				// fall through
 			case "hideonsites":
-				var hide = XULExtendedStatusbarChrome.hideLocalSites ? XULExtendedStatusbarChrome.localSites + "|" : "";
-				hide += this.prefs.getCharPref("hideonsites")
-						.replace(/(\W)/g, "\\$1")			//Escape all special characters
-						.replace(/\\\|/g, "|")				//Unescape from '|'
-						.replace(/\\\*/g, ".*")				//Replace '\*' with '.*'
-						.replace(/(^\.\*)|(\.\*$)/g, "")	//Remove '.*' on start and end
-						.replace(/(\.\*\|)/g,"|")			//Remove '.*' left of'|'
-						.replace(/(\|\.\*)/g, "|");			//Remove '.*' right of'|'
-				hide = hide.replace(/\|$/, "")				//Remove last '|'
-				XULExtendedStatusbarChrome.hideForSites = hide ? new RegExp(hide) : null;
-				if (XULExtendedStatusbarChrome.hideForSites && 
-					XULExtendedStatusbarChrome.hideForSites.test(gBrowser.selectedBrowser.contentDocument.location.href))
+				XULExtendedStatusbarChrome.esbProtocol = this.prefs.getIntPref("esbprotocol");
+				if (this.prefs.getCharPref("hideonsites") != "")
+				{
+					XULExtendedStatusbarChrome.hideForSites = new RegExp(this.prefs.getCharPref("hideonsites")
+									.replace(/\|$/, "")					//Remove last '|'
+									.replace(/(\W)/g, "\\$1")			//Escape all special characters
+									.replace(/\\\|/g, "|")				//Unescape from '|'
+									.replace(/\\\*/g, ".*")				//Replace '\*' with '.*'
+									.replace(/(^\.\*)|(\.\*$)/g, "")	//Remove '.*' on start and end
+									.replace(/(\.\*\|)/g,"|")			//Remove '.*' left of'|'
+									.replace(/(\|\.\*)/g, "|"));		//Remove '.*' right of'|'
+				}
+				else
+				{
+					XULExtendedStatusbarChrome.hideForSites = null;
+				}
+				if (XULExtendedStatusbarChrome.shouldHideSite(gBrowser.selectedBrowser.contentDocument.location.href))
 				{
 					XULExtendedStatusbarChrome.hideForSitesSem = true;
 					XULExtendedStatusbarChrome.esbXUL.esb_toolbar.hidden = true;

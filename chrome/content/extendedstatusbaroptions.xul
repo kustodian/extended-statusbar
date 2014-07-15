@@ -21,7 +21,7 @@
 			<preference id="esbTextColor" name="extensions.extendedstatusbar.textcolor" type="string"/>
 			<preference id="esbUseCustomColor" name="extensions.extendedstatusbar.usecustomcolor" type="bool"/>
 			<preference id="esbHideOnSites" name="extensions.extendedstatusbar.hideonsites" type="string"/>
-			<preference id="esbHideLocalSites" name="extensions.extendedstatusbar.hidelocalsites" type="bool"/>
+			<preference id="esbProtocol" name="extensions.extendedstatusbar.esbprotocol" type="int"/>
 			<preference id="esbHideImages" name="extensions.extendedstatusbar.hideimages" type="bool"/>
 			<preference id="esbHideLoaded" name="extensions.extendedstatusbar.hideloaded" type="bool"/>
 			<preference id="esbHideSpeed" name="extensions.extendedstatusbar.hidespeed" type="bool"/>
@@ -90,9 +90,15 @@
 								<separator class="thin"/>
 								<hbox>
 									<button id="buttonesbappendcurrent" label="&esb.appendcurrent;" accesskey="&esb.appendcurrent.accesskey;" onclick="XULExtendedStatusbarOptions.appendCurrent();"/>
-									<column flex="1"/>
-									<checkbox id="checkesbhidelocalsites" preference="esbHideLocalSites" label="&esb.hidelocalsites;" tooltiptext="&esb.hidelocalsites.tooltip;" accesskey="&esb.hidelocalsites.accesskey;"/>
 								</hbox>
+							</groupbox>
+                            <spacer style="width: 10px"/>
+							<groupbox flex="1">
+								<caption label="&esb.displayprotocol;"/>
+								<radiogroup id="esbRadioProtocol" oncommand="XULExtendedStatusbarOptions.radioProtocolChange()" orient="vertical">
+									<radio id="webprotocol" label="&esb.usewebprotocol;" accesskey="&esb.usewebprotocol.accesskey;" tooltiptext="&esb.usewebprotocol.tooltip;"/>
+									<radio id="allprotocol" label="&esb.useallprotocol;" accesskey="&esb.useallprotocol.accesskey;" tooltiptext="&esb.useallprotocol.tooltip;"/>
+								</radiogroup>
 							</groupbox>
 						</hbox>
                     </vbox>
