@@ -143,11 +143,11 @@ XULExtendedStatusbarOptions.init = function ()
 	//unlock elements checkbox
 	unlockCheckBox = document.getElementById("checkesbunlockpositions");
 	lockContextItem = XULExtendedStatusbarOptions.parentWindow.document.getElementById("ESB_lock_context_item");
-    unlockCheckBox.setAttribute("checked", !lockContextItem.getAttribute("checked"));
+    unlockCheckBox.setAttribute("checked", lockContextItem.getAttribute("checked") == "true" ? false : true);
 	unlockCheckBox.addEventListener("command", 
 		function(e)
 		{
-			lockContextItem.setAttribute("checked", !unlockCheckBox.getAttribute("checked"));
+			lockContextItem.setAttribute("checked", unlockCheckBox.getAttribute("checked") == "true" ? false : true);
 			lockContextItem.doCommand();
 		}
 	);	
