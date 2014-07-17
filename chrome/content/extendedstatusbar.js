@@ -381,8 +381,6 @@ XULExtendedStatusbarChrome.esbXUL =
 
 XULExtendedStatusbarChrome.esbListener =
 {
-	updateTimeInterval: "",
-
 	QueryInterface: function(aIID)
 	{
 		if (aIID.equals(Components.interfaces.nsIWebProgressListener) ||
@@ -739,7 +737,7 @@ XULExtendedStatusbarChrome.esbListener =
 		{
 			clearInterval(aBrowser.esbValues.updateTimeInterval);
 		}
-		aBrowser.esbValues.updateTimeInterval = setInterval(XULExtendedStatusbarChrome.esbListener.updateTime(aBrowser), 768);
+		aBrowser.esbValues.updateTimeInterval = setInterval(XULExtendedStatusbarChrome.esbListener.updateTime, 768, aBrowser);
 	},
 
 	stopTimer: function(aBrowser)
