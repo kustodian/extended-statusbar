@@ -393,8 +393,6 @@ XULExtendedStatusbarChrome.esbXUL =
 
 XULExtendedStatusbarChrome.esbListener =
 {
-	updateTimeInterval: "",
-
 	QueryInterface: function(aIID)
 	{
 		if (aIID.equals(Components.interfaces.nsIWebProgressListener) ||
@@ -421,8 +419,7 @@ XULExtendedStatusbarChrome.esbListener =
 		if (!aEvent.target.linkedBrowser.esbValues)
 		{
 			XULExtendedStatusbarChrome.esbXUL.esb_toolbar.hidden = true;
-			//it's happening in customizing mode
-			//XULExtendedStatusbarChrome.esbXUL.status_bar.hidden = true;
+			XULExtendedStatusbarChrome.esbXUL.status_bar.hidden = true;
 		}
 		else if (XULExtendedStatusbarChrome.hideForSites &&
 				 aEvent.target.linkedBrowser.contentDocument.location.href.match(XULExtendedStatusbarChrome.hideForSites))
@@ -779,7 +776,7 @@ XULExtendedStatusbarChrome.esbListener =
 		{
 			clearInterval(aBrowser.esbValues.updateTimeInterval);
 		}
-		aBrowser.esbValues.updateTimeInterval = setInterval(XULExtendedStatusbarChrome.esbListener.updateTime(aBrowser), 768);
+		aBrowser.esbValues.updateTimeInterval = setInterval(XULExtendedStatusbarChrome.esbListener.updateTime, 768, aBrowser);
 	},
 
 	stopTimer: function(aBrowser)
