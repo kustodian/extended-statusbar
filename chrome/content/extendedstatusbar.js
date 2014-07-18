@@ -990,18 +990,18 @@ XULExtendedStatusbarChrome.TracingListener.prototype =
 	onStartRequest: function(request, context)
 	{
 		if (this.browser)
-			console.log("Data beg : %6d %7d", request.contentLength, this.cached ? this.browser.esbValues.loadedCached : this.browser.esbValues.loadedNetwork, request.name);
+			console.log("Dbeg (%s) : %6d %7d", this.cached ? "C" : "N", request.contentLength, this.cached ? this.browser.esbValues.loadedCached : this.browser.esbValues.loadedNetwork, request.name);
 		else
-			console.log("Data beg*: %6d       0", request.contentLength, request.name);
+			console.log("Dbeg (%s)*: %6d       0", this.cached ? "C" : "N", request.contentLength ? request.contentLength : -2, request.name);
 		this.originalListener.onStartRequest(request, context);
 	},
 
 	onStopRequest: function(request, context, statusCode)
 	{
 		if (this.browser)
-			console.log("Data end : %6d %7d", request.contentLength, this.cached ? this.browser.esbValues.loadedCached : this.browser.esbValues.loadedNetwork, request.name);
+			console.log("Dend (%s) : %6d %7d", this.cached ? "C" : "N", request.contentLength, this.cached ? this.browser.esbValues.loadedCached : this.browser.esbValues.loadedNetwork, statusCode.toString(16), request.name);
 		else
-			console.log("Data end*: %6d       0", request.contentLength, request.name);
+			console.log("Dend (%s)*: %6d       0", this.cached ? "C" : "N", request.contentLength, statusCode.toString(16), request.name);
 		this.originalListener.onStopRequest(request, context, statusCode);
 	},
 
