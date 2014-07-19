@@ -432,7 +432,9 @@ XULExtendedStatusbarChrome.esbListener =
 	initObjectValuesForBrowser : function(aBrowser)
 	{
 		if (aBrowser.esbValues) aBrowser.esbOldValues = aBrowser.esbValues;
-		aBrowser.esbValues = { images: "0/0", 
+		aBrowser.esbValues = { imagesTotal: 0,
+								imagesLoaded: 0,
+								imageSet: [],
 								loaded: "0", 
 								speed: "0" + XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.dot") + "00",
 								time: "0" + XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.dot") + "000", 
@@ -466,10 +468,11 @@ XULExtendedStatusbarChrome.esbListener =
 			default: sizeinval = XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.nosize");
 					break;
 		}
+		var images = aBrowser.esbValues.imagesLoaded + "/" + aBrowser.esbValues.imagesTotal;
 			
 		if (XULExtendedStatusbarChrome.esbSlimMode)
 		{
-			XULExtendedStatusbarChrome.esbXUL.images_label.value = aBrowser.esbValues.images;
+			XULExtendedStatusbarChrome.esbXUL.images_label.value = images;
 			XULExtendedStatusbarChrome.esbXUL.loaded_label.value = compdocsize + " " + sizeinval;
 			XULExtendedStatusbarChrome.esbXUL.speed_label.value = aBrowser.esbValues.speed + " " + XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.kbps");
 			XULExtendedStatusbarChrome.esbXUL.time_label.value = aBrowser.esbValues.time;
@@ -477,7 +480,7 @@ XULExtendedStatusbarChrome.esbListener =
 		}
 		else
 		{
-			XULExtendedStatusbarChrome.esbXUL.images_label.value = XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.images") + " " + aBrowser.esbValues.images;
+			XULExtendedStatusbarChrome.esbXUL.images_label.value = XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.images") + " " + images;
 			XULExtendedStatusbarChrome.esbXUL.loaded_label.value = XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.loaded") + " " + compdocsize + " " + sizeinval;
 			XULExtendedStatusbarChrome.esbXUL.speed_label.value = XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.speed") + " " + aBrowser.esbValues.speed + " " + XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.kbps");
 			XULExtendedStatusbarChrome.esbXUL.time_label.value = XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.time") + " " + aBrowser.esbValues.time;
@@ -603,7 +606,8 @@ XULExtendedStatusbarChrome.esbListener =
 				speed = speed.replace(/\./, XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.dot")); //Replace '.' with a symbol from the active local
 			}
 			if (percentage != 100) aBrowser.esbValues.percent = percentage;
-			this.countImages(aBrowser);
+			// Ignore the first call, the tree walker still uses the previous document.
+			if (aCurTotalProgress > 1) this.countImages(aBrowser);
 			aBrowser.esbValues.loaded = aCurTotalProgress;
 			aBrowser.esbValues.speed = speed;
 			
@@ -652,10 +656,35 @@ XULExtendedStatusbarChrome.esbListener =
 	
 	onSecurityChange: function(a,b,c,d){},
 
-	// Count the images that aren't <img> in the document (adapted from WebDeveloper).
-	countOtherImages: function(contentDocument)
+	// Check if images in the document have been loaded (adapted from WebDeveloper & http://jsfiddle.net/tovic/gmzSG/light/).
+	checkImages: function(contentDocument, aBrowser)
 	{
-		var uniqueImages = 0;
+		function checkImage(aSrc)
+		{
+			if (!aBrowser.esbValues.imageSet[aSrc])
+			{
+				aBrowser.esbValues.imageSet[aSrc] = true;
+				++aBrowser.esbValues.imagesTotal;
+				if (aSrc.substr(0,5) == "data:")
+				{
+					++aBrowser.esbValues.imagesLoaded;
+				}
+				else
+				{
+					var image = contentDocument.createElement("img");
+					image.src = aSrc;
+					image.esbBrowser = aBrowser;
+					image.onload = function ()
+					{
+						++this.esbBrowser.esbValues.imagesLoaded;
+						if (this.esbBrowser == gBrowser.selectedBrowser && !XULExtendedStatusbarChrome.esbLoading)
+						{
+							XULExtendedStatusbarChrome.esbListener.displayCurrentValuesForBrowser(this.esbBrowser);
+						}
+					};
+				}
+			}
+		}
 
 		// If the content document is set
 		if(contentDocument)
@@ -663,7 +692,6 @@ XULExtendedStatusbarChrome.esbListener =
 			var computedStyle = null;
 			var cssURI		  = CSSPrimitiveValue.CSS_URI;
 			var image		  = null;
-			var images		  = [];
 			var node		  = null;
 			var styleImage	  = null;
 			var treeWalker	  = contentDocument.createTreeWalker(contentDocument, NodeFilter.SHOW_ELEMENT, null, false);
@@ -671,12 +699,12 @@ XULExtendedStatusbarChrome.esbListener =
 			// While the tree walker has more nodes
 			while((node = treeWalker.nextNode()) !== null)
 			{
-				if(node.tagName.toLowerCase() == "input" && node.src && node.type && node.type.toLowerCase() == "image")
+				if(node.src)
 				{
-					// If this is not a chrome image
-					if(node.src.indexOf("chrome://") !== 0)
+					if (node.tagName.toLowerCase() == "img" ||
+						(node.tagName.toLowerCase() == "input" && node.type && node.type.toLowerCase() == "image"))
 					{
-						images.push(node.src);
+						checkImage(node.src);
 					}
 				}
 
@@ -693,13 +721,7 @@ XULExtendedStatusbarChrome.esbListener =
 						// If this element has a background image and it is a URI
 						if(styleImage && styleImage.primitiveType == cssURI)
 						{
-							var src = styleImage.getStringValue();
-
-							// If this is not a chrome image
-							if(src.indexOf("chrome://") !== 0)
-							{
-								images.push(src);
-							}
+							checkImage(styleImage.getStringValue());
 						}
 					}
 
@@ -708,78 +730,19 @@ XULExtendedStatusbarChrome.esbListener =
 					// If this element has a background image and it is a URI
 					if(styleImage && styleImage.primitiveType == cssURI)
 					{
-						var src = styleImage.getStringValue();
-
-						// If this is not a chrome image
-						if(src.indexOf("chrome://") !== 0)
-						{
-							images.push(src);
-						}
+						checkImage(styleImage.getStringValue());
 					}
 				}
 			}
-
-			images.sort(function(a, b) { return (a == b ? 0 : (a < b ? -1 : 1)); });
-
-			// Loop through the images
-			for(var i = 0, l = images.length; i < l; i++)
-			{
-				image = images[i];
-
-				// If this is not the last image and the image is the same as the next image
-				if(i + 1 < l && image == images[i + 1])
-				{
-					continue;
-				}
-
-				++uniqueImages;
-			}
 		}
-
-		return uniqueImages;
 	},
 
 	countImages: function (aBrowser)
 	{
-		var docimgs = aBrowser.contentDocument.images;
-		var imglcount = 0;
-		var allimgsc = 0;
-		var otherimgsc = this.countOtherImages(aBrowser.contentDocument);
-		if (docimgs != null)
+		this.checkImages(aBrowser.contentDocument, aBrowser);
+		for (var i = 0; i < aBrowser.contentWindow.frames.length; i++)
 		{
-			var src = [];
-			for (var i = 0; i < docimgs.length; i++)
-			{
-				if (docimgs[i].src && !src[docimgs[i].src])
-				{
-					src[docimgs[i].src] = true;
-					allimgsc++;
-					if (docimgs[i].complete) imglcount++;
-				}
-			}
-			for (var i = 0; i < aBrowser.contentWindow.frames.length; i++)
-			{
-				otherimgsc += this.countOtherImages(aBrowser.contentWindow.frames[i].document);
-				docimgs = aBrowser.contentWindow.frames[i].document.images;
-				for (var j = 0; j < docimgs.length; j++)
-				{
-					if (docimgs[j].src && !src[docimgs[j].src])
-					{
-						src[docimgs[j].src] = true;
-						allimgsc++;
-						if (docimgs[j].complete) imglcount++;
-					}
-				}
-			}
-		}
-		if (allimgsc == 0)
-		{
-			aBrowser.esbValues.images = otherimgsc;
-		}
-		else
-		{
-			aBrowser.esbValues.images = imglcount + "/" + allimgsc;
-			if (otherimgsc != 0) aBrowser.esbValues.images += "/" + (allimgsc + otherimgsc);
+			this.checkImages(aBrowser.contentWindow.frames[i].document, aBrowser);
 		}
 	},
 
@@ -836,7 +799,7 @@ XULExtendedStatusbarChrome.esbListener =
 		{
 			clearInterval(aBrowser.esbValues.updateTimeInterval);
 		}
-		aBrowser.esbValues.updateTimeInterval = setInterval(XULExtendedStatusbarChrome.esbListener.updateTime(aBrowser), 768);
+		aBrowser.esbValues.updateTimeInterval = setInterval(XULExtendedStatusbarChrome.esbListener.updateTime, 768, aBrowser);
 	},
 
 	stopTimer: function(aBrowser)
