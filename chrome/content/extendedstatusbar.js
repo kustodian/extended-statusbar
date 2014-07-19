@@ -576,6 +576,10 @@ XULExtendedStatusbarChrome.esbListener =
 				{
 					aBrowser.esbValues = aBrowser.esbOldValues;
 					aBrowser.esbOldValues = null;
+					for (var i in aBrowser.esbValues.imageSet)
+					{
+						aBrowser.esbValues.imageSet[i] = false;
+					}
 				}
 				this.displayCurrentValuesForBrowser(aBrowser);
 			}
@@ -676,10 +680,14 @@ XULExtendedStatusbarChrome.esbListener =
 					image.esbBrowser = aBrowser;
 					image.onload = function ()
 					{
-						++this.esbBrowser.esbValues.imagesLoaded;
-						if (this.esbBrowser == gBrowser.selectedBrowser && !XULExtendedStatusbarChrome.esbLoading)
+						// Don't count again if the old values were restored.
+						if (this.esbBrowser.esbValues.imageSet[this.src])
 						{
-							XULExtendedStatusbarChrome.esbListener.displayCurrentValuesForBrowser(this.esbBrowser);
+							++this.esbBrowser.esbValues.imagesLoaded;
+							if (this.esbBrowser == gBrowser.selectedBrowser && !XULExtendedStatusbarChrome.esbLoading)
+							{
+								XULExtendedStatusbarChrome.esbListener.displayCurrentValuesForBrowser(this.esbBrowser);
+							}
 						}
 					};
 				}
