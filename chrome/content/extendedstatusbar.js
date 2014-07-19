@@ -260,8 +260,12 @@ XULExtendedStatusbarChrome.onContextMenuPopupShowing = function (event)
 	document.getElementById("ESB_cursor_context_item").hidden = hiding;
 }
 
-XULExtendedStatusbarChrome.shouldHideSite = function (aSpec)
+XULExtendedStatusbarChrome.shouldHideEsb = function (aSpec)
 {
+  // Always show during customize.
+  if (aSpec == "about:customizing")
+	  return false;
+
   if (XULExtendedStatusbarChrome.esbProtocol == XULExtendedStatusbarChrome.PROTOCOL_WEB &&
 	  !XULExtendedStatusbarChrome.webProtocol.test(aSpec))
 	  return true;
@@ -423,13 +427,10 @@ XULExtendedStatusbarChrome.esbListener =
 	
 	onTabSelect : function(aEvent) 
 	{
-		if (!aEvent.target.linkedBrowser.esbValues)
-		{
-			XULExtendedStatusbarChrome.esbXUL.esb_toolbar.hidden = true;
-			//it's happening in customizing mode
-			//XULExtendedStatusbarChrome.esbXUL.status_bar.hidden = true;
-		}
-		else if (XULExtendedStatusbarChrome.shouldHideSite(aEvent.target.linkedBrowser.contentDocument.location.href))
+		// Hide on a new tab (when the values haven't been created yet), unless that is the customizing tab.
+		if (aEvent.target.linkedBrowser.contentDocument.location.href != "about:customizing" &&
+			(!aEvent.target.linkedBrowser.esbValues ||
+			 XULExtendedStatusbarChrome.shouldHideEsb(aEvent.target.linkedBrowser.contentDocument.location.href)))
 		{
 			XULExtendedStatusbarChrome.hideForSitesSem = true;
 			XULExtendedStatusbarChrome.esbXUL.esb_toolbar.hidden = true;
@@ -635,7 +636,7 @@ XULExtendedStatusbarChrome.esbListener =
 	{
 		if(aLocation)
 		{
-			if (XULExtendedStatusbarChrome.shouldHideSite(aLocation.spec))
+			if (XULExtendedStatusbarChrome.shouldHideEsb(aLocation.spec))
 			{
 				XULExtendedStatusbarChrome.hideForSitesSem = true;
 				XULExtendedStatusbarChrome.esbXUL.esb_toolbar.hidden = true;
@@ -927,7 +928,7 @@ XULExtendedStatusbarChrome.ESB_PrefObserver = {
 				{
 					XULExtendedStatusbarChrome.hideForSites = null;
 				}
-				if (XULExtendedStatusbarChrome.shouldHideSite(gBrowser.selectedBrowser.contentDocument.location.href))
+				if (XULExtendedStatusbarChrome.shouldHideEsb(gBrowser.selectedBrowser.contentDocument.location.href))
 				{
 					XULExtendedStatusbarChrome.hideForSitesSem = true;
 					XULExtendedStatusbarChrome.esbXUL.esb_toolbar.hidden = true;
