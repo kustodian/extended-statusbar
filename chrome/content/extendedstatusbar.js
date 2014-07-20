@@ -576,10 +576,7 @@ XULExtendedStatusbarChrome.esbListener =
 				{
 					aBrowser.esbValues = aBrowser.esbOldValues;
 					aBrowser.esbOldValues = null;
-					for (var i in aBrowser.esbValues.imageSet)
-					{
-						aBrowser.esbValues.imageSet[i] = false;
-					}
+					aBrowser.esbValues.imageSet = null;
 				}
 				this.displayCurrentValuesForBrowser(aBrowser);
 			}
@@ -681,7 +678,7 @@ XULExtendedStatusbarChrome.esbListener =
 					image.onload = function ()
 					{
 						// Don't count again if the old values were restored.
-						if (this.esbBrowser.esbValues.imageSet[this.src])
+						if (this.esbBrowser.esbValues.imageSet)
 						{
 							++this.esbBrowser.esbValues.imagesLoaded;
 							if (this.esbBrowser == gBrowser.selectedBrowser && !XULExtendedStatusbarChrome.esbLoading)
