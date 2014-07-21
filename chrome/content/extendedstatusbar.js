@@ -427,7 +427,7 @@ XULExtendedStatusbarChrome.esbListener =
 		if (!aEvent.target.linkedBrowser.esbValues)
 		{
 			XULExtendedStatusbarChrome.esbXUL.esb_toolbar.hidden = true;
-			XULExtendedStatusbarChrome.esbXUL.status_bar.hidden = true;
+			//XULExtendedStatusbarChrome.esbXUL.status_bar.hidden = true;
 		}
 		else if (XULExtendedStatusbarChrome.hideForSites &&
 				 aEvent.target.linkedBrowser.contentDocument.location.href.match(XULExtendedStatusbarChrome.hideForSites))
