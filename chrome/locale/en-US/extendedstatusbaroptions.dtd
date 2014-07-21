@@ -49,6 +49,9 @@
 <!ENTITY esb.hideprogress.accesskey "M">
 <!ENTITY esb.hidecursor "Hide Loading Cursor">
 <!ENTITY esb.hidecursor.accesskey "C">
+<!ENTITY esb.splittimer "Split Timer">
+<!ENTITY esb.splittimer.tooltip "Show times to and from the first response.">
+<!ENTITY esb.splittimer.accesskey "e">
 <!ENTITY esb.cssplaceholder "Input Css rules here">
 <!ENTITY esb.apply "Apply">
 <!ENTITY esb.usecustomstyle "Use your own style (advanced mode)">

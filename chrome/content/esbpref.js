@@ -18,6 +18,7 @@ pref("extensions.extendedstatusbar.hidetime", false);
 pref("extensions.extendedstatusbar.hidepercent", false);
 pref("extensions.extendedstatusbar.hideprogress", false);
 pref("extensions.extendedstatusbar.hidecursor", false);
+pref("extensions.extendedstatusbar.splittimer", false);
 pref("extensions.extendedstatusbar.slimmode", false);
 pref("extensions.extendedstatusbar.toolbarstyle", "");
 pref("extensions.extendedstatusbar.widgetstyle", "");

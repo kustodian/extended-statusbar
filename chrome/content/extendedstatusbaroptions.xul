@@ -28,6 +28,7 @@
 			<preference id="esbHidePercent" name="extensions.extendedstatusbar.hidepercent" type="bool"/>
 			<preference id="esbHideProgress" name="extensions.extendedstatusbar.hideprogress" type="bool"/>
 			<preference id="esbHideCursor" name="extensions.extendedstatusbar.hidecursor" type="bool"/>
+			<preference id="esbSplitTimer" name="extensions.extendedstatusbar.splittimer" type="bool"/>
 			<preference id="esbStyle" name="extensions.extendedstatusbar.esbstyle" type="int"/>
 			<preference id="esbSlimMode" name="extensions.extendedstatusbar.slimmode" type="bool"/>
 			<preference id="esbToolbarStyle" name="extensions.extendedstatusbar.toolbarstyle" type="string"/>
@@ -76,7 +77,8 @@
                                 <checkbox id="checkesbhideloaded" preference="esbHideLoaded" label="&esb.hideloaded;" accesskey="&esb.hideloaded.accesskey;" onclick="XULExtendedStatusbarOptions.hideCursor();"/>
 								<checkbox id="checkesbhidecursor" preference="esbHideCursor" label="&esb.hidecursor;" accesskey="&esb.hidecursor.accesskey;" class="indent"/>
                                 <checkbox id="checkesbhidespeed" preference="esbHideSpeed" label="&esb.hidespeed;" accesskey="&esb.hidespeed.accesskey;"/>
-                                <checkbox id="checkesbhidetime" preference="esbHideTime" label="&esb.hidetime;" accesskey="&esb.hidetime.accesskey;"/>
+								<checkbox id="checkesbhidetime" preference="esbHideTime" label="&esb.hidetime;" accesskey="&esb.hidetime.accesskey;" onclick="XULExtendedStatusbarOptions.splitTimer();"/>
+								<checkbox id="checkesbsplittimer" preference="esbSplitTimer" label="&esb.splittimer;" tooltiptext="&esb.splittimer.tooltip;" accesskey="&esb.splittimer.accesskey;" class="indent"/>
                             </groupbox>
                         </hbox>
 						<spacer style="width: 10px"/>
