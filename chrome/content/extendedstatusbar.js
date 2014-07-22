@@ -597,6 +597,13 @@ XULExtendedStatusbarChrome.esbListener =
 			
 			this.updateTime(aBrowser);
 			this.countImages(aBrowser);
+
+			var now = aBrowser.esbValues.stopProg - (XULExtendedStatusbarChrome.esbSplitTimer && aBrowser.esbValues.firstResponse ? aBrowser.esbValues.firstResponse : aBrowser.esbValues.startProg);
+			var speed = aBrowser.esbValues.loaded / now;
+			speed = speed.toFixed(2);
+			speed = speed.replace(/\./, XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.dot")); //Replace '.' with a symbol from the active local
+			aBrowser.esbValues.speed = speed;
+
 			if(aBrowser == gBrowser.selectedBrowser)
 			{
 				XULExtendedStatusbarChrome.esbLoading = false;
