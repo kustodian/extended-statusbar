@@ -251,6 +251,7 @@ XULExtendedStatusbarChrome.removeContextMenuItem = function ()
 	var menu = document.getElementById("toolbar-context-menu");
 	menu.removeEventListener("popupshowing", XULExtendedStatusbarChrome.onContextMenuPopupShowing);
 	menu.removeChild(document.getElementById("ESB_context_separator"));
+	menu.removeChild(document.getElementById("ESB_splittimer_context_item"));
 	menu.removeChild(document.getElementById("ESB_time_context_item"));
 	menu.removeChild(document.getElementById("ESB_speed_context_item"));
 	menu.removeChild(document.getElementById("ESB_images_context_item"));
@@ -266,6 +267,7 @@ XULExtendedStatusbarChrome.onContextMenuPopupShowing = function (event)
 	var esbToolbarItem = document.getElementById("ESB_toolbaritem");
 	var hiding = esbToolbarItem ? !esbToolbarItem.contains(document.popupNode) : true;
 	document.getElementById("ESB_context_separator").hidden = hiding;
+	document.getElementById("ESB_splittimer_context_item").hidden = hiding;
 	document.getElementById("ESB_time_context_item").hidden = hiding;
 	document.getElementById("ESB_speed_context_item").hidden = hiding;
 	document.getElementById("ESB_images_context_item").hidden = hiding;
