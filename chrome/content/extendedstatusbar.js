@@ -108,6 +108,13 @@ XULExtendedStatusbarChrome.addContextMenuItem = function ()
 		menu.insertBefore(menuseparator, menu.firstChild);
 	}
 	
+	var itemDetails = document.createElement("menuitem");
+	itemDetails.setAttribute("id", "ESB_details_context_item");
+	itemDetails.setAttribute("label", XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.details"));
+	itemDetails.setAttribute("accesskey", XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.details.accesskey"));
+	itemDetails.addEventListener("command", XULExtendedStatusbarChrome.openESBDetails);
+	menu.insertBefore(itemDetails, menu.firstChild);
+	
     var itemTime = document.createElement("menuitem");
     itemTime.setAttribute("id", "ESB_time_context_item");
     itemTime.setAttribute("type", "checkbox");
@@ -243,6 +250,7 @@ XULExtendedStatusbarChrome.removeContextMenuItem = function ()
 	var menu = document.getElementById("toolbar-context-menu");
 	menu.removeEventListener("popupshowing", XULExtendedStatusbarChrome.onContextMenuPopupShowing);
 	menu.removeChild(document.getElementById("ESB_context_separator"));
+	menu.removeChild(document.getElementById("ESB_details_context_item"));
 	menu.removeChild(document.getElementById("ESB_time_context_item"));
 	menu.removeChild(document.getElementById("ESB_speed_context_item"));
 	menu.removeChild(document.getElementById("ESB_images_context_item"));
@@ -258,6 +266,7 @@ XULExtendedStatusbarChrome.onContextMenuPopupShowing = function (event)
 	var esbToolbarItem = document.getElementById("ESB_toolbaritem");
 	var hiding = esbToolbarItem ? !esbToolbarItem.contains(document.popupNode) : true;
 	document.getElementById("ESB_context_separator").hidden = hiding;
+	document.getElementById("ESB_details_context_item").hidden = hiding;
 	document.getElementById("ESB_time_context_item").hidden = hiding;
 	document.getElementById("ESB_speed_context_item").hidden = hiding;
 	document.getElementById("ESB_images_context_item").hidden = hiding;
@@ -419,7 +428,7 @@ XULExtendedStatusbarChrome.esbListener =
 		if (!aEvent.target.linkedBrowser.esbValues)
 		{
 			XULExtendedStatusbarChrome.esbXUL.esb_toolbar.hidden = true;
-			XULExtendedStatusbarChrome.esbXUL.status_bar.hidden = true;
+			//XULExtendedStatusbarChrome.esbXUL.status_bar.hidden = true;
 		}
 		else if (XULExtendedStatusbarChrome.hideForSites &&
 				 aEvent.target.linkedBrowser.contentDocument.location.href.match(XULExtendedStatusbarChrome.hideForSites))
@@ -442,12 +451,12 @@ XULExtendedStatusbarChrome.esbListener =
 	{
 		if (aBrowser.esbValues) aBrowser.esbOldValues = aBrowser.esbValues;
 		aBrowser.esbValues = { images: "0/0", 
-								loadedProgress: 0,
-								loadedNetwork: 0,
-								loadedCached: 0,
-								loadedHttpR: 0,
-								loadedHttpH: 0,
-								loadedHttpC: 0,
+								retrieved: 0,
+								loaded: 0,
+								sent: 0,
+								received: 0,
+								details: [],
+								detailsMap: [],
 								speed: "0" + XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.dot") + "00",
 								time: "0" + XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.dot") + "000", 
 								percent: "0", 
@@ -491,12 +500,10 @@ XULExtendedStatusbarChrome.esbListener =
 			}
 			return compdocsize + " " + sizeinval;
 		}
-		var loadedString = "P:" + getSize(aBrowser.esbValues.loadedProgress) +
-						   " D:" + getSize(aBrowser.esbValues.loadedNetwork + aBrowser.esbValues.loadedCached) +
-							   "(" + getSize(aBrowser.esbValues.loadedNetwork) + "+" + getSize(aBrowser.esbValues.loadedCached) + ")" +
-						   " H:" + getSize(aBrowser.esbValues.loadedHttpH + aBrowser.esbValues.loadedHttpC) +
-							   "(" + getSize(aBrowser.esbValues.loadedHttpH) + "+" + getSize(aBrowser.esbValues.loadedHttpC) + ")" +
-						   " R:" + getSize(aBrowser.esbValues.loadedHttpR);
+		var loadedString = "R:" + getSize(aBrowser.esbValues.retrieved) +
+						   " L:" + getSize(aBrowser.esbValues.loaded) +
+						   " \u2193:" + getSize(aBrowser.esbValues.received) +
+						   " \u2191:" + getSize(aBrowser.esbValues.sent);
 
 		if (XULExtendedStatusbarChrome.esbSlimMode)
 		{
@@ -532,7 +539,7 @@ XULExtendedStatusbarChrome.esbListener =
 				XULExtendedStatusbarChrome.esbXUL.percent_progressbar.hidden = true;
 			}
 			
-			XULExtendedStatusbarChrome.esbXUL.loaded_working_progressbar.width = aBrowser.esbValues.loadedProgress*4 % XULExtendedStatusbarChrome.esbXUL.loaded_box.boxObject.width;
+			XULExtendedStatusbarChrome.esbXUL.loaded_working_progressbar.width = aBrowser.esbValues.retrieved*4 % XULExtendedStatusbarChrome.esbXUL.loaded_box.boxObject.width;
 			
 			if(XULExtendedStatusbarChrome.esbHideCursor) 
 			{
@@ -585,7 +592,6 @@ XULExtendedStatusbarChrome.esbListener =
 			}
 			aBrowser.esbProgressListener = new XULExtendedStatusbarChrome.esbProgressListener(aBrowser);
 			aBrowser.addProgressListener(aBrowser.esbProgressListener, aWebProgress.NOTIFY_PROGRESS);
-			console.info("Start:", aRequest.name);
 		}
 		else if (aStateFlags & XULExtendedStatusbarChrome.esbIWebProgressListener.STATE_STOP &&
 				 aStateFlags & XULExtendedStatusbarChrome.esbIWebProgressListener.STATE_IS_NETWORK)
@@ -613,7 +619,6 @@ XULExtendedStatusbarChrome.esbListener =
 			try {
 				aBrowser.removeProgressListener(aBrowser.esbProgressListener);
 			} catch (e) {}
-			console.info("Stop:", aRequest.name);
 		}
 	},
 	
@@ -636,7 +641,7 @@ XULExtendedStatusbarChrome.esbListener =
 											   //so the time doesn't stop for the first page
 			if (now > 0)
 			{
-				var speed = aBrowser.esbValues.loadedProgress / now;
+				var speed = aBrowser.esbValues.retrieved / now;
 				speed = speed.toFixed(2);
 				speed = speed.replace(/\./, XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.dot")); //Replace '.' with a symbol from the active local
 			}
@@ -820,16 +825,15 @@ XULExtendedStatusbarChrome.esbProgressListener.prototype =
 								 aCurSelfProgress, aMaxSelfProgress,
 								 aCurTotalProgress, aMaxTotalProgress)
 	{
-		this.browser.esbValues.loadedProgress = aCurTotalProgress;
-		console.log("Progress : %6d %7d", aCurSelfProgress, aCurTotalProgress, aRequest.contentType ? aRequest.contentType : "<no type>", aRequest.name);
+		this.browser.esbValues.retrieved = aCurTotalProgress;
+		if (aRequest.name.substr(0,7) != "chrome:")
+			XULExtendedStatusbarChrome.getDetailsItem(this.browser, aRequest).retrieved = aCurSelfProgress;
 	},
 
 	onProgressChange64: function (aWebProgress, aRequest,
 				 aCurSelfProgress, aMaxSelfProgress,
 				 aCurTotalProgress, aMaxTotalProgress)
 	{
-		// Never called?
-		console.log("onProgressChange64");
 		this.onProgressChange(aWebProgress, aRequest,
 				 aCurSelfProgress, aMaxSelfProgress,
 				 aCurTotalProgress, aMaxTotalProgress);
@@ -839,6 +843,22 @@ XULExtendedStatusbarChrome.esbProgressListener.prototype =
 	onLocationchange: function(a,b,c){},
 	onStatusChange: function(a,b,c,d){},
 	onSecurityChange: function(a,b,c){},
+}
+
+XULExtendedStatusbarChrome.getDetailsItem = function(aBrowser, aRequest)
+{
+	if (typeof aBrowser.esbValues.detailsMap[aRequest.name] === "undefined")
+	{
+		var type;
+		try { type = aRequest.contentType ? aRequest.contentType : ""; } catch (e) { type = ""; }
+		aBrowser.esbValues.detailsMap[aRequest.name] = aBrowser.esbValues.details.push({ retrieved: 0,
+																						 loaded: 0,
+																						 received: 0,
+																						 sent: 0,
+																						 type: type,
+																						 name: aRequest.name }) - 1;
+	}
+	return aBrowser.esbValues.details[aBrowser.esbValues.detailsMap[aRequest.name]];
 }
 
 // https://developer.mozilla.org/en-US/Add-ons/Code_snippets/Tabbed_browser#Getting_the_browser_that_fires_the_http-on-modify-request_notification
@@ -891,53 +911,31 @@ XULExtendedStatusbarChrome.httpObserver =
 	{
 		if (aActivityType == XULExtendedStatusbarChrome.esbIHttpActivityObserver.ACTIVITY_TYPE_HTTP_TRANSACTION)
 		{
-			var logType = "", logValue, logTotal;
-
 			var browser = XULExtendedStatusbarChrome.getBrowserFromChannel(aHttpChannel);
 			if (browser)
 			{
 				switch (aActivitySubtype)
 				{
 				case XULExtendedStatusbarChrome.esbIHttpActivityObserver.ACTIVITY_SUBTYPE_REQUEST_HEADER:
-					logType = "Http (R) ";
-					logValue = aExtraStringData.length;
-					logTotal =
-					browser.esbValues.loadedHttpR += aExtraStringData.length;
+					var sent = aExtraStringData.length;
+					if (aExtraStringData.substr(0,4) == "POST")
+					{
+						var postLen = aExtraStringData.match(/content-length\s*:\s*(\d+)/i);
+						if (postLen) sent += parseInt(postLen[1]);
+					}
+					browser.esbValues.sent += sent;
+					XULExtendedStatusbarChrome.getDetailsItem(browser, aHttpChannel).sent = sent;
 					break;
 				case XULExtendedStatusbarChrome.esbIHttpActivityObserver.ACTIVITY_SUBTYPE_RESPONSE_HEADER:
-					logType = "Http (H) ";
-					logValue = aExtraStringData.length;
-					logTotal =
-					browser.esbValues.loadedHttpH += aExtraStringData.length;
+					browser.esbValues.received += aExtraStringData.length;
+					browser.esbValues.details[browser.esbValues.detailsMap[aHttpChannel.name]].received = aExtraStringData.length;
 					break;
 				case XULExtendedStatusbarChrome.esbIHttpActivityObserver.ACTIVITY_SUBTYPE_RESPONSE_COMPLETE:
-					logType = "Http (C) ";
-					logValue = aExtraSizeData;
-					logTotal =
-					browser.esbValues.loadedHttpC += aExtraSizeData;
+					browser.esbValues.received += aExtraSizeData;
+					browser.esbValues.details[browser.esbValues.detailsMap[aHttpChannel.name]].received += aExtraSizeData;
 					break;
 				}
 			}
-			else
-			{
-				logTotal = 0;
-				switch (aActivitySubtype)
-				{
-				case XULExtendedStatusbarChrome.esbIHttpActivityObserver.ACTIVITY_SUBTYPE_REQUEST_HEADER:
-					logType = "Http (R)*";
-					logValue = aExtraStringData.length;
-					break;
-				case XULExtendedStatusbarChrome.esbIHttpActivityObserver.ACTIVITY_SUBTYPE_RESPONSE_HEADER:
-					logType = "Http (H)*";
-					logValue = aExtraStringData.length;
-					break;
-				case XULExtendedStatusbarChrome.esbIHttpActivityObserver.ACTIVITY_SUBTYPE_RESPONSE_COMPLETE:
-					logType = "Http (C)*";
-					logValue = aExtraSizeData;
-					break;
-				}
-			}
-			if (logType) console.log("%s: %6d %7d%s", logType, logValue, logTotal, aExtraStringData ? aExtraStringData.replace(/([^\n]+)[^]*/,'" "$1') : "");
 		}
     }
 }
@@ -946,12 +944,15 @@ XULExtendedStatusbarChrome.httpRequestObserver =
 {
 	observe: function(aSubject, aTopic, aData)
 	{
-		var browser = XULExtendedStatusbarChrome.getBrowserFromChannel(aSubject);
-		if (1 || browser)
+		if (aSubject.requestSucceeded)
 		{
-			var newListener = new XULExtendedStatusbarChrome.TracingListener(aTopic, browser);
-			aSubject.QueryInterface(Components.interfaces.nsITraceableChannel);
-			newListener.originalListener = aSubject.setNewListener(newListener);
+			var browser = XULExtendedStatusbarChrome.getBrowserFromChannel(aSubject);
+			if (browser)
+			{
+				var newListener = new XULExtendedStatusbarChrome.TracingListener(aTopic, browser);
+				aSubject.QueryInterface(Components.interfaces.nsITraceableChannel);
+				newListener.originalListener = aSubject.setNewListener(newListener);
+			}
 		}
 	},
 
@@ -967,7 +968,7 @@ XULExtendedStatusbarChrome.httpRequestObserver =
 XULExtendedStatusbarChrome.TracingListener = function(aTopic, aBrowser)
 {
 	this.originalListener = null;
-	this.cached = (aTopic == "http-on-examine-cached-response");
+	//this.cached = (aTopic == "http-on-examine-cached-response");
 	this.browser = aBrowser;
 }
 
@@ -975,33 +976,19 @@ XULExtendedStatusbarChrome.TracingListener.prototype =
 {
 	onDataAvailable: function(request, context, inputStream, offset, count)
 	{
-		var logTotal = 0;
-		if (this.browser)
-		{
-			if (this.cached)
-				logTotal = this.browser.esbValues.loadedCached += count;
-			else
-				logTotal = this.browser.esbValues.loadedNetwork += count;
-		}
-		console.log("Data (%s)%s: %6d %7d", this.cached ? "C" : "N", this.browser ? " " : "*", count, logTotal, request.contentType ? request.contentType : "<no type>", request.name);
+		this.browser.esbValues.loaded += count;
+		this.browser.esbValues.details[this.browser.esbValues.detailsMap[request.name]].loaded += count;
 		this.originalListener.onDataAvailable(request, context, inputStream, offset, count);
 	},
 
 	onStartRequest: function(request, context)
 	{
-		if (this.browser)
-			console.log("Dbeg (%s) : %6d %7d", this.cached ? "C" : "N", request.contentLength, this.cached ? this.browser.esbValues.loadedCached : this.browser.esbValues.loadedNetwork, request.name);
-		else
-			console.log("Dbeg (%s)*: %6d       0", this.cached ? "C" : "N", request.contentLength ? request.contentLength : -2, request.name);
+		XULExtendedStatusbarChrome.getDetailsItem(this.browser, request).type = request.contentType;
 		this.originalListener.onStartRequest(request, context);
 	},
 
 	onStopRequest: function(request, context, statusCode)
 	{
-		if (this.browser)
-			console.log("Dend (%s) : %6d %7d", this.cached ? "C" : "N", request.contentLength, this.cached ? this.browser.esbValues.loadedCached : this.browser.esbValues.loadedNetwork, statusCode.toString(16), request.name);
-		else
-			console.log("Dend (%s)*: %6d       0", this.cached ? "C" : "N", request.contentLength, statusCode.toString(16), request.name);
 		this.originalListener.onStopRequest(request, context, statusCode);
 	},
 
@@ -1496,5 +1483,10 @@ XULExtendedStatusbarChrome.ESB_PrefObserver = {
 XULExtendedStatusbarChrome.openESBOptions = function (event)
 {
 	window.open("chrome://extendedstatusbar/content/extendedstatusbaroptions.xul", "", "chrome");
+}
+
+XULExtendedStatusbarChrome.openESBDetails = function (event)
+{
+	window.openDialog("chrome://extendedstatusbar/content/extendedstatusbardetails.xul", "", "chrome,resizable", gBrowser.selectedBrowser.esbValues.details);
 }
 
