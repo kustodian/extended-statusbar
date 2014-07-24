@@ -615,10 +615,10 @@ XULExtendedStatusbarChrome.esbListener =
 				var speed = aBrowser.esbValues.loaded / now;
 				speed = speed.toFixed(2);
 				speed = speed.replace(/\./, XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.dot")); //Replace '.' with a symbol from the active local
+				aBrowser.esbValues.speed = speed;
 			}
 			if (percentage != 100) aBrowser.esbValues.percent = percentage;
 			this.countImages(aBrowser);
-			aBrowser.esbValues.speed = speed;
 			
 			if(aBrowser == gBrowser.selectedBrowser)
 			{
@@ -792,9 +792,9 @@ XULExtendedStatusbarChrome.esbProgressListener.prototype =
 			var speed = aCurTotalProgress / now;
 			speed = speed.toFixed(2);
 			speed = speed.replace(/\./, XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.dot")); //Replace '.' with a symbol from the active local
+			this.browser.esbValues.speed = speed;
 		}
 		this.browser.esbValues.loaded = aCurTotalProgress;
-		this.browser.esbValues.speed = speed;
 		if(this.browser == gBrowser.selectedBrowser)
 		{
 			XULExtendedStatusbarChrome.esbListener.displayCurrentValuesForBrowser(this.browser);
