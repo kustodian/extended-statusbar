@@ -266,6 +266,10 @@ XULExtendedStatusbarChrome.shouldHideEsb = function (aSpec)
   if (aSpec == "about:customizing")
 	  return false;
 
+  // Always hide a blank tab.
+  if (aSpec == "about:blank")
+	return true;
+
   if (XULExtendedStatusbarChrome.esbProtocol == XULExtendedStatusbarChrome.PROTOCOL_WEB &&
 	  !XULExtendedStatusbarChrome.webProtocol.test(aSpec))
 	  return true;
@@ -352,19 +356,19 @@ XULExtendedStatusbarChrome.esbXUL =
 	get esb_toolbar() {if(XULExtendedStatusbarChrome.ffIsPostAustralis) return document.getElementById("ESB_toolbar");
 						else return document.getElementById("addon-bar"); },
 	get status_bar() {return document.getElementById("ESB_status_bar");},
-	get images_box() {return document.getElementById("ESB_images_box");},
-	get images_label() {return document.getElementById("ESB_images_label");},
-	get speed_box() {return document.getElementById("ESB_speed_box");},
-	get speed_label() {return document.getElementById("ESB_speed_label");},
-	get time_box() {return document.getElementById("ESB_time_box");},
-	get time_label() {return document.getElementById("ESB_time_label");},
 	get percent_box() {return document.getElementById("ESB_percent_box");},
-	get percent_label() {return document.getElementById("ESB_percent_label");},
 	get percent_progressbar() {return document.getElementById("ESB_percent_progressbar");},
 	get loaded_box() {return document.getElementById("ESB_loaded_box");},
-	get loaded_label() {return document.getElementById("ESB_loaded_label");},
 	get loaded_working_progressbar() {return document.getElementById("ESB_loaded_working_progressbar");},
 	get loaded_finished_progressbar() {return document.getElementById("ESB_loaded_finished_progressbar");},
+	get images_box() {return document.getElementById("ESB_images_box");},
+	get speed_box() {return document.getElementById("ESB_speed_box");},
+	get time_box() {return document.getElementById("ESB_time_box");},
+	set percent_label(aValue) {document.getElementById("ESB_percent_label").setAttribute("value", aValue);},
+	set images_label(aValue) {document.getElementById("ESB_images_label").setAttribute("value", aValue);},
+	set loaded_label(aValue) {document.getElementById("ESB_loaded_label").setAttribute("value", aValue);},
+	set speed_label(aValue) {document.getElementById("ESB_speed_label").setAttribute("value", aValue);},
+	set time_label(aValue) {document.getElementById("ESB_time_label").setAttribute("value", aValue);},
 	
 	init: function()
 	{
@@ -386,6 +390,9 @@ XULExtendedStatusbarChrome.esbXUL =
 			this.esb_toolbar.addEventListener("mouseover", XULExtendedStatusbarChrome.showESBOnHover, false);
 			this.esb_toolbar.addEventListener("mouseout", XULExtendedStatusbarChrome.hideESBOnHover, false);
 		}
+
+		// Start hidden, so you don't see the style when starting with a blank tab.
+		XULExtendedStatusbarChrome.esbXUL.status_bar.hidden = true;
 	},
 
 	destroy: function()
@@ -485,19 +492,19 @@ XULExtendedStatusbarChrome.esbListener =
 			
 		if (XULExtendedStatusbarChrome.esbSlimMode)
 		{
-			XULExtendedStatusbarChrome.esbXUL.images_label.value = aBrowser.esbValues.images;
-			XULExtendedStatusbarChrome.esbXUL.loaded_label.value = compdocsize + " " + sizeinval;
-			XULExtendedStatusbarChrome.esbXUL.speed_label.value = aBrowser.esbValues.speed + " " + XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.kbps");
-			XULExtendedStatusbarChrome.esbXUL.time_label.value = aBrowser.esbValues.time;
-			XULExtendedStatusbarChrome.esbXUL.percent_label.value = percentageString;
+			XULExtendedStatusbarChrome.esbXUL.images_label = aBrowser.esbValues.images;
+			XULExtendedStatusbarChrome.esbXUL.loaded_label = compdocsize + " " + sizeinval;
+			XULExtendedStatusbarChrome.esbXUL.speed_label = aBrowser.esbValues.speed + " " + XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.kbps");
+			XULExtendedStatusbarChrome.esbXUL.time_label = aBrowser.esbValues.time;
+			XULExtendedStatusbarChrome.esbXUL.percent_label = percentageString;
 		}
 		else
 		{
-			XULExtendedStatusbarChrome.esbXUL.images_label.value = XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.images") + " " + aBrowser.esbValues.images;
-			XULExtendedStatusbarChrome.esbXUL.loaded_label.value = XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.loaded") + " " + compdocsize + " " + sizeinval;
-			XULExtendedStatusbarChrome.esbXUL.speed_label.value = XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.speed") + " " + aBrowser.esbValues.speed + " " + XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.kbps");
-			XULExtendedStatusbarChrome.esbXUL.time_label.value = XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.time") + " " + aBrowser.esbValues.time;
-			XULExtendedStatusbarChrome.esbXUL.percent_label.value = XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.document") + " " + percentageString;
+			XULExtendedStatusbarChrome.esbXUL.images_label = XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.images") + " " + aBrowser.esbValues.images;
+			XULExtendedStatusbarChrome.esbXUL.loaded_label = XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.loaded") + " " + compdocsize + " " + sizeinval;
+			XULExtendedStatusbarChrome.esbXUL.speed_label = XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.speed") + " " + aBrowser.esbValues.speed + " " + XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.kbps");
+			XULExtendedStatusbarChrome.esbXUL.time_label = XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.time") + " " + aBrowser.esbValues.time;
+			XULExtendedStatusbarChrome.esbXUL.percent_label = XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.document") + " " + percentageString;
 		}
 		var progressBorderWidth = parseInt(XULExtendedStatusbarChrome.esbXUL.percent_box.style.borderRight);
 		XULExtendedStatusbarChrome.esbXUL.percent_progressbar.width = Math.round(aBrowser.esbValues.percent * (XULExtendedStatusbarChrome.esbXUL.percent_box.boxObject.width - (isNaN(progressBorderWidth) ? 1 : progressBorderWidth)) / 100);
@@ -754,11 +761,11 @@ XULExtendedStatusbarChrome.esbListener =
 		{
 			if (XULExtendedStatusbarChrome.esbSlimMode)
 			{
-				XULExtendedStatusbarChrome.esbXUL.time_label.value = slimTimeString;
+				XULExtendedStatusbarChrome.esbXUL.time_label = slimTimeString;
 			}
 			else
 			{
-				XULExtendedStatusbarChrome.esbXUL.time_label.value = XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.time") + " " + slimTimeString;
+				XULExtendedStatusbarChrome.esbXUL.time_label = XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.time") + " " + slimTimeString;
 			}
 		}
 	},
@@ -1057,12 +1064,6 @@ XULExtendedStatusbarChrome.ESB_PrefObserver = {
 					XULExtendedStatusbarChrome.percent_progressbar_width = parseInt(window.getComputedStyle(XULExtendedStatusbarChrome.esbXUL.percent_progressbar).getPropertyValue('width'));
 					XULExtendedStatusbarChrome.loaded_working_progressbar_width = parseInt(window.getComputedStyle(XULExtendedStatusbarChrome.esbXUL.loaded_working_progressbar).getPropertyValue('width'));
 					XULExtendedStatusbarChrome.loaded_finished_progressbar_width = parseInt(window.getComputedStyle(XULExtendedStatusbarChrome.esbXUL.loaded_finished_progressbar).getPropertyValue('width'));
-					
-					XULExtendedStatusbarChrome.esbXUL.images_label.value = XULExtendedStatusbarChrome.esbXUL.images_label.value.substring(XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.images").length + 1);
-					XULExtendedStatusbarChrome.esbXUL.loaded_label.value = XULExtendedStatusbarChrome.esbXUL.loaded_label.value.substring(XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.loaded").length + 1);
-					XULExtendedStatusbarChrome.esbXUL.speed_label.value = XULExtendedStatusbarChrome.esbXUL.speed_label.value.substring(XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.speed").length + 1);
-					XULExtendedStatusbarChrome.esbXUL.time_label.value = XULExtendedStatusbarChrome.esbXUL.time_label.value.substring(XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.time").length + 1);
-					XULExtendedStatusbarChrome.esbXUL.percent_label.value = XULExtendedStatusbarChrome.esbXUL.percent_label.value.substring(XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.document").length + 1);
 				}
 				else
 				{
@@ -1077,13 +1078,8 @@ XULExtendedStatusbarChrome.ESB_PrefObserver = {
 					this.appendStyleAtribute("ESB_percent_progressbar", "width", XULExtendedStatusbarChrome.percent_progressbar_width + "px");
 					this.appendStyleAtribute("ESB_loaded_working_progressbar", "width", XULExtendedStatusbarChrome.loaded_working_progressbar_width + "px");
 					this.appendStyleAtribute("ESB_loaded_finished_progressbar", "width", XULExtendedStatusbarChrome.loaded_finished_progressbar_width + "px");
-		
-					XULExtendedStatusbarChrome.esbXUL.images_label.value = XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.images") + " " + XULExtendedStatusbarChrome.esbXUL.images_label.value;
-					XULExtendedStatusbarChrome.esbXUL.loaded_label.value = XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.loaded") + " " + XULExtendedStatusbarChrome.esbXUL.loaded_label.value;
-					XULExtendedStatusbarChrome.esbXUL.speed_label.value = XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.speed") + " " + XULExtendedStatusbarChrome.esbXUL.speed_label.value;
-					XULExtendedStatusbarChrome.esbXUL.time_label.value = XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.time") + " " + XULExtendedStatusbarChrome.esbXUL.time_label.value;
-					XULExtendedStatusbarChrome.esbXUL.percent_label.value = XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.document") + " " + XULExtendedStatusbarChrome.esbXUL.percent_label.value;
 				}
+				XULExtendedStatusbarChrome.esbListener.displayCurrentValuesForBrowser(gBrowser.selectedBrowser);
 				this.applyStyle();				
 				break;
 			case "hideprogress":
