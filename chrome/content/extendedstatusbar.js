@@ -448,7 +448,6 @@ XULExtendedStatusbarChrome.esbListener =
 
 	initObjectValuesForBrowser : function(aBrowser)
 	{
-		if (aBrowser.esbValues) aBrowser.esbOldValues = aBrowser.esbValues;
 		aBrowser.esbValues = { images: "0/0", 
 								loaded: "0", 
 								speed: "0" + XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.dot") + "00",
@@ -503,8 +502,7 @@ XULExtendedStatusbarChrome.esbListener =
 		var progressBorderWidth = parseInt(XULExtendedStatusbarChrome.esbXUL.percent_box.style.borderRight);
 		XULExtendedStatusbarChrome.esbXUL.percent_progressbar.width = Math.round(aBrowser.esbValues.percent * (XULExtendedStatusbarChrome.esbXUL.percent_box.boxObject.width - (isNaN(progressBorderWidth) ? 1 : progressBorderWidth)) / 100);
 		
-		if (aBrowser.esbValues.stateFlags & XULExtendedStatusbarChrome.esbIWebProgressListener.STATE_START &&     //Start only if network activity,
-			aBrowser.esbValues.stateFlags & XULExtendedStatusbarChrome.esbIWebProgressListener.STATE_IS_NETWORK)  //so that ESB doesn't fire up on blank tabs/windows
+		if (aBrowser.esbValues.stateFlags & XULExtendedStatusbarChrome.esbIWebProgressListener.STATE_START)
 		{
 			if (!XULExtendedStatusbarChrome.hideForSitesSem)
 			{
@@ -521,8 +519,7 @@ XULExtendedStatusbarChrome.esbListener =
 			XULExtendedStatusbarChrome.esbXUL.loaded_working_progressbar.width = compdocsize*4 % XULExtendedStatusbarChrome.esbXUL.loaded_box.boxObject.width;
 			XULExtendedStatusbarChrome.esbXUL.loaded_working_progressbar.hidden = XULExtendedStatusbarChrome.esbHideCursor;
 		}
-		else if (aBrowser.esbValues.stateFlags & XULExtendedStatusbarChrome.esbIWebProgressListener.STATE_STOP &&
-				 aBrowser.esbValues.stateFlags & XULExtendedStatusbarChrome.esbIWebProgressListener.STATE_IS_NETWORK)
+		else if (aBrowser.esbValues.stateFlags & XULExtendedStatusbarChrome.esbIWebProgressListener.STATE_STOP)
 		{
 			XULExtendedStatusbarChrome.esbXUL.loaded_working_progressbar.hidden = true;
 			
@@ -552,7 +549,16 @@ XULExtendedStatusbarChrome.esbListener =
 		if (aStateFlags & XULExtendedStatusbarChrome.esbIWebProgressListener.STATE_START &&     //Start only if network activity,
 			aStateFlags & XULExtendedStatusbarChrome.esbIWebProgressListener.STATE_IS_NETWORK)  //so that ESB doesn't fire up on blank tabs/windows
 		{
-			this.initObjectValuesForBrowser(aBrowser);
+			if (aBrowser.esbValues)
+			{
+				aBrowser.esbOldValues = aBrowser.esbValues;
+				this.initObjectValuesForBrowser(aBrowser);
+			}
+			else
+			{
+				this.initObjectValuesForBrowser(aBrowser);
+				aBrowser.esbOldValues = aBrowser.esbValues;
+			}
 			aBrowser.esbValues.stateFlags = aStateFlags;
 			this.startTimer(aBrowser);
 			
@@ -560,6 +566,19 @@ XULExtendedStatusbarChrome.esbListener =
 			{
 				XULExtendedStatusbarChrome.esbLoading = true;
 				this.displayCurrentValuesForBrowser(aBrowser);
+				if (!XULExtendedStatusbarChrome.shouldHideEsb(aRequest.name))
+				{
+					XULExtendedStatusbarChrome.hideForSitesSem = false;
+					XULExtendedStatusbarChrome.cancelTimeOut(XULExtendedStatusbarChrome.hideTimeOut);
+					XULExtendedStatusbarChrome.esbXUL.esb_toolbar.hidden = false;
+					XULExtendedStatusbarChrome.esbXUL.status_bar.hidden = false;
+				}
+				else
+				{
+					XULExtendedStatusbarChrome.hideForSitesSem = true;
+					XULExtendedStatusbarChrome.esbXUL.esb_toolbar.hidden = true;
+					XULExtendedStatusbarChrome.esbXUL.status_bar.hidden = true;
+				}
 			}
 		}
 		else if (aStateFlags & XULExtendedStatusbarChrome.esbIWebProgressListener.STATE_STOP &&
@@ -582,6 +601,19 @@ XULExtendedStatusbarChrome.esbListener =
 				{
 					aBrowser.esbValues = aBrowser.esbOldValues;
 					aBrowser.esbOldValues = null;
+					if (XULExtendedStatusbarChrome.esbHide || XULExtendedStatusbarChrome.shouldHideEsb(aBrowser.currentURI.spec))
+					{
+						XULExtendedStatusbarChrome.hideForSitesSem = true;
+						XULExtendedStatusbarChrome.esbXUL.esb_toolbar.hidden = true;
+						XULExtendedStatusbarChrome.esbXUL.status_bar.hidden = true;
+					}
+					else
+					{
+						XULExtendedStatusbarChrome.hideForSitesSem = false;
+						XULExtendedStatusbarChrome.cancelTimeOut(XULExtendedStatusbarChrome.hideTimeOut);
+						XULExtendedStatusbarChrome.esbXUL.esb_toolbar.hidden = false;
+						XULExtendedStatusbarChrome.esbXUL.status_bar.hidden = false;
+					}
 				}
 				this.displayCurrentValuesForBrowser(aBrowser);
 			}
@@ -634,26 +666,15 @@ XULExtendedStatusbarChrome.esbListener =
 
 	onLocationChange: function (aBrowser, aWebProgress, aRequest, aLocation, aFlags)
 	{
-		if(aLocation)
-		{
-			if (XULExtendedStatusbarChrome.shouldHideEsb(aLocation.spec))
-			{
-				XULExtendedStatusbarChrome.hideForSitesSem = true;
-				XULExtendedStatusbarChrome.esbXUL.esb_toolbar.hidden = true;
-				XULExtendedStatusbarChrome.esbXUL.status_bar.hidden = true;
-			}
-			else if(aBrowser == gBrowser.selectedBrowser)
-			{
-				XULExtendedStatusbarChrome.hideForSitesSem = false;
-				XULExtendedStatusbarChrome.cancelTimeOut(XULExtendedStatusbarChrome.hideTimeOut);
-				XULExtendedStatusbarChrome.esbXUL.esb_toolbar.hidden = false;
-				XULExtendedStatusbarChrome.esbXUL.status_bar.hidden = false;
-			}
-			aBrowser.esbOldValues = null;
-		}
-		else
+		aBrowser.esbOldValues = null;
+
+		// This may be "about:blank" during onTabSelect; the request name is the jar url.
+		if (aLocation && aLocation.spec == "about:customizing")
 		{
 			XULExtendedStatusbarChrome.hideForSitesSem = false;
+			XULExtendedStatusbarChrome.cancelTimeOut(XULExtendedStatusbarChrome.hideTimeOut);
+			XULExtendedStatusbarChrome.esbXUL.esb_toolbar.hidden = false;
+			XULExtendedStatusbarChrome.esbXUL.status_bar.hidden = false;
 		}
 	},
 	
@@ -748,7 +769,7 @@ XULExtendedStatusbarChrome.esbListener =
 		{
 			clearInterval(aBrowser.esbValues.updateTimeInterval);
 		}
-		aBrowser.esbValues.updateTimeInterval = setInterval(XULExtendedStatusbarChrome.esbListener.updateTime(aBrowser), 768);
+		aBrowser.esbValues.updateTimeInterval = setInterval(XULExtendedStatusbarChrome.esbListener.updateTime, 768, aBrowser);
 	},
 
 	stopTimer: function(aBrowser)
