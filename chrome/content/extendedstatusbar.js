@@ -30,8 +30,6 @@ XULExtendedStatusbarChrome.esbHideCursor;
 XULExtendedStatusbarChrome.esbHideProgress;
 XULExtendedStatusbarChrome.esbSplitTimer;			// Separate timers for before & after the first response
 XULExtendedStatusbarChrome.esbIWebProgressListener = Components.interfaces.nsIWebProgressListener;  //this has to have a unique name because a lot of oxtensions are using it
-XULExtendedStatusbarChrome.esbIHttpActivityObserver = Components.interfaces.nsIHttpActivityObserver;
-XULExtendedStatusbarChrome.activityDistributor = Components.classes["@mozilla.org/network/http-activity-distributor;1"].getService(Components.interfaces.nsIHttpActivityDistributor);
 
 // The following variables are needed in order to backup/restore style defined width when we switch slim mode on/off
 XULExtendedStatusbarChrome.status_bar_width;
@@ -63,7 +61,6 @@ XULExtendedStatusbarChrome.init = function ()
 			XULExtendedStatusbarChrome.ESB_PrefObserver.startup();
 			XULExtendedStatusbarChrome.esbListener.init();
 			getBrowser().addTabsProgressListener(XULExtendedStatusbarChrome.esbListener);
-			XULExtendedStatusbarChrome.activityDistributor.addObserver(XULExtendedStatusbarChrome.httpObserver);
 			XULExtendedStatusbarChrome.started = true;
 			XULExtendedStatusbarChrome.addContextMenuItem();
 			console.log("ExtendedStatusbar started");
@@ -82,7 +79,6 @@ XULExtendedStatusbarChrome.uninit = function ()
 	XULExtendedStatusbarChrome.esbXUL.destroy();
 	XULExtendedStatusbarChrome.esbListener.destroy();
 	getBrowser().removeTabsProgressListener(XULExtendedStatusbarChrome.esbListener);
-	XULExtendedStatusbarChrome.activityDistributor.removeObserver(XULExtendedStatusbarChrome.httpObserver);
 	XULExtendedStatusbarChrome.removeContextMenuItem();
 	console.log("ExtendedStatusbar stopped");
 }
@@ -487,8 +483,7 @@ XULExtendedStatusbarChrome.esbListener =
 					break;
 		}
 		var slimTimeString;
-		if (XULExtendedStatusbarChrome.esbSplitTimer && aBrowser.esbValues.firstResponse &&
-			aBrowser.esbValues.firstResponse != aBrowser.esbValues.startProg)
+		if (XULExtendedStatusbarChrome.esbSplitTimer && aBrowser.esbValues.firstResponse)
 		{
 			slimTimeString = XULExtendedStatusbarChrome.esbListener.getDuration(aBrowser.esbValues.firstResponse - aBrowser.esbValues.startProg)
 							 + "/" + XULExtendedStatusbarChrome.esbListener.getDuration(aBrowser.esbValues.stopProg - aBrowser.esbValues.firstResponse);
@@ -679,7 +674,7 @@ XULExtendedStatusbarChrome.esbListener =
 				XULExtendedStatusbarChrome.esbXUL.status_bar.hidden = false;
 			}
 			aBrowser.esbOldValues = null;
-			if (aBrowser.esbValues && !aBrowser.esbValues.firstResponse)
+			if (aBrowser.esbValues)
 			{
 				aBrowser.esbValues.firstResponse = aBrowser.esbValues.stopProg = Date.now();
 			}
@@ -732,8 +727,7 @@ XULExtendedStatusbarChrome.esbListener =
 	{
 		var now = Date.now();
 		var slimTimeString;
-		if (XULExtendedStatusbarChrome.esbSplitTimer && aBrowser.esbValues.firstResponse &&
-			aBrowser.esbValues.firstResponse != aBrowser.esbValues.startProg)
+		if (XULExtendedStatusbarChrome.esbSplitTimer && aBrowser.esbValues.firstResponse)
 		{
 			slimTimeString = XULExtendedStatusbarChrome.esbListener.getDuration(aBrowser.esbValues.firstResponse - aBrowser.esbValues.startProg)
 							 + "/" + XULExtendedStatusbarChrome.esbListener.getDuration(now - aBrowser.esbValues.firstResponse);
@@ -795,73 +789,6 @@ XULExtendedStatusbarChrome.esbListener =
 		}
 		return timeString + secs + dot + ("00" + msecs).slice(-3);
 	}
-}
-
-// https://developer.mozilla.org/en-US/Add-ons/Code_snippets/Tabbed_browser#Getting_the_browser_that_fires_the_http-on-modify-request_notification
-// https://developer.mozilla.org/en-US/docs/Updating_extensions_for_Firefox_3.5#Getting_a_load_context_from_a_request
-XULExtendedStatusbarChrome.getBrowserFromChannel = function(aChannel)
-{
-	var loadContext;
-	try {
-		loadContext = aChannel.QueryInterface(Components.interfaces.nsIChannel)
-							  .notificationCallbacks
-							  .getInterface(Components.interfaces.nsILoadContext);
-	} catch (ex) {
-		try {
-			loadContext = aChannel.loadGroup.notificationCallbacks
-								  .getInterface(Components.interfaces.nsILoadContext);
-		} catch (ex) {
-			loadContext = null;
-		}
-	}
-	if (loadContext)
-	{
-		var contentWindow;
-		try {
-			// sometimes throws NS_UNEXPECTED_ERROR
-			contentWindow = loadContext.associatedWindow;
-		} catch (ex) {
-			contentWindow = null;
-		}
-		if (contentWindow)
-		{
-			var aDOMWindow = contentWindow.top.QueryInterface(Components.interfaces.nsIInterfaceRequestor)
-							 .getInterface(Components.interfaces.nsIWebNavigation)
-							 .QueryInterface(Components.interfaces.nsIDocShellTreeItem)
-							 .rootTreeItem.QueryInterface(Components.interfaces.nsIInterfaceRequestor)
-							 .getInterface(Components.interfaces.nsIDOMWindow);
-			var gBrowser = aDOMWindow.gBrowser;
-			var aTab = gBrowser._getTabForContentWindow(contentWindow.top);
-			if (aTab)
-			{
-				return aTab.linkedBrowser;
-			}
-		}
-	}
-	return null;
-}
-
-XULExtendedStatusbarChrome.httpObserver =
-{
-    observeActivity: function(aHttpChannel, aActivityType, aActivitySubtype, aTimestamp, aExtraSizeData, aExtraStringData)
-	{
-		if (aActivityType == XULExtendedStatusbarChrome.esbIHttpActivityObserver.ACTIVITY_TYPE_HTTP_TRANSACTION)
-		{
-			var browser = XULExtendedStatusbarChrome.getBrowserFromChannel(aHttpChannel);
-			if (browser)
-			{
-				switch (aActivitySubtype)
-				{
-				case XULExtendedStatusbarChrome.esbIHttpActivityObserver.ACTIVITY_SUBTYPE_RESPONSE_HEADER:
-					if (!browser.esbValues.firstResponse)
-					{
-						browser.esbValues.firstResponse = browser.esbValues.stopProg = Date.now();
-					}
-					break;
-				}
-			}
-		}
-    }
 }
 
 // Settings observer
