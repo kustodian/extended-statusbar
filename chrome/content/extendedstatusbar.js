@@ -30,10 +30,6 @@ XULExtendedStatusbarChrome.esbHideCursor;
 XULExtendedStatusbarChrome.esbHideProgress;
 XULExtendedStatusbarChrome.esbIWebProgressListener = Components.interfaces.nsIWebProgressListener;  //this has to have a unique name because a lot of oxtensions are using it
 
-XULExtendedStatusbarChrome.observerService = Components.classes["@mozilla.org/observer-service;1"].getService(Components.interfaces.nsIObserverService);
-XULExtendedStatusbarChrome.esbIHttpActivityObserver = Components.interfaces.nsIHttpActivityObserver;
-XULExtendedStatusbarChrome.activityDistributor = Components.classes["@mozilla.org/network/http-activity-distributor;1"].getService(Components.interfaces.nsIHttpActivityDistributor);
-
 // The following variables are needed in order to backup/restore style defined width when we switch slim mode on/off
 XULExtendedStatusbarChrome.status_bar_width;
 XULExtendedStatusbarChrome.percent_box_width;
@@ -64,10 +60,6 @@ XULExtendedStatusbarChrome.init = function ()
 			XULExtendedStatusbarChrome.ESB_PrefObserver.startup();
 			XULExtendedStatusbarChrome.esbListener.init();
 			getBrowser().addTabsProgressListener(XULExtendedStatusbarChrome.esbListener);
-			XULExtendedStatusbarChrome.observerService.addObserver(XULExtendedStatusbarChrome.httpRequestObserver, "http-on-examine-response", false);
-			XULExtendedStatusbarChrome.observerService.addObserver(XULExtendedStatusbarChrome.httpRequestObserver, "http-on-examine-cached-response", false);
-			XULExtendedStatusbarChrome.observerService.addObserver(XULExtendedStatusbarChrome.httpRequestObserver, "http-on-examine-merged-response", false);
-			XULExtendedStatusbarChrome.activityDistributor.addObserver(XULExtendedStatusbarChrome.httpObserver);
 			XULExtendedStatusbarChrome.started = true;
 			XULExtendedStatusbarChrome.addContextMenuItem();
 			console.log("ExtendedStatusbar started");
@@ -86,10 +78,6 @@ XULExtendedStatusbarChrome.uninit = function ()
 	XULExtendedStatusbarChrome.esbXUL.destroy();
 	XULExtendedStatusbarChrome.esbListener.destroy();
 	getBrowser().removeTabsProgressListener(XULExtendedStatusbarChrome.esbListener);
-	XULExtendedStatusbarChrome.observerService.removeObserver(XULExtendedStatusbarChrome.httpRequestObserver, "http-on-examine-response");
-	XULExtendedStatusbarChrome.observerService.removeObserver(XULExtendedStatusbarChrome.httpRequestObserver, "http-on-examine-cached-response");
-	XULExtendedStatusbarChrome.observerService.removeObserver(XULExtendedStatusbarChrome.httpRequestObserver, "http-on-examine-merged-response");
-	XULExtendedStatusbarChrome.activityDistributor.removeObserver(XULExtendedStatusbarChrome.httpObserver);
 	XULExtendedStatusbarChrome.removeContextMenuItem();
 	console.log("ExtendedStatusbar stopped");
 }
@@ -107,13 +95,6 @@ XULExtendedStatusbarChrome.addContextMenuItem = function ()
 	{
 		menu.insertBefore(menuseparator, menu.firstChild);
 	}
-	
-	var itemDetails = document.createElement("menuitem");
-	itemDetails.setAttribute("id", "ESB_details_context_item");
-	itemDetails.setAttribute("label", XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.details"));
-	itemDetails.setAttribute("accesskey", XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.details.accesskey"));
-	itemDetails.addEventListener("command", XULExtendedStatusbarChrome.openESBDetails);
-	menu.insertBefore(itemDetails, menu.firstChild);
 	
     var itemTime = document.createElement("menuitem");
     itemTime.setAttribute("id", "ESB_time_context_item");
@@ -250,7 +231,6 @@ XULExtendedStatusbarChrome.removeContextMenuItem = function ()
 	var menu = document.getElementById("toolbar-context-menu");
 	menu.removeEventListener("popupshowing", XULExtendedStatusbarChrome.onContextMenuPopupShowing);
 	menu.removeChild(document.getElementById("ESB_context_separator"));
-	menu.removeChild(document.getElementById("ESB_details_context_item"));
 	menu.removeChild(document.getElementById("ESB_time_context_item"));
 	menu.removeChild(document.getElementById("ESB_speed_context_item"));
 	menu.removeChild(document.getElementById("ESB_images_context_item"));
@@ -266,7 +246,6 @@ XULExtendedStatusbarChrome.onContextMenuPopupShowing = function (event)
 	var esbToolbarItem = document.getElementById("ESB_toolbaritem");
 	var hiding = esbToolbarItem ? !esbToolbarItem.contains(document.popupNode) : true;
 	document.getElementById("ESB_context_separator").hidden = hiding;
-	document.getElementById("ESB_details_context_item").hidden = hiding;
 	document.getElementById("ESB_time_context_item").hidden = hiding;
 	document.getElementById("ESB_speed_context_item").hidden = hiding;
 	document.getElementById("ESB_images_context_item").hidden = hiding;
@@ -451,12 +430,7 @@ XULExtendedStatusbarChrome.esbListener =
 	{
 		if (aBrowser.esbValues) aBrowser.esbOldValues = aBrowser.esbValues;
 		aBrowser.esbValues = { images: "0/0", 
-								retrieved: 0,
 								loaded: 0,
-								sent: 0,
-								received: 0,
-								details: [],
-								detailsMap: [],
 								speed: "0" + XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.dot") + "00",
 								time: "0" + XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.dot") + "000", 
 								percent: "0", 
@@ -500,10 +474,7 @@ XULExtendedStatusbarChrome.esbListener =
 			}
 			return compdocsize + " " + sizeinval;
 		}
-		var loadedString = "R:" + getSize(aBrowser.esbValues.retrieved) +
-						   " L:" + getSize(aBrowser.esbValues.loaded) +
-						   " \u2193:" + getSize(aBrowser.esbValues.received) +
-						   " \u2191:" + getSize(aBrowser.esbValues.sent);
+		var loadedString = getSize(aBrowser.esbValues.loaded);
 
 		if (XULExtendedStatusbarChrome.esbSlimMode)
 		{
@@ -539,7 +510,7 @@ XULExtendedStatusbarChrome.esbListener =
 				XULExtendedStatusbarChrome.esbXUL.percent_progressbar.hidden = true;
 			}
 			
-			XULExtendedStatusbarChrome.esbXUL.loaded_working_progressbar.width = aBrowser.esbValues.retrieved*4 % XULExtendedStatusbarChrome.esbXUL.loaded_box.boxObject.width;
+			XULExtendedStatusbarChrome.esbXUL.loaded_working_progressbar.width = aBrowser.esbValues.loaded*4 % XULExtendedStatusbarChrome.esbXUL.loaded_box.boxObject.width;
 			
 			if(XULExtendedStatusbarChrome.esbHideCursor) 
 			{
@@ -641,7 +612,7 @@ XULExtendedStatusbarChrome.esbListener =
 											   //so the time doesn't stop for the first page
 			if (now > 0)
 			{
-				var speed = aBrowser.esbValues.retrieved / now;
+				var speed = aBrowser.esbValues.loaded / now;
 				speed = speed.toFixed(2);
 				speed = speed.replace(/\./, XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.dot")); //Replace '.' with a symbol from the active local
 			}
@@ -811,23 +782,23 @@ XULExtendedStatusbarChrome.esbProgressListener.prototype =
 		throw Components.results.NS_NOINTERFACE;
 	},
 
-	init: function()
-	{
-
-	},
-
-	destroy: function()
-	{
-
-	},
-
 	onProgressChange: function (aWebProgress, aRequest,
 								 aCurSelfProgress, aMaxSelfProgress,
 								 aCurTotalProgress, aMaxTotalProgress)
 	{
-		this.browser.esbValues.retrieved = aCurTotalProgress;
-		if (aRequest.name.substr(0,7) != "chrome:")
-			XULExtendedStatusbarChrome.getDetailsItem(this.browser, aRequest).retrieved = aCurSelfProgress;
+		var now = Date.now() - this.browser.esbValues.startProg;
+		if (now > 0)
+		{
+			var speed = aCurTotalProgress / now;
+			speed = speed.toFixed(2);
+			speed = speed.replace(/\./, XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.dot")); //Replace '.' with a symbol from the active local
+		}
+		this.browser.esbValues.loaded = aCurTotalProgress;
+		this.browser.esbValues.speed = speed;
+		if(this.browser == gBrowser.selectedBrowser)
+		{
+			XULExtendedStatusbarChrome.esbListener.displayCurrentValuesForBrowser(this.browser);
+		}
 	},
 
 	onProgressChange64: function (aWebProgress, aRequest,
@@ -843,164 +814,6 @@ XULExtendedStatusbarChrome.esbProgressListener.prototype =
 	onLocationchange: function(a,b,c){},
 	onStatusChange: function(a,b,c,d){},
 	onSecurityChange: function(a,b,c){},
-}
-
-XULExtendedStatusbarChrome.getDetailsItem = function(aBrowser, aRequest)
-{
-	if (typeof aBrowser.esbValues.detailsMap[aRequest.name] === "undefined")
-	{
-		var type;
-		try { type = aRequest.contentType ? aRequest.contentType : ""; } catch (e) { type = ""; }
-		aBrowser.esbValues.detailsMap[aRequest.name] = aBrowser.esbValues.details.push({ retrieved: 0,
-																						 loaded: 0,
-																						 received: 0,
-																						 sent: 0,
-																						 type: type,
-																						 name: aRequest.name }) - 1;
-	}
-	return aBrowser.esbValues.details[aBrowser.esbValues.detailsMap[aRequest.name]];
-}
-
-// https://developer.mozilla.org/en-US/Add-ons/Code_snippets/Tabbed_browser#Getting_the_browser_that_fires_the_http-on-modify-request_notification
-// https://developer.mozilla.org/en-US/docs/Updating_extensions_for_Firefox_3.5#Getting_a_load_context_from_a_request
-XULExtendedStatusbarChrome.getBrowserFromChannel = function(aChannel)
-{
-	var loadContext;
-	try {
-		loadContext = aChannel.QueryInterface(Components.interfaces.nsIChannel)
-							  .notificationCallbacks
-							  .getInterface(Components.interfaces.nsILoadContext);
-	} catch (ex) {
-		try {
-			loadContext = aChannel.loadGroup.notificationCallbacks
-								  .getInterface(Components.interfaces.nsILoadContext);
-		} catch (ex) {
-			loadContext = null;
-		}
-	}
-	if (loadContext)
-	{
-		var contentWindow;
-		try {
-			// sometimes throws NS_UNEXPECTED_ERROR
-			contentWindow = loadContext.associatedWindow;
-		} catch (ex) {
-			contentWindow = null;
-		}
-		if (contentWindow)
-		{
-			var aDOMWindow = contentWindow.top.QueryInterface(Components.interfaces.nsIInterfaceRequestor)
-							 .getInterface(Components.interfaces.nsIWebNavigation)
-							 .QueryInterface(Components.interfaces.nsIDocShellTreeItem)
-							 .rootTreeItem.QueryInterface(Components.interfaces.nsIInterfaceRequestor)
-							 .getInterface(Components.interfaces.nsIDOMWindow);
-			var gBrowser = aDOMWindow.gBrowser;
-			var aTab = gBrowser._getTabForContentWindow(contentWindow.top);
-			if (aTab)
-			{
-				return aTab.linkedBrowser;
-			}
-		}
-	}
-	return null;
-}
-
-XULExtendedStatusbarChrome.httpObserver =
-{
-    observeActivity: function(aHttpChannel, aActivityType, aActivitySubtype, aTimestamp, aExtraSizeData, aExtraStringData)
-	{
-		if (aActivityType == XULExtendedStatusbarChrome.esbIHttpActivityObserver.ACTIVITY_TYPE_HTTP_TRANSACTION)
-		{
-			var browser = XULExtendedStatusbarChrome.getBrowserFromChannel(aHttpChannel);
-			if (browser)
-			{
-				switch (aActivitySubtype)
-				{
-				case XULExtendedStatusbarChrome.esbIHttpActivityObserver.ACTIVITY_SUBTYPE_REQUEST_HEADER:
-					var sent = aExtraStringData.length;
-					if (aExtraStringData.substr(0,4) == "POST")
-					{
-						var postLen = aExtraStringData.match(/content-length\s*:\s*(\d+)/i);
-						if (postLen) sent += parseInt(postLen[1]);
-					}
-					browser.esbValues.sent += sent;
-					XULExtendedStatusbarChrome.getDetailsItem(browser, aHttpChannel).sent = sent;
-					break;
-				case XULExtendedStatusbarChrome.esbIHttpActivityObserver.ACTIVITY_SUBTYPE_RESPONSE_HEADER:
-					browser.esbValues.received += aExtraStringData.length;
-					browser.esbValues.details[browser.esbValues.detailsMap[aHttpChannel.name]].received = aExtraStringData.length;
-					break;
-				case XULExtendedStatusbarChrome.esbIHttpActivityObserver.ACTIVITY_SUBTYPE_RESPONSE_COMPLETE:
-					browser.esbValues.received += aExtraSizeData;
-					browser.esbValues.details[browser.esbValues.detailsMap[aHttpChannel.name]].received += aExtraSizeData;
-					break;
-				}
-			}
-		}
-    }
-}
-
-XULExtendedStatusbarChrome.httpRequestObserver =
-{
-	observe: function(aSubject, aTopic, aData)
-	{
-		if (aSubject.requestSucceeded)
-		{
-			var browser = XULExtendedStatusbarChrome.getBrowserFromChannel(aSubject);
-			if (browser)
-			{
-				var newListener = new XULExtendedStatusbarChrome.TracingListener(aTopic, browser);
-				aSubject.QueryInterface(Components.interfaces.nsITraceableChannel);
-				newListener.originalListener = aSubject.setNewListener(newListener);
-			}
-		}
-	},
-
-	QueryInterface : function (aIID)
-	{
-		if (aIID.equals(Components.interfaces.nsIObserver) ||
-			aIID.equals(Components.interfaces.nsISupports))
-			return this;
-		throw Components.results.NS_NOINTERFACE;
-	}
-}
-
-XULExtendedStatusbarChrome.TracingListener = function(aTopic, aBrowser)
-{
-	this.originalListener = null;
-	//this.cached = (aTopic == "http-on-examine-cached-response");
-	this.browser = aBrowser;
-}
-
-XULExtendedStatusbarChrome.TracingListener.prototype =
-{
-	onDataAvailable: function(request, context, inputStream, offset, count)
-	{
-		this.browser.esbValues.loaded += count;
-		this.browser.esbValues.details[this.browser.esbValues.detailsMap[request.name]].loaded += count;
-		this.originalListener.onDataAvailable(request, context, inputStream, offset, count);
-	},
-
-	onStartRequest: function(request, context)
-	{
-		XULExtendedStatusbarChrome.getDetailsItem(this.browser, request).type = request.contentType;
-		this.originalListener.onStartRequest(request, context);
-	},
-
-	onStopRequest: function(request, context, statusCode)
-	{
-		this.originalListener.onStopRequest(request, context, statusCode);
-	},
-
-	QueryInterface: function (aIID)
-	{
-		if (aIID.equals(Components.interfaces.nsIStreamListener) ||
-			aIID.equals(Components.interfaces.nsISupports))
-		{
-			return this;
-		}
-		throw Components.results.NS_NOINTERFACE;
-	}
 }
 
 // Settings observer
@@ -1483,10 +1296,5 @@ XULExtendedStatusbarChrome.ESB_PrefObserver = {
 XULExtendedStatusbarChrome.openESBOptions = function (event)
 {
 	window.open("chrome://extendedstatusbar/content/extendedstatusbaroptions.xul", "", "chrome");
-}
-
-XULExtendedStatusbarChrome.openESBDetails = function (event)
-{
-	window.openDialog("chrome://extendedstatusbar/content/extendedstatusbardetails.xul", "", "chrome,resizable", gBrowser.selectedBrowser.esbValues.details);
 }
 
