@@ -135,6 +135,9 @@ XULExtendedStatusbarOptions.init = function ()
 	{
 		document.getElementById("checkesbhidecursor").setAttribute("disabled", "false");
 	}
+
+	document.getElementById("esbRadioUnits").selectedIndex = ExtendedStatusbarPrefs.getIntPref("units");
+	this.updateUnitsSample(document.getElementById("checkesbunitspace").checked);
 }
 
 XULExtendedStatusbarOptions.hideCheck = function()
@@ -247,6 +250,41 @@ XULExtendedStatusbarOptions.hideHover = function ()
 		document.getElementById("textesbhovertimeout").setAttribute("disabled", "true");
 		document.getElementById("labelesbhoverseconds").setAttribute("disabled", "true");
 	}
+}
+
+XULExtendedStatusbarOptions.radioUnitsChange = function ()
+{
+	document.getElementById("esbUnits").value = document.getElementById("esbRadioUnits").selectedIndex;
+	this.updateUnitsSample(document.getElementById("checkesbunitspace").checked);
+}
+
+XULExtendedStatusbarOptions.onUnitSpace = function ()
+{
+	this.updateUnitsSample(!document.getElementById("checkesbunitspace").checked)
+}
+
+XULExtendedStatusbarOptions.updateUnitsSample = function (aSpace)
+{
+	var strings = document.getElementById("strings");
+	var sample, suffix;
+
+	switch (document.getElementById("esbUnits").value)
+	{
+		case 0:
+			sample = (1536).toLocaleString();
+			suffix = "";
+			break;
+		case 1:
+			sample = (1.54).toLocaleString();
+			suffix = strings.getString("esb.k");
+			break;
+		case 2:
+			sample = (1.5).toLocaleString();
+			suffix = strings.getString("esb.ki");
+			break;
+	}
+	if (aSpace) sample += " ";
+	document.getElementById("unitssample").value = sample + suffix + strings.getString("esb.b");
 }
 
 XULExtendedStatusbarOptions.gColorObj = {elemCurrColor:"", cancel:false};
