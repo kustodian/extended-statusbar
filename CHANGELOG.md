@@ -1,7 +1,7 @@
 Extended Statubar Changes By Release
 ==========================
 
-### 2.0 - In development
+### 2.0 - July 27, 2014
  * Multiple-tab support
  * New settings window with new settings
  * Configure ESB from the right-clicking menu
