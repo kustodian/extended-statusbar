@@ -593,8 +593,9 @@ XULExtendedStatusbarChrome.esbListener =
 			this.updateTime(aBrowser);
 			this.countImages(aBrowser);
 
-			var now = aBrowser.esbValues.stopProg - (XULExtendedStatusbarChrome.esbSplitTimer && aBrowser.esbValues.firstResponse ? aBrowser.esbValues.firstResponse : aBrowser.esbValues.startProg);
-			var speed = aBrowser.esbValues.loaded / now;
+			var now = aBrowser.esbValues.stopProg - (XULExtendedStatusbarChrome.esbSplitTimer && aBrowser.esbValues.firstResponse
+													 ? aBrowser.esbValues.firstResponse : aBrowser.esbValues.startProg);
+			var speed = aBrowser.esbValues.loaded / now * 1000;
 			speed = speed.toFixed(2);
 			speed = speed.replace(/\./, XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.dot")); //Replace '.' with a symbol from the active local
 			aBrowser.esbValues.speed = speed;
@@ -624,7 +625,8 @@ XULExtendedStatusbarChrome.esbListener =
 				this.initObjectValuesForBrowser(aBrowser);
 			}
 			var percentage = Math.round((aCurTotalProgress * 100) / aMaxTotalProgress);	
-			var now = Date.now() - (XULExtendedStatusbarChrome.esbSplitTimer && aBrowser.esbValues.firstResponse ? aBrowser.esbValues.firstResponse : aBrowser.esbValues.startProg);
+			var now = Date.now() - (XULExtendedStatusbarChrome.esbSplitTimer && aBrowser.esbValues.firstResponse
+									? aBrowser.esbValues.firstResponse : aBrowser.esbValues.startProg);
 			if (XULExtendedStatusbarChrome.esbLoading) this.startTimer(aBrowser); //This is a workaround for the first run, esbLoading is false on FF first start,
 											   //so time wont be started. This is a problem
 											   //if FF starts with about:blank State_Stop is not called
@@ -634,11 +636,11 @@ XULExtendedStatusbarChrome.esbListener =
 				var speed = aCurTotalProgress / now * 1000;
 				speed = speed.toFixed(2);
 				speed = speed.replace(/\./, XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.dot")); //Replace '.' with a symbol from the active local
+				aBrowser.esbValues.speed = speed;
 			}
 			if (percentage != 100) aBrowser.esbValues.percent = percentage;
 			this.countImages(aBrowser);
 			aBrowser.esbValues.loaded = aCurTotalProgress;
-			aBrowser.esbValues.speed = speed;
 			
 			if(aBrowser == gBrowser.selectedBrowser)
 			{
