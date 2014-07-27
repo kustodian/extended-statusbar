@@ -786,19 +786,7 @@ XULExtendedStatusbarChrome.esbProgressListener.prototype =
 								 aCurSelfProgress, aMaxSelfProgress,
 								 aCurTotalProgress, aMaxTotalProgress)
 	{
-		var now = Date.now() - this.browser.esbValues.startProg;
-		if (now > 0)
-		{
-			var speed = aCurTotalProgress / now;
-			speed = speed.toFixed(2);
-			speed = speed.replace(/\./, XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.dot")); //Replace '.' with a symbol from the active local
-			this.browser.esbValues.speed = speed;
-		}
 		this.browser.esbValues.loaded = aCurTotalProgress;
-		if(this.browser == gBrowser.selectedBrowser)
-		{
-			XULExtendedStatusbarChrome.esbListener.displayCurrentValuesForBrowser(this.browser);
-		}
 	},
 
 	onProgressChange64: function (aWebProgress, aRequest,
