@@ -1,6 +1,6 @@
 <!ENTITY previewColour.label "Náhled:">
 <!ENTITY cpWinTitle.title "Výběr barvy">
-<!ENTITY predef.label "Předdefinované barvy">
+<!ENTITY predef.label "Přednastavené barvy:">
 <!ENTITY rgb.label "RGB">
 <!ENTITY hsb.label "HSB">
 <!ENTITY red.label "Červená:">
@@ -11,13 +11,13 @@
 <!ENTITY brightness.label "Světlost:">
 <!ENTITY hexColor.label "Hex:">
 <!ENTITY nameColor.label "Název:">
-<!ENTITY cpUseThemeDef.label "Použít výchozí barvu">
+<!ENTITY cpUseThemeDef.label "Použít výchozí motiv vzhledu">
 <!ENTITY transparency.label "Průhlednost">
-<!ENTITY background.label "Pozadí:">
+<!ENTITY background.label "Pozadí pro:">
 <!ENTITY background.accessKey "P">
-<!ENTITY table.label "Tabulky">
+<!ENTITY table.label "Tabulka">
 <!ENTITY table.accessKey "T">
-<!ENTITY cell.label "Buněk">
+<!ENTITY cell.label "Buňka(y)">
 <!ENTITY cell.accessKey "B">
 <!ENTITY lastPickedColor.label "Poslední vybraná barva">
-<!ENTITY lastPickedColor.accessKey "l">
+<!ENTITY lastPickedColor.accessKey "v">

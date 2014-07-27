@@ -8,9 +8,12 @@
 <!ENTITY esb.hide.tooltip "Skryje Extended Statusbar po načítaní stránky.">
 <!ENTITY esb.hide.accesskey "H">
 <!ENTITY esb.hidetoolbar "Hide the whole toolbar">
+<!ENTITY esb.hidetoolbar.tooltip "Useful when Extended Statusbar is on its own toolbar.">
+<!ENTITY esb.hidetoolbar.accesskey "w">
 <!ENTITY esb.hideafter "Skryť po:">
 <!ENTITY esb.seconds "sekundách">
 <!ENTITY esb.showonhover "Zobraziť po prejdení myšou cez stavový panel">
+<!ENTITY esb.showonhover.tooltip "Unhide Extended Statusbar when hovering over the Extended Statusbar toolbar.">
 <!ENTITY esb.showonhover.accesskey "Z">
 <!ENTITY esb.hovering "Oneskoriť:">
 <!ENTITY esb.secondsdisplay "milisekúnd">
@@ -19,7 +22,7 @@
 <!ENTITY esb.appendcurrent "Pridať aktuálnu stránku">
 <!ENTITY esb.appendcurrent.accesskey "P">
 <!ENTITY esb.customcolor "Custom color">
-<!ENTITY esb.customcolor.accesskey "C">
+<!ENTITY esb.customcolor.accesskey "u">
 <!ENTITY esb.customcolor.tooltip "Zakázať vlastný štýl ak aktuálna téma podporuje Extended Statusbar!">
 <!ENTITY esb.backgroundcolor "Pozadie:">
 <!ENTITY esb.progresscolor "Priebeh:">
@@ -33,7 +36,7 @@
 <!ENTITY esb.slimmode.tooltip "Skryje menovky a zobrazí iba čísla">
 <!ENTITY esb.hideindelements "Skryť vlastné elementy">
 <!ENTITY esb.hideimages "Skryť Obrázky">
-<!ENTITY esb.hideimages.accesskey "B">
+<!ENTITY esb.hideimages.accesskey "I">
 <!ENTITY esb.hideloaded "Skryť Načítané">
 <!ENTITY esb.hideloaded.accesskey "N">
 <!ENTITY esb.hidespeed "Skryť Rýchlosť">
@@ -49,7 +52,7 @@
 <!ENTITY esb.cssplaceholder "Input Css rules here">
 <!ENTITY esb.apply "Apply">
 <!ENTITY esb.usecustomstyle "Use your own style (advanced mode)">
-<!ENTITY esb.usecustomstyle.accesskey "y">
+<!ENTITY esb.usecustomstyle.accesskey "o">
 <!ENTITY esb.usecustomstyle.tooltip "Customize using your own css rules, for advanced users">
 <!ENTITY esb.toolbar "Toolbar">
 <!ENTITY esb.esbwidget "ESB widget">
@@ -61,3 +64,5 @@
 <!ENTITY esb.progress "Progress">
 <!ENTITY esb.cursor "Cursor">
 <!ENTITY esb.cursorback "Cursor back">
+<!ENTITY esb.tabBehavior "Behavior">
+<!ENTITY esb.tabStyle "Style">

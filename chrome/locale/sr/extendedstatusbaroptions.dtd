@@ -3,23 +3,26 @@
 <!ENTITY esb.displaystyle "Стил приказивања Extended Statusbar-а">
 <!ENTITY esb.usenewstyle "Нови стил">
 <!ENTITY esb.usenewstyle.accesskey "Н">
-<!ENTITY esb.usenewstyle.tooltip "Приказује Extended Statusbar изнад постојеће статусне линије">
+<!ENTITY esb.usenewstyle.tooltip "Користи нови заобљени излед. Не заборавите да прикажете индикатор напретка и курсор учитавања.">
 <!ENTITY esb.hide "Сакриј Extended Statusbar">
 <!ENTITY esb.hide.tooltip "Сакрива Extended Statusbar након што се страница потпуно учита">
 <!ENTITY esb.hide.accesskey "С">
-<!ENTITY esb.hidetoolbar "Hide the whole toolbar">
+<!ENTITY esb.hidetoolbar "Сакриј целу ESB палету">
+<!ENTITY esb.hidetoolbar.tooltip "Корисно када је Extended Statusbar на својој палети.">
+<!ENTITY esb.hidetoolbar.accesskey "ц">
 <!ENTITY esb.hideafter "Сакриј након:">
 <!ENTITY esb.seconds "секунди">
 <!ENTITY esb.showonhover "Прикажи после задржавања курсора на статусној линији">
+<!ENTITY esb.showonhover.tooltip "Прикажи Extended Statusbar приликом задржавања курсора Extended Statusbar палети.">
 <!ENTITY esb.showonhover.accesskey "П">
 <!ENTITY esb.hovering "Чекај:">
 <!ENTITY esb.secondsdisplay "милисекунди">
-<!ENTITY esb.hideonsites "Не приказуј Extended Statusbar на следећим сајтовима (одвајати знаком &apos;|&apos;):">
+<!ENTITY esb.hideonsites "Не приказуј Extended Statusbar на следећим сајтовима (одвајати знаком '|'):">
 <!ENTITY esb.hideonsites.tooltip "Корисно за AJAX сајтове као што је Gmail">
 <!ENTITY esb.appendcurrent "Додај текућу страницу">
 <!ENTITY esb.appendcurrent.accesskey "Д">
-<!ENTITY esb.customcolor "Custom color">
-<!ENTITY esb.customcolor.accesskey "К">
+<!ENTITY esb.customcolor "Подеси боју">
+<!ENTITY esb.customcolor.accesskey "б">
 <!ENTITY esb.customcolor.tooltip "Ако ваша тема подржава Extended Statusbar, не активирајте кориснички дефинисан стил!">
 <!ENTITY esb.backgroundcolor "Позадина:">
 <!ENTITY esb.progresscolor "Линија прогреса:">
@@ -27,13 +30,13 @@
 <!ENTITY esb.textcolor "Текст:">
 <!ENTITY esb.useoldstyle "Класични стил">
 <!ENTITY esb.useoldstyle.accesskey "ч">
-<!ENTITY esb.useoldstyle.tooltip "Extended Statusbar је интегрисан у статусну линију">
+<!ENTITY esb.useoldstyle.tooltip "Користи класични Extended Statusbar изглед">
 <!ENTITY esb.slimmode "Компактни режим">
 <!ENTITY esb.slimmode.accesskey "т">
 <!ENTITY esb.slimmode.tooltip "Сакрива лабеле и приказује само бројеве">
-<!ENTITY esb.hideindelements "Сакриј поједине ставке">
+<!ENTITY esb.hideindelements "Сакриј поједине елементе">
 <!ENTITY esb.hideimages "Сакриј слике">
-<!ENTITY esb.hideimages.accesskey "л">
+<!ENTITY esb.hideimages.accesskey "с">
 <!ENTITY esb.hideloaded "Сакриј учитано">
 <!ENTITY esb.hideloaded.accesskey "у">
 <!ENTITY esb.hidespeed "Сакриј брзину">
@@ -42,22 +45,24 @@
 <!ENTITY esb.hidetime.accesskey "в">
 <!ENTITY esb.hidepercent "Сакриј проценат">
 <!ENTITY esb.hidepercent.accesskey "ц">
-<!ENTITY esb.hideprogress "Hide Progress Meter">
-<!ENTITY esb.hideprogress.accesskey "t">
-<!ENTITY esb.hidecursor "Hide Loading Cursor">
-<!ENTITY esb.hidecursor.accesskey "c">
-<!ENTITY esb.cssplaceholder "Input Css rules here">
-<!ENTITY esb.apply "Apply">
-<!ENTITY esb.usecustomstyle "Use your own style (advanced mode)">
-<!ENTITY esb.usecustomstyle.accesskey "y">
-<!ENTITY esb.usecustomstyle.tooltip "Customize using your own css rules, for advanced users">
-<!ENTITY esb.toolbar "Toolbar">
-<!ENTITY esb.esbwidget "ESB widget">
-<!ENTITY esb.percent "Percent">
-<!ENTITY esb.images "Images">
-<!ENTITY esb.loaded "Loaded">
-<!ENTITY esb.speed "Speed">
-<!ENTITY esb.time "Time">
-<!ENTITY esb.progress "Progress">
-<!ENTITY esb.cursor "Cursor">
-<!ENTITY esb.cursorback "Cursor back">
+<!ENTITY esb.hideprogress "Сакриј индикатор напретка">
+<!ENTITY esb.hideprogress.accesskey "н">
+<!ENTITY esb.hidecursor "Сакриј курсор учитавања">
+<!ENTITY esb.hidecursor.accesskey "к">
+<!ENTITY esb.cssplaceholder "Унеси CSS правила">
+<!ENTITY esb.apply "Примени">
+<!ENTITY esb.usecustomstyle "Користи свој стил (напредно)">
+<!ENTITY esb.usecustomstyle.accesskey "о">
+<!ENTITY esb.usecustomstyle.tooltip "Модификуј користећи своја CSS правила, за напредне кориснике">
+<!ENTITY esb.toolbar "Трака са алаткама">
+<!ENTITY esb.esbwidget "ESB виџет">
+<!ENTITY esb.percent "Проценат">
+<!ENTITY esb.images "Слике">
+<!ENTITY esb.loaded "Учитано">
+<!ENTITY esb.speed "Брзина">
+<!ENTITY esb.time "Време">
+<!ENTITY esb.progress "Напредак">
+<!ENTITY esb.cursor "Курсор">
+<!ENTITY esb.cursorback "Позадина курсора">
+<!ENTITY esb.tabBehavior "Понашање">
+<!ENTITY esb.tabStyle "Стил">

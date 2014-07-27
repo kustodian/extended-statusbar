@@ -1,0 +1,68 @@
+<!ENTITY esb.title "Extended Statusbar - ustawienia">
+<!ENTITY esb.pane1.title "Ustawienia">
+<!ENTITY esb.displaystyle "Styl wyświetlania paska">
+<!ENTITY esb.usenewstyle "Nowy styl">
+<!ENTITY esb.usenewstyle.accesskey "N">
+<!ENTITY esb.usenewstyle.tooltip "Elementy rozszerzenia są wyświetlane ponad paskiem stanu">
+<!ENTITY esb.hide "Ukryj po wczytaniu strony">
+<!ENTITY esb.hide.tooltip "Ukrywa pasek po wczytaniu strony">
+<!ENTITY esb.hide.accesskey "U">
+<!ENTITY esb.hidetoolbar "Ukryj pasek">
+<!ENTITY esb.hidetoolbar.tooltip "Użyteczne, gdy dane są wyświetlane na pasku Extended Statusbar.">
+<!ENTITY esb.hidetoolbar.accesskey "U">
+<!ENTITY esb.hideafter "Ukryj pasek po:">
+<!ENTITY esb.seconds "s">
+<!ENTITY esb.showonhover "Wyświetlaj po umieszczeniu kursora nad paskiem ESB">
+<!ENTITY esb.showonhover.tooltip "Wyświetla Extended Statusbar po umieszczeniu kursora na pasku Extended Statusbar toolbar">
+<!ENTITY esb.showonhover.accesskey "M">
+<!ENTITY esb.hovering "Opóźnienie wyświetlania">
+<!ENTITY esb.secondsdisplay "ms">
+<!ENTITY esb.hideonsites "Nie wyświetlaj na tych witrynach (oddzielaj witryny '|'):">
+<!ENTITY esb.hideonsites.tooltip "Użyteczne na witrynach używających technologii AJAX takich jak Gmail">
+<!ENTITY esb.appendcurrent "Dodaj aktywną stronę">
+<!ENTITY esb.appendcurrent.accesskey "A">
+<!ENTITY esb.customcolor "Własne kolory">
+<!ENTITY esb.customcolor.accesskey "W">
+<!ENTITY esb.customcolor.tooltip "Wyłącza styl określony przez użytkownika, jeśli używany motyw współdziała z Extended Statusbarem.">
+<!ENTITY esb.backgroundcolor "Tło paska:">
+<!ENTITY esb.progresscolor "Tło paska postępu:">
+<!ENTITY esb.cursorcolor "Wskaźnik postępu wczytywania:">
+<!ENTITY esb.textcolor "Kolor tekstu:">
+<!ENTITY esb.useoldstyle "Styl klasyczny">
+<!ENTITY esb.useoldstyle.accesskey "S">
+<!ENTITY esb.useoldstyle.tooltip "Elementy rozszerzenia są wyświetlane wewnątrz paska stanu">
+<!ENTITY esb.slimmode "Tryb minimalistyczny">
+<!ENTITY esb.slimmode.accesskey "M">
+<!ENTITY esb.slimmode.tooltip "Ukrywa etykiety, pozostawiając tylko cyfry">
+<!ENTITY esb.hideindelements "Nie wyświetlaj elementów:">
+<!ENTITY esb.hideimages "Obrazków">
+<!ENTITY esb.hideimages.accesskey "O">
+<!ENTITY esb.hideloaded "Pobrań">
+<!ENTITY esb.hideloaded.accesskey "P">
+<!ENTITY esb.hidespeed "Prędkości pobierania">
+<!ENTITY esb.hidespeed.accesskey "D">
+<!ENTITY esb.hidetime "Czasu pobierania">
+<!ENTITY esb.hidetime.accesskey "C">
+<!ENTITY esb.hidepercent "Procentu wykonania">
+<!ENTITY esb.hidepercent.accesskey "R">
+<!ENTITY esb.hideprogress "Wskaźnika postępu">
+<!ENTITY esb.hideprogress.accesskey "K">
+<!ENTITY esb.hidecursor "Kursora wskaźnika postępu">
+<!ENTITY esb.hidecursor.accesskey "S">
+<!ENTITY esb.cssplaceholder "Wstaw reguły CSS">
+<!ENTITY esb.apply "Zastosuj">
+<!ENTITY esb.usecustomstyle "Użyj własnego stylu (tryb zaawansowany)">
+<!ENTITY esb.usecustomstyle.accesskey "U">
+<!ENTITY esb.usecustomstyle.tooltip "Dostosuj wygląd, używając własnych stylów CSS – dla użytkowników zaawansowanych">
+<!ENTITY esb.toolbar "Pasek narzędzi">
+<!ENTITY esb.esbwidget "Widget ESB">
+<!ENTITY esb.percent "Procent wykonania">
+<!ENTITY esb.images "Obrazki">
+<!ENTITY esb.loaded "Pobieranie">
+<!ENTITY esb.speed "Prędkość">
+<!ENTITY esb.time "Czas">
+<!ENTITY esb.progress "Wskaźnik postępu">
+<!ENTITY esb.cursor "Kursor">
+<!ENTITY esb.cursorback "Kursor wsteczny">
+<!ENTITY esb.tabBehavior "Zachowanie">
+<!ENTITY esb.tabStyle "Style">
