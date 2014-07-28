@@ -438,6 +438,7 @@ XULExtendedStatusbarChrome.esbListener =
 								stateFlags: 0,
 								startProg: Date.now(),
 								updateTimeInterval: "" };
+		if (aBrowser.esbOldValues) aBrowser.esbValues.updateTimeInterval = aBrowser.esbOldValues.updateTimeInterval;
 	},
 	
 	displayCurrentValuesForBrowser : function(aBrowser) 

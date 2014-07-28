@@ -1,19 +1,19 @@
 content extendedstatusbar chrome/content/
 skin extendedstatusbar classic chrome/skin/
 
-locale extendedstatusbar cs-CZ chrome/locale/cs-CZ/
-locale extendedstatusbar da-DK chrome/locale/da-DK/
+locale extendedstatusbar cs chrome/locale/cs/
+locale extendedstatusbar da chrome/locale/da/
 locale extendedstatusbar de chrome/locale/de/
 locale extendedstatusbar en-US chrome/locale/en-US/
 locale extendedstatusbar es-ES chrome/locale/es-ES/
 locale extendedstatusbar fr chrome/locale/fr/
 locale extendedstatusbar hu-HU chrome/locale/hu-HU/
 locale extendedstatusbar hy-AM chrome/locale/hy-AM/
-locale extendedstatusbar it-IT chrome/locale/it-IT/
+locale extendedstatusbar it chrome/locale/it/
 locale extendedstatusbar ja-JP chrome/locale/ja-JP/
 locale extendedstatusbar kk-KZ chrome/locale/kk-KZ/
 locale extendedstatusbar lt-LT chrome/locale/lt-LT/
-locale extendedstatusbar pl-PL chrome/locale/pl-PL/
+locale extendedstatusbar pl chrome/locale/pl/
 locale extendedstatusbar pt-BR chrome/locale/pt-BR/
 locale extendedstatusbar pt-PT chrome/locale/pt-PT/
 locale extendedstatusbar ro-RO chrome/locale/ro-RO/
@@ -21,8 +21,8 @@ locale extendedstatusbar ru-RU chrome/locale/ru-RU/
 locale extendedstatusbar sk-SK chrome/locale/sk-SK/
 locale extendedstatusbar sr chrome/locale/sr/
 locale extendedstatusbar sv-SE chrome/locale/sv-SE/
-locale extendedstatusbar th-TH chrome/locale/th-TH/
-locale extendedstatusbar tr-TR chrome/locale/tr-TR/
+locale extendedstatusbar th chrome/locale/th/
+locale extendedstatusbar tr chrome/locale/tr/
 locale extendedstatusbar uk-UA chrome/locale/uk-UA/
 locale extendedstatusbar zh-CN chrome/locale/zh-CN/
 locale extendedstatusbar zh-TW chrome/locale/zh-TW/

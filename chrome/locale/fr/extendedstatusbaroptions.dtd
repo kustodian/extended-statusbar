@@ -1,25 +1,28 @@
-<!ENTITY esb.title "Paramètres de l&apos;extension Extended Statusbar">
+<!ENTITY esb.title "Paramètres de l'extension Extended Statusbar">
 <!ENTITY esb.pane1.title "Généraux">
-<!ENTITY esb.displaystyle "Style d&apos;affichage de la barre d&apos;état de téléchargement">
+<!ENTITY esb.displaystyle "Style d'affichage de la barre d'état de téléchargement">
 <!ENTITY esb.usenewstyle "Nouveau style">
 <!ENTITY esb.usenewstyle.accesskey "N">
-<!ENTITY esb.usenewstyle.tooltip "Affiche la barre d&apos;état de téléchargement au-dessus de la barre d&apos;état de Firefox">
-<!ENTITY esb.hide "Masquer la barre d&apos;état du téléchargement">
-<!ENTITY esb.hide.tooltip "Masque la barre d&apos;état du téléchargement lorsque la page est chargée.">
+<!ENTITY esb.usenewstyle.tooltip "Affiche la barre d'état de téléchargement au-dessus de la barre d'état de Firefox">
+<!ENTITY esb.hide "Masquer la barre d'état du téléchargement">
+<!ENTITY esb.hide.tooltip "Masque la barre d'état du téléchargement lorsque la page est chargée.">
 <!ENTITY esb.hide.accesskey "M">
-<!ENTITY esb.hidetoolbar "Masquer toute la barre d'outil">
+<!ENTITY esb.hidetoolbar "Masquer toute la barre d'outils">
+<!ENTITY esb.hidetoolbar.tooltip "Utile lorsque Extended Statusbar dispose de sa propre barre d'outils.">
+<!ENTITY esb.hidetoolbar.accesskey "o">
 <!ENTITY esb.hideafter "Masquer après :">
 <!ENTITY esb.seconds "secondes">
-<!ENTITY esb.showonhover "Afficher au survol de la barre d&apos;état">
+<!ENTITY esb.showonhover "Afficher au survol de la barre d'état">
+<!ENTITY esb.showonhover.tooltip "Faire apparaître Extended Statusbar lors du survol de la barre d'outils de l'extension.">
 <!ENTITY esb.showonhover.accesskey "o">
 <!ENTITY esb.hovering "Délai :">
 <!ENTITY esb.secondsdisplay "millisecondes">
-<!ENTITY esb.hideonsites "Ne pas afficher pour les sites suivants (utiliser &apos;|&apos; pour séparer les éléments) :">
+<!ENTITY esb.hideonsites "Ne pas afficher pour les sites suivants (utiliser '|' pour séparer les éléments) :">
 <!ENTITY esb.hideonsites.tooltip "Très utile pour les sites AJAX comme Gmail">
 <!ENTITY esb.appendcurrent "Ajouter la page en cours">
 <!ENTITY esb.appendcurrent.accesskey "A">
-<!ENTITY esb.customcolor "Couleurs personnalisées">
-<!ENTITY esb.customcolor.accesskey "C">
+<!ENTITY esb.customcolor "Couleur personnalisée">
+<!ENTITY esb.customcolor.accesskey "c">
 <!ENTITY esb.customcolor.tooltip "Désactivez les styles personnalisés si votre thème courant prend en charge Extended Statusbar !">
 <!ENTITY esb.backgroundcolor "Arrière-plan :">
 <!ENTITY esb.progresscolor "Barre de progression :">
@@ -27,15 +30,15 @@
 <!ENTITY esb.textcolor "Texte :">
 <!ENTITY esb.useoldstyle "Style classique">
 <!ENTITY esb.useoldstyle.accesskey "c">
-<!ENTITY esb.useoldstyle.tooltip "Affiche la barre d&apos;état de téléchargement dans la barre d&apos;état de Firefox">
+<!ENTITY esb.useoldstyle.tooltip "Affiche la barre d'état de téléchargement dans la barre d'état de Firefox">
 <!ENTITY esb.slimmode "Mode discret">
 <!ENTITY esb.slimmode.accesskey "M">
-<!ENTITY esb.slimmode.tooltip "Masque les titres et n&apos;affiche que les nombres">
+<!ENTITY esb.slimmode.tooltip "Masque les titres et n'affiche que les nombres">
 <!ENTITY esb.hideindelements "Masquer des éléments spécifiques">
 <!ENTITY esb.hideimages "Masquer les images">
 <!ENTITY esb.hideimages.accesskey "i">
 <!ENTITY esb.hideloaded "Masquer les éléments chargés">
-<!ENTITY esb.hideloaded.accesskey "a">
+<!ENTITY esb.hideloaded.accesskey "s">
 <!ENTITY esb.hidespeed "Masquer la vitesse">
 <!ENTITY esb.hidespeed.accesskey "v">
 <!ENTITY esb.hidetime "Masquer la durée">
@@ -46,18 +49,20 @@
 <!ENTITY esb.hideprogress.accesskey "r">
 <!ENTITY esb.hidecursor "Masquer le curseur">
 <!ENTITY esb.hidecursor.accesskey "c">
-<!ENTITY esb.cssplaceholder "Input Css rules here">
-<!ENTITY esb.apply "Apply">
-<!ENTITY esb.usecustomstyle "Use your own style (advanced mode)">
-<!ENTITY esb.usecustomstyle.accesskey "y">
-<!ENTITY esb.usecustomstyle.tooltip "Customize using your own css rules, for advanced users">
-<!ENTITY esb.toolbar "Toolbar">
-<!ENTITY esb.esbwidget "ESB widget">
-<!ENTITY esb.percent "Percent">
+<!ENTITY esb.cssplaceholder "Saisir ici les règles de Css">
+<!ENTITY esb.apply "Appliquer">
+<!ENTITY esb.usecustomstyle "Utiliser un style personnel (utilisateurs avancés)">
+<!ENTITY esb.usecustomstyle.accesskey "u">
+<!ENTITY esb.usecustomstyle.tooltip "Personnaliser en utilisant vos propres règles css, pour les utilisateurs avancés">
+<!ENTITY esb.toolbar "Barre d'outils">
+<!ENTITY esb.esbwidget "widget ESB">
+<!ENTITY esb.percent "Pourcentage">
 <!ENTITY esb.images "Images">
-<!ENTITY esb.loaded "Loaded">
-<!ENTITY esb.speed "Speed">
-<!ENTITY esb.time "Time">
-<!ENTITY esb.progress "Progress">
-<!ENTITY esb.cursor "Cursor">
-<!ENTITY esb.cursorback "Cursor back">
+<!ENTITY esb.loaded "Éléments chargés">
+<!ENTITY esb.speed "Vitesse">
+<!ENTITY esb.time "Durée">
+<!ENTITY esb.progress "Progression">
+<!ENTITY esb.cursor "Curseur">
+<!ENTITY esb.cursorback "Retour curseur">
+<!ENTITY esb.tabBehavior "Comportement">
+<!ENTITY esb.tabStyle "Style">

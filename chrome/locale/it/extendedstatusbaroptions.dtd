@@ -1,0 +1,68 @@
+<!ENTITY esb.title "Impostazioni di Extended Statusbar">
+<!ENTITY esb.pane1.title "Generali">
+<!ENTITY esb.displaystyle "Stile di visualizzazione di Extended Statusbar">
+<!ENTITY esb.usenewstyle "Personalizzato">
+<!ENTITY esb.usenewstyle.accesskey "P">
+<!ENTITY esb.usenewstyle.tooltip "Visualizza Extended Statusbar sopra la barra di stato di Firefox">
+<!ENTITY esb.hide "Nascondi la barra di Extended Statusbar">
+<!ENTITY esb.hide.tooltip "Nascondi la barra di Extended Statusbar dopo il caricamento della pagina">
+<!ENTITY esb.hide.accesskey "E">
+<!ENTITY esb.hidetoolbar "Nascondi l'intera barra">
+<!ENTITY esb.hidetoolbar.tooltip "Utile quando Extended Statusbar sta usando la propria barra">
+<!ENTITY esb.hidetoolbar.accesskey "B">
+<!ENTITY esb.hideafter "Secondi dopo i quali nascondere la barra:">
+<!ENTITY esb.seconds "secondi">
+<!ENTITY esb.showonhover "Mostra la barra di Extended Statusbar al passaggio del mouse sulla barra di stato">
+<!ENTITY esb.showonhover.tooltip "Mostra Extended Statusbar al passaggio del mouse sulla barra di Extended Statusbar">
+<!ENTITY esb.showonhover.accesskey "s">
+<!ENTITY esb.hovering "Millisecondi dopo i quali mostrare la barra:">
+<!ENTITY esb.secondsdisplay "millisecondi">
+<!ENTITY esb.hideonsites "Non mostrare la barra per i seguenti siti (separare gli indirizzi con | ):">
+<!ENTITY esb.hideonsites.tooltip "Questa funzione è utile per i siti che utilizzano AJAX (es: Gmail)">
+<!ENTITY esb.appendcurrent "Aggiungi la pagina corrente">
+<!ENTITY esb.appendcurrent.accesskey "g">
+<!ENTITY esb.customcolor "Colori personalizzati">
+<!ENTITY esb.customcolor.accesskey "C">
+<!ENTITY esb.customcolor.tooltip "Se il tema corrente supporta Extended Statusbar, disabilita gli stili personalizzati">
+<!ENTITY esb.backgroundcolor "Sfondo:">
+<!ENTITY esb.progresscolor "Barra di avanzamento:">
+<!ENTITY esb.cursorcolor "Cursore di caricamento:">
+<!ENTITY esb.textcolor "Testo:">
+<!ENTITY esb.useoldstyle "Predefinito">
+<!ENTITY esb.useoldstyle.accesskey "F">
+<!ENTITY esb.useoldstyle.tooltip "Visualizza gli elementi di Extended Statusbar nella barra di stato di Firefox">
+<!ENTITY esb.slimmode "Modalità ridotta">
+<!ENTITY esb.slimmode.accesskey "M">
+<!ENTITY esb.slimmode.tooltip "Nascondi le etichette e mostra solo i numeri">
+<!ENTITY esb.hideindelements "Elementi da nascondere">
+<!ENTITY esb.hideimages "Nascondi immagini">
+<!ENTITY esb.hideimages.accesskey "N">
+<!ENTITY esb.hideloaded "Nascondi dati">
+<!ENTITY esb.hideloaded.accesskey "D">
+<!ENTITY esb.hidespeed "Nascondi velocità">
+<!ENTITY esb.hidespeed.accesskey "V">
+<!ENTITY esb.hidetime "Nascondi tempo">
+<!ENTITY esb.hidetime.accesskey "T">
+<!ENTITY esb.hidepercent "Nascondi percentuale">
+<!ENTITY esb.hidepercent.accesskey "P">
+<!ENTITY esb.hideprogress "Nascondi barra di avanzamento">
+<!ENTITY esb.hideprogress.accesskey "A">
+<!ENTITY esb.hidecursor "Nascondi cursore di avanzamento">
+<!ENTITY esb.hidecursor.accesskey "C">
+<!ENTITY esb.cssplaceholder "Introdurre qui le regole CSS">
+<!ENTITY esb.apply "Applica">
+<!ENTITY esb.usecustomstyle "Personalizzato (modalità avanzata)">
+<!ENTITY esb.usecustomstyle.accesskey "Z">
+<!ENTITY esb.usecustomstyle.tooltip "Personalizza Extended Statusbar con regole di CSS personali (per utenti avanzati)">
+<!ENTITY esb.toolbar "Barra">
+<!ENTITY esb.esbwidget "Widget Extended Statusbar">
+<!ENTITY esb.percent "Percentuale">
+<!ENTITY esb.images "Immagini">
+<!ENTITY esb.loaded "Dati">
+<!ENTITY esb.speed "Velocità">
+<!ENTITY esb.time "Tempo">
+<!ENTITY esb.progress "Avanzamento">
+<!ENTITY esb.cursor "Cursore">
+<!ENTITY esb.cursorback "Cursore indietro">
+<!ENTITY esb.tabBehavior "Comportamento">
+<!ENTITY esb.tabStyle "Stile">

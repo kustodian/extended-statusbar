@@ -8,7 +8,7 @@
 <!ENTITY blue.label "藍:">
 <!ENTITY hue.label "色調:">
 <!ENTITY saturation.label "濃度:">
-<!ENTITY brightness.label "亮度">
+<!ENTITY brightness.label "亮度:">
 <!ENTITY hexColor.label "Hex:">
 <!ENTITY nameColor.label "名稱:">
 <!ENTITY cpUseThemeDef.label "使用主題預設值">
