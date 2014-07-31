@@ -446,7 +446,15 @@ XULExtendedStatusbarChrome.esbListener =
 
 	initObjectValuesForBrowser : function(aBrowser)
 	{
-		if (aBrowser.esbValues) aBrowser.esbOldValues = aBrowser.esbValues;
+		if (aBrowser.esbValues)
+		{
+			if (aBrowser.esbValues.updateTimeInterval != "")
+			{
+				clearInterval(aBrowser.esbValues.updateTimeInterval);
+				aBrowser.esbValues.updateTimeInterval = "";
+			}
+			aBrowser.esbOldValues = aBrowser.esbValues;
+		}
 		aBrowser.esbValues = { images: "0/0", 
 								loaded: "0", 
 								speed: "0" + XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.dot") + "00",
@@ -754,11 +762,10 @@ XULExtendedStatusbarChrome.esbListener =
 
 	startTimer: function(aBrowser)
 	{
-		if (aBrowser.esbValues.updateTimeInterval != "")
+		if (aBrowser.esbValues.updateTimeInterval == "")
 		{
-			clearInterval(aBrowser.esbValues.updateTimeInterval);
+			aBrowser.esbValues.updateTimeInterval = setInterval(XULExtendedStatusbarChrome.esbListener.updateTime, 1000, aBrowser);
 		}
-		aBrowser.esbValues.updateTimeInterval = setInterval(XULExtendedStatusbarChrome.esbListener.updateTime, 768, aBrowser);
 	},
 
 	stopTimer: function(aBrowser)
