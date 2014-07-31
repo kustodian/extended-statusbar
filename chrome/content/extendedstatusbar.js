@@ -662,7 +662,7 @@ XULExtendedStatusbarChrome.esbListener =
 	{
 		function checkImage(aSrc)
 		{
-			if (aBrowser.esbValues.imageSet[aSrc] && aBrowser.esbValues.imageSet[aSrc])
+			if (aBrowser.esbValues.imageSet && aBrowser.esbValues.imageSet[aSrc])
 			{
 				aBrowser.esbValues.imageSet[aSrc] = true;
 				++aBrowser.esbValues.imagesTotal;
