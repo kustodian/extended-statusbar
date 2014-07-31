@@ -425,6 +425,7 @@ XULExtendedStatusbarChrome.esbListener =
 		if (!aEvent.target.linkedBrowser.esbValues)
 		{
 			XULExtendedStatusbarChrome.esbXUL.esb_toolbar.hidden = true;
+			//it's happening in customizing mode
 			//XULExtendedStatusbarChrome.esbXUL.status_bar.hidden = true;
 		}
 		else if (XULExtendedStatusbarChrome.hideForSites &&
@@ -464,6 +465,7 @@ XULExtendedStatusbarChrome.esbListener =
 								stopProg: Date.now(),
 								firstResponse: 0,
 								updateTimeInterval: "" };
+		if (aBrowser.esbOldValues) aBrowser.esbValues.updateTimeInterval = aBrowser.esbOldValues.updateTimeInterval;
 	},
 	
 	displayCurrentValuesForBrowser : function(aBrowser) 

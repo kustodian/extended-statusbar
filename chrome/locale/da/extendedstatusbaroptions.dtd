@@ -1,0 +1,68 @@
+<!ENTITY esb.title "Extended Statusbar indstillinger">
+<!ENTITY esb.pane1.title "Generelt">
+<!ENTITY esb.displaystyle "Extended Statusbar visningsstilstil">
+<!ENTITY esb.usenewstyle "Ny stil">
+<!ENTITY esb.usenewstyle.accesskey "N">
+<!ENTITY esb.usenewstyle.tooltip "Vis Extended Statusbar ovenover Firefox's statuslinje">
+<!ENTITY esb.hide "Skjul Extended Statusbar">
+<!ENTITY esb.hide.tooltip "Skjuler Extended Statusbar når siden er blevet indlæst.">
+<!ENTITY esb.hide.accesskey "S">
+<!ENTITY esb.hidetoolbar "Skjul hele værktøjslinjen">
+<!ENTITY esb.hidetoolbar.tooltip "Nyttig når Extended Statusbar er på sin egen værktøjslinje.">
+<!ENTITY esb.hidetoolbar.accesskey "k">
+<!ENTITY esb.hideafter "Skjul efter:">
+<!ENTITY esb.seconds "sekunder">
+<!ENTITY esb.showonhover "Vis når markøren holdes over statuslinjen">
+<!ENTITY esb.showonhover.tooltip "Vis Extended Statusbar når markøren holdes over værktøjslinjen Extended Statusbar.">
+<!ENTITY esb.showonhover.accesskey "V">
+<!ENTITY esb.hovering "Forsinkelse:">
+<!ENTITY esb.secondsdisplay "millisekunder">
+<!ENTITY esb.hideonsites "Vis ikke på disse websteder (adskilt af '|'):">
+<!ENTITY esb.hideonsites.tooltip "Nyttig til AJAK-websteder som Gmail">
+<!ENTITY esb.appendcurrent "Tilføj pågældende side">
+<!ENTITY esb.appendcurrent.accesskey "å">
+<!ENTITY esb.customcolor "Tilpas farve">
+<!ENTITY esb.customcolor.accesskey "T">
+<!ENTITY esb.customcolor.tooltip "Deaktiverer brugerdefinerede stile hvis dit nuværende tema understøtter Extended Statusbar!">
+<!ENTITY esb.backgroundcolor "Baggrund:">
+<!ENTITY esb.progresscolor "Forløbslinje:">
+<!ENTITY esb.cursorcolor "Indikatoren Indlæst:">
+<!ENTITY esb.textcolor "Tekst:">
+<!ENTITY esb.useoldstyle "Klassisk stil">
+<!ENTITY esb.useoldstyle.accesskey "K">
+<!ENTITY esb.useoldstyle.tooltip "Vis Extended Statusbar i Firefox's statuslinje">
+<!ENTITY esb.slimmode "Slank tilstand">
+<!ENTITY esb.slimmode.accesskey "S">
+<!ENTITY esb.slimmode.tooltip "Skjuler etiketter og viser kun tal">
+<!ENTITY esb.hideindelements "Skjul enkelte elementer">
+<!ENTITY esb.hideimages "Skjul Billeder">
+<!ENTITY esb.hideimages.accesskey "B">
+<!ENTITY esb.hideloaded "Skjul Indlæst">
+<!ENTITY esb.hideloaded.accesskey "I">
+<!ENTITY esb.hidespeed "Skjul Hastighed">
+<!ENTITY esb.hidespeed.accesskey "H">
+<!ENTITY esb.hidetime "Skjul Tid">
+<!ENTITY esb.hidetime.accesskey "T">
+<!ENTITY esb.hidepercent "Skjul Procent">
+<!ENTITY esb.hidepercent.accesskey "p">
+<!ENTITY esb.hideprogress "Skjul Forløbsindikator">
+<!ENTITY esb.hideprogress.accesskey "F">
+<!ENTITY esb.hidecursor "Skjul indikatoren Indlæser">
+<!ENTITY esb.hidecursor.accesskey "n">
+<!ENTITY esb.cssplaceholder "Indtast css-regler her">
+<!ENTITY esb.apply "Anvend">
+<!ENTITY esb.usecustomstyle "Brug din egen stil">
+<!ENTITY esb.usecustomstyle.accesskey "B">
+<!ENTITY esb.usecustomstyle.tooltip "Tilpas ved hjælp af dine egne css-regler, for avancerede brugere">
+<!ENTITY esb.toolbar "Værktøjslinje">
+<!ENTITY esb.esbwidget "ESB-widget">
+<!ENTITY esb.percent "Procent">
+<!ENTITY esb.images "Billeder">
+<!ENTITY esb.loaded "Indlæst">
+<!ENTITY esb.speed "Hastighed">
+<!ENTITY esb.time "Tid">
+<!ENTITY esb.progress "Forløb">
+<!ENTITY esb.cursor "Indikator">
+<!ENTITY esb.cursorback "Indikatorbaggrund">
+<!ENTITY esb.tabBehavior "Opførsel">
+<!ENTITY esb.tabStyle "Stil">
