@@ -675,13 +675,24 @@ XULExtendedStatusbarChrome.esbListener =
 	{
 		aBrowser.esbOldValues = null;
 
-		// This may be "about:blank" during onTabSelect; the request name is the jar url.
-		if (aLocation && aLocation.spec == "about:customizing")
+		// Start may not have been the current browser (such as an opening a link from an email).
+		if(aLocation && aBrowser == gBrowser.selectedBrowser && !XULExtendedStatusbarChrome.esbLoading)
 		{
-			XULExtendedStatusbarChrome.hideForSitesSem = false;
-			XULExtendedStatusbarChrome.cancelTimeOut(XULExtendedStatusbarChrome.hideTimeOut);
-			XULExtendedStatusbarChrome.esbXUL.esb_toolbar.hidden = false;
-			XULExtendedStatusbarChrome.esbXUL.status_bar.hidden = false;
+			XULExtendedStatusbarChrome.esbLoading = true;
+			if (!XULExtendedStatusbarChrome.shouldHideEsb(aLocation.spec))
+			{
+				this.displayCurrentValuesForBrowser(aBrowser);
+				XULExtendedStatusbarChrome.hideForSitesSem = false;
+				XULExtendedStatusbarChrome.cancelTimeOut(XULExtendedStatusbarChrome.hideTimeOut);
+				XULExtendedStatusbarChrome.esbXUL.esb_toolbar.hidden = false;
+				XULExtendedStatusbarChrome.esbXUL.status_bar.hidden = false;
+			}
+			else
+			{
+				XULExtendedStatusbarChrome.hideForSitesSem = true;
+				XULExtendedStatusbarChrome.esbXUL.esb_toolbar.hidden = true;
+				XULExtendedStatusbarChrome.esbXUL.status_bar.hidden = true;
+			}
 		}
 	},
 	
