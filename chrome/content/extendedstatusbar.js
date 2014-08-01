@@ -409,8 +409,6 @@ XULExtendedStatusbarChrome.esbXUL =
 
 XULExtendedStatusbarChrome.esbListener =
 {
-	updateTimeInterval: "",
-
 	QueryInterface: function(aIID)
 	{
 		if (aIID.equals(Components.interfaces.nsIWebProgressListener) ||
@@ -463,6 +461,7 @@ XULExtendedStatusbarChrome.esbListener =
 								stateFlags: 0,
 								startProg: Date.now(),
 								updateTimeInterval: "" };
+		if (aBrowser.esbOldValues) aBrowser.esbValues.updateTimeInterval = aBrowser.esbOldValues.updateTimeInterval;
 	},
 	
 	displayCurrentValuesForBrowser : function(aBrowser) 
