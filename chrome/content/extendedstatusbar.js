@@ -678,7 +678,9 @@ XULExtendedStatusbarChrome.esbListener =
 		// Start may not have been the current browser (such as an opening a link from an email).
 		if(aLocation && aBrowser == gBrowser.selectedBrowser && !XULExtendedStatusbarChrome.esbLoading)
 		{
-			XULExtendedStatusbarChrome.esbLoading = true;
+			// This may occur after stop, so only say loading if the timer is still going.
+			if (aBrowser.esbValues && aBrowser.esbValues.updateTimeInterval != "")
+				XULExtendedStatusbarChrome.esbLoading = true;
 			if (!XULExtendedStatusbarChrome.shouldHideEsb(aLocation.spec))
 			{
 				this.displayCurrentValuesForBrowser(aBrowser);
