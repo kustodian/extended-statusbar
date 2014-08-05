@@ -495,12 +495,14 @@ XULExtendedStatusbarChrome.esbListener =
 		var slimTimeString;
 		if (XULExtendedStatusbarChrome.esbSplitTimer && aBrowser.esbValues.firstResponse)
 		{
-			slimTimeString = XULExtendedStatusbarChrome.esbListener.getDuration(aBrowser.esbValues.firstResponse - aBrowser.esbValues.startProg)
-							 + "/" + XULExtendedStatusbarChrome.esbListener.getDuration(aBrowser.esbValues.stopProg - aBrowser.esbValues.firstResponse);
+			slimTimeString = XULExtendedStatusbarChrome.esbListener.getDuration(aBrowser.esbValues.firstResponse - aBrowser.esbValues.startProg, true)
+							 + "/" + XULExtendedStatusbarChrome.esbListener.getDuration(aBrowser.esbValues.stopProg - aBrowser.esbValues.firstResponse,
+																						aBrowser.esbValues.stateFlags & XULExtendedStatusbarChrome.esbIWebProgressListener.STATE_STOP);
 		}
 		else
 		{
-			slimTimeString = XULExtendedStatusbarChrome.esbListener.getDuration(aBrowser.esbValues.stopProg - aBrowser.esbValues.startProg);
+			slimTimeString = XULExtendedStatusbarChrome.esbListener.getDuration(aBrowser.esbValues.stopProg - aBrowser.esbValues.startProg,
+																				aBrowser.esbValues.stateFlags & XULExtendedStatusbarChrome.esbIWebProgressListener.STATE_STOP);
 		}
 			
 		if (XULExtendedStatusbarChrome.esbSlimMode)
@@ -741,12 +743,14 @@ XULExtendedStatusbarChrome.esbListener =
 		var slimTimeString;
 		if (XULExtendedStatusbarChrome.esbSplitTimer && aBrowser.esbValues.firstResponse)
 		{
-			slimTimeString = XULExtendedStatusbarChrome.esbListener.getDuration(aBrowser.esbValues.firstResponse - aBrowser.esbValues.startProg)
-							 + "/" + XULExtendedStatusbarChrome.esbListener.getDuration(now - aBrowser.esbValues.firstResponse);
+			slimTimeString = XULExtendedStatusbarChrome.esbListener.getDuration(aBrowser.esbValues.firstResponse - aBrowser.esbValues.startProg, true)
+							 + "/" + XULExtendedStatusbarChrome.esbListener.getDuration(now - aBrowser.esbValues.firstResponse,
+																						aBrowser.esbValues.stateFlags & XULExtendedStatusbarChrome.esbIWebProgressListener.STATE_STOP);
 		}
 		else
 		{
-			slimTimeString = XULExtendedStatusbarChrome.esbListener.getDuration(now - aBrowser.esbValues.startProg);
+			slimTimeString = XULExtendedStatusbarChrome.esbListener.getDuration(now - aBrowser.esbValues.startProg,
+																				aBrowser.esbValues.stateFlags & XULExtendedStatusbarChrome.esbIWebProgressListener.STATE_STOP);
 		}
 		aBrowser.esbValues.stopProg = now;
 		if(gBrowser.selectedBrowser == aBrowser)
@@ -779,8 +783,9 @@ XULExtendedStatusbarChrome.esbListener =
 		}
 	},
 
-	getDuration: function(aElapsed)
+	getDuration: function(aElapsed, aMsecs)
 	{
+		if (!aMsecs) aElapsed += 500;
 		var hours = Math.floor(aElapsed / 3600000);
 		var mins = Math.floor((aElapsed / 60000) % 60);
 		var secs = Math.floor((aElapsed / 1000) % 60);
@@ -798,7 +803,9 @@ XULExtendedStatusbarChrome.esbListener =
 			if (secs < 10) secs = "0" + secs;
 			timeString += mins + colon;
 		}
-		return timeString + secs + dot + ("00" + msecs).slice(-3);
+		timeString += secs;
+		if (aMsecs && aElapsed < 60000) timeString += dot + ("00" + msecs).slice(-3);
+		return timeString;
 	}
 }
 
