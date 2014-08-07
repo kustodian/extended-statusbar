@@ -26,11 +26,15 @@ function startup(data,reason)
 	
 	//skin
 	let styleService = Components.classes["@mozilla.org/content/style-sheet-service;1"]
-					   .getService(Components.interfaces.nsIStyleSheetService);
+								.getService(Components.interfaces.nsIStyleSheetService);
 	let uri = NetUtil.newURI("chrome://extendedstatusbar/skin/extendedstatusbar.css");
-	styleService.loadAndRegisterSheet(uri, styleService.AUTHOR_SHEET);
+	if (!styleService.sheetRegistered(uri, styleService.AUTHOR_SHEET)) {
+		styleService.loadAndRegisterSheet(uri, styleService.AUTHOR_SHEET);
+	}
 	uri = NetUtil.newURI("chrome://extendedstatusbar/skin/extendedstatusbaroptions.css");
-	styleService.loadAndRegisterSheet(uri, styleService.AUTHOR_SHEET);
+	if (!styleService.sheetRegistered(uri, styleService.AUTHOR_SHEET)) {
+		styleService.loadAndRegisterSheet(uri, styleService.AUTHOR_SHEET);
+	}
 }
 function install(data, reason)
 {
@@ -64,11 +68,15 @@ function shutdown(data, reason)
 	
 	//skin
 	let styleService = Components.classes["@mozilla.org/content/style-sheet-service;1"]
-					   .getService(Components.interfaces.nsIStyleSheetService);
+								.getService(Components.interfaces.nsIStyleSheetService);
 	let uri = NetUtil.newURI("chrome://extendedstatusbar/skin/extendedstatusbar.css");
-	styleService.unregisterSheet(uri, styleService.AUTHOR_SHEET);
+	if (styleService.sheetRegistered(uri, styleService.AUTHOR_SHEET)) {
+		styleService.unregisterSheet(uri, styleService.AUTHOR_SHEET);
+	}
 	uri = NetUtil.newURI("chrome://extendedstatusbar/skin/extendedstatusbaroptions.css");
-	styleService.unregisterSheet(uri, styleService.AUTHOR_SHEET);
+	if (styleService.sheetRegistered(uri, styleService.AUTHOR_SHEET)) {
+		styleService.unregisterSheet(uri, styleService.AUTHOR_SHEET);
+	}
 	
 	//cache clearing 
     Services.obs.notifyObservers(null, "chrome-flush-caches", null);

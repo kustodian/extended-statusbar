@@ -313,7 +313,7 @@ XULExtendedStatusbarChrome.hideESBOnHover = function ()
 		{
 			XULExtendedStatusbarChrome.cancelTimeOut(XULExtendedStatusbarChrome.hideTimeOut);
 			XULExtendedStatusbarChrome.esbTimeOutSem = true;
-			XULExtendedStatusbarChrome.hideTimeOut = window.setTimeout("XULExtendedStatusbarChrome.hideESB()", XULExtendedStatusbarChrome.esbWait*1000);
+			XULExtendedStatusbarChrome.hideTimeOut = window.setTimeout(function () { XULExtendedStatusbarChrome.hideESB() }, XULExtendedStatusbarChrome.esbWait*1000);
 		}
 	}
 }
@@ -532,7 +532,7 @@ XULExtendedStatusbarChrome.esbListener =
 			if(XULExtendedStatusbarChrome.esbHide && !XULExtendedStatusbarChrome.esbTimeOutSem)
 			{
 				XULExtendedStatusbarChrome.esbTimeOutSem = true;
-				XULExtendedStatusbarChrome.hideTimeOut = window.setTimeout("XULExtendedStatusbarChrome.hideESB()", XULExtendedStatusbarChrome.esbWait*1000);
+				XULExtendedStatusbarChrome.hideTimeOut = window.setTimeout(function () { XULExtendedStatusbarChrome.hideESB() }, XULExtendedStatusbarChrome.esbWait*1000);
 			}
 		}
 	},
@@ -856,7 +856,7 @@ XULExtendedStatusbarChrome.ESB_PrefObserver = {
 				{
 					XULExtendedStatusbarChrome.cancelTimeOut(XULExtendedStatusbarChrome.hideTimeOut);
 					XULExtendedStatusbarChrome.esbTimeOutSem = true;
-					XULExtendedStatusbarChrome.hideTimeOut = window.setTimeout("XULExtendedStatusbarChrome.hideESB()", XULExtendedStatusbarChrome.esbWait*1000);
+					XULExtendedStatusbarChrome.hideTimeOut = window.setTimeout(function () { XULExtendedStatusbarChrome.hideESB() }, XULExtendedStatusbarChrome.esbWait*1000);
 				}
 				break;
 			case "hidetoolbar":
@@ -869,7 +869,7 @@ XULExtendedStatusbarChrome.ESB_PrefObserver = {
 				{
 					XULExtendedStatusbarChrome.cancelTimeOut(XULExtendedStatusbarChrome.hideTimeOut);
 					XULExtendedStatusbarChrome.esbTimeOutSem = true;
-					XULExtendedStatusbarChrome.hideTimeOut = window.setTimeout("XULExtendedStatusbarChrome.hideESB()", XULExtendedStatusbarChrome.esbWait*1000);
+					XULExtendedStatusbarChrome.hideTimeOut = window.setTimeout(function () { XULExtendedStatusbarChrome.hideESB() }, XULExtendedStatusbarChrome.esbWait*1000);
 				}
 				break;
 			case "hidetimeout":
@@ -964,7 +964,7 @@ XULExtendedStatusbarChrome.ESB_PrefObserver = {
 				if(XULExtendedStatusbarChrome.esbHide && !XULExtendedStatusbarChrome.esbTimeOutSem)
 				{
 					XULExtendedStatusbarChrome.esbTimeOutSem = true;
-					XULExtendedStatusbarChrome.hideTimeOut = window.setTimeout("XULExtendedStatusbarChrome.hideESB()", XULExtendedStatusbarChrome.esbWait*1000);
+					XULExtendedStatusbarChrome.hideTimeOut = window.setTimeout(function () { XULExtendedStatusbarChrome.hideESB() }, XULExtendedStatusbarChrome.esbWait*1000);
 				}
 				break;
 			case "toolbarstyle":
