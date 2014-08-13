@@ -1,3 +1,5 @@
+@namespace url("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul");
+
 /* Adding a button modifies the toolbar's height, we need to make it unchangeable somehow */
 #ESB_toolbar
 {
