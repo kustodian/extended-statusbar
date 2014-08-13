@@ -49,6 +49,7 @@ XULExtendedStatusbarChrome.init = function ()
 		if(XULExtendedStatusbarChrome.ffIsPostAustralis)
 		{
 			var itemPlace = CustomizableUI.getPlaceForItem(esbToolbaritem);
+			window.addEventListener("unload", XULExtendedStatusbarChrome.saveCollapsedState, false);
 		}
 		else
 		{
@@ -74,12 +75,21 @@ XULExtendedStatusbarChrome.init = function ()
 
 XULExtendedStatusbarChrome.uninit = function ()
 {
+	if(XULExtendedStatusbarChrome.ffIsPostAustralis)
+	{
+		window.removeEventListener("unload", XULExtendedStatusbarChrome.saveCollapsedState);
+	}
 	XULExtendedStatusbarChrome.ESB_PrefObserver.shutdown();
 	XULExtendedStatusbarChrome.esbXUL.destroy();
 	XULExtendedStatusbarChrome.esbListener.destroy();
 	getBrowser().removeTabsProgressListener(XULExtendedStatusbarChrome.esbListener);
 	XULExtendedStatusbarChrome.removeContextMenuItem();
 	console.log("ExtendedStatusbar stopped");
+}
+
+XULExtendedStatusbarChrome.saveCollapsedState = function(e)
+{
+	XULExtendedStatusbarChrome.ESB_PrefObserver.prefs.setBoolPref("collapsed", document.getElementById("ESB_toolbar").collapsed);
 }
 
 XULExtendedStatusbarChrome.addContextMenuItem = function ()
