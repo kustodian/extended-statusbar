@@ -697,6 +697,11 @@ XULExtendedStatusbarChrome.esbListener =
 
 	updateTime: function (aBrowser)
 	{
+		if (!XULExtendedStatusbarChrome.esbXUL.esbstrings)
+		{
+			XULExtendedStatusbarChrome.esbListener.stopTimer(aBrowser);
+			return;
+		}
 		var now = Date.now() - aBrowser.esbValues.startProg;
 		var hours = Math.floor(now / 3600000);
 		var mins = Math.floor((now / 60000) % 60);
@@ -744,11 +749,10 @@ XULExtendedStatusbarChrome.esbListener =
 
 	startTimer: function(aBrowser)
 	{
-		if (aBrowser.esbValues.updateTimeInterval != "")
+		if (aBrowser.esbValues.updateTimeInterval == "")
 		{
-			clearInterval(aBrowser.esbValues.updateTimeInterval);
+			aBrowser.esbValues.updateTimeInterval = setInterval(XULExtendedStatusbarChrome.esbListener.updateTime, 768, aBrowser);
 		}
-		aBrowser.esbValues.updateTimeInterval = setInterval(XULExtendedStatusbarChrome.esbListener.updateTime, 768, aBrowser);
 	},
 
 	stopTimer: function(aBrowser)
