@@ -3,18 +3,18 @@
 <!ENTITY esb.displaystyle "Extended Statusbar 顯示樣式">
 <!ENTITY esb.usenewstyle "新樣式">
 <!ENTITY esb.usenewstyle.accesskey "N">
-<!ENTITY esb.usenewstyle.tooltip "在 Firefox 的狀態列上方顯示 Extended Statusbar">
+<!ENTITY esb.usenewstyle.tooltip "使用新的圓滑外觀。確定取消隱藏進度計和載入中游標，這樣看起來會更好。">
 <!ENTITY esb.hide "隱藏 Extended Statusbar">
 <!ENTITY esb.hide.tooltip "頁面載入後隱藏 Extended Statusbar。">
 <!ENTITY esb.hide.accesskey "H">
 <!ENTITY esb.hidetoolbar "隱藏整條工具列">
-<!ENTITY esb.hidetoolbar.tooltip "Useful when Extended Statusbar is on its own toolbar.">
-<!ENTITY esb.hidetoolbar.accesskey "w">
+<!ENTITY esb.hidetoolbar.tooltip "當 Extended Statusbar 在自己的工具列上時有用。">
+<!ENTITY esb.hidetoolbar.accesskey "W">
 <!ENTITY esb.hideafter "在:">
 <!ENTITY esb.seconds "秒後隱藏">
-<!ENTITY esb.showonhover "懸停在狀態列時顯示">
-<!ENTITY esb.showonhover.tooltip "Unhide Extended Statusbar when hovering over the Extended Statusbar toolbar.">
-<!ENTITY esb.showonhover.accesskey "S">
+<!ENTITY esb.showonhover "懸停在 ESB 工具列時顯示">
+<!ENTITY esb.showonhover.tooltip "懸停在 Extended Statusbar 工具列時取消隱藏 Extended Statusbar。">
+<!ENTITY esb.showonhover.accesskey "O">
 <!ENTITY esb.hovering "延遲:">
 <!ENTITY esb.secondsdisplay "毫秒">
 <!ENTITY esb.hideonsites "在這些網站不顯示 (以 '|' 分隔):">
@@ -22,37 +22,37 @@
 <!ENTITY esb.appendcurrent "追加目前頁面">
 <!ENTITY esb.appendcurrent.accesskey "A">
 <!ENTITY esb.customcolor "自訂色彩">
-<!ENTITY esb.customcolor.accesskey "C">
+<!ENTITY esb.customcolor.accesskey "U">
 <!ENTITY esb.customcolor.tooltip "如果您目前的佈景主題支援 Extended Statusbar，請停用自訂樣式!">
 <!ENTITY esb.backgroundcolor "背景:">
 <!ENTITY esb.progresscolor "進度列:">
-<!ENTITY esb.cursorcolor "載入游標:">
+<!ENTITY esb.cursorcolor "已載入游標:">
 <!ENTITY esb.textcolor "文字:">
 <!ENTITY esb.useoldstyle "傳統樣式">
-<!ENTITY esb.useoldstyle.accesskey "L">
-<!ENTITY esb.useoldstyle.tooltip "在 Firefox 的狀態列內顯示 Extended Statusbar">
+<!ENTITY esb.useoldstyle.accesskey "C">
+<!ENTITY esb.useoldstyle.tooltip "使用經典的 Extended Statusbar 外觀">
 <!ENTITY esb.slimmode "精簡模式">
-<!ENTITY esb.slimmode.accesskey "M">
+<!ENTITY esb.slimmode.accesskey "S">
 <!ENTITY esb.slimmode.tooltip "隱藏標籤並僅顯示數字">
 <!ENTITY esb.hideindelements "隱藏個別元素">
 <!ENTITY esb.hideimages "隱藏圖像">
 <!ENTITY esb.hideimages.accesskey "I">
 <!ENTITY esb.hideloaded "隱藏已載入">
-<!ENTITY esb.hideloaded.accesskey "O">
+<!ENTITY esb.hideloaded.accesskey "L">
 <!ENTITY esb.hidespeed "隱藏速度">
-<!ENTITY esb.hidespeed.accesskey "D">
+<!ENTITY esb.hidespeed.accesskey "S">
 <!ENTITY esb.hidetime "隱藏時間">
 <!ENTITY esb.hidetime.accesskey "T">
 <!ENTITY esb.hidepercent "隱藏百分比">
 <!ENTITY esb.hidepercent.accesskey "P">
 <!ENTITY esb.hideprogress "隱藏進度計">
-<!ENTITY esb.hideprogress.accesskey "T">
+<!ENTITY esb.hideprogress.accesskey "M">
 <!ENTITY esb.hidecursor "隱藏載入中游標">
 <!ENTITY esb.hidecursor.accesskey "C">
 <!ENTITY esb.cssplaceholder "在這裡輸入 Css 規則">
 <!ENTITY esb.apply "套用">
 <!ENTITY esb.usecustomstyle "使用您自己的樣式 (進階模式)">
-<!ENTITY esb.usecustomstyle.accesskey "Y">
+<!ENTITY esb.usecustomstyle.accesskey "O">
 <!ENTITY esb.usecustomstyle.tooltip "使用您自己的 css 規則自訂，進階使用者適用">
 <!ENTITY esb.toolbar "工具列">
 <!ENTITY esb.esbwidget "ESB 小工具">
@@ -64,5 +64,5 @@
 <!ENTITY esb.progress "進度">
 <!ENTITY esb.cursor "游標">
 <!ENTITY esb.cursorback "游標背面">
-<!ENTITY esb.tabBehavior "Behavior">
-<!ENTITY esb.tabStyle "Style">
+<!ENTITY esb.tabBehavior "行為">
+<!ENTITY esb.tabStyle "樣式">
