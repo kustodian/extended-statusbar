@@ -1,36 +1,37 @@
 @import url("chrome://global/skin/");
 
-@namespace url("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul");
+@-moz-document url("chrome://browser/content/browser.xul") {
 
-.picker {
-  width: 38px;
-  height: 24px;
-  border: 2px solid;
-  -moz-border-top-colors: ThreeDLightShadow ThreeDHighlight;
-  -moz-border-right-colors: ThreeDDarkShadow ThreeDShadow;
-  -moz-border-bottom-colors: ThreeDDarkShadow ThreeDShadow;
-  -moz-border-left-colors: ThreeDLightShadow ThreeDHighlight;
-  background-color: ThreeDFace;
-}
+	.picker {
+	  width: 38px;
+	  height: 24px;
+	  border: 2px solid;
+	  -moz-border-top-colors: ThreeDLightShadow ThreeDHighlight;
+	  -moz-border-right-colors: ThreeDDarkShadow ThreeDShadow;
+	  -moz-border-bottom-colors: ThreeDDarkShadow ThreeDShadow;
+	  -moz-border-left-colors: ThreeDLightShadow ThreeDHighlight;
+	  background-color: ThreeDFace;
+	}
 
-.colorbox {
-  border: 1px solid #000000;
-}
+	.colorbox {
+	  border: 1px solid #000000;
+	}
 
-.picker:focus {
-  -moz-border-top-colors: ThreeDDarkShadow ThreeDHighlight;
-  -moz-border-right-colors: ThreeDDarkShadow ThreeDShadow;
-  -moz-border-bottom-colors: ThreeDDarkShadow ThreeDShadow;
-  -moz-border-left-colors: ThreeDDarkShadow ThreeDHighlight;
-}
+	.picker:focus {
+	  -moz-border-top-colors: ThreeDDarkShadow ThreeDHighlight;
+	  -moz-border-right-colors: ThreeDDarkShadow ThreeDShadow;
+	  -moz-border-bottom-colors: ThreeDDarkShadow ThreeDShadow;
+	  -moz-border-left-colors: ThreeDDarkShadow ThreeDHighlight;
+	}
 
-.picker[open="true"] {
-  -moz-border-top-colors: ThreeDDarkShadow ThreeDShadow;
-  -moz-border-right-colors: ThreeDDarkShadow ThreeDShadow;
-  -moz-border-bottom-colors: ThreeDDarkShadow ThreeDShadow;
-  -moz-border-left-colors: ThreeDDarkShadow ThreeDShadow;
-}
+	.picker[open="true"] {
+	  -moz-border-top-colors: ThreeDDarkShadow ThreeDShadow;
+	  -moz-border-right-colors: ThreeDDarkShadow ThreeDShadow;
+	  -moz-border-bottom-colors: ThreeDDarkShadow ThreeDShadow;
+	  -moz-border-left-colors: ThreeDDarkShadow ThreeDShadow;
+	}
 
-#backcolorBox, #progresscolorBox, #cursorcolorBox, #textcolorBox {
-  padding:3px;
+	#backcolorBox, #progresscolorBox, #cursorcolorBox, #textcolorBox {
+	  padding:3px;
+	}
 }
