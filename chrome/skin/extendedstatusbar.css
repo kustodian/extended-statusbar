@@ -28,7 +28,7 @@
 	/* We need to see the spacer in customization mode */
 	#main-window[customize-entered] #ESB_toolbarspacer
 	{
-		background-color: grey;
+		background-color: gray;
 	}
 
 	/* We need to adapt the widget for the customization panel */
@@ -74,76 +74,76 @@
 	/* Default colors */
 	#ESB_loaded_working_progressbar 
 	{
-		border-right: 10px solid LightGray;
+		border-right: 10px solid darkgray;
 	}
 
 	#ESB_loaded_finished_progressbar 
 	{
-		background-color: DarkGrey;
+		/*background-color: darkgray;*/
 	}
 
 	#ESB_percent_progressbar 
 	{
-		background-color: DarkGrey;
+		background-color: darkgray;
 	}
 
 	/* Newstyle */
 	#ESB_status_bar.newstyle 
 	{
-		background-image:url(chrome://extendedstatusbar/skin/white_trans_grad.png);
+		background-image: url(chrome://extendedstatusbar/skin/white_trans_grad.png);
 	}
 
 	#ESB_percent_box.newstyle 
 	{
-		background-image:url(chrome://extendedstatusbar/skin/white_trans_grad.png);
-		width:135px;
-		border-right:1px solid;
+		background-image: url(chrome://extendedstatusbar/skin/white_trans_grad.png);
+		width: 135px;
+		border-right: 1px solid;
 	}
 
 	#ESB_images_box.newstyle 
 	{
-		background-image:url(chrome://extendedstatusbar/skin/white_trans_grad.png);
-		border-right:1px solid;
-		width:105px;
+		background-image: url(chrome://extendedstatusbar/skin/white_trans_grad.png);
+		border-right: 1px solid;
+		width: 105px;
 	}
 
 	#ESB_loaded_box.newstyle 
 	{
-		background-image:url(chrome://extendedstatusbar/skin/white_trans_grad.png);
-		border-right:1px solid;
-		width:120px;
+		background-image: url(chrome://extendedstatusbar/skin/white_trans_grad.png);
+		border-right: 1px solid;
+		width: 120px;
 	}
 
 	#ESB_speed_box.newstyle 
 	{
-		background-image:url(chrome://extendedstatusbar/skin/white_trans_grad.png);
-		border-right:1px solid;
-		width:115px;
+		background-image: url(chrome://extendedstatusbar/skin/white_trans_grad.png);
+		border-right: 1px solid;
+		width: 115px;
 	}
 
 	#ESB_time_box.newstyle 
 	{
-		background-image:url(chrome://extendedstatusbar/skin/white_trans_grad.png);
-		border-right:1px solid;
+		background-image: url(chrome://extendedstatusbar/skin/white_trans_grad.png);
+		border-right: 1px solid;
 	}
 
 	#ESB_percent_progressbar.newstyle 
 	{
-		background-color:Darkgrey;
-		background-image:url(chrome://extendedstatusbar/skin/white_trans_grad.png);
+		background-color: darkgray;
+		background-image: url(chrome://extendedstatusbar/skin/white_trans_grad.png);
 	}
 
 	#ESB_loaded_finished_progressbar.newstyle 
 	{
-		background-color:Darkgrey;
-		background-image:url(chrome://extendedstatusbar/skin/white_trans_grad.png);
+		background-color: darkgray;
+		background-image: url(chrome://extendedstatusbar/skin/white_trans_grad.png);
 	}
 
 	#ESB_loaded_working_progressbar.newstyle 
 	{
-		background-color:Darkgrey;
-		background-image:url(chrome://extendedstatusbar/skin/white_trans_grad.png);
-		border-right:10px solid Lightgrey;
+		background-color: darkgray;
+		background-image: url(chrome://extendedstatusbar/skin/white_trans_grad.png);
+		border-right: 10px solid lightgray;
 	}
 
 	#ESB_options_context_item

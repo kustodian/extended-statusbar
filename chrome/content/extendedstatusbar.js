@@ -902,7 +902,6 @@ XULExtendedStatusbarChrome.ESB_PrefObserver = {
 				break;
 			case "progresscolor":
 				this.appendStyleAtribute("ESB_percent_progressbar", "background-color", this.prefs.getCharPref("progresscolor"));
-				this.appendStyleAtribute("ESB_loaded_finished_progressbar", "background-color", this.prefs.getCharPref("progresscolor"));
 				break;
 			case "cursorcolor":
 				this.appendStyleAtribute("ESB_loaded_working_progressbar", "border-right", "10px solid " + this.prefs.getCharPref("cursorcolor"));
@@ -1229,12 +1228,6 @@ XULExtendedStatusbarChrome.ESB_PrefObserver = {
 			
 			if(XULExtendedStatusbarChrome.esbXUL.percent_progressbar.style.backgroundColor) XULExtendedStatusbarChrome.esbXUL.percent_progressbar.style.backgroundColor = this.prefs.getCharPref("progresscolor");
 			else this.appendStyleAtribute("ESB_percent_progressbar", "background-color", this.prefs.getCharPref("progresscolor"));
-			
-			if(XULExtendedStatusbarChrome.esbXUL.loaded_finished_progressbar.style.backgroundColor) XULExtendedStatusbarChrome.esbXUL.loaded_finished_progressbar.style.backgroundColor = this.prefs.getCharPref("progresscolor");
-			else this.appendStyleAtribute("ESB_loaded_finished_progressbar", "background-color", this.prefs.getCharPref("progresscolor"));
-			
-			if(XULExtendedStatusbarChrome.esbXUL.loaded_working_progressbar.style.backgroundColor) XULExtendedStatusbarChrome.esbXUL.loaded_working_progressbar.style.backgroundColor = this.prefs.getCharPref("progresscolor");
-			else this.appendStyleAtribute("ESB_loaded_working_progressbar", "background-color", this.prefs.getCharPref("progresscolor"));
 			
 			if(XULExtendedStatusbarChrome.esbXUL.loaded_working_progressbar.style.borderRight) XULExtendedStatusbarChrome.esbXUL.loaded_working_progressbar.style.borderRight = "10px solid " + this.prefs.getCharPref("cursorcolor");
 			else this.appendStyleAtribute("ESB_loaded_working_progressbar", "border-right", "10px solid " + this.prefs.getCharPref("cursorcolor"));
