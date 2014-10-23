@@ -274,10 +274,7 @@ XULExtendedStatusbarChrome.hideESB = function ()
 		{
 			XULExtendedStatusbarChrome.esbXUL.esb_toolbar.hidden = true;
 		}
-		else
-		{
-			XULExtendedStatusbarChrome.esbXUL.status_bar.hidden = true;
-		}
+		XULExtendedStatusbarChrome.esbXUL.status_bar.hidden = true;
 		XULExtendedStatusbarChrome.esbTimeOutSem = false;
 	}
 }
