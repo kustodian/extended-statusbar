@@ -1,6 +1,10 @@
 Extended Statubar Changes By Release
 ==========================
 
+### 2.0.4 - June 9, 2016
+ * Made compatible with FF 47
+
+
 ### 2.0 - July 27, 2014
  * Restarless
  * Multiple-tab support

@@ -187,7 +187,7 @@ function loadIntoWindow(window)
 		esbToolbar.setAttribute("customizable", "true");
 		esbToolbar.setAttribute("context", "toolbar-context-menu");
 		esbToolbar.setAttribute("hidden", "false");
-		esbToolbar.setAttribute("collapsed", window.Application.prefs.getValue("extensions.extendedstatusbar.collapsed", false));
+		esbToolbar.setAttribute("collapsed", Services.prefs.getBoolPref("extensions.extendedstatusbar.collapsed"));
 		esbToolbar.setAttribute("persist", "hidden");
 		esbToolbar.setAttribute("mode", "icons");
 		esbToolbar.setAttribute("iconsize", "small");
