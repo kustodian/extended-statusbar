@@ -191,8 +191,8 @@ function loadIntoWindow(window)
 		esbToolbar.setAttribute("persist", "hidden");
 		esbToolbar.setAttribute("mode", "icons");
 		esbToolbar.setAttribute("iconsize", "small");
-		esbToolbar.setAttribute("onmouseover", "XULExtendedStatusbarChrome.showESBOnHover();");
-		esbToolbar.setAttribute("onmouseout", "XULExtendedStatusbarChrome.hideESBOnHover();");
+   		esbToolbar.addEventListener("onmouseover", function() { XULExtendedStatusbarChrome.showESBOnHover(); });
+        esbToolbar.addEventListener("onmouseout", function() { XULExtendedStatusbarChrome.hideESBOnHover(); });
 		esbToolbar.appendChild(esbToolbarspacer);
 		
 		document.getElementById("browser-bottombox").appendChild(esbToolbar);
