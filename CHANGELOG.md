@@ -5,6 +5,22 @@ Extended Statubar Changes By Release
  * Made compatible with FF 47
 
 
+### 2.0.3 - October 7, 2014
+ * Made ESB dark themes friendly
+ * Fixed choosing custom color in the option dialog
+ * Fixed compatibility problems with some plugins 
+
+
+### 2.0.2 - October 7, 2014
+ * Restarless
+ * Multiple-tab support
+ * New settings window with new settings
+ * Configure ESB from the right-clicking menu
+ * Fixed image counters on stop
+ * ESB now preserves percentage on stop
+ * Many improvements and fixes
+
+
 ### 2.0 - July 27, 2014
  * Restarless
  * Multiple-tab support
