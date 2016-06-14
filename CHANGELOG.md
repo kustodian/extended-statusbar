@@ -1,6 +1,10 @@
 Extended Statubar Changes By Release
 ==========================
 
+### 2.0.5 - June 14, 2016
+ * Fixed bug in loading extenson on fresh install
+
+
 ### 2.0.4 - June 9, 2016
  * Made compatible with FF 47
 

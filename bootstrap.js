@@ -187,7 +187,13 @@ function loadIntoWindow(window)
 		esbToolbar.setAttribute("customizable", "true");
 		esbToolbar.setAttribute("context", "toolbar-context-menu");
 		esbToolbar.setAttribute("hidden", "false");
-		esbToolbar.setAttribute("collapsed", Services.prefs.getBoolPref("extensions.extendedstatusbar.collapsed"));
+		var esbCollapsed;
+		try {
+			esbCollapsed = Services.prefs.getBoolPref("extensions.extendedstatusbar.collapsed");
+		} catch(e) {
+			esbCollapsed = "false";
+		}
+		esbToolbar.setAttribute("collapsed", esbCollapsed);
 		esbToolbar.setAttribute("persist", "hidden");
 		esbToolbar.setAttribute("mode", "icons");
 		esbToolbar.setAttribute("iconsize", "small");
