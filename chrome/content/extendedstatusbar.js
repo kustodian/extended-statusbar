@@ -660,7 +660,7 @@ XULExtendedStatusbarChrome.esbListener =
 
 	countImages: function (aBrowser)
 	{
-		var docimgs = aBrowser.contentDocument.images;
+		var docimgs = aBrowser.contentDocument && aBrowser.contentDocument.images;
 		var imglcount = 0;
 		var allimgsc = 0;
 		if (docimgs != null)
