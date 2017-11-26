@@ -29,3 +29,5 @@ pref("extensions.extendedstatusbar.timestyle", "");
 pref("extensions.extendedstatusbar.progressstyle", "");
 pref("extensions.extendedstatusbar.cursorstyle", "");
 pref("extensions.extendedstatusbar.cursorbackgroundstyle", "");
+pref("extensions.extendedstatusbar.toolbarid", "addon-bar");
+pref("extensions.extendedstatusbar.nextitemid", "");
