@@ -165,6 +165,46 @@ function buildESB(document)
 	esbToolbaritem.appendChild(esbStatusBar);
 	return esbToolbaritem;
 }
+
+function $(node, childId) {
+	if (node.getElementById) {
+		return node.getElementById(childId);
+	} else {
+		return node.querySelector("#" + childId);
+	}
+}
+
+var branch = "extensions.extendedstatusbar.";
+
+function getPlacement() {
+	var p = Services.prefs.getBranch(branch);
+	return {
+		toolbarId : p.getCharPref("toolbarid"),
+		nextItemId : p.getCharPref("nextitemid")
+	};
+}
+
+function setPlacement(toolbarId, nextItemId) {
+	var p = Services.prefs.getBranch(branch);
+	p.setCharPref("toolbarid", toolbarId || "");
+	p.setCharPref("nextitemid", nextItemId || "");
+}
+
+function afterCustomize(e) {
+	var toolbox = e.target,
+		est = $(toolbox.parentNode, "ESB_toolbaritem"),
+		toolbarId, nextItemId;
+	if (est) {
+		var parent = est.parentNode,
+			nextItem = est.nextSibling;
+		if (parent && parent.localName == "toolbar") {
+			toolbarId = parent.id;
+			nextItemId = nextItem && nextItem.id;
+		}
+	}
+	setPlacement(toolbarId, nextItemId);
+}
+
 function loadIntoWindow(window) 
 {
 	var document = window.document;
@@ -211,17 +251,36 @@ function loadIntoWindow(window)
 	else
 	{	
 		var esbToolbaritem = buildESB(document);
-		
-		var addonBar = document.getElementById("addon-bar");
-		if (addonBar) 
-		{
-			addonBar.insertBefore(esbToolbaritem, addonBar.firstChild);
+		window.esbToolbaritem = esbToolbaritem;
+
+		var toolbox = $(document, "navigator-toolbox");
+		toolbox.palette.appendChild(esbToolbaritem);
+
+		var {toolbarId, nextItemId} = getPlacement(),
+			toolbar = toolbarId && $(document, toolbarId),
+			nextItem = toolbar && $(document, nextItemId);
+
+		var esb_id = "ESB_toolbaritem";
+		if (toolbar) {
+			if (nextItem && nextItem.parentNode && nextItem.parentNode.id == toolbarId) {
+				toolbar.insertItem(esb_id, nextItem);
+			} else {
+				var ids = (toolbar.getAttribute("currentset") || "").split(",");
+				nextItem = toolbarId == "addon-bar" ? toolbar.firstChild : null;
+				for (var i = ids.indexOf(esb_id) + 1; i > 0 && i < ids.length; i++) {
+					nextItem = $(document, ids[i])
+					if (nextItem) {
+						break;
+					}
+				}
+				toolbar.insertItem(esb_id, nextItem);
+			}
+			if (toolbar.getAttribute("collapsed") == "true") {
+				window.setToolbarVisibility(toolbar, true);
+			}
 		}
-		var addonBarCloseButton = document.getElementById("addonbar-closebutton");
-		if (addonBarCloseButton) 
-		{
-			addonBar.removeChild(addonBarCloseButton);
-		}
+
+		window.addEventListener("aftercustomization", afterCustomize, false);
 	}
 		
 /*	<toolbarpalette id="BrowserToolbarPalette">
@@ -288,15 +347,10 @@ function unloadFromWindow(window)
 	}
 	else
 	{
-		var addonBar = document.getElementById("addon-bar");
-		if (addonBar) 
-		{
-			var esbToolbarItem = document.getElementById("ESB_toolbaritem");
-			if(esbToolbarItem)
-			{
-				addonBar.removeChild(esbToolbarItem);
-			}
-		}
+		window.removeEventListener("aftercustomization", afterCustomize, false);
+		var esbToolbaritem = window.esbToolbaritem;
+		esbToolbaritem.parentNode.removeChild(esbToolbaritem);
+		window.esbToolbaritem = null;
 	}
 	
 	XULExtendedStatusbarChrome.uninit();
