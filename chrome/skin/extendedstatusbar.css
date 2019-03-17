@@ -1,150 +1,165 @@
-/* Adding a button modifies the toolbar's height, we need to make it unchangeable somehow */
-#ESB_toolbar
-{
-	height: 22px;
-}
+@-moz-document url("chrome://browser/content/browser.xul") {
 
-/* Needed to fix the broken button appearance, maybe the result of some skin bug in australis */
-#ESB_toolbar .toolbarbutton-1,
-#ESB_toolbar .toolbarbutton-1 > .toolbarbutton-menubutton-button
-{
-	-moz-appearance: none;
-	border-style: none;
-	padding: 0 2px;
-}
+	/* Adding a button modifies the toolbar's height, we need to make it unchangeable somehow */
+	#ESB_toolbar
+	{
+		height: 22px;
+	}
 
-#ESB_toolbar .toolbarbutton-1:not([disabled]):hover,
-#ESB_toolbar .toolbarbutton-1[open],
-#ESB_toolbar .toolbarbutton-1 > .toolbarbutton-menubutton-button:not([disabled]):hover
-{
-	background-image: linear-gradient(to bottom, transparent, #C4DEFF),linear-gradient(to bottom, transparent, #C4DEFF 50%),linear-gradient(to bottom, transparent, #C4DEFF 50%);
-	background-position: left;
-	background-size: auto, 1px 100%, 1px 100%;
-	background-repeat: no-repeat;
-}
+	/* Needed to fix the broken button appearance, maybe the result of some skin bug in australis */
+	#ESB_toolbar .toolbarbutton-1,
+	#ESB_toolbar .toolbarbutton-1 > .toolbarbutton-menubutton-button
+	{
+		-moz-appearance: none;
+		border-style: none;
+		padding: 0 2px;
+	}
 
-/* We need to see the spacer in customization mode */
-#main-window[customize-entered] #ESB_toolbarspacer
-{
-	background-color: grey;
-}
+	#ESB_toolbar .toolbarbutton-1:not([disabled]):hover,
+	#ESB_toolbar .toolbarbutton-1[open],
+	#ESB_toolbar .toolbarbutton-1 > .toolbarbutton-menubutton-button:not([disabled]):hover
+	{
+		background-image: linear-gradient(to bottom, transparent, #C4DEFF),linear-gradient(to bottom, transparent, #C4DEFF 50%),linear-gradient(to bottom, transparent, #C4DEFF 50%);
+		background-position: left;
+		background-size: auto, 1px 100%, 1px 100%;
+		background-repeat: no-repeat;
+	}
 
-/* We need to adapt the widget for the customization panel */
-toolbarpaletteitem[place="palette"] > #ESB_toolbaritem > #ESB_status_bar > #ESB_percent_box,
-toolbarpaletteitem[place="palette"] > #ESB_toolbaritem > #ESB_status_bar > #ESB_loaded_box,
-toolbarpaletteitem[place="palette"] > #ESB_toolbaritem > #ESB_status_bar > #ESB_images_box,
-toolbarpaletteitem[place="palette"] > #ESB_toolbaritem > #ESB_status_bar > #ESB_speed_box,
-toolbarpaletteitem[place="palette"] > #ESB_toolbaritem > #ESB_status_bar > #ESB_time_box,
-#ESB_toolbaritem[cui-areatype="menu-panel"] > #ESB_status_bar > #ESB_percent_box,
-#ESB_toolbaritem[cui-areatype="menu-panel"] > #ESB_status_bar > #ESB_loaded_box,
-#ESB_toolbaritem[cui-areatype="menu-panel"] > #ESB_status_bar > #ESB_images_box,
-#ESB_toolbaritem[cui-areatype="menu-panel"] > #ESB_status_bar > #ESB_speed_box,
-#ESB_toolbaritem[cui-areatype="menu-panel"] > #ESB_status_bar > #ESB_time_box
-{
-	display: none;
-}
+	/* We need to see the spacer in customization mode */
+	#main-window[customize-entered] #ESB_toolbarspacer
+	{
+		background-color: gray;
+	}
 
-toolbarpaletteitem[place="palette"] > #ESB_toolbaritem > #ESB_status_bar
-{
-	min-width: 32px;
-	height: 32px;
-	background-repeat: no-repeat;
-	background-color: transparent !important;
-	background-position: center center;
-	background-image: url(chrome://extendedstatusbar/skin/icon.png) !important;
-}
+	/* We need to adapt the widget for the customization panel */
+	toolbarpaletteitem[place="palette"] > #ESB_toolbaritem > #ESB_status_bar > #ESB_percent_box,
+	toolbarpaletteitem[place="palette"] > #ESB_toolbaritem > #ESB_status_bar > #ESB_loaded_box,
+	toolbarpaletteitem[place="palette"] > #ESB_toolbaritem > #ESB_status_bar > #ESB_images_box,
+	toolbarpaletteitem[place="palette"] > #ESB_toolbaritem > #ESB_status_bar > #ESB_speed_box,
+	toolbarpaletteitem[place="palette"] > #ESB_toolbaritem > #ESB_status_bar > #ESB_time_box,
+	#ESB_toolbaritem[cui-areatype="menu-panel"] > #ESB_status_bar > #ESB_percent_box,
+	#ESB_toolbaritem[cui-areatype="menu-panel"] > #ESB_status_bar > #ESB_loaded_box,
+	#ESB_toolbaritem[cui-areatype="menu-panel"] > #ESB_status_bar > #ESB_images_box,
+	#ESB_toolbaritem[cui-areatype="menu-panel"] > #ESB_status_bar > #ESB_speed_box,
+	#ESB_toolbaritem[cui-areatype="menu-panel"] > #ESB_status_bar > #ESB_time_box
+	{
+		display: none;
+	}
 
-#ESB_toolbaritem[cui-areatype="menu-panel"] > #ESB_status_bar
-{
-	width: 89px;
-	height: 83px;
-	background-repeat: no-repeat;
-	background-color: transparent !important;
-	background-position: center center;
-	background-image: url(chrome://extendedstatusbar/skin/icon.png) !important;
-}
+	toolbarpaletteitem[place="palette"] > #ESB_toolbaritem > #ESB_status_bar
+	{
+		min-width: 32px;
+		height: 32px;
+		background-repeat: no-repeat;
+		background-color: transparent !important;
+		background-position: center center;
+		background-image: url(chrome://extendedstatusbar/skin/icon.png) !important;
+	}
 
-#ESB_toolbaritem[cui-areatype="menu-panel"]
-{
-	border: 1px solid Black;
-}
+	#ESB_toolbaritem[cui-areatype="menu-panel"] > #ESB_status_bar
+	{
+		width: 89px;
+		height: 83px;
+		background-repeat: no-repeat;
+		background-color: transparent !important;
+		background-position: center center;
+		background-image: url(chrome://extendedstatusbar/skin/icon.png) !important;
+	}
 
-/* Default colors */
-#ESB_loaded_working_progressbar 
-{
-    border-right: 10px solid LightGray;
-}
+	#ESB_toolbaritem[cui-areatype="menu-panel"]
+	{
+		border: 1px solid Black;
+	}
 
-#ESB_loaded_finished_progressbar 
-{
-    background-color: DarkGrey;
-}
+	/* Default colors */
+	#ESB_loaded_working_progressbar 
+	{
+		border-right: 10px solid darkgray;
+	}
 
-#ESB_percent_progressbar 
-{
-    background-color: DarkGrey;
-}
+	#ESB_loaded_finished_progressbar 
+	{
+		/*background-color: darkgray;*/
+	}
 
-/* Newstyle */
-#ESB_status_bar.newstyle 
-{
-	background-image:url(chrome://extendedstatusbar/skin/white_trans_grad.png);
-}
+	#ESB_percent_progressbar 
+	{
+		background-color: darkgray;
+	}
 
-#ESB_percent_box.newstyle 
-{
-	background-image:url(chrome://extendedstatusbar/skin/white_trans_grad.png);
-	width:135px;
-	border-right:1px solid;
-}
+	/* Newstyle */
+	#ESB_status_bar.newstyle 
+	{
+		background-image: url(chrome://extendedstatusbar/skin/white_trans_grad.png);
+	}
 
-#ESB_images_box.newstyle 
-{
-	background-image:url(chrome://extendedstatusbar/skin/white_trans_grad.png);
-	border-right:1px solid;
-	width:105px;
-}
+	#ESB_percent_box.newstyle 
+	{
+		background-image: url(chrome://extendedstatusbar/skin/white_trans_grad.png);
+		width: 135px;
+		border-right: 1px solid;
+	}
 
-#ESB_loaded_box.newstyle 
-{
-	background-image:url(chrome://extendedstatusbar/skin/white_trans_grad.png);
-	border-right:1px solid;
-	width:120px;
-}
+	#ESB_images_box.newstyle 
+	{
+		background-image: url(chrome://extendedstatusbar/skin/white_trans_grad.png);
+		border-right: 1px solid;
+		width: 105px;
+	}
 
-#ESB_speed_box.newstyle 
-{
-	background-image:url(chrome://extendedstatusbar/skin/white_trans_grad.png);
-	border-right:1px solid;
-	width:115px;
-}
+	#ESB_loaded_box.newstyle 
+	{
+		background-image: url(chrome://extendedstatusbar/skin/white_trans_grad.png);
+		border-right: 1px solid;
+		width: 120px;
+	}
 
-#ESB_time_box.newstyle 
-{
-	background-image:url(chrome://extendedstatusbar/skin/white_trans_grad.png);
-	border-right:1px solid;
-}
+	#ESB_speed_box.newstyle 
+	{
+		background-image: url(chrome://extendedstatusbar/skin/white_trans_grad.png);
+		border-right: 1px solid;
+		width: 115px;
+	}
 
-#ESB_percent_progressbar.newstyle 
-{
-	background-color:Darkgrey;
-	background-image:url(chrome://extendedstatusbar/skin/white_trans_grad.png);
-}
+	#ESB_time_box.newstyle 
+	{
+		background-image: url(chrome://extendedstatusbar/skin/white_trans_grad.png);
+		border-right: 1px solid;
+	}
 
-#ESB_loaded_finished_progressbar.newstyle 
-{
-	background-color:Darkgrey;
-	background-image:url(chrome://extendedstatusbar/skin/white_trans_grad.png);
-}
+	#ESB_percent_progressbar.newstyle 
+	{
+		background-color: darkgray;
+		background-image: url(chrome://extendedstatusbar/skin/white_trans_grad.png);
+	}
 
-#ESB_loaded_working_progressbar.newstyle 
-{
-	background-color:Darkgrey;
-	background-image:url(chrome://extendedstatusbar/skin/white_trans_grad.png);
-	border-right:10px solid Lightgrey;
-}
+	#ESB_loaded_finished_progressbar.newstyle 
+	{
+		background-color: darkgray;
+		background-image: url(chrome://extendedstatusbar/skin/white_trans_grad.png);
+	}
 
-#ESB_options_context_item
-{
-  list-style-image: url('chrome://extendedstatusbar/skin/icon.png');
+	#ESB_loaded_working_progressbar.newstyle 
+	{
+		background-color: darkgray;
+		background-image: url(chrome://extendedstatusbar/skin/white_trans_grad.png);
+		border-right: 10px solid lightgray;
+	}
+
+	#ESB_options_context_item
+	{
+		list-style-image: url('chrome://extendedstatusbar/skin/icon.png');
+	}
+
+	/* Unlocked */
+
+	.unlocked
+	{
+		cursor: -moz-grab;
+		border: 1px dashed grey !important;
+	}
+	.unlocked label
+	{
+		cursor: inherit;
+	}
 }

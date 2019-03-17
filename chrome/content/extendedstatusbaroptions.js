@@ -5,6 +5,10 @@ if ("undefined" == typeof(XULExtendedStatusbarOptions)) {
   var XULExtendedStatusbarOptions = {};
 }
 
+XULExtendedStatusbarOptions.parentWindow = Components.classes["@mozilla.org/appshell/window-mediator;1"]
+											.getService(Components.interfaces.nsIWindowMediator)
+											.getMostRecentWindow("navigator:browser");
+
 XULExtendedStatusbarOptions.init = function ()
 {
 	if (document.getElementById("checkesbhide").checked)
@@ -137,6 +141,18 @@ XULExtendedStatusbarOptions.init = function ()
 	{
 		document.getElementById("checkesbhidecursor").setAttribute("disabled", "false");
 	}
+
+	if (document.getElementById("checkesbhidetime").checked)
+	{
+		document.getElementById("checkesbsplittimer").setAttribute("disabled", "true");
+	}
+	else
+	{
+		document.getElementById("checkesbsplittimer").setAttribute("disabled", "false");
+	}
+
+	document.getElementById("esbRadioUnits").selectedIndex = ExtendedStatusbarPrefs.getIntPref("units");
+	this.updateUnitsSample(document.getElementById("checkesbunitspace").checked);
 }
 
 XULExtendedStatusbarOptions.hideCheck = function()
@@ -208,6 +224,18 @@ XULExtendedStatusbarOptions.hideCursor = function()
 	}
 }
 
+XULExtendedStatusbarOptions.splitTimer = function()
+{
+	if (!document.getElementById("checkesbhidetime").checked)
+	{
+		document.getElementById("checkesbsplittimer").setAttribute("disabled", "true");
+	}
+	else
+	{
+		document.getElementById("checkesbsplittimer").setAttribute("disabled", "false");
+	}
+}
+
 XULExtendedStatusbarOptions.hideToolbar = function()
 {
 	if (!document.getElementById("checkesbhidetoolbar").checked)
@@ -249,6 +277,41 @@ XULExtendedStatusbarOptions.hideHover = function ()
 		document.getElementById("textesbhovertimeout").setAttribute("disabled", "true");
 		document.getElementById("labelesbhoverseconds").setAttribute("disabled", "true");
 	}
+}
+
+XULExtendedStatusbarOptions.radioUnitsChange = function ()
+{
+	document.getElementById("esbUnits").value = document.getElementById("esbRadioUnits").selectedIndex;
+	this.updateUnitsSample(document.getElementById("checkesbunitspace").checked);
+}
+
+XULExtendedStatusbarOptions.onUnitSpace = function ()
+{
+	this.updateUnitsSample(!document.getElementById("checkesbunitspace").checked)
+}
+
+XULExtendedStatusbarOptions.updateUnitsSample = function (aSpace)
+{
+	var strings = document.getElementById("strings");
+	var sample, suffix;
+
+	switch (document.getElementById("esbUnits").value)
+	{
+		case 0:
+			sample = (1536).toLocaleString();
+			suffix = "";
+			break;
+		case 1:
+			sample = (1.54).toLocaleString();
+			suffix = strings.getString("esb.k");
+			break;
+		case 2:
+			sample = (1.5).toLocaleString();
+			suffix = strings.getString("esb.ki");
+			break;
+	}
+	if (aSpace) sample += " ";
+	document.getElementById("unitssample").value = sample + suffix + strings.getString("esb.b");
 }
 
 XULExtendedStatusbarOptions.gColorObj = {elemCurrColor:"", cancel:false};
@@ -384,39 +447,38 @@ XULExtendedStatusbarOptions.radioStateChange = function ()
 XULExtendedStatusbarOptions.applyCSS = function (e)
 {
 	var targetElementString = e.target.id.substring(6).replace("style","");
-	var wm = Components.classes["@mozilla.org/appshell/window-mediator;1"].getService(Components.interfaces.nsIWindowMediator);
-	var browserWindow = wm.getMostRecentWindow("navigator:browser");
+	parentWindowDocument = XULExtendedStatusbarOptions.parentWindow.document;
 	switch(targetElementString)
 	{
 		case "esbtoolbar" :
-			var targetElement = browserWindow.document.getElementById("ESB_toolbar");
+			var targetElement = parentWindowDocument.getElementById("ESB_toolbar");
 			break;
 		case "esbwidget" :
-			var targetElement = browserWindow.document.getElementById("ESB_status_bar");
+			var targetElement = parentWindowDocument.getElementById("ESB_status_bar");
 			break;
 		case "percent" :
-			var targetElement = browserWindow.document.getElementById("ESB_percent_box");
+			var targetElement = parentWindowDocument.getElementById("ESB_percent_box");
 			break;
 		case "images" :
-			var targetElement = browserWindow.document.getElementById("ESB_images_box");
+			var targetElement = parentWindowDocument.getElementById("ESB_images_box");
 			break;
 		case "loaded" :
-			var targetElement = browserWindow.document.getElementById("ESB_loaded_box");
+			var targetElement = parentWindowDocument.getElementById("ESB_loaded_box");
 			break;
 		case "speed" :
-			var targetElement = browserWindow.document.getElementById("ESB_speed_box");
+			var targetElement = parentWindowDocument.getElementById("ESB_speed_box");
 			break;
 		case "time" :
-			var targetElement = browserWindow.document.getElementById("ESB_time_box");
+			var targetElement = parentWindowDocument.getElementById("ESB_time_box");
 			break;
 		case "progress" :
-			var targetElement = browserWindow.document.getElementById("ESB_percent_progressbar");
+			var targetElement = parentWindowDocument.getElementById("ESB_percent_progressbar");
 			break;
 		case "cursor" :
-			var targetElement = browserWindow.document.getElementById("ESB_loaded_working_progressbar");
+			var targetElement = parentWindowDocument.getElementById("ESB_loaded_working_progressbar");
 			break;
 		case "cursorbackground" :
-			var targetElement = browserWindow.document.getElementById("ESB_loaded_finished_progressbar");
+			var targetElement = parentWindowDocument.getElementById("ESB_loaded_finished_progressbar");
 			break;
 	}
 	targetElement.removeAttribute("style");

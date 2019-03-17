@@ -56,6 +56,9 @@
 <!ENTITY esb.hideprogress.accesskey "M">
 <!ENTITY esb.hidecursor "Hide Loading Cursor">
 <!ENTITY esb.hidecursor.accesskey "C">
+<!ENTITY esb.splittimer "Split Timer">
+<!ENTITY esb.splittimer.tooltip "Show times to and from the first response.">
+<!ENTITY esb.splittimer.accesskey "e">
 <!ENTITY esb.cssplaceholder "Input CSS rules here">
 <!ENTITY esb.apply "Apply">
 <!ENTITY esb.usecustomstyle "Use your own style (advanced mode)">
@@ -73,3 +76,15 @@
 <!ENTITY esb.cursorback "Cursor back">
 <!ENTITY esb.tabBehavior "Behavior">
 <!ENTITY esb.tabStyle "Style">
+<!ENTITY esb.units "Units">
+<!ENTITY esb.byteunits "Bytes">
+<!ENTITY esb.byteunits.accesskey "y">
+<!ENTITY esb.decunits "Decimal prefixes">
+<!ENTITY esb.decunits.accesskey "D">
+<!ENTITY esb.binunits "Binary prefixes">
+<!ENTITY esb.binunits.accesskey "B">
+<!ENTITY esb.unitspace "Space">
+<!ENTITY esb.unitspace.accesskey "p">
+<!ENTITY esb.sample "Sample:">
+<!ENTITY esb.unlockpositions "Unlock elements positions (Lock it using the context menu)">
+<!ENTITY esb.unlockpositions.accesskey "U">

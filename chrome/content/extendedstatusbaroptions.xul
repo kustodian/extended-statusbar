@@ -29,8 +29,11 @@
 			<preference id="esbHidePercent" name="extensions.extendedstatusbar.hidepercent" type="bool"/>
 			<preference id="esbHideProgress" name="extensions.extendedstatusbar.hideprogress" type="bool"/>
 			<preference id="esbHideCursor" name="extensions.extendedstatusbar.hidecursor" type="bool"/>
+			<preference id="esbSplitTimer" name="extensions.extendedstatusbar.splittimer" type="bool"/>
 			<preference id="esbStyle" name="extensions.extendedstatusbar.esbstyle" type="int"/>
 			<preference id="esbSlimMode" name="extensions.extendedstatusbar.slimmode" type="bool"/>
+			<preference id="esbUnits" name="extensions.extendedstatusbar.units" type="int"/>
+			<preference id="esbUnitSpace" name="extensions.extendedstatusbar.unitspace" type="bool"/>
 			<preference id="esbToolbarStyle" name="extensions.extendedstatusbar.toolbarstyle" type="string"/>
 			<preference id="esbWidgetStyle" name="extensions.extendedstatusbar.widgetstyle" type="string"/>
 			<preference id="esbPercentStyle" name="extensions.extendedstatusbar.percentstyle" type="string"/>
@@ -77,7 +80,8 @@
                                 <checkbox id="checkesbhideloaded" preference="esbHideLoaded" label="&esb.hideloaded;" accesskey="&esb.hideloaded.accesskey;" onclick="XULExtendedStatusbarOptions.hideCursor();"/>
 								<checkbox id="checkesbhidecursor" preference="esbHideCursor" label="&esb.hidecursor;" accesskey="&esb.hidecursor.accesskey;" class="indent"/>
                                 <checkbox id="checkesbhidespeed" preference="esbHideSpeed" label="&esb.hidespeed;" accesskey="&esb.hidespeed.accesskey;"/>
-                                <checkbox id="checkesbhidetime" preference="esbHideTime" label="&esb.hidetime;" accesskey="&esb.hidetime.accesskey;"/>
+								<checkbox id="checkesbhidetime" preference="esbHideTime" label="&esb.hidetime;" accesskey="&esb.hidetime.accesskey;" onclick="XULExtendedStatusbarOptions.splitTimer();"/>
+								<checkbox id="checkesbsplittimer" preference="esbSplitTimer" label="&esb.splittimer;" tooltiptext="&esb.splittimer.tooltip;" accesskey="&esb.splittimer.accesskey;" class="indent"/>
                             </groupbox>
                         </hbox>
 						<spacer style="width: 10px"/>
@@ -219,6 +223,19 @@
 								</hbox>
 							</hbox>
 						</groupbox>
+						<groupbox>
+							<caption label="&esb.units;"/>
+							<radiogroup id="esbRadioUnits" oncommand="XULExtendedStatusbarOptions.radioUnitsChange()" orient="vertical">
+								<radio id="byteunits" label="&esb.byteunits;" accesskey="&esb.byteunits.accesskey;"/>
+								<radio id="decunits" label="&esb.decunits;" accesskey="&esb.decunits.accesskey;"/>
+								<radio id="binunits" label="&esb.binunits;" accesskey="&esb.binunits.accesskey;"/>
+							</radiogroup>
+							<checkbox id="checkesbunitspace" preference="esbUnitSpace" label="&esb.unitspace;" accesskey="&esb.unitspace.accesskey;" onclick="XULExtendedStatusbarOptions.onUnitSpace();"/>
+							<hbox>
+								<label value="&esb.sample;"/>
+								<label id="unitssample"/>
+							</hbox>
+						</groupbox>
 					</vbox>
 				</tabpanel>
 			</tabpanels>
@@ -226,5 +243,8 @@
 	</prefpane>
 	
 	<script type="application/x-javascript" src="chrome://extendedstatusbar/content/extendedstatusbaroptions.js"/>
+	<stringbundleset id="stringbundleset">
+		<stringbundle id="strings" src="chrome://extendedstatusbar/locale/extendedstatusbar.properties"/>
+	</stringbundleset>
 	
 </prefwindow>
