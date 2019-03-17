@@ -96,12 +96,6 @@
 								</hbox>
 							</groupbox>
 						</hbox>
-						<spacer style="height: 10px"/>
-						<hbox>
-							<groupbox flex="1">
-                                <checkbox id="checkesbunlockpositions" label="&esb.unlockpositions;" accesskey="&esb.unlockpositions.accesskey;"/>
-							</groupbox>
-						</hbox>
                     </vbox>
 				</tabpanel>
                 <tabpanel id="styleTabPanel">
