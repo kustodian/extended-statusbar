@@ -136,6 +136,15 @@ XULExtendedStatusbarOptions.init = function ()
 		document.getElementById("checkesbhidecursor").setAttribute("disabled", "false");
 	}
 
+	if (document.getElementById("checkesbhidetime").checked)
+	{
+		document.getElementById("checkesbsplittimer").setAttribute("disabled", "true");
+	}
+	else
+	{
+		document.getElementById("checkesbsplittimer").setAttribute("disabled", "false");
+	}
+
 	document.getElementById("esbRadioUnits").selectedIndex = ExtendedStatusbarPrefs.getIntPref("units");
 	this.updateUnitsSample(document.getElementById("checkesbunitspace").checked);
 }
@@ -206,6 +215,18 @@ XULExtendedStatusbarOptions.hideCursor = function()
 	else
 	{
 		document.getElementById("checkesbhidecursor").setAttribute("disabled", "false");
+	}
+}
+
+XULExtendedStatusbarOptions.splitTimer = function()
+{
+	if (!document.getElementById("checkesbhidetime").checked)
+	{
+		document.getElementById("checkesbsplittimer").setAttribute("disabled", "true");
+	}
+	else
+	{
+		document.getElementById("checkesbsplittimer").setAttribute("disabled", "false");
 	}
 }
 

@@ -30,6 +30,7 @@ XULExtendedStatusbarChrome.units;
 XULExtendedStatusbarChrome.unitSpace;
 XULExtendedStatusbarChrome.esbHideCursor;
 XULExtendedStatusbarChrome.esbHideProgress;
+XULExtendedStatusbarChrome.esbSplitTimer;			// Separate timers for before & after the first response
 XULExtendedStatusbarChrome.esbIWebProgressListener = Components.interfaces.nsIWebProgressListener;  //this has to have a unique name because a lot of oxtensions are using it
 
 // The following variables are needed in order to backup/restore style defined width when we switch slim mode on/off
@@ -108,6 +109,21 @@ XULExtendedStatusbarChrome.addContextMenuItem = function ()
 		menu.insertBefore(menuseparator, menu.firstChild);
 	}
 	
+	var itemSplitTimer = document.createElement("menuitem");
+	itemSplitTimer.setAttribute("id", "ESB_splittimer_context_item");
+	itemSplitTimer.setAttribute("type", "checkbox");
+	itemSplitTimer.setAttribute("checked", XULExtendedStatusbarChrome.ESB_PrefObserver.prefs.getBoolPref("splittimer"));
+	itemSplitTimer.setAttribute("disabled", XULExtendedStatusbarChrome.ESB_PrefObserver.prefs.getBoolPref("hidetime"));
+	itemSplitTimer.setAttribute("label", "  " + XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.splittimer"));
+	itemSplitTimer.setAttribute("accesskey", XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.splittimer.accesskey"));
+	itemSplitTimer.addEventListener("command",
+		function(e)
+		{
+			XULExtendedStatusbarChrome.ESB_PrefObserver.prefs.setBoolPref("splittimer", document.getElementById("ESB_splittimer_context_item").getAttribute("checked"));
+		}
+	);
+	menu.insertBefore(itemSplitTimer, menu.firstChild);
+
     var itemTime = document.createElement("menuitem");
     itemTime.setAttribute("id", "ESB_time_context_item");
     itemTime.setAttribute("type", "checkbox");
@@ -243,6 +259,7 @@ XULExtendedStatusbarChrome.removeContextMenuItem = function ()
 	var menu = document.getElementById("toolbar-context-menu");
 	menu.removeEventListener("popupshowing", XULExtendedStatusbarChrome.onContextMenuPopupShowing);
 	menu.removeChild(document.getElementById("ESB_context_separator"));
+	menu.removeChild(document.getElementById("ESB_splittimer_context_item"));
 	menu.removeChild(document.getElementById("ESB_time_context_item"));
 	menu.removeChild(document.getElementById("ESB_speed_context_item"));
 	menu.removeChild(document.getElementById("ESB_images_context_item"));
@@ -258,6 +275,7 @@ XULExtendedStatusbarChrome.onContextMenuPopupShowing = function (event)
 	var esbToolbarItem = document.getElementById("ESB_toolbaritem");
 	var hiding = esbToolbarItem ? !esbToolbarItem.contains(document.popupNode) : true;
 	document.getElementById("ESB_context_separator").hidden = hiding;
+	document.getElementById("ESB_splittimer_context_item").hidden = hiding;
 	document.getElementById("ESB_time_context_item").hidden = hiding;
 	document.getElementById("ESB_speed_context_item").hidden = hiding;
 	document.getElementById("ESB_images_context_item").hidden = hiding;
@@ -437,7 +455,15 @@ XULExtendedStatusbarChrome.esbListener =
 
 	initObjectValuesForBrowser : function(aBrowser)
 	{
-		if (aBrowser.esbValues) aBrowser.esbOldValues = aBrowser.esbValues;
+		if (aBrowser.esbValues)
+		{
+			if (aBrowser.esbValues.updateTimeInterval != "")
+			{
+				clearInterval(aBrowser.esbValues.updateTimeInterval);
+				aBrowser.esbValues.updateTimeInterval = "";
+			}
+			aBrowser.esbOldValues = aBrowser.esbValues;
+		}
 		aBrowser.esbValues = { images: "0/0", 
 								loaded: "0", 
 								speed: 0,
@@ -445,6 +471,8 @@ XULExtendedStatusbarChrome.esbListener =
 								percent: "0", 
 								stateFlags: 0,
 								startProg: Date.now(),
+								stopProg: Date.now(),
+								firstResponse: 0,
 								updateTimeInterval: "" };
 		if (aBrowser.esbOldValues) aBrowser.esbValues.updateTimeInterval = aBrowser.esbOldValues.updateTimeInterval;
 	},
@@ -456,13 +484,25 @@ XULExtendedStatusbarChrome.esbListener =
 		var percentageString = ("  " + aBrowser.esbValues.percent + "%").slice(-4);
 		var loadedString = this.getSize(aBrowser.esbValues.loaded);
 		var speedString = this.getSize(aBrowser.esbValues.speed) + XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.ps");
+		var slimTimeString;
+		if (XULExtendedStatusbarChrome.esbSplitTimer && aBrowser.esbValues.firstResponse)
+		{
+			slimTimeString = XULExtendedStatusbarChrome.esbListener.getDuration(aBrowser.esbValues.firstResponse - aBrowser.esbValues.startProg, true)
+							 + "/" + XULExtendedStatusbarChrome.esbListener.getDuration(aBrowser.esbValues.stopProg - aBrowser.esbValues.firstResponse,
+																						aBrowser.esbValues.stateFlags & XULExtendedStatusbarChrome.esbIWebProgressListener.STATE_STOP);
+		}
+		else
+		{
+			slimTimeString = XULExtendedStatusbarChrome.esbListener.getDuration(aBrowser.esbValues.stopProg - aBrowser.esbValues.startProg,
+																				aBrowser.esbValues.stateFlags & XULExtendedStatusbarChrome.esbIWebProgressListener.STATE_STOP);
+		}
 			
 		if (XULExtendedStatusbarChrome.esbSlimMode)
 		{
 			XULExtendedStatusbarChrome.esbXUL.images_label.value = aBrowser.esbValues.images;
 			XULExtendedStatusbarChrome.esbXUL.loaded_label.value = loadedString;
 			XULExtendedStatusbarChrome.esbXUL.speed_label.value = speedString
-			XULExtendedStatusbarChrome.esbXUL.time_label.value = aBrowser.esbValues.time;
+			XULExtendedStatusbarChrome.esbXUL.time_label.value = slimTimeString;
 			XULExtendedStatusbarChrome.esbXUL.percent_label.value = percentageString;
 		}
 		else
@@ -470,7 +510,7 @@ XULExtendedStatusbarChrome.esbListener =
 			XULExtendedStatusbarChrome.esbXUL.images_label.value = XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.images") + " " + aBrowser.esbValues.images;
 			XULExtendedStatusbarChrome.esbXUL.loaded_label.value = XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.loaded") + " " + loadedString;
 			XULExtendedStatusbarChrome.esbXUL.speed_label.value = XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.speed") + " " + speedString;
-			XULExtendedStatusbarChrome.esbXUL.time_label.value = XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.time") + " " + aBrowser.esbValues.time;
+			XULExtendedStatusbarChrome.esbXUL.time_label.value = XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.time") + " " + slimTimeString;
 			XULExtendedStatusbarChrome.esbXUL.percent_label.value = XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.document") + " " + percentageString;
 		}
 		var progressBorderWidth = parseInt(XULExtendedStatusbarChrome.esbXUL.percent_box.style.borderRight);
@@ -556,6 +596,14 @@ XULExtendedStatusbarChrome.esbListener =
 			
 			this.updateTime(aBrowser);
 			this.countImages(aBrowser);
+
+			var now = aBrowser.esbValues.stopProg - (XULExtendedStatusbarChrome.esbSplitTimer && aBrowser.esbValues.firstResponse
+													 ? aBrowser.esbValues.firstResponse : aBrowser.esbValues.startProg);
+			var speed = aBrowser.esbValues.loaded / now * 1000;
+			speed = speed.toFixed(2);
+			speed = speed.replace(/\./, XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.dot")); //Replace '.' with a symbol from the active local
+			aBrowser.esbValues.speed = speed;
+
 			if(aBrowser == gBrowser.selectedBrowser)
 			{
 				XULExtendedStatusbarChrome.esbLoading = false;
@@ -581,7 +629,8 @@ XULExtendedStatusbarChrome.esbListener =
 				this.initObjectValuesForBrowser(aBrowser);
 			}
 			var percentage = Math.round((aCurTotalProgress * 100) / aMaxTotalProgress);	
-			var now = Date.now() - aBrowser.esbValues.startProg;
+			var now = Date.now() - (XULExtendedStatusbarChrome.esbSplitTimer && aBrowser.esbValues.firstResponse
+									? aBrowser.esbValues.firstResponse : aBrowser.esbValues.startProg);
 			if (XULExtendedStatusbarChrome.esbLoading) this.startTimer(aBrowser); //This is a workaround for the first run, esbLoading is false on FF first start,
 											   //so time wont be started. This is a problem
 											   //if FF starts with about:blank State_Stop is not called
@@ -628,6 +677,10 @@ XULExtendedStatusbarChrome.esbListener =
 				XULExtendedStatusbarChrome.esbXUL.status_bar.hidden = false;
 			}
 			aBrowser.esbOldValues = null;
+			if (aBrowser.esbValues)
+			{
+				aBrowser.esbValues.firstResponse = aBrowser.esbValues.stopProg = Date.now();
+			}
 		}
 		else
 		{
@@ -675,43 +728,20 @@ XULExtendedStatusbarChrome.esbListener =
 
 	updateTime: function (aBrowser)
 	{
-		if (!XULExtendedStatusbarChrome.esbXUL.esbstrings)
-		{
-			XULExtendedStatusbarChrome.esbListener.stopTimer(aBrowser);
-			return;
-		}
-		var now = Date.now() - aBrowser.esbValues.startProg;
-		var hours = Math.floor(now / 3600000);
-		var mins = Math.floor((now / 60000) % 60);
-		var secs = Math.floor((now / 1000) % 60);
-		var msecs = now - hours*36000 - mins*60000 - secs*1000;
-		secs = secs.toString();
-		msecs = msecs.toString();
-		if (msecs.length == 1) msecs = "00" + msecs;
-		else if (msecs.length == 2) msecs = "0" + msecs;
-		var dot = XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.dot");
-		var colon = XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.colon");
+		var now = Date.now();
 		var slimTimeString;
-		if (hours > 0)
+		if (XULExtendedStatusbarChrome.esbSplitTimer && aBrowser.esbValues.firstResponse)
 		{
-			mins = mins.toString();
-			if (mins.length == 1) mins = "0" + mins;
-			slimTimeString = hours + colon + mins + colon + secs + dot + msecs;
+			slimTimeString = XULExtendedStatusbarChrome.esbListener.getDuration(aBrowser.esbValues.firstResponse - aBrowser.esbValues.startProg, true)
+							 + "/" + XULExtendedStatusbarChrome.esbListener.getDuration(now - aBrowser.esbValues.firstResponse,
+																						aBrowser.esbValues.stateFlags & XULExtendedStatusbarChrome.esbIWebProgressListener.STATE_STOP);
 		}
 		else
 		{
-			if (mins > 0)
-			{
-				if (secs.length == 1) secs = "0" + secs;
-				mins = mins.toString();
-				slimTimeString = mins + colon + secs + dot + msecs;
-			}
-			else
-			{
-				slimTimeString = secs + dot + msecs;
-			}
+			slimTimeString = XULExtendedStatusbarChrome.esbListener.getDuration(now - aBrowser.esbValues.startProg,
+																				aBrowser.esbValues.stateFlags & XULExtendedStatusbarChrome.esbIWebProgressListener.STATE_STOP);
 		}
-		aBrowser.esbValues.time = slimTimeString;
+		aBrowser.esbValues.stopProg = now;
 		if(gBrowser.selectedBrowser == aBrowser)
 		{
 			if (XULExtendedStatusbarChrome.esbSlimMode)
@@ -729,7 +759,7 @@ XULExtendedStatusbarChrome.esbListener =
 	{
 		if (aBrowser.esbValues.updateTimeInterval == "")
 		{
-			aBrowser.esbValues.updateTimeInterval = setInterval(XULExtendedStatusbarChrome.esbListener.updateTime, 768, aBrowser);
+			aBrowser.esbValues.updateTimeInterval = setInterval(XULExtendedStatusbarChrome.esbListener.updateTime, 1000, aBrowser);
 		}
 	},
 
@@ -741,6 +771,31 @@ XULExtendedStatusbarChrome.esbListener =
 			aBrowser.esbValues.updateTimeInterval = "";
 		}
 	},
+
+	getDuration: function(aElapsed, aMsecs)
+	{
+		if (!aMsecs) aElapsed += 500;
+		var hours = Math.floor(aElapsed / 3600000);
+		var mins = Math.floor((aElapsed / 60000) % 60);
+		var secs = Math.floor((aElapsed / 1000) % 60);
+		var msecs = aElapsed - hours*36000 - mins*60000 - secs*1000;
+		var dot = XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.dot");
+		var colon = XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.colon");
+		var timeString = "";
+		if (hours > 0)
+		{
+			if (mins < 10) mins = "0" + mins;
+			timeString = hours + colon;
+		}
+		if (aElapsed >= 60000)
+		{
+			if (secs < 10) secs = "0" + secs;
+			timeString += mins + colon;
+		}
+		timeString += secs;
+		if (aMsecs && aElapsed < 60000) timeString += dot + ("00" + msecs).slice(-3);
+		return timeString;
+  },
 
 	getSize: function (aSize)
 	{
@@ -816,6 +871,7 @@ XULExtendedStatusbarChrome.ESB_PrefObserver = {
 		}
 
 		XULExtendedStatusbarChrome.esbSlimMode = this.prefs.getBoolPref("slimmode");
+		XULExtendedStatusbarChrome.esbSplitTimer = this.prefs.getBoolPref("splittimer");
 		XULExtendedStatusbarChrome.units = this.prefs.getIntPref("units");
 		XULExtendedStatusbarChrome.unitSpace = this.prefs.getBoolPref("unitspace");
 		
@@ -978,6 +1034,7 @@ XULExtendedStatusbarChrome.ESB_PrefObserver = {
 				if (this.prefs.getBoolPref("hidetime")) XULExtendedStatusbarChrome.esbXUL.time_box.hidden = true;
 				else XULExtendedStatusbarChrome.esbXUL.time_box.hidden = false;
 				document.getElementById("ESB_time_context_item").setAttribute("checked", !XULExtendedStatusbarChrome.esbXUL.time_box.hidden);
+				document.getElementById("ESB_splittimer_context_item").setAttribute("disabled", XULExtendedStatusbarChrome.esbXUL.time_box.hidden);
 				break;
 			case "hidepercent":
 				if (this.prefs.getBoolPref("hidepercent")) XULExtendedStatusbarChrome.esbXUL.percent_box.hidden = true;
@@ -1123,6 +1180,11 @@ XULExtendedStatusbarChrome.ESB_PrefObserver = {
 					XULExtendedStatusbarChrome.esbXUL.loaded_finished_progressbar.hidden = false;
 				}
 				document.getElementById("ESB_cursor_context_item").setAttribute("checked", !XULExtendedStatusbarChrome.esbXUL.loaded_finished_progressbar.hidden);
+				break;
+			case "splittimer":
+				XULExtendedStatusbarChrome.esbSplitTimer = this.prefs.getBoolPref("splittimer");
+				document.getElementById("ESB_splittimer_context_item").setAttribute("checked", XULExtendedStatusbarChrome.esbSplitTimer);
+				XULExtendedStatusbarChrome.esbListener.displayCurrentValuesForBrowser(gBrowser.selectedBrowser);
 				break;
 		}
 	},
