@@ -11,6 +11,8 @@ pref("extensions.extendedstatusbar.textcolor", "");
 pref("extensions.extendedstatusbar.usecustomcolor", false);
 pref("extensions.extendedstatusbar.hideonsites", "");
 pref("extensions.extendedstatusbar.esbstyle", 0);
+pref("extensions.extendedstatusbar.units", 2);
+pref("extensions.extendedstatusbar.unitspace", true);
 pref("extensions.extendedstatusbar.hideimages", false);
 pref("extensions.extendedstatusbar.hideloaded", false);
 pref("extensions.extendedstatusbar.hidespeed", false);

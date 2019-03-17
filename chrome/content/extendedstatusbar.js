@@ -26,6 +26,8 @@ XULExtendedStatusbarChrome.hideForSites;   			// RegExp of sites on which to hid
 XULExtendedStatusbarChrome.hideForSitesSem = false; // Only true if the current site matches hideForSites
 XULExtendedStatusbarChrome.esbLoading = false; 		// True while the page is loading
 XULExtendedStatusbarChrome.esbSlimMode;
+XULExtendedStatusbarChrome.units;
+XULExtendedStatusbarChrome.unitSpace;
 XULExtendedStatusbarChrome.esbHideCursor;
 XULExtendedStatusbarChrome.esbHideProgress;
 XULExtendedStatusbarChrome.esbIWebProgressListener = Components.interfaces.nsIWebProgressListener;  //this has to have a unique name because a lot of oxtensions are using it
@@ -376,7 +378,6 @@ XULExtendedStatusbarChrome.esbXUL =
 
 	destroy: function()
 	{
-		this.esb_gBundle = null;
 		this.esbstrings = null;
 		if(!XULExtendedStatusbarChrome.ffIsPostAustralis)
 		{
@@ -439,7 +440,7 @@ XULExtendedStatusbarChrome.esbListener =
 		if (aBrowser.esbValues) aBrowser.esbOldValues = aBrowser.esbValues;
 		aBrowser.esbValues = { images: "0/0", 
 								loaded: "0", 
-								speed: "0" + XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.dot") + "00",
+								speed: 0,
 								time: "0" + XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.dot") + "000", 
 								percent: "0", 
 								stateFlags: 0,
@@ -453,39 +454,22 @@ XULExtendedStatusbarChrome.esbListener =
 		if(!aBrowser.esbValues) return;
 		
 		var percentageString = ("  " + aBrowser.esbValues.percent + "%").slice(-4);
-		var compdocsize = aBrowser.esbValues.loaded;
-		for (var sizeinval = 0; Math.floor(compdocsize / 1024) > 0; sizeinval++)
-		{
-			compdocsize /= 1024;
-		}
-		switch (sizeinval)
-		{
-			case 0: sizeinval = XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.kb");
-					compdocsize = Math.floor(compdocsize * 100)/100;
-					break;
-			case 1: sizeinval = XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.mb");
-					compdocsize = Math.floor(compdocsize * 100)/100;
-					break;
-			case 2: sizeinval = XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.gb");
-					compdocsize = Math.floor(compdocsize * 100)/100;
-					break;
-			default: sizeinval = XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.nosize");
-					break;
-		}
+		var loadedString = this.getSize(aBrowser.esbValues.loaded);
+		var speedString = this.getSize(aBrowser.esbValues.speed) + XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.ps");
 			
 		if (XULExtendedStatusbarChrome.esbSlimMode)
 		{
 			XULExtendedStatusbarChrome.esbXUL.images_label.value = aBrowser.esbValues.images;
-			XULExtendedStatusbarChrome.esbXUL.loaded_label.value = compdocsize + " " + sizeinval;
-			XULExtendedStatusbarChrome.esbXUL.speed_label.value = aBrowser.esbValues.speed + " " + XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.kbps");
+			XULExtendedStatusbarChrome.esbXUL.loaded_label.value = loadedString;
+			XULExtendedStatusbarChrome.esbXUL.speed_label.value = speedString
 			XULExtendedStatusbarChrome.esbXUL.time_label.value = aBrowser.esbValues.time;
 			XULExtendedStatusbarChrome.esbXUL.percent_label.value = percentageString;
 		}
 		else
 		{
 			XULExtendedStatusbarChrome.esbXUL.images_label.value = XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.images") + " " + aBrowser.esbValues.images;
-			XULExtendedStatusbarChrome.esbXUL.loaded_label.value = XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.loaded") + " " + compdocsize + " " + sizeinval;
-			XULExtendedStatusbarChrome.esbXUL.speed_label.value = XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.speed") + " " + aBrowser.esbValues.speed + " " + XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.kbps");
+			XULExtendedStatusbarChrome.esbXUL.loaded_label.value = XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.loaded") + " " + loadedString;
+			XULExtendedStatusbarChrome.esbXUL.speed_label.value = XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.speed") + " " + speedString;
 			XULExtendedStatusbarChrome.esbXUL.time_label.value = XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.time") + " " + aBrowser.esbValues.time;
 			XULExtendedStatusbarChrome.esbXUL.percent_label.value = XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.document") + " " + percentageString;
 		}
@@ -507,7 +491,7 @@ XULExtendedStatusbarChrome.esbListener =
 				XULExtendedStatusbarChrome.esbXUL.percent_progressbar.hidden = true;
 			}
 			
-			XULExtendedStatusbarChrome.esbXUL.loaded_working_progressbar.width = compdocsize*4 % XULExtendedStatusbarChrome.esbXUL.loaded_box.boxObject.width;
+			XULExtendedStatusbarChrome.esbXUL.loaded_working_progressbar.width = aBrowser.esbValues.loaded*4 % XULExtendedStatusbarChrome.esbXUL.loaded_box.boxObject.width;
 			
 			if(XULExtendedStatusbarChrome.esbHideCursor) 
 			{
@@ -604,14 +588,11 @@ XULExtendedStatusbarChrome.esbListener =
 											   //so the time doesn't stop for the first page
 			if (now > 0)
 			{
-				var speed = aCurTotalProgress / now * 1000;
-				speed = speed.toFixed(2);
-				speed = speed.replace(/\./, XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.dot")); //Replace '.' with a symbol from the active local
+				aBrowser.esbValues.speed = aCurTotalProgress / now * 1000;
 			}
 			if (percentage != 100) aBrowser.esbValues.percent = percentage;
 			this.countImages(aBrowser);
 			aBrowser.esbValues.loaded = aCurTotalProgress;
-			aBrowser.esbValues.speed = speed;
 			
 			if(aBrowser == gBrowser.selectedBrowser)
 			{
@@ -759,6 +740,41 @@ XULExtendedStatusbarChrome.esbListener =
 			clearInterval(aBrowser.esbValues.updateTimeInterval);
 			aBrowser.esbValues.updateTimeInterval = "";
 		}
+	},
+
+	getSize: function (aSize)
+	{
+		var sizeinval;
+		var base, bin = "";
+		switch (XULExtendedStatusbarChrome.units)
+		{
+			case 0: base = Number.MAX_VALUE; break;
+			case 1: base = 1000; break;
+			case 2: base = 1024; bin = "i"; break;
+		}
+		if (aSize < base)
+		{
+			sizeinval = "";
+		}
+		else if (aSize < base*base)
+		{
+			aSize /= base;
+			sizeinval = XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.k" + bin);
+		}
+		else if (aSize < base*base*base)
+		{
+			aSize /= base*base;
+			sizeinval = XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.m" + bin);
+		}
+		else
+		{
+			aSize /= base*base*base;
+			sizeinval = XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.g" + bin);
+		}
+		aSize = Math.floor(aSize * 100)/100;
+		aSize = aSize.toLocaleString();
+		if (XULExtendedStatusbarChrome.unitSpace) aSize += " ";
+		return aSize + sizeinval + XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.b");
 	}
 }
 
@@ -799,8 +815,9 @@ XULExtendedStatusbarChrome.ESB_PrefObserver = {
 			XULExtendedStatusbarChrome.hideForSites = null;
 		}
 
-		if (this.prefs.getBoolPref("slimmode")) XULExtendedStatusbarChrome.esbSlimMode = true;
-		else XULExtendedStatusbarChrome.esbSlimMode = false;
+		XULExtendedStatusbarChrome.esbSlimMode = this.prefs.getBoolPref("slimmode");
+		XULExtendedStatusbarChrome.units = this.prefs.getIntPref("units");
+		XULExtendedStatusbarChrome.unitSpace = this.prefs.getBoolPref("unitspace");
 		
 		// Set style
 		XULExtendedStatusbarChrome.status_bar_width = parseInt(window.getComputedStyle(XULExtendedStatusbarChrome.esbXUL.status_bar).getPropertyValue('width'));
@@ -1067,6 +1084,14 @@ XULExtendedStatusbarChrome.ESB_PrefObserver = {
 					XULExtendedStatusbarChrome.esbXUL.percent_label.value = XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.document") + " " + XULExtendedStatusbarChrome.esbXUL.percent_label.value;
 				}
 				this.applyStyle();				
+				break;
+			case "units":
+				XULExtendedStatusbarChrome.units = this.prefs.getIntPref("units");
+				XULExtendedStatusbarChrome.esbListener.displayCurrentValuesForBrowser(gBrowser.selectedBrowser);
+				break;
+			case "unitspace":
+				XULExtendedStatusbarChrome.unitSpace = this.prefs.getBoolPref("unitspace");
+				XULExtendedStatusbarChrome.esbListener.displayCurrentValuesForBrowser(gBrowser.selectedBrowser);
 				break;
 			case "hideprogress":
 				if (this.prefs.getBoolPref("hideprogress"))

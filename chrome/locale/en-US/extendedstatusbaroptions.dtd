@@ -66,3 +66,13 @@
 <!ENTITY esb.cursorback "Cursor back">
 <!ENTITY esb.tabBehavior "Behavior">
 <!ENTITY esb.tabStyle "Style">
+<!ENTITY esb.units "Units">
+<!ENTITY esb.byteunits "Bytes">
+<!ENTITY esb.byteunits.accesskey "y">
+<!ENTITY esb.decunits "Decimal prefixes">
+<!ENTITY esb.decunits.accesskey "D">
+<!ENTITY esb.binunits "Binary prefixes">
+<!ENTITY esb.binunits.accesskey "B">
+<!ENTITY esb.unitspace "Space">
+<!ENTITY esb.unitspace.accesskey "p">
+<!ENTITY esb.sample "Sample:">
