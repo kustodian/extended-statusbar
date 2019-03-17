@@ -31,6 +31,8 @@
 			<preference id="esbSplitTimer" name="extensions.extendedstatusbar.splittimer" type="bool"/>
 			<preference id="esbStyle" name="extensions.extendedstatusbar.esbstyle" type="int"/>
 			<preference id="esbSlimMode" name="extensions.extendedstatusbar.slimmode" type="bool"/>
+			<preference id="esbUnits" name="extensions.extendedstatusbar.units" type="int"/>
+			<preference id="esbUnitSpace" name="extensions.extendedstatusbar.unitspace" type="bool"/>
 			<preference id="esbToolbarStyle" name="extensions.extendedstatusbar.toolbarstyle" type="string"/>
 			<preference id="esbWidgetStyle" name="extensions.extendedstatusbar.widgetstyle" type="string"/>
 			<preference id="esbPercentStyle" name="extensions.extendedstatusbar.percentstyle" type="string"/>
@@ -212,6 +214,19 @@
 								</hbox>
 							</hbox>
 						</groupbox>
+						<groupbox>
+							<caption label="&esb.units;"/>
+							<radiogroup id="esbRadioUnits" oncommand="XULExtendedStatusbarOptions.radioUnitsChange()" orient="vertical">
+								<radio id="byteunits" label="&esb.byteunits;" accesskey="&esb.byteunits.accesskey;"/>
+								<radio id="decunits" label="&esb.decunits;" accesskey="&esb.decunits.accesskey;"/>
+								<radio id="binunits" label="&esb.binunits;" accesskey="&esb.binunits.accesskey;"/>
+							</radiogroup>
+							<checkbox id="checkesbunitspace" preference="esbUnitSpace" label="&esb.unitspace;" accesskey="&esb.unitspace.accesskey;" onclick="XULExtendedStatusbarOptions.onUnitSpace();"/>
+							<hbox>
+								<label value="&esb.sample;"/>
+								<label id="unitssample"/>
+							</hbox>
+						</groupbox>
 					</vbox>
 				</tabpanel>
 			</tabpanels>
@@ -219,5 +234,8 @@
 	</prefpane>
 	
 	<script type="application/x-javascript" src="chrome://extendedstatusbar/content/extendedstatusbaroptions.js"/>
+	<stringbundleset id="stringbundleset">
+		<stringbundle id="strings" src="chrome://extendedstatusbar/locale/extendedstatusbar.properties"/>
+	</stringbundleset>
 	
 </prefwindow>

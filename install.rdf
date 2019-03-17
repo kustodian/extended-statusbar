@@ -6,7 +6,7 @@
   <Description about="urn:mozilla:install-manifest">
     <em:id>{daf44bf7-a45e-4450-979c-91cf07434c3d}</em:id>
     <em:name>Extended Statusbar</em:name>
-    <em:version>2.0</em:version>
+    <em:version>2.0.5</em:version>
 	<em:bootstrap>true</em:bootstrap>
     <em:description>A Statusbar with speed, percentage, time and loaded size (similar to Opera's one)</em:description>
     <em:creator>Andreas Allacher</em:creator>
@@ -45,7 +45,7 @@
       <Description>
         <em:id>{ec8030f7-c20a-464f-9b0e-13a3a9e97384}</em:id>
         <em:minVersion>10.0</em:minVersion>
-        <em:maxVersion>31.*</em:maxVersion>
+        <em:maxVersion>48.*</em:maxVersion>
       </Description>
     </em:targetApplication>
   </Description>
