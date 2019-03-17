@@ -18,7 +18,14 @@
 <!ENTITY esb.hovering "Delay:">
 <!ENTITY esb.secondsdisplay "milliseconds">
 <!ENTITY esb.hideonsites "Don&apos;t show on these sites (separate with &apos;|&apos;):">
-<!ENTITY esb.hideonsites.tooltip "Useful for AJAX sites like Gmail">
+<!ENTITY esb.hideonsites.tooltip "Useful for AJAX sites like Gmail.">
+<!ENTITY esb.displayprotocol "Show on Protocols">
+<!ENTITY esb.usewebprotocol "Web Protocols">
+<!ENTITY esb.usewebprotocol.tooltip "Show only on http or https protocols.">
+<!ENTITY esb.usewebprotocol.accesskey "e">
+<!ENTITY esb.useallprotocol "All Protocols">
+<!ENTITY esb.useallprotocol.tooltip "Show on all protocols.">
+<!ENTITY esb.useallprotocol.accesskey "r">
 <!ENTITY esb.appendcurrent "Append Current Page">
 <!ENTITY esb.appendcurrent.accesskey "A">
 <!ENTITY esb.customcolor "Custom color">
@@ -30,10 +37,10 @@
 <!ENTITY esb.textcolor "Text:">
 <!ENTITY esb.useoldstyle "Classic Style">
 <!ENTITY esb.useoldstyle.accesskey "C">
-<!ENTITY esb.useoldstyle.tooltip "Use the classic Extended Statusbar look">
+<!ENTITY esb.useoldstyle.tooltip "Use the classic Extended Statusbar look.">
 <!ENTITY esb.slimmode "Slim mode">
 <!ENTITY esb.slimmode.accesskey "S">
-<!ENTITY esb.slimmode.tooltip "Hides labels and displays only numbers">
+<!ENTITY esb.slimmode.tooltip "Hides labels and displays only numbers.">
 <!ENTITY esb.hideindelements "Hide individual elements">
 <!ENTITY esb.hideimages "Hide Images">
 <!ENTITY esb.hideimages.accesskey "I">

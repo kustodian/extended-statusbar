@@ -105,6 +105,8 @@ XULExtendedStatusbarOptions.init = function ()
 		document.getElementById("textcolorBox").firstChild.setAttribute("style", "border: 1px solid #000000;");
 	}
 
+	document.getElementById("esbRadioProtocol").selectedIndex = ExtendedStatusbarPrefs.getIntPref("esbprotocol");
+
 	document.getElementById("esbRadioStyle").selectedIndex = ExtendedStatusbarPrefs.getIntPref("esbstyle");
 	if(document.getElementById("esbRadioStyle").selectedIndex == 2)
 	{
@@ -413,6 +415,11 @@ XULExtendedStatusbarOptions.appendCurrent = function ()	// Adds the current URL 
 	}
 }
 
+XULExtendedStatusbarOptions.radioProtocolChange = function ()
+{
+	document.getElementById("esbProtocol").value = document.getElementById("esbRadioProtocol").selectedIndex;
+}
+
 XULExtendedStatusbarOptions.radioStateChange = function ()
 {
 	var style = document.getElementById("esbStyle")
@@ -433,10 +440,8 @@ XULExtendedStatusbarOptions.radioStateChange = function ()
 				style.value = 2;
 				document.getElementById("stylegrid").hidden = false;
 				window.sizeToContent();
-				//}
 				break;
 	}    
-	
 }
 
 XULExtendedStatusbarOptions.applyCSS = function (e)

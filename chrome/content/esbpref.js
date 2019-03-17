@@ -9,6 +9,7 @@ pref("extensions.extendedstatusbar.progresscolor", "");
 pref("extensions.extendedstatusbar.cursorcolor", "");
 pref("extensions.extendedstatusbar.textcolor", "");
 pref("extensions.extendedstatusbar.usecustomcolor", false);
+pref("extensions.extendedstatusbar.esbprotocol", 0);
 pref("extensions.extendedstatusbar.hideonsites", "");
 pref("extensions.extendedstatusbar.esbstyle", 0);
 pref("extensions.extendedstatusbar.units", 2);
