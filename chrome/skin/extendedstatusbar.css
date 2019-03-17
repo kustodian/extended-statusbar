@@ -148,6 +148,18 @@
 
 	#ESB_options_context_item
 	{
-	  list-style-image: url('chrome://extendedstatusbar/skin/icon.png');
+		list-style-image: url('chrome://extendedstatusbar/skin/icon.png');
+	}
+
+	/* Unlocked */
+
+	.unlocked
+	{
+		cursor: -moz-grab;
+		border: 1px dashed grey !important;
+	}
+	.unlocked label
+	{
+		cursor: inherit;
 	}
 }

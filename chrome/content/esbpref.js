@@ -34,3 +34,8 @@ pref("extensions.extendedstatusbar.cursorstyle", "");
 pref("extensions.extendedstatusbar.cursorbackgroundstyle", "");
 pref("extensions.extendedstatusbar.toolbarid", "addon-bar");
 pref("extensions.extendedstatusbar.nextitemid", "");
+pref("extensions.extendedstatusbar.percentposition", 0);
+pref("extensions.extendedstatusbar.imagesposition", 1);
+pref("extensions.extendedstatusbar.loadedposition", 2);
+pref("extensions.extendedstatusbar.speedposition", 3);
+pref("extensions.extendedstatusbar.timeposition", 4);
