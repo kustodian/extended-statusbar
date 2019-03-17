@@ -66,3 +66,5 @@
 <!ENTITY esb.cursorback "Cursor back">
 <!ENTITY esb.tabBehavior "Behavior">
 <!ENTITY esb.tabStyle "Style">
+<!ENTITY esb.unlockpositions "Unlock elements positions (Lock it using the context menu)">
+<!ENTITY esb.unlockpositions.accesskey "U">

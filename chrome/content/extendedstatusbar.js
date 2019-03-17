@@ -209,6 +209,25 @@ XULExtendedStatusbarChrome.addContextMenuItem = function ()
 		}
 	);
     menu.insertBefore(itemPercent, menu.firstChild);
+		
+    var itemLockPositions = document.createElement("menuitem");
+    itemLockPositions.setAttribute("id", "ESB_lock_context_item");
+    itemLockPositions.setAttribute("type", "checkbox");
+    itemLockPositions.setAttribute("checked", true);
+    itemLockPositions.setAttribute("label", XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.lockpositions"));
+    itemLockPositions.setAttribute("accesskey", XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.lockpositions.accesskey"));
+    itemLockPositions.addEventListener("command", 
+		function(e)
+		{
+			var checked = document.getElementById("ESB_lock_context_item").getAttribute("checked");
+			for(var node of XULExtendedStatusbarChrome.esbXUL.status_bar.childNodes)
+			{
+				node.classList.toggle("unlocked");
+				node.draggable = !checked;
+			}
+		}
+	);
+    menu.insertBefore(itemLockPositions, menu.firstChild);
 	
     var itemOptions = document.createElement("menuitem");
     itemOptions.setAttribute("id", "ESB_options_context_item");
@@ -239,6 +258,7 @@ XULExtendedStatusbarChrome.removeContextMenuItem = function ()
 	menu.removeChild(document.getElementById("ESB_options_context_item"));
 	menu.removeChild(document.getElementById("ESB_progress_context_item"));
 	menu.removeChild(document.getElementById("ESB_cursor_context_item"));
+	menu.removeChild(document.getElementById("ESB_lock_context_item"));
 }
 
 XULExtendedStatusbarChrome.onContextMenuPopupShowing = function (event)
@@ -254,6 +274,7 @@ XULExtendedStatusbarChrome.onContextMenuPopupShowing = function (event)
 	document.getElementById("ESB_options_context_item").hidden = hiding;
 	document.getElementById("ESB_progress_context_item").hidden = hiding;
 	document.getElementById("ESB_cursor_context_item").hidden = hiding;
+	document.getElementById("ESB_lock_context_item").hidden = hiding;
 }
 
 XULExtendedStatusbarChrome.hideESB = function ()
@@ -1090,6 +1111,21 @@ XULExtendedStatusbarChrome.ESB_PrefObserver = {
 				}
 				document.getElementById("ESB_cursor_context_item").setAttribute("checked", !XULExtendedStatusbarChrome.esbXUL.loaded_finished_progressbar.hidden);
 				break;
+			case "percentposition":
+				this.moveBox(XULExtendedStatusbarChrome.esbXUL.percent_box, this.prefs.getIntPref("percentposition"));
+				break;
+			case "imagesposition":
+				this.moveBox(XULExtendedStatusbarChrome.esbXUL.images_box, this.prefs.getIntPref("imagesposition"));
+				break;
+			case "loadedposition":
+				this.moveBox(XULExtendedStatusbarChrome.esbXUL.loaded_box, this.prefs.getIntPref("loadedposition"));
+				break;
+			case "speedposition":
+				this.moveBox(XULExtendedStatusbarChrome.esbXUL.speed_box, this.prefs.getIntPref("speedposition"));
+				break;
+			case "timeposition":
+				this.moveBox(XULExtendedStatusbarChrome.esbXUL.time_box, this.prefs.getIntPref("timeposition"));
+				break;
 		}
 	},
 
@@ -1226,11 +1262,70 @@ XULExtendedStatusbarChrome.ESB_PrefObserver = {
 			if(XULExtendedStatusbarChrome.esbXUL.loaded_working_progressbar.style.borderRight) XULExtendedStatusbarChrome.esbXUL.loaded_working_progressbar.style.borderRight = "10px solid " + this.prefs.getCharPref("cursorcolor");
 			else this.appendStyleAtribute("ESB_loaded_working_progressbar", "border-right", "10px solid " + this.prefs.getCharPref("cursorcolor"));
 		}
+	},
+	
+	moveBox: function(movedNode, newPosition)
+	{
+		var oldPosition = movedNode.esbPosition;
+		if(oldPosition != newPosition)
+		{
+			var startIndex;
+			var endIndex;
+			if(oldPosition > newPosition)
+			{
+				startIndex = newPosition;
+				endIndex = oldPosition;
+			}
+			else
+			{
+				startIndex = oldPosition;
+				endIndex = newPosition;
+			}
+			movedNode = XULExtendedStatusbarChrome.esbXUL.status_bar.removeChild(movedNode);
+			var childNodes = XULExtendedStatusbarChrome.esbXUL.status_bar.childNodes;
+			for(var i = startIndex; i <= endIndex; i++)
+			{
+				if(newPosition == i)
+				{
+					if(childNodes[i])
+						XULExtendedStatusbarChrome.esbXUL.status_bar.insertBefore(movedNode, childNodes[i]);
+					else
+						XULExtendedStatusbarChrome.esbXUL.status_bar.appendChild(movedNode);
+					movedNode.esbPosition = i;
+				}
+				else
+				{
+					switch(childNodes[i].id)
+					{
+						case "ESB_percent_box":
+							XULExtendedStatusbarChrome.esbXUL.percent_box.esbPosition = i;
+							Services.prefs.setIntPref("extensions.extendedstatusbar.percentposition", i);
+							break;
+						case "ESB_images_box":
+							XULExtendedStatusbarChrome.esbXUL.images_box.esbPosition = i;
+							Services.prefs.setIntPref("extensions.extendedstatusbar.imagesposition", i);
+							break;
+						case "ESB_loaded_box":
+							XULExtendedStatusbarChrome.esbXUL.loaded_box.esbPosition = i;
+							Services.prefs.setIntPref("extensions.extendedstatusbar.loadedposition", i);
+							break;
+						case "ESB_speed_box":
+							XULExtendedStatusbarChrome.esbXUL.speed_box.esbPosition = i;
+							Services.prefs.setIntPref("extensions.extendedstatusbar.speedposition", i);
+							break;
+						case "ESB_time_box":
+							XULExtendedStatusbarChrome.esbXUL.time_box.esbPosition = i;
+							Services.prefs.setIntPref("extensions.extendedstatusbar.timeposition", i);
+							break;
+					}
+				}
+			}
+		}
 	}
 }
 
 XULExtendedStatusbarChrome.openESBOptions = function (event)
 {
-	window.open("chrome://extendedstatusbar/content/extendedstatusbaroptions.xul", "", "chrome");
+	window.openDialog("chrome://extendedstatusbar/content/extendedstatusbaroptions.xul", "", "chrome,modal");
 }
 

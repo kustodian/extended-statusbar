@@ -5,6 +5,10 @@ if ("undefined" == typeof(XULExtendedStatusbarOptions)) {
   var XULExtendedStatusbarOptions = {};
 }
 
+XULExtendedStatusbarOptions.parentWindow = Components.classes["@mozilla.org/appshell/window-mediator;1"]
+											.getService(Components.interfaces.nsIWindowMediator)
+											.getMostRecentWindow("navigator:browser");
+
 XULExtendedStatusbarOptions.init = function ()
 {
 	if (document.getElementById("checkesbhide").checked)
@@ -135,6 +139,18 @@ XULExtendedStatusbarOptions.init = function ()
 	{
 		document.getElementById("checkesbhidecursor").setAttribute("disabled", "false");
 	}
+	
+	//unlock elements checkbox
+	unlockCheckBox = document.getElementById("checkesbunlockpositions");
+	lockContextItem = XULExtendedStatusbarOptions.parentWindow.document.getElementById("ESB_lock_context_item");
+    unlockCheckBox.setAttribute("checked", lockContextItem.getAttribute("checked") == "true" ? false : true);
+	unlockCheckBox.addEventListener("command", 
+		function(e)
+		{
+			lockContextItem.setAttribute("checked", unlockCheckBox.getAttribute("checked") == "true" ? false : true);
+			lockContextItem.doCommand();
+		}
+	);	
 }
 
 XULExtendedStatusbarOptions.hideCheck = function()
@@ -379,39 +395,38 @@ XULExtendedStatusbarOptions.radioStateChange = function ()
 XULExtendedStatusbarOptions.applyCSS = function (e)
 {
 	var targetElementString = e.target.id.substring(6).replace("style","");
-	var wm = Components.classes["@mozilla.org/appshell/window-mediator;1"].getService(Components.interfaces.nsIWindowMediator);
-	var browserWindow = wm.getMostRecentWindow("navigator:browser");
+	parentWindowDocument = XULExtendedStatusbarOptions.parentWindow.document;
 	switch(targetElementString)
 	{
 		case "esbtoolbar" :
-			var targetElement = browserWindow.document.getElementById("ESB_toolbar");
+			var targetElement = parentWindowDocument.getElementById("ESB_toolbar");
 			break;
 		case "esbwidget" :
-			var targetElement = browserWindow.document.getElementById("ESB_status_bar");
+			var targetElement = parentWindowDocument.getElementById("ESB_status_bar");
 			break;
 		case "percent" :
-			var targetElement = browserWindow.document.getElementById("ESB_percent_box");
+			var targetElement = parentWindowDocument.getElementById("ESB_percent_box");
 			break;
 		case "images" :
-			var targetElement = browserWindow.document.getElementById("ESB_images_box");
+			var targetElement = parentWindowDocument.getElementById("ESB_images_box");
 			break;
 		case "loaded" :
-			var targetElement = browserWindow.document.getElementById("ESB_loaded_box");
+			var targetElement = parentWindowDocument.getElementById("ESB_loaded_box");
 			break;
 		case "speed" :
-			var targetElement = browserWindow.document.getElementById("ESB_speed_box");
+			var targetElement = parentWindowDocument.getElementById("ESB_speed_box");
 			break;
 		case "time" :
-			var targetElement = browserWindow.document.getElementById("ESB_time_box");
+			var targetElement = parentWindowDocument.getElementById("ESB_time_box");
 			break;
 		case "progress" :
-			var targetElement = browserWindow.document.getElementById("ESB_percent_progressbar");
+			var targetElement = parentWindowDocument.getElementById("ESB_percent_progressbar");
 			break;
 		case "cursor" :
-			var targetElement = browserWindow.document.getElementById("ESB_loaded_working_progressbar");
+			var targetElement = parentWindowDocument.getElementById("ESB_loaded_working_progressbar");
 			break;
 		case "cursorbackground" :
-			var targetElement = browserWindow.document.getElementById("ESB_loaded_finished_progressbar");
+			var targetElement = parentWindowDocument.getElementById("ESB_loaded_finished_progressbar");
 			break;
 	}
 	targetElement.removeAttribute("style");
