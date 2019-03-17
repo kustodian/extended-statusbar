@@ -8,9 +8,12 @@
 <!ENTITY esb.hide.tooltip "ページが読み込まれたら拡張ステータスバーを非表示にします。">
 <!ENTITY esb.hide.accesskey "H">
 <!ENTITY esb.hidetoolbar "Hide the whole toolbar">
+<!ENTITY esb.hidetoolbar.tooltip "Useful when Extended Statusbar is on its own toolbar.">
+<!ENTITY esb.hidetoolbar.accesskey "w">
 <!ENTITY esb.hideafter "読み込まれて">
 <!ENTITY esb.seconds "秒後に非表示にする">
 <!ENTITY esb.showonhover "ステータスバー上にポインタがある間は表示する">
+<!ENTITY esb.showonhover.tooltip "Unhide Extended Statusbar when hovering over the Extended Statusbar toolbar.">
 <!ENTITY esb.showonhover.accesskey "S">
 <!ENTITY esb.hovering "表示まで">
 <!ENTITY esb.secondsdisplay "ミリ秒待つ">
@@ -19,7 +22,7 @@
 <!ENTITY esb.appendcurrent "現在のページを付加">
 <!ENTITY esb.appendcurrent.accesskey "A">
 <!ENTITY esb.customcolor "Custom color">
-<!ENTITY esb.customcolor.accesskey "C">
+<!ENTITY esb.customcolor.accesskey "u">
 <!ENTITY esb.customcolor.tooltip "現在のテーマが拡張ステータスバーに対応する場合カスタムスタイルは無効です！">
 <!ENTITY esb.backgroundcolor "背景:">
 <!ENTITY esb.progresscolor "プログレスバー:">
@@ -49,7 +52,7 @@
 <!ENTITY esb.cssplaceholder "Input Css rules here">
 <!ENTITY esb.apply "Apply">
 <!ENTITY esb.usecustomstyle "Use your own style (advanced mode)">
-<!ENTITY esb.usecustomstyle.accesskey "y">
+<!ENTITY esb.usecustomstyle.accesskey "o">
 <!ENTITY esb.usecustomstyle.tooltip "Customize using your own css rules, for advanced users">
 <!ENTITY esb.toolbar "Toolbar">
 <!ENTITY esb.esbwidget "ESB widget">
@@ -61,3 +64,5 @@
 <!ENTITY esb.progress "Progress">
 <!ENTITY esb.cursor "Cursor">
 <!ENTITY esb.cursorback "Cursor back">
+<!ENTITY esb.tabBehavior "Behavior">
+<!ENTITY esb.tabStyle "Style">

@@ -1,0 +1,68 @@
+<!ENTITY esb.title "Nastavení doplňku Extended Statusbar">
+<!ENTITY esb.pane1.title "Obecné">
+<!ENTITY esb.displaystyle "Styl zobrazení">
+<!ENTITY esb.usenewstyle "Nový styl">
+<!ENTITY esb.usenewstyle.accesskey "N">
+<!ENTITY esb.usenewstyle.tooltip "Použije nový zakulacený styl vzhledu. Ujistěte se, že máte zobrazenou lištu průběhu načítání a grafický ukazatel načítání, aby to celé vypadalo lépe.">
+<!ENTITY esb.hide "Skrýt rozšířený stavový řádek">
+<!ENTITY esb.hide.tooltip "Skryje rozšířený stavový řádek po dokončení načítání stránky.">
+<!ENTITY esb.hide.accesskey "S">
+<!ENTITY esb.hidetoolbar "Skrýt celou nástrojovou lištu">
+<!ENTITY esb.hidetoolbar.tooltip "Užitečné, pokud doplněk Extended Statusbar používá vlastní nástrojovou lištu.">
+<!ENTITY esb.hidetoolbar.accesskey "c">
+<!ENTITY esb.hideafter "Skrýt po:">
+<!ENTITY esb.seconds "sekundách">
+<!ENTITY esb.showonhover "Zobrazit při najetí ukazatele myši na oblast stavového řádku">
+<!ENTITY esb.showonhover.tooltip "Odkryje doplněk Extended Statusbar, když najedete ukazatelem myši nad nástrojovou lištu doplňku.">
+<!ENTITY esb.showonhover.accesskey "s">
+<!ENTITY esb.hovering "Prodleva:">
+<!ENTITY esb.secondsdisplay "milisekund">
+<!ENTITY esb.hideonsites "Nezobrazovat na těchto stránkách (oddělujte je symbolem '|'):">
+<!ENTITY esb.hideonsites.tooltip "Užitečné u stránek využívajících technologii AJAX, např. Gmail">
+<!ENTITY esb.appendcurrent "Přidat aktuální stránku">
+<!ENTITY esb.appendcurrent.accesskey "P">
+<!ENTITY esb.customcolor "Vlastní barva">
+<!ENTITY esb.customcolor.accesskey "V">
+<!ENTITY esb.customcolor.tooltip "Vypněte vlastní styly, pokud váš současný motiv vzhledu podporuje doplněk Extended Statusbar!">
+<!ENTITY esb.backgroundcolor "Pozadí:">
+<!ENTITY esb.progresscolor "Lišta průběhu načítání:">
+<!ENTITY esb.cursorcolor "Grafický průběh načítání:">
+<!ENTITY esb.textcolor "Text:">
+<!ENTITY esb.useoldstyle "Klasický styl">
+<!ENTITY esb.useoldstyle.accesskey "l">
+<!ENTITY esb.useoldstyle.tooltip "Zobrazí rozšířený stavový řádek uvnitř stavového řádku aplikace Firefox">
+<!ENTITY esb.slimmode "Úsporné zobrazení">
+<!ENTITY esb.slimmode.accesskey "s">
+<!ENTITY esb.slimmode.tooltip "Skryje popisky a zobrazí pouze čísla">
+<!ENTITY esb.hideindelements "Skrýt jednotlivé položky">
+<!ENTITY esb.hideimages "Skrýt obrázky">
+<!ENTITY esb.hideimages.accesskey "o">
+<!ENTITY esb.hideloaded "Skrýt objem stažených dat">
+<!ENTITY esb.hideloaded.accesskey "j">
+<!ENTITY esb.hidespeed "Skrýt rychlost">
+<!ENTITY esb.hidespeed.accesskey "r">
+<!ENTITY esb.hidetime "Skrýt čas">
+<!ENTITY esb.hidetime.accesskey "č">
+<!ENTITY esb.hidepercent "Skrýt procenta">
+<!ENTITY esb.hidepercent.accesskey "p">
+<!ENTITY esb.hideprogress "Skrýt grafický ukazatel načítání">
+<!ENTITY esb.hideprogress.accesskey "n">
+<!ENTITY esb.hidecursor "Skrýt grafický ukazatel načítání">
+<!ENTITY esb.hidecursor.accesskey "g">
+<!ENTITY esb.cssplaceholder "Sem vložte pravidla z kaskádových stylů">
+<!ENTITY esb.apply "Použít">
+<!ENTITY esb.usecustomstyle "Použít vlastní styly (pokročilý režim)">
+<!ENTITY esb.usecustomstyle.accesskey "o">
+<!ENTITY esb.usecustomstyle.tooltip "Přizpůsobí vaše vlastní pravidla kaskádových stylů. Funkce je určena pokročilým uživatelům">
+<!ENTITY esb.toolbar "Nástrojová lišta">
+<!ENTITY esb.esbwidget "Doplněk Extended Statusbar">
+<!ENTITY esb.percent "Procenta">
+<!ENTITY esb.images "Obrázky">
+<!ENTITY esb.loaded "Načtená data">
+<!ENTITY esb.speed "Rychlost">
+<!ENTITY esb.time "Čas">
+<!ENTITY esb.progress "Průběh">
+<!ENTITY esb.cursor "Ukazatel průběhu načítání">
+<!ENTITY esb.cursorback "Pozadí ukazatele průběhu načítání">
+<!ENTITY esb.tabBehavior "Chování">
+<!ENTITY esb.tabStyle "Styl">

@@ -49,11 +49,11 @@
 <!ENTITY esb.hideprogress.accesskey "M">
 <!ENTITY esb.hidecursor "Hide Loading Cursor">
 <!ENTITY esb.hidecursor.accesskey "C">
-<!ENTITY esb.cssplaceholder "Input Css rules here">
+<!ENTITY esb.cssplaceholder "Input CSS rules here">
 <!ENTITY esb.apply "Apply">
 <!ENTITY esb.usecustomstyle "Use your own style (advanced mode)">
 <!ENTITY esb.usecustomstyle.accesskey "o">
-<!ENTITY esb.usecustomstyle.tooltip "Customize using your own css rules, for advanced users">
+<!ENTITY esb.usecustomstyle.tooltip "Customize using your own CSS rules, for advanced users">
 <!ENTITY esb.toolbar "Toolbar">
 <!ENTITY esb.esbwidget "ESB widget">
 <!ENTITY esb.percent "Percent">

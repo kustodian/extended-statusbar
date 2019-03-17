@@ -8,9 +8,12 @@
 <!ENTITY esb.hide.tooltip "Slėpti išplėstinę būsenos juostą, kai puslapis įkeltas.">
 <!ENTITY esb.hide.accesskey "S">
 <!ENTITY esb.hidetoolbar "Hide the whole toolbar">
+<!ENTITY esb.hidetoolbar.tooltip "Useful when Extended Statusbar is on its own toolbar.">
+<!ENTITY esb.hidetoolbar.accesskey "w">
 <!ENTITY esb.hideafter "Slėpti po">
 <!ENTITY esb.seconds "sekundžių">
 <!ENTITY esb.showonhover "Rodyti užvedus žymeklį virš būsenos juostos">
+<!ENTITY esb.showonhover.tooltip "Unhide Extended Statusbar when hovering over the Extended Statusbar toolbar.">
 <!ENTITY esb.showonhover.accesskey "R">
 <!ENTITY esb.hovering "Atidėti">
 <!ENTITY esb.secondsdisplay "milisekundes">
@@ -19,7 +22,7 @@
 <!ENTITY esb.appendcurrent "Pridėti esamą puslapį">
 <!ENTITY esb.appendcurrent.accesskey "P">
 <!ENTITY esb.customcolor "Custom color">
-<!ENTITY esb.customcolor.accesskey "a">
+<!ENTITY esb.customcolor.accesskey "u">
 <!ENTITY esb.customcolor.tooltip "Išjungti pasirinktinį stilių, jei esamas grafinis apvalkalas palaiko Išplėstinę būsenos juostą.">
 <!ENTITY esb.backgroundcolor "Fonas:">
 <!ENTITY esb.progresscolor "Eigos juosta:">
@@ -33,7 +36,7 @@
 <!ENTITY esb.slimmode.tooltip "Slepia antraštes ir rodo tik skaičius">
 <!ENTITY esb.hideindelements "Slėpti invidualius elementus">
 <!ENTITY esb.hideimages "Slėpti paveikslėlius">
-<!ENTITY esb.hideimages.accesskey "l">
+<!ENTITY esb.hideimages.accesskey "I">
 <!ENTITY esb.hideloaded "Slėpti įkeltą dydį">
 <!ENTITY esb.hideloaded.accesskey "d">
 <!ENTITY esb.hidespeed "Slėpti spartą">
@@ -49,7 +52,7 @@
 <!ENTITY esb.cssplaceholder "Input Css rules here">
 <!ENTITY esb.apply "Apply">
 <!ENTITY esb.usecustomstyle "Use your own style (advanced mode)">
-<!ENTITY esb.usecustomstyle.accesskey "y">
+<!ENTITY esb.usecustomstyle.accesskey "o">
 <!ENTITY esb.usecustomstyle.tooltip "Customize using your own css rules, for advanced users">
 <!ENTITY esb.toolbar "Toolbar">
 <!ENTITY esb.esbwidget "ESB widget">
@@ -61,3 +64,5 @@
 <!ENTITY esb.progress "Progress">
 <!ENTITY esb.cursor "Cursor">
 <!ENTITY esb.cursorback "Cursor back">
+<!ENTITY esb.tabBehavior "Behavior">
+<!ENTITY esb.tabStyle "Style">

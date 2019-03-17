@@ -8,9 +8,12 @@
 <!ENTITY esb.hide.tooltip "Приховувати Розширений Рядок Стану після завантаження сторінки">
 <!ENTITY esb.hide.accesskey "H">
 <!ENTITY esb.hidetoolbar "Hide the whole toolbar">
+<!ENTITY esb.hidetoolbar.tooltip "Useful when Extended Statusbar is on its own toolbar.">
+<!ENTITY esb.hidetoolbar.accesskey "w">
 <!ENTITY esb.hideafter "Приховувати після:">
 <!ENTITY esb.seconds "секунд">
 <!ENTITY esb.showonhover "Показувати при наведенні мишкою над рядком стану">
+<!ENTITY esb.showonhover.tooltip "Unhide Extended Statusbar when hovering over the Extended Statusbar toolbar.">
 <!ENTITY esb.showonhover.accesskey "S">
 <!ENTITY esb.hovering "Затримка">
 <!ENTITY esb.secondsdisplay "мілісекунд">
@@ -19,7 +22,7 @@
 <!ENTITY esb.appendcurrent "Додати поточну сторінку">
 <!ENTITY esb.appendcurrent.accesskey "A">
 <!ENTITY esb.customcolor "Custom color">
-<!ENTITY esb.customcolor.accesskey "C">
+<!ENTITY esb.customcolor.accesskey "u">
 <!ENTITY esb.customcolor.tooltip "Заборонити довільні стилі, якщо поточна тема підтримує Розширений Рядок Стану!">
 <!ENTITY esb.backgroundcolor "Тло:">
 <!ENTITY esb.progresscolor "Лінійка прогресу:">
@@ -49,7 +52,7 @@
 <!ENTITY esb.cssplaceholder "Input Css rules here">
 <!ENTITY esb.apply "Apply">
 <!ENTITY esb.usecustomstyle "Use your own style (advanced mode)">
-<!ENTITY esb.usecustomstyle.accesskey "y">
+<!ENTITY esb.usecustomstyle.accesskey "o">
 <!ENTITY esb.usecustomstyle.tooltip "Customize using your own css rules, for advanced users">
 <!ENTITY esb.toolbar "Toolbar">
 <!ENTITY esb.esbwidget "ESB widget">
@@ -61,3 +64,5 @@
 <!ENTITY esb.progress "Progress">
 <!ENTITY esb.cursor "Cursor">
 <!ENTITY esb.cursorback "Cursor back">
+<!ENTITY esb.tabBehavior "Behavior">
+<!ENTITY esb.tabStyle "Style">

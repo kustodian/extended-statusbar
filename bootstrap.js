@@ -26,11 +26,11 @@ function startup(data,reason)
 	
 	//skin
 	let styleService = Components.classes["@mozilla.org/content/style-sheet-service;1"]
-					   .getService(Components.interfaces.nsIStyleSheetService);
+								.getService(Components.interfaces.nsIStyleSheetService);
 	let uri = NetUtil.newURI("chrome://extendedstatusbar/skin/extendedstatusbar.css");
-	styleService.loadAndRegisterSheet(uri, styleService.AUTHOR_SHEET);
-	uri = NetUtil.newURI("chrome://extendedstatusbar/skin/extendedstatusbaroptions.css");
-	styleService.loadAndRegisterSheet(uri, styleService.AUTHOR_SHEET);
+	if (!styleService.sheetRegistered(uri, styleService.AUTHOR_SHEET)) {
+		styleService.loadAndRegisterSheet(uri, styleService.AUTHOR_SHEET);
+	}
 }
 function install(data, reason)
 {
@@ -64,11 +64,11 @@ function shutdown(data, reason)
 	
 	//skin
 	let styleService = Components.classes["@mozilla.org/content/style-sheet-service;1"]
-					   .getService(Components.interfaces.nsIStyleSheetService);
+								.getService(Components.interfaces.nsIStyleSheetService);
 	let uri = NetUtil.newURI("chrome://extendedstatusbar/skin/extendedstatusbar.css");
-	styleService.unregisterSheet(uri, styleService.AUTHOR_SHEET);
-	uri = NetUtil.newURI("chrome://extendedstatusbar/skin/extendedstatusbaroptions.css");
-	styleService.unregisterSheet(uri, styleService.AUTHOR_SHEET);
+	if (styleService.sheetRegistered(uri, styleService.AUTHOR_SHEET)) {
+		styleService.unregisterSheet(uri, styleService.AUTHOR_SHEET);
+	}
 	
 	//cache clearing 
     Services.obs.notifyObservers(null, "chrome-flush-caches", null);
@@ -165,6 +165,46 @@ function buildESB(document)
 	esbToolbaritem.appendChild(esbStatusBar);
 	return esbToolbaritem;
 }
+
+function $(node, childId) {
+	if (node.getElementById) {
+		return node.getElementById(childId);
+	} else {
+		return node.querySelector("#" + childId);
+	}
+}
+
+var branch = "extensions.extendedstatusbar.";
+
+function getPlacement() {
+	var p = Services.prefs.getBranch(branch);
+	return {
+		toolbarId : p.getCharPref("toolbarid"),
+		nextItemId : p.getCharPref("nextitemid")
+	};
+}
+
+function setPlacement(toolbarId, nextItemId) {
+	var p = Services.prefs.getBranch(branch);
+	p.setCharPref("toolbarid", toolbarId || "");
+	p.setCharPref("nextitemid", nextItemId || "");
+}
+
+function afterCustomize(e) {
+	var toolbox = e.target,
+		est = $(toolbox.parentNode, "ESB_toolbaritem"),
+		toolbarId, nextItemId;
+	if (est) {
+		var parent = est.parentNode,
+			nextItem = est.nextSibling;
+		if (parent && parent.localName == "toolbar") {
+			toolbarId = parent.id;
+			nextItemId = nextItem && nextItem.id;
+		}
+	}
+	setPlacement(toolbarId, nextItemId);
+}
+
 function loadIntoWindow(window) 
 {
 	var document = window.document;
@@ -187,15 +227,18 @@ function loadIntoWindow(window)
 		esbToolbar.setAttribute("customizable", "true");
 		esbToolbar.setAttribute("context", "toolbar-context-menu");
 		esbToolbar.setAttribute("hidden", "false");
-		esbToolbar.setAttribute("collapsed", window.Application.prefs.getValue("extensions.extendedstatusbar.collapsed", false));
-		window.addEventListener("unload", function(e){
-			window.Application.prefs.setValue("extensions.extendedstatusbar.collapsed", document.getElementById("ESB_toolbar").collapsed);
-		}, false);
+		var esbCollapsed;
+		try {
+			esbCollapsed = Services.prefs.getBoolPref("extensions.extendedstatusbar.collapsed");
+		} catch(e) {
+			esbCollapsed = "false";
+		}
+		esbToolbar.setAttribute("collapsed", esbCollapsed);
 		esbToolbar.setAttribute("persist", "hidden");
 		esbToolbar.setAttribute("mode", "icons");
 		esbToolbar.setAttribute("iconsize", "small");
-		esbToolbar.setAttribute("onmouseover", "XULExtendedStatusbarChrome.showESBOnHover();");
-		esbToolbar.setAttribute("onmouseout", "XULExtendedStatusbarChrome.hideESBOnHover();");
+   		esbToolbar.addEventListener("onmouseover", function() { XULExtendedStatusbarChrome.showESBOnHover(); });
+        esbToolbar.addEventListener("onmouseout", function() { XULExtendedStatusbarChrome.hideESBOnHover(); });
 		esbToolbar.appendChild(esbToolbarspacer);
 		
 		document.getElementById("browser-bottombox").appendChild(esbToolbar);
@@ -208,17 +251,36 @@ function loadIntoWindow(window)
 	else
 	{	
 		var esbToolbaritem = buildESB(document);
-		
-		var addonBar = document.getElementById("addon-bar");
-		if (addonBar) 
-		{
-			addonBar.insertBefore(esbToolbaritem, addonBar.firstChild);
+		window.esbToolbaritem = esbToolbaritem;
+
+		var toolbox = $(document, "navigator-toolbox");
+		toolbox.palette.appendChild(esbToolbaritem);
+
+		var {toolbarId, nextItemId} = getPlacement(),
+			toolbar = toolbarId && $(document, toolbarId),
+			nextItem = toolbar && $(document, nextItemId);
+
+		var esb_id = "ESB_toolbaritem";
+		if (toolbar) {
+			if (nextItem && nextItem.parentNode && nextItem.parentNode.id == toolbarId) {
+				toolbar.insertItem(esb_id, nextItem);
+			} else {
+				var ids = (toolbar.getAttribute("currentset") || "").split(",");
+				nextItem = toolbarId == "addon-bar" ? toolbar.firstChild : null;
+				for (var i = ids.indexOf(esb_id) + 1; i > 0 && i < ids.length; i++) {
+					nextItem = $(document, ids[i])
+					if (nextItem) {
+						break;
+					}
+				}
+				toolbar.insertItem(esb_id, nextItem);
+			}
+			if (toolbar.getAttribute("collapsed") == "true") {
+				window.setToolbarVisibility(toolbar, true);
+			}
 		}
-		var addonBarCloseButton = document.getElementById("addonbar-closebutton");
-		if (addonBarCloseButton) 
-		{
-			addonBar.removeChild(addonBarCloseButton);
-		}
+
+		window.addEventListener("aftercustomization", afterCustomize, false);
 	}
 		
 /*	<toolbarpalette id="BrowserToolbarPalette">
@@ -285,15 +347,10 @@ function unloadFromWindow(window)
 	}
 	else
 	{
-		var addonBar = document.getElementById("addon-bar");
-		if (addonBar) 
-		{
-			var esbToolbarItem = document.getElementById("ESB_toolbaritem");
-			if(esbToolbarItem)
-			{
-				addonBar.removeChild(esbToolbarItem);
-			}
-		}
+		window.removeEventListener("aftercustomization", afterCustomize, false);
+		var esbToolbaritem = window.esbToolbaritem;
+		esbToolbaritem.parentNode.removeChild(esbToolbaritem);
+		window.esbToolbaritem = null;
 	}
 	
 	XULExtendedStatusbarChrome.uninit();

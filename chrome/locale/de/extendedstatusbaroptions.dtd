@@ -7,10 +7,13 @@
 <!ENTITY esb.hide "Extended Statusbar ausblenden">
 <!ENTITY esb.hide.tooltip "Blendet die erweiterte Statusleiste aus, nachdem die Seite geladen wurde.">
 <!ENTITY esb.hide.accesskey "b">
-<!ENTITY esb.hidetoolbar "Hide the whole toolbar">
+<!ENTITY esb.hidetoolbar "Gesamte Symbolleiste ausblenden">
+<!ENTITY esb.hidetoolbar.tooltip "Nützlich, wenn Extended Statusbar eine eigene Symbolleiste nutzt.">
+<!ENTITY esb.hidetoolbar.accesskey "w">
 <!ENTITY esb.hideafter "Ausblenden nach">
 <!ENTITY esb.seconds "Sekunden">
 <!ENTITY esb.showonhover "Anzeigen beim Überfahren mit der Maus">
+<!ENTITY esb.showonhover.tooltip "Extended Statusbar erneut einblenden, beim Überfahren des Mauszeigers über die Extended Statusbar-Symbolleiste.">
 <!ENTITY esb.showonhover.accesskey "h">
 <!ENTITY esb.hovering "Verzögerung:">
 <!ENTITY esb.secondsdisplay "Millisekunden">
@@ -18,12 +21,12 @@
 <!ENTITY esb.hideonsites.tooltip "Nützlich für AJAX-Websites wie Google Mail">
 <!ENTITY esb.appendcurrent "Aktuelle Website hinzufügen">
 <!ENTITY esb.appendcurrent.accesskey "A">
-<!ENTITY esb.customcolor "Custom color">
-<!ENTITY esb.customcolor.accesskey "S">
+<!ENTITY esb.customcolor "Benutzerdefinierte Farbe">
+<!ENTITY esb.customcolor.accesskey "F">
 <!ENTITY esb.customcolor.tooltip "Deaktivieren Sie den angepassten Stil, falls Extended Statusbar von Ihrem Theme unterstützt wird!">
 <!ENTITY esb.backgroundcolor "Hintergrund:">
-<!ENTITY esb.progresscolor "Fortschrittsanzeige:">
-<!ENTITY esb.cursorcolor "Positionsmarke für Geladen:">
+<!ENTITY esb.progresscolor "Fortschrittsnzeige:">
+<!ENTITY esb.cursorcolor "Ladeanzeige:">
 <!ENTITY esb.textcolor "Text:">
 <!ENTITY esb.useoldstyle "Klassischer Stil">
 <!ENTITY esb.useoldstyle.accesskey "K">
@@ -33,7 +36,7 @@
 <!ENTITY esb.slimmode.tooltip "Blendet die Beschriftung aus und zeigt nur die Zahlen an">
 <!ENTITY esb.hideindelements "Einzelne Angaben ausblenden">
 <!ENTITY esb.hideimages "Grafiken">
-<!ENTITY esb.hideimages.accesskey "G">
+<!ENTITY esb.hideimages.accesskey "I">
 <!ENTITY esb.hideloaded "Geladen">
 <!ENTITY esb.hideloaded.accesskey "l">
 <!ENTITY esb.hidespeed "Geschwindigkeit">
@@ -42,22 +45,24 @@
 <!ENTITY esb.hidetime.accesskey "Z">
 <!ENTITY esb.hidepercent "Prozentsatz">
 <!ENTITY esb.hidepercent.accesskey "P">
-<!ENTITY esb.hideprogress "Hide Progress Meter">
+<!ENTITY esb.hideprogress "Fortschrittsanzeige">
 <!ENTITY esb.hideprogress.accesskey "t">
-<!ENTITY esb.hidecursor "Hide Loading Cursor">
-<!ENTITY esb.hidecursor.accesskey "c">
-<!ENTITY esb.cssplaceholder "Input Css rules here">
-<!ENTITY esb.apply "Apply">
-<!ENTITY esb.usecustomstyle "Use your own style (advanced mode)">
-<!ENTITY esb.usecustomstyle.accesskey "y">
-<!ENTITY esb.usecustomstyle.tooltip "Customize using your own css rules, for advanced users">
-<!ENTITY esb.toolbar "Toolbar">
-<!ENTITY esb.esbwidget "ESB widget">
-<!ENTITY esb.percent "Percent">
-<!ENTITY esb.images "Images">
-<!ENTITY esb.loaded "Loaded">
-<!ENTITY esb.speed "Speed">
-<!ENTITY esb.time "Time">
-<!ENTITY esb.progress "Progress">
-<!ENTITY esb.cursor "Cursor">
-<!ENTITY esb.cursorback "Cursor back">
+<!ENTITY esb.hidecursor "Ladeanzeiger">
+<!ENTITY esb.hidecursor.accesskey "L">
+<!ENTITY esb.cssplaceholder "CSS-Regeln hier einfügen">
+<!ENTITY esb.apply "Übernehmen">
+<!ENTITY esb.usecustomstyle "Eigenen Stil verwenden (Erweiterter Modus)">
+<!ENTITY esb.usecustomstyle.accesskey "E">
+<!ENTITY esb.usecustomstyle.tooltip "Anpassungen für eigene CSS-Regeln (für Fortgeschrittene)">
+<!ENTITY esb.toolbar "Symbolleiste">
+<!ENTITY esb.esbwidget "ESB-Widget">
+<!ENTITY esb.percent "Prozentsatz">
+<!ENTITY esb.images "Grafiken">
+<!ENTITY esb.loaded "Geladen">
+<!ENTITY esb.speed "Geschwindigkeit">
+<!ENTITY esb.time "Zeit">
+<!ENTITY esb.progress "Fortschritt">
+<!ENTITY esb.cursor "Prozessanzeige">
+<!ENTITY esb.cursorback "Prozessanzeige (Hintergrund)">
+<!ENTITY esb.tabBehavior "Verhalten">
+<!ENTITY esb.tabStyle "Stil">

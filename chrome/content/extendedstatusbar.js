@@ -51,6 +51,7 @@ XULExtendedStatusbarChrome.init = function ()
 		if(XULExtendedStatusbarChrome.ffIsPostAustralis)
 		{
 			var itemPlace = CustomizableUI.getPlaceForItem(esbToolbaritem);
+			window.addEventListener("unload", XULExtendedStatusbarChrome.saveCollapsedState, false);
 		}
 		else
 		{
@@ -76,12 +77,21 @@ XULExtendedStatusbarChrome.init = function ()
 
 XULExtendedStatusbarChrome.uninit = function ()
 {
+	if(XULExtendedStatusbarChrome.ffIsPostAustralis)
+	{
+		window.removeEventListener("unload", XULExtendedStatusbarChrome.saveCollapsedState);
+	}
 	XULExtendedStatusbarChrome.ESB_PrefObserver.shutdown();
 	XULExtendedStatusbarChrome.esbXUL.destroy();
 	XULExtendedStatusbarChrome.esbListener.destroy();
 	getBrowser().removeTabsProgressListener(XULExtendedStatusbarChrome.esbListener);
 	XULExtendedStatusbarChrome.removeContextMenuItem();
 	console.log("ExtendedStatusbar stopped");
+}
+
+XULExtendedStatusbarChrome.saveCollapsedState = function(e)
+{
+	XULExtendedStatusbarChrome.ESB_PrefObserver.prefs.setBoolPref("collapsed", document.getElementById("ESB_toolbar").collapsed);
 }
 
 XULExtendedStatusbarChrome.addContextMenuItem = function ()
@@ -266,10 +276,7 @@ XULExtendedStatusbarChrome.hideESB = function ()
 		{
 			XULExtendedStatusbarChrome.esbXUL.esb_toolbar.hidden = true;
 		}
-		else
-		{
-			XULExtendedStatusbarChrome.esbXUL.status_bar.hidden = true;
-		}
+		XULExtendedStatusbarChrome.esbXUL.status_bar.hidden = true;
 		XULExtendedStatusbarChrome.esbTimeOutSem = false;
 	}
 }
@@ -315,7 +322,7 @@ XULExtendedStatusbarChrome.hideESBOnHover = function ()
 		{
 			XULExtendedStatusbarChrome.cancelTimeOut(XULExtendedStatusbarChrome.hideTimeOut);
 			XULExtendedStatusbarChrome.esbTimeOutSem = true;
-			XULExtendedStatusbarChrome.hideTimeOut = window.setTimeout("XULExtendedStatusbarChrome.hideESB()", XULExtendedStatusbarChrome.esbWait*1000);
+			XULExtendedStatusbarChrome.hideTimeOut = window.setTimeout(function () { XULExtendedStatusbarChrome.hideESB() }, XULExtendedStatusbarChrome.esbWait*1000);
 		}
 	}
 }
@@ -439,6 +446,7 @@ XULExtendedStatusbarChrome.esbListener =
 								stateFlags: 0,
 								startProg: Date.now(),
 								updateTimeInterval: "" };
+		if (aBrowser.esbOldValues) aBrowser.esbValues.updateTimeInterval = aBrowser.esbOldValues.updateTimeInterval;
 	},
 	
 	displayCurrentValuesForBrowser : function(aBrowser) 
@@ -515,7 +523,7 @@ XULExtendedStatusbarChrome.esbListener =
 			if(XULExtendedStatusbarChrome.esbHide && !XULExtendedStatusbarChrome.esbTimeOutSem)
 			{
 				XULExtendedStatusbarChrome.esbTimeOutSem = true;
-				XULExtendedStatusbarChrome.hideTimeOut = window.setTimeout("XULExtendedStatusbarChrome.hideESB()", XULExtendedStatusbarChrome.esbWait*1000);
+				XULExtendedStatusbarChrome.hideTimeOut = window.setTimeout(function () { XULExtendedStatusbarChrome.hideESB() }, XULExtendedStatusbarChrome.esbWait*1000);
 			}
 		}
 	},
@@ -633,7 +641,7 @@ XULExtendedStatusbarChrome.esbListener =
 
 	countImages: function (aBrowser)
 	{
-		var docimgs = aBrowser.contentDocument.images;
+		var docimgs = aBrowser.contentDocument && aBrowser.contentDocument.images;
 		var imglcount = 0;
 		var allimgsc = 0;
 		if (docimgs != null)
@@ -667,6 +675,11 @@ XULExtendedStatusbarChrome.esbListener =
 
 	updateTime: function (aBrowser)
 	{
+		if (!XULExtendedStatusbarChrome.esbXUL.esbstrings)
+		{
+			XULExtendedStatusbarChrome.esbListener.stopTimer(aBrowser);
+			return;
+		}
 		var now = Date.now() - aBrowser.esbValues.startProg;
 		var hours = Math.floor(now / 3600000);
 		var mins = Math.floor((now / 60000) % 60);
@@ -714,11 +727,10 @@ XULExtendedStatusbarChrome.esbListener =
 
 	startTimer: function(aBrowser)
 	{
-		if (aBrowser.esbValues.updateTimeInterval != "")
+		if (aBrowser.esbValues.updateTimeInterval == "")
 		{
-			clearInterval(aBrowser.esbValues.updateTimeInterval);
+			aBrowser.esbValues.updateTimeInterval = setInterval(XULExtendedStatusbarChrome.esbListener.updateTime, 768, aBrowser);
 		}
-		aBrowser.esbValues.updateTimeInterval = setInterval(XULExtendedStatusbarChrome.esbListener.updateTime, 768, aBrowser);
 	},
 
 	stopTimer: function(aBrowser)
@@ -872,7 +884,7 @@ XULExtendedStatusbarChrome.ESB_PrefObserver = {
 				{
 					XULExtendedStatusbarChrome.cancelTimeOut(XULExtendedStatusbarChrome.hideTimeOut);
 					XULExtendedStatusbarChrome.esbTimeOutSem = true;
-					XULExtendedStatusbarChrome.hideTimeOut = window.setTimeout("XULExtendedStatusbarChrome.hideESB()", XULExtendedStatusbarChrome.esbWait*1000);
+					XULExtendedStatusbarChrome.hideTimeOut = window.setTimeout(function () { XULExtendedStatusbarChrome.hideESB() }, XULExtendedStatusbarChrome.esbWait*1000);
 				}
 				break;
 			case "hidetoolbar":
@@ -885,7 +897,7 @@ XULExtendedStatusbarChrome.ESB_PrefObserver = {
 				{
 					XULExtendedStatusbarChrome.cancelTimeOut(XULExtendedStatusbarChrome.hideTimeOut);
 					XULExtendedStatusbarChrome.esbTimeOutSem = true;
-					XULExtendedStatusbarChrome.hideTimeOut = window.setTimeout("XULExtendedStatusbarChrome.hideESB()", XULExtendedStatusbarChrome.esbWait*1000);
+					XULExtendedStatusbarChrome.hideTimeOut = window.setTimeout(function () { XULExtendedStatusbarChrome.hideESB() }, XULExtendedStatusbarChrome.esbWait*1000);
 				}
 				break;
 			case "hidetimeout":
@@ -904,7 +916,6 @@ XULExtendedStatusbarChrome.ESB_PrefObserver = {
 				break;
 			case "progresscolor":
 				this.appendStyleAtribute("ESB_percent_progressbar", "background-color", this.prefs.getCharPref("progresscolor"));
-				this.appendStyleAtribute("ESB_loaded_finished_progressbar", "background-color", this.prefs.getCharPref("progresscolor"));
 				break;
 			case "cursorcolor":
 				this.appendStyleAtribute("ESB_loaded_working_progressbar", "border-right", "10px solid " + this.prefs.getCharPref("cursorcolor"));
@@ -980,7 +991,7 @@ XULExtendedStatusbarChrome.ESB_PrefObserver = {
 				if(XULExtendedStatusbarChrome.esbHide && !XULExtendedStatusbarChrome.esbTimeOutSem)
 				{
 					XULExtendedStatusbarChrome.esbTimeOutSem = true;
-					XULExtendedStatusbarChrome.hideTimeOut = window.setTimeout("XULExtendedStatusbarChrome.hideESB()", XULExtendedStatusbarChrome.esbWait*1000);
+					XULExtendedStatusbarChrome.hideTimeOut = window.setTimeout(function () { XULExtendedStatusbarChrome.hideESB() }, XULExtendedStatusbarChrome.esbWait*1000);
 				}
 				break;
 			case "toolbarstyle":
@@ -1239,12 +1250,6 @@ XULExtendedStatusbarChrome.ESB_PrefObserver = {
 			
 			if(XULExtendedStatusbarChrome.esbXUL.percent_progressbar.style.backgroundColor) XULExtendedStatusbarChrome.esbXUL.percent_progressbar.style.backgroundColor = this.prefs.getCharPref("progresscolor");
 			else this.appendStyleAtribute("ESB_percent_progressbar", "background-color", this.prefs.getCharPref("progresscolor"));
-			
-			if(XULExtendedStatusbarChrome.esbXUL.loaded_finished_progressbar.style.backgroundColor) XULExtendedStatusbarChrome.esbXUL.loaded_finished_progressbar.style.backgroundColor = this.prefs.getCharPref("progresscolor");
-			else this.appendStyleAtribute("ESB_loaded_finished_progressbar", "background-color", this.prefs.getCharPref("progresscolor"));
-			
-			if(XULExtendedStatusbarChrome.esbXUL.loaded_working_progressbar.style.backgroundColor) XULExtendedStatusbarChrome.esbXUL.loaded_working_progressbar.style.backgroundColor = this.prefs.getCharPref("progresscolor");
-			else this.appendStyleAtribute("ESB_loaded_working_progressbar", "background-color", this.prefs.getCharPref("progresscolor"));
 			
 			if(XULExtendedStatusbarChrome.esbXUL.loaded_working_progressbar.style.borderRight) XULExtendedStatusbarChrome.esbXUL.loaded_working_progressbar.style.borderRight = "10px solid " + this.prefs.getCharPref("cursorcolor");
 			else this.appendStyleAtribute("ESB_loaded_working_progressbar", "border-right", "10px solid " + this.prefs.getCharPref("cursorcolor"));
