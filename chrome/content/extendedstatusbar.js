@@ -780,12 +780,13 @@ XULExtendedStatusbarChrome.esbListener =
 
 	countImages: function (aBrowser)
 	{
-		var docimgs = aBrowser.contentDocument && aBrowser.contentDocument.images;
 		var imglcount = 0;
 		var allimgsc = 0;
-		if (docimgs != null)
+		var src = [];
+		function countDocImages(doc)
 		{
-			var src = [];
+			var docimgs = doc && doc.images
+			if (!docimgs) return;
 			for (var i = 0; i < docimgs.length; i++)
 			{
 				if (!src[docimgs[i].src])
@@ -795,19 +796,12 @@ XULExtendedStatusbarChrome.esbListener =
 					if (docimgs[i].complete) imglcount++;
 				}
 			}
-			for (var i = 0; i < aBrowser.contentWindow.frames.length; i++)
-			{
-				docimgs = aBrowser.contentWindow.frames[i].document.images;
-				for (var j = 0; j < docimgs.length; j++)
-				{
-					if (!src[docimgs[j].src])
-					{
-						src[docimgs[j].src] = true;
-						allimgsc++;
-						if (docimgs[j].complete) imglcount++;
-					}
-				}
-			}
+		}
+		countDocImages(aBrowser.contentDocument);
+		var frames = aBrowser.contentWindow.frames;
+		for (var i = 0; i < frames.length; i++)
+		{
+			countDocImages(frames[i].document);
 		}
 		aBrowser.esbValues.images = imglcount + "/" + allimgsc;
 	},
