@@ -29,6 +29,7 @@ XULExtendedStatusbarChrome.PROTOCOL_ALL = 1;
 XULExtendedStatusbarChrome.webProtocol = /^https?:/;
 XULExtendedStatusbarChrome.hideForSitesSem = false; // Only true if the current site matches hideForSites
 XULExtendedStatusbarChrome.esbLoading = false;		// True while the page is loading
+XULExtendedStatusbarChrome.esbCustomizing = false;	// True for the customize page
 XULExtendedStatusbarChrome.esbSlimMode;
 XULExtendedStatusbarChrome.units;
 XULExtendedStatusbarChrome.unitSpace;
@@ -68,6 +69,8 @@ XULExtendedStatusbarChrome.init = function ()
 			XULExtendedStatusbarChrome.ESB_PrefObserver.startup();
 			XULExtendedStatusbarChrome.esbListener.init();
 			getBrowser().addTabsProgressListener(XULExtendedStatusbarChrome.esbListener);
+			if(XULExtendedStatusbarChrome.ffIsPostAustralis)
+				CustomizableUI.addListener(XULExtendedStatusbarChrome.esbListener);
 			XULExtendedStatusbarChrome.started = true;
 			XULExtendedStatusbarChrome.addContextMenuItem();
 			console.log("ExtendedStatusbar started");
@@ -313,10 +316,6 @@ XULExtendedStatusbarChrome.onContextMenuPopupShowing = function (event)
 
 XULExtendedStatusbarChrome.shouldHideEsb = function (aSpec)
 {
-	// Always show during customize.
-	if (aSpec == "about:customizing")
-		return false;
-
 	// Always hide a blank tab.
 	if (aSpec == "about:blank")
 		return true;
@@ -394,10 +393,6 @@ XULExtendedStatusbarChrome.hideESBOnHover = function ()
 //Load progress listeners at window load
 //window.addEventListener("load", XULExtendedStatusbarChrome.init, false);
 //window.addEventListener("unload", XULExtendedStatusbarChrome.uninit, false);
-if(XULExtendedStatusbarChrome.ffIsPostAustralis)
-{
-	window.addEventListener("customizationchange", XULExtendedStatusbarChrome.init, false);
-}
 
 XULExtendedStatusbarChrome.esbXUL =
 {
@@ -477,12 +472,33 @@ XULExtendedStatusbarChrome.esbListener =
 		gBrowser.tabContainer.removeEventListener("TabSelect", this.onTabSelect, false);
 	},
 
+	onCustomizeStart: function(aWindow)
+	{
+		//console.log("[ESB] customize start", aWindow);
+		XULExtendedStatusbarChrome.hideForSitesSem = false;
+		XULExtendedStatusbarChrome.cancelTimeOut(XULExtendedStatusbarChrome.hideTimeOut);
+		XULExtendedStatusbarChrome.esbXUL.esb_toolbar.hidden = false;
+		XULExtendedStatusbarChrome.esbXUL.status_bar.hidden = false;
+		XULExtendedStatusbarChrome.esbCustomizing = true;
+	},
+
+	onCustomizeEnd: function(aWindow)
+	{
+		//console.log("[ESB] customize end");
+	},
+
 	onTabSelect: function(aEvent)
 	{
-		// Hide on a new tab (when the values haven't been created yet), unless that is the customizing tab.
-		if (aEvent.target.linkedBrowser.contentDocument.location.href != "about:customizing" &&
-			(!aEvent.target.linkedBrowser.esbValues ||
-			 XULExtendedStatusbarChrome.shouldHideEsb(aEvent.target.linkedBrowser.contentDocument.location.href)))
+		if (XULExtendedStatusbarChrome.esbCustomizing)
+		{
+			XULExtendedStatusbarChrome.esbCustomizing = false;
+			XULExtendedStatusbarChrome.esbListener.displayCurrentValuesForBrowser(aEvent.target.linkedBrowser);
+			return;
+		}
+
+		// Hide on a new tab, when the values haven't been created yet.
+		if (!aEvent.target.linkedBrowser.esbValues ||
+			XULExtendedStatusbarChrome.shouldHideEsb(aEvent.target.linkedBrowser.contentDocument.location.href))
 		{
 			XULExtendedStatusbarChrome.hideForSitesSem = true;
 			XULExtendedStatusbarChrome.esbXUL.esb_toolbar.hidden = true;
@@ -656,6 +672,7 @@ XULExtendedStatusbarChrome.esbListener =
 
 			var now = aBrowser.esbValues.stopProg - (XULExtendedStatusbarChrome.esbSplitTimer && aBrowser.esbValues.firstResponse
 													 ? aBrowser.esbValues.firstResponse : aBrowser.esbValues.startProg);
+			if(now == 0) now = 1;
 			var speed = aBrowser.esbValues.loaded / now * 1000;
 			speed = speed.toFixed(2);
 			speed = speed.replace(/\./, XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.dot")); //Replace '.' with a symbol from the active local
