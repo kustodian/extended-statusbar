@@ -751,7 +751,11 @@ XULExtendedStatusbarChrome.esbListener =
 
 	onLocationChange: function (aBrowser, aWebProgress, aRequest, aLocation, aFlags)
 	{
-		aBrowser.esbOldValues = null;
+		if (aBrowser.esbValues)
+		{
+			aBrowser.esbValues.firstResponse = aBrowser.esbValues.stopProg = Date.now();
+			aBrowser.esbOldValues = null;
+		}
 
 		// Start may not have been the current browser (such as an opening a link from an email).
 		if(aLocation && aBrowser == gBrowser.selectedBrowser && !XULExtendedStatusbarChrome.esbLoading)

@@ -86,5 +86,3 @@
 <!ENTITY esb.unitspace "Space">
 <!ENTITY esb.unitspace.accesskey "p">
 <!ENTITY esb.sample "Sample:">
-<!ENTITY esb.unlockpositions "Unlock elements positions (Lock it using the context menu)">
-<!ENTITY esb.unlockpositions.accesskey "U">
