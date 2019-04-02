@@ -1,8 +1,18 @@
 Extended Statubar Changes By Release
 ==========================
 
+### 2.1 - 2 April, 2019
+ * Fixed hiding during customize
+ * Use a better value for data loaded
+ * Add option to show on all protocols (default is only http or https)
+ * Drag the items to change the order (right-click to unlock)
+ * Add an option to show the times before and after the first response
+ * Add an option to choose how sizes should be displayed
+ * Fix for pre-Australis (thanks to JustOff)
+
+
 ### 2.0.5 - June 14, 2016
- * Fixed bug in loading extenson on fresh install
+ * Fixed bug in loading extension on fresh install
 
 
 ### 2.0.4 - June 9, 2016
@@ -16,20 +26,20 @@ Extended Statubar Changes By Release
 
 
 ### 2.0.2 - October 7, 2014
- * Restarless
+ * Restartless
  * Multiple-tab support
  * New settings window with new settings
- * Configure ESB from the right-clicking menu
+ * Configure ESB from the right-click menu
  * Fixed image counters on stop
  * ESB now preserves percentage on stop
  * Many improvements and fixes
 
 
 ### 2.0 - July 27, 2014
- * Restarless
+ * Restartless
  * Multiple-tab support
  * New settings window with new settings
- * Configure ESB from the right-clicking menu
+ * Configure ESB from the right-click menu
  * Fixed image counters on stop
  * ESB now preserves percentage on stop
  * Many improvements and fixes
