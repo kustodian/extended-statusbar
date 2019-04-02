@@ -19,6 +19,13 @@
 <!ENTITY esb.secondsdisplay "milliszekundum">
 <!ENTITY esb.hideonsites "Használat mellőzése az alábbi oldalak esetén">
 <!ENTITY esb.hideonsites.tooltip "Hasznos lehet AJAX-ot használó oldalak esetén, mint például a Gmail">
+<!ENTITY esb.displayprotocol "Show on Protocols">
+<!ENTITY esb.usewebprotocol "Web Protocols">
+<!ENTITY esb.usewebprotocol.tooltip "Show only on http or https protocols.">
+<!ENTITY esb.usewebprotocol.accesskey "e">
+<!ENTITY esb.useallprotocol "All Protocols">
+<!ENTITY esb.useallprotocol.tooltip "Show on all protocols.">
+<!ENTITY esb.useallprotocol.accesskey "r">
 <!ENTITY esb.appendcurrent "Aktuális oldal hozzáadása">
 <!ENTITY esb.appendcurrent.accesskey "A">
 <!ENTITY esb.customcolor "Custom color">
@@ -49,11 +56,14 @@
 <!ENTITY esb.hideprogress.accesskey "t">
 <!ENTITY esb.hidecursor "Hide Loading Cursor">
 <!ENTITY esb.hidecursor.accesskey "c">
-<!ENTITY esb.cssplaceholder "Input Css rules here">
+<!ENTITY esb.splittimer "Split Timer">
+<!ENTITY esb.splittimer.tooltip "Show times to and from the first response.">
+<!ENTITY esb.splittimer.accesskey "e">
+<!ENTITY esb.cssplaceholder "Input CSS rules here">
 <!ENTITY esb.apply "Apply">
 <!ENTITY esb.usecustomstyle "Use your own style (advanced mode)">
 <!ENTITY esb.usecustomstyle.accesskey "o">
-<!ENTITY esb.usecustomstyle.tooltip "Customize using your own css rules, for advanced users">
+<!ENTITY esb.usecustomstyle.tooltip "Customize using your own CSS rules, for advanced users.">
 <!ENTITY esb.toolbar "Toolbar">
 <!ENTITY esb.esbwidget "ESB widget">
 <!ENTITY esb.percent "Percent">
@@ -66,3 +76,13 @@
 <!ENTITY esb.cursorback "Cursor back">
 <!ENTITY esb.tabBehavior "Behavior">
 <!ENTITY esb.tabStyle "Style">
+<!ENTITY esb.units "Units">
+<!ENTITY esb.byteunits "Bytes">
+<!ENTITY esb.byteunits.accesskey "y">
+<!ENTITY esb.decunits "Decimal prefixes">
+<!ENTITY esb.decunits.accesskey "D">
+<!ENTITY esb.binunits "Binary prefixes">
+<!ENTITY esb.binunits.accesskey "B">
+<!ENTITY esb.unitspace "Space">
+<!ENTITY esb.unitspace.accesskey "p">
+<!ENTITY esb.sample "Sample:">

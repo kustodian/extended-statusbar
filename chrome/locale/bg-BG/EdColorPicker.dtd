@@ -1,0 +1,23 @@
+<!ENTITY previewColour.label "Преглед:">
+<!ENTITY cpWinTitle.title "Избор на цветове">
+<!ENTITY predef.label "Предварително зададени цветове:">
+<!ENTITY rgb.label "ЧЗС">
+<!ENTITY hsb.label "ННС">
+<!ENTITY red.label "Червено:">
+<!ENTITY green.label "Зелено:">
+<!ENTITY blue.label "Синьо:">
+<!ENTITY hue.label "Нюанс:">
+<!ENTITY saturation.label "Насищане:">
+<!ENTITY brightness.label "Стойност:">
+<!ENTITY hexColor.label "Шестнадесетичен:">
+<!ENTITY nameColor.label "Име:">
+<!ENTITY cpUseThemeDef.label "Използване на стандартна тема">
+<!ENTITY transparency.label "Прозрачност">
+<!ENTITY background.label "Фон за:">
+<!ENTITY background.accessKey "Ф">
+<!ENTITY table.label "Таблица">
+<!ENTITY table.accessKey "Т">
+<!ENTITY cell.label "Клетка">
+<!ENTITY cell.accessKey "К">
+<!ENTITY lastPickedColor.label "Последно избран цвят">
+<!ENTITY lastPickedColor.accessKey "П">

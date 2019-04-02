@@ -63,7 +63,7 @@
 <!ENTITY esb.apply "Apply">
 <!ENTITY esb.usecustomstyle "Use your own style (advanced mode)">
 <!ENTITY esb.usecustomstyle.accesskey "o">
-<!ENTITY esb.usecustomstyle.tooltip "Customize using your own CSS rules, for advanced users">
+<!ENTITY esb.usecustomstyle.tooltip "Customize using your own CSS rules, for advanced users.">
 <!ENTITY esb.toolbar "Toolbar">
 <!ENTITY esb.esbwidget "ESB widget">
 <!ENTITY esb.percent "Percent">

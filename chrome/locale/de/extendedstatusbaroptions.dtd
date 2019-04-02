@@ -19,6 +19,13 @@
 <!ENTITY esb.secondsdisplay "Millisekunden">
 <!ENTITY esb.hideonsites "Nicht bei folgenden Websites anzeigen (trennen mit &quot;|&quot;):">
 <!ENTITY esb.hideonsites.tooltip "Nützlich für AJAX-Websites wie Google Mail">
+<!ENTITY esb.displayprotocol "Show on Protocols">
+<!ENTITY esb.usewebprotocol "Web Protocols">
+<!ENTITY esb.usewebprotocol.tooltip "Show only on http or https protocols.">
+<!ENTITY esb.usewebprotocol.accesskey "e">
+<!ENTITY esb.useallprotocol "All Protocols">
+<!ENTITY esb.useallprotocol.tooltip "Show on all protocols.">
+<!ENTITY esb.useallprotocol.accesskey "r">
 <!ENTITY esb.appendcurrent "Aktuelle Website hinzufügen">
 <!ENTITY esb.appendcurrent.accesskey "A">
 <!ENTITY esb.customcolor "Benutzerdefinierte Farbe">
@@ -49,6 +56,9 @@
 <!ENTITY esb.hideprogress.accesskey "t">
 <!ENTITY esb.hidecursor "Ladeanzeiger">
 <!ENTITY esb.hidecursor.accesskey "L">
+<!ENTITY esb.splittimer "Split Timer">
+<!ENTITY esb.splittimer.tooltip "Show times to and from the first response.">
+<!ENTITY esb.splittimer.accesskey "e">
 <!ENTITY esb.cssplaceholder "CSS-Regeln hier einfügen">
 <!ENTITY esb.apply "Übernehmen">
 <!ENTITY esb.usecustomstyle "Eigenen Stil verwenden (Erweiterter Modus)">
@@ -66,3 +76,13 @@
 <!ENTITY esb.cursorback "Prozessanzeige (Hintergrund)">
 <!ENTITY esb.tabBehavior "Verhalten">
 <!ENTITY esb.tabStyle "Stil">
+<!ENTITY esb.units "Units">
+<!ENTITY esb.byteunits "Bytes">
+<!ENTITY esb.byteunits.accesskey "y">
+<!ENTITY esb.decunits "Decimal prefixes">
+<!ENTITY esb.decunits.accesskey "D">
+<!ENTITY esb.binunits "Binary prefixes">
+<!ENTITY esb.binunits.accesskey "B">
+<!ENTITY esb.unitspace "Space">
+<!ENTITY esb.unitspace.accesskey "p">
+<!ENTITY esb.sample "Sample:">

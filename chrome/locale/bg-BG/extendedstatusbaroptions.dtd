@@ -1,24 +1,24 @@
-<!ENTITY esb.title "การตั้งค่าแถบสถานะแบบขยาย">
-<!ENTITY esb.pane1.title "ทั่วไป">
-<!ENTITY esb.displaystyle "รูปแบบการแสดงแถบสถานะแบบขยาย">
-<!ENTITY esb.usenewstyle "รูปแบบใหม่">
-<!ENTITY esb.usenewstyle.accesskey "ห">
-<!ENTITY esb.usenewstyle.tooltip "แสดงแถบสถานะแบบขยายเหนือแถบสถานะของ Firefox">
-<!ENTITY esb.hide "ซ่อนแถบสถานะแบบขยาย">
-<!ENTITY esb.hide.tooltip "ซ่อนแถบสถานะแบบขยายหลังจากโหลดหน้าแล้ว">
-<!ENTITY esb.hide.accesskey "น">
+<!ENTITY esb.title "Настройки на Extended Statusbar">
+<!ENTITY esb.pane1.title "Основни">
+<!ENTITY esb.displaystyle "Стил на показване на Extended Statusbar">
+<!ENTITY esb.usenewstyle "Нов стил">
+<!ENTITY esb.usenewstyle.accesskey "Н">
+<!ENTITY esb.usenewstyle.tooltip "Показване Extended Statusbar над лентата на състояние на Firefox">
+<!ENTITY esb.hide "Скриване на Extended Statusbar">
+<!ENTITY esb.hide.tooltip "Скриване на Extended Statusbar след зареждане на страницата.">
+<!ENTITY esb.hide.accesskey "С">
 <!ENTITY esb.hidetoolbar "Hide the whole toolbar">
 <!ENTITY esb.hidetoolbar.tooltip "Useful when Extended Statusbar is on its own toolbar.">
 <!ENTITY esb.hidetoolbar.accesskey "w">
-<!ENTITY esb.hideafter "ซ่อนหลังจาก:">
-<!ENTITY esb.seconds "วินาที">
-<!ENTITY esb.showonhover "แสดงระหว่างวางเมาส์เหนือแถบสถานะ">
+<!ENTITY esb.hideafter "Скриване след:">
+<!ENTITY esb.seconds "секунди">
+<!ENTITY esb.showonhover "Показване, докато мишката се намира над лентата на състояние">
 <!ENTITY esb.showonhover.tooltip "Unhide Extended Statusbar when hovering over the Extended Statusbar toolbar.">
-<!ENTITY esb.showonhover.accesskey "ส">
-<!ENTITY esb.hovering "ล้าช้า:">
-<!ENTITY esb.secondsdisplay "มิลิวินาที">
-<!ENTITY esb.hideonsites "อย่าแสดงบนไซต์นี้ (แยกด้วย &apos;|&apos;):">
-<!ENTITY esb.hideonsites.tooltip "มีประโชยน์สำหรับไซต์ AJAX เช่น Gmail">
+<!ENTITY esb.showonhover.accesskey "о">
+<!ENTITY esb.hovering "Забавяне:">
+<!ENTITY esb.secondsdisplay "милисекунди">
+<!ENTITY esb.hideonsites "Да не се показва за тези сайтове (разделени с &apos;|&apos;):">
+<!ENTITY esb.hideonsites.tooltip "Полезно за AJAX сайтове като Gmail">
 <!ENTITY esb.displayprotocol "Show on Protocols">
 <!ENTITY esb.usewebprotocol "Web Protocols">
 <!ENTITY esb.usewebprotocol.tooltip "Show only on http or https protocols.">
@@ -26,22 +26,22 @@
 <!ENTITY esb.useallprotocol "All Protocols">
 <!ENTITY esb.useallprotocol.tooltip "Show on all protocols.">
 <!ENTITY esb.useallprotocol.accesskey "r">
-<!ENTITY esb.appendcurrent "ผนวกกับหน้าปัจจุบัน">
-<!ENTITY esb.appendcurrent.accesskey "ผ">
+<!ENTITY esb.appendcurrent "Добавяне на текущата страница">
+<!ENTITY esb.appendcurrent.accesskey "Д">
 <!ENTITY esb.customcolor "Custom color">
 <!ENTITY esb.customcolor.accesskey "u">
 <!ENTITY esb.customcolor.tooltip "Disable custom styles if your current theme supports Extended Statusbar!">
-<!ENTITY esb.backgroundcolor "พื้นหลัง:">
-<!ENTITY esb.progresscolor "แถบประมวลการ:">
-<!ENTITY esb.cursorcolor "ตัวชี้ที่โหลด:">
-<!ENTITY esb.textcolor "ข้อความ:">
-<!ENTITY esb.useoldstyle "รูปแบบคลาสิก">
-<!ENTITY esb.useoldstyle.accesskey "ค">
-<!ENTITY esb.useoldstyle.tooltip "แสดงแถบสถานะแบบขยายในแถบสถานะของ  Firefox">
+<!ENTITY esb.backgroundcolor "Фон:">
+<!ENTITY esb.progresscolor "Индикатор:">
+<!ENTITY esb.cursorcolor "Зареден курсор:">
+<!ENTITY esb.textcolor "Текст:">
+<!ENTITY esb.useoldstyle "Класически стил">
+<!ENTITY esb.useoldstyle.accesskey "К">
+<!ENTITY esb.useoldstyle.tooltip "Показване Extended Statusbar в лентата на състояние на Firefox">
 <!ENTITY esb.slimmode "Slim mode">
 <!ENTITY esb.slimmode.accesskey "S">
 <!ENTITY esb.slimmode.tooltip "Hides labels and displays only numbers.">
-<!ENTITY esb.hideindelements "ซ่อนธาตุเอกเทศ">
+<!ENTITY esb.hideindelements "Скриване на индивидуални елементи">
 <!ENTITY esb.hideimages "Hide Images">
 <!ENTITY esb.hideimages.accesskey "I">
 <!ENTITY esb.hideloaded "Hide Loaded">

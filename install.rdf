@@ -37,6 +37,8 @@
     <em:translator>Thai: Darakanon</em:translator>
     <em:translator>Українська: Жук Андрій</em:translator>
     <em:translator>繁體中文: Tang Kai Yiu (TKY)</em:translator>
+    <em:translator>Български: Руси Димитров (PsyTrip)</em:translator>
+    <em:translator>Bahasa Indonesia: siswan</em:translator>
     <em:iconURL>chrome://extendedstatusbar/skin/icon.png</em:iconURL>
     <em:optionsURL>chrome://extendedstatusbar/content/extendedstatusbaroptions.xul</em:optionsURL>
     <em:type>2</em:type>

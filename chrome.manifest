@@ -1,6 +1,7 @@
 content extendedstatusbar chrome/content/
 skin extendedstatusbar classic chrome/skin/
 
+locale extendedstatusbar bg-BG chrome/locale/bg-BG/
 locale extendedstatusbar cs chrome/locale/cs/
 locale extendedstatusbar da chrome/locale/da/
 locale extendedstatusbar de chrome/locale/de/
@@ -9,6 +10,7 @@ locale extendedstatusbar es-ES chrome/locale/es-ES/
 locale extendedstatusbar fr chrome/locale/fr/
 locale extendedstatusbar hu-HU chrome/locale/hu-HU/
 locale extendedstatusbar hy-AM chrome/locale/hy-AM/
+locale extendedstatusbar id-ID chrome/locale/id-ID/
 locale extendedstatusbar it chrome/locale/it/
 locale extendedstatusbar ja-JP chrome/locale/ja-JP/
 locale extendedstatusbar kk-KZ chrome/locale/kk-KZ/
