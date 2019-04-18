@@ -498,7 +498,8 @@ XULExtendedStatusbarChrome.esbListener =
 
 		// Hide on a new tab, when the values haven't been created yet.
 		if (!aEvent.target.linkedBrowser.esbValues ||
-			XULExtendedStatusbarChrome.shouldHideEsb(aEvent.target.linkedBrowser.contentDocument.location.href))
+			(!aEvent.target.linkedBrowser.esbValues.loading &&
+			 XULExtendedStatusbarChrome.shouldHideEsb(aEvent.target.linkedBrowser.contentDocument.location.href)))
 		{
 			XULExtendedStatusbarChrome.hideForSitesSem = true;
 			XULExtendedStatusbarChrome.esbXUL.esb_toolbar.hidden = true;
@@ -531,6 +532,7 @@ XULExtendedStatusbarChrome.esbListener =
 								time: "0" + XULExtendedStatusbarChrome.esbXUL.esbstrings.GetStringFromName("esb.dot") + "000",
 								percent: "0",
 								stateFlags: 0,
+								loading: false,
 								startProg: Date.now(),
 								stopProg: Date.now(),
 								firstResponse: 0,
@@ -647,6 +649,7 @@ XULExtendedStatusbarChrome.esbListener =
 					XULExtendedStatusbarChrome.cancelTimeOut(XULExtendedStatusbarChrome.hideTimeOut);
 					XULExtendedStatusbarChrome.esbXUL.esb_toolbar.hidden = false;
 					XULExtendedStatusbarChrome.esbXUL.status_bar.hidden = false;
+					aBrowser.esbValues.loading = true;
 				}
 				else
 				{
@@ -667,6 +670,7 @@ XULExtendedStatusbarChrome.esbListener =
 				this.initObjectValuesForBrowser(aBrowser);
 			}
 			aBrowser.esbValues.stateFlags = aStateFlags;
+			aBrowser.esbValues.loading = false;
 			if (aStatus == Components.results.NS_OK) aBrowser.esbValues.percent = "100";
 			this.stopTimer(aBrowser);
 
