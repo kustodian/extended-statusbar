@@ -1,6 +1,9 @@
 Extended Statubar Changes By Release
 ==========================
 
+### 2.1.1 - 18 April, 2019
+ * Fix hidden bar when restoring a session
+
 ### 2.1 - 2 April, 2019
  * Fixed hiding during customize
  * Use a better value for data loaded
