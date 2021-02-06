@@ -2,9 +2,9 @@ Components.utils.import("resource://gre/modules/Services.jsm");
 Components.utils.import("resource://gre/modules/XPCOMUtils.jsm");
 Components.utils.import("resource://gre/modules/NetUtil.jsm");
 
-var isPostAustralis = Components.classes["@mozilla.org/xpcom/version-comparator;1"].getService(Components.interfaces.nsIVersionComparator)
-	.compare(Components.classes["@mozilla.org/xre/app-info;1"].getService(Components.interfaces.nsIXULAppInfo).version, "29.0") >= 0;
-	
+var isPostAustralis = Services.appinfo.ID == "{ec8030f7-c20a-464f-9b0e-13a3a9e97384}" && // Firefox
+	Services.vc.compare(Services.appinfo.version, "29.0") >= 0;
+
 if (isPostAustralis) Components.utils.import("resource:///modules/CustomizableUI.jsm");
 
 function startup(data,reason)
