@@ -10,9 +10,8 @@ Components.utils.import("resource://gre/modules/XPCOMUtils.jsm");
 
 /*			Vars		 */
 XULExtendedStatusbarChrome.started = false; 		// If True ESB is started
-XULExtendedStatusbarChrome.ffIsPostAustralis = Components.classes["@mozilla.org/xpcom/version-comparator;1"].getService(Components.interfaces.nsIVersionComparator)
-	.compare(Components.classes["@mozilla.org/xre/app-info;1"].getService(Components.interfaces.nsIXULAppInfo).version, "29.0") >= 0;
-													// If True Firefox version is >= 29.0
+XULExtendedStatusbarChrome.ffIsPostAustralis = Services.appinfo.ID == "{ec8030f7-c20a-464f-9b0e-13a3a9e97384}" &&
+	Services.vc.compare(Services.appinfo.version, "29.0") >= 0;		// True if Firefox version is >= 29.0
 XULExtendedStatusbarChrome.esbHide; 				// If True ESB will hide
 XULExtendedStatusbarChrome.esbWait; 				// How long to wait before hiding
 XULExtendedStatusbarChrome.hideTimeOut; 			// Name says it all
