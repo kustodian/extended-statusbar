@@ -1,6 +1,9 @@
 Extended Statubar Changes By Release
 ==========================
 
+### 2.1.2 - 8 February, 2021
+ * Fix for Pale Moon 29 (thanks to JustOff)
+
 ### 2.1.1 - 18 April, 2019
  * Fix hidden bar when restoring a session
 
